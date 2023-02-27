@@ -1,0 +1,52 @@
+
+	.login-card{
+	height: 150px;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 300px;
+	background-color: rgba(0, 0, 0, 0.459) !important;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.452);
+	}
+	
+
+	.input-group-login span{
+	font-size: 1.3rem;
+	color: white;
+	border:0 !important;
+	padding-inline: 5px;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 5px;
+	}
+	
+	input.loginput {
+		height: 35px;
+		width: 12rem;
+		border-radius: 15px;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		background: rgba(0, 0, 0, 0.4);
+		color: white;
+	}
+
+	input.loginput:focus{
+	outline: 0 0 0 0  !important;
+	box-shadow: 0 0 0 0 !important;
+	
+	}
+
+	.login-btn{
+	width: 8rem;
+	border-radius: 15px;
+	font-family: Oswald, sans-serif;
+	font-size: 1em;
+
+
+	}
+	
+	.login-btn:hover{
+		opacity: 0.8;
+		transition: 0.2s all;
+
+	}
+	
+	

@@ -1,0 +1,100 @@
+
+input[type="text"], input[type="number"], select.form-control, select.form-select, textarea[type="text"]{
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(204, 204, 204, 0.493);
+        }
+
+.om-os-group-buttons .or{
+    position:relative;
+    float:left;}
+
+.om-os-group-buttons{
+    display:inline-block;
+    vertical-align:middle}
+
+.om-os-group-buttons .btn{
+    float:left;
+    border-radius:0}
+
+.om-os-group-buttons .btn:first-child{
+    margin-left:0;
+    border-top-left-radius:.25em;
+    border-bottom-left-radius:.25em;
+    padding-inline:25px;
+    border:0;
+    color: #F8F9FA;
+    opacity: 0.5;
+    background: radial-gradient(#686251a6, #635730c2);
+    &:hover,
+    &:focus {
+        border: 0;
+        text-decoration: dashed;
+        transition: 0.6s all;
+        opacity: 0.8;}}
+
+.om-os-group-buttons .btn:last-child{
+    border-top-right-radius:.25em;
+    border-bottom-right-radius:.25em;
+    padding-inline:25px;
+    border: 0;
+    color: #F8F9FA;
+    background: radial-gradient(#0c3d4a, #0c3d4a);
+    &:hover,
+    &:focus {
+        border: 0;
+        text-decoration: dashed;
+        transition: 0.6s all;
+        opacity: 0.7;}}
+
+ul.nav-tabs{
+    border: none;
+    .nav-link{
+    background-color: #7a898e64;}
+    border-radius: 5px;
+
+}
+
+button.nav-link{
+    width: 7rem;
+    height: 5px;
+    margin-left: 0.25em;
+    border: none;
+    border-radius: 5px;
+    &:hover {
+		background: #a08a41;
+        border: none;
+		opacity: 0.8;
+	};
+    &.active {
+        background: radial-gradient(#0c3d4aa1, #0c3d4aa1);
+        i {  color: #F8F9FA;}
+        border: none;  
+        border-radius: 5px;
+
+        transition: 0.6s all;
+   }
+}
+
+.tab-pane {
+        min-height: 550px;
+        padding-top: 2em;
+        padding-bottom: 3em;
+        padding-inline: 5em;
+        margin-top: 1em;
+        margin-left: 20em;
+        margin-right: 20em;
+        background: linear-gradient(125deg, #f8f9fabd, #f8f9fa3b);
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+.transparent-btn{
+        width: 5rem;
+        height: 2.5rem;
+        display: flex;
+        background-color: transparent;
+        border: none;
+        font-size: 1.3rem;
+ }

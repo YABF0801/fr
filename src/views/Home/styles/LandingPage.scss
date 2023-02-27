@@ -1,0 +1,31 @@
+.main-home {
+	background-image: url('../../../assets/images/bg-home.jpeg');
+	background-position: center;
+	background-size: cover;
+	background-attachment: local;
+	object-fit: cover;
+
+	container-fluid {
+		height: auto;
+	}
+
+	h1 {
+		font-weight: 100;
+		font-size: 12em;
+		text-align: center;
+		font-family: Oswald, sans-serif;
+	}
+
+	p {
+		font-weight: 50;
+		font-size: 2rem;
+		text-align: center;
+	}
+
+	h4 {
+		font-weight: 100;
+		font-size: medium;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+}
