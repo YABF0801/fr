@@ -5,12 +5,12 @@ export const propuestaApiGenerar = async (submision) => {
 	return propuestasGeneradas.data;
 };
 
-export const propuestaApiAceptar = async (id, submision) => {
-	const propuestas = await baseAxios.put(`/submisions/propuestas/${id}`, submision);
+export const propuestaApiAceptar = async (submision) => {
+	const propuestas = await baseAxios.put(`/submisions/propuestas/${submision.id}`, submision);
 	return propuestas.data;
 };
 
-export const propuestaApiRechazar = async (id, submision) => {
-	const propuestas = await baseAxios.put(`/submisions/propuestas/${id}`, submision);
+export const propuestaApiRechazar = async (submision) => {
+	const propuestas = await baseAxios.put(`/submisions/propuestas/${submision.id}`, submision);
 	return propuestas.data;
 };
