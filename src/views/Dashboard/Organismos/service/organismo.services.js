@@ -6,8 +6,12 @@ export const organismosApiGet = async () => {
 };
 
 export const organismosApiCreate = async (organismo) => {
-	const organismoCreated = await baseAxios.post('/organismos/', organismo);
+	try {
+	const organismoCreated = await baseAxios.post('/organismos', organismo);
 	return organismoCreated.data;
+} catch (error) {
+	throw new Error(`Error al crear organismo: ${error.message}`);
+  }
 };
 
 export const organismosApiUpdate = async (organismo) => {
