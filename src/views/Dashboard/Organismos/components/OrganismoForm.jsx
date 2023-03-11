@@ -99,7 +99,7 @@ function OrganismoForm ({ organismo }) {
                               value={form.values.description}
                               onChange={form.handleChange}
                             />
-                            {form.errors.name ? <p className='text-danger'>{form.errors.name}</p> : null}
+                            {form.errors.description ? <p className='text-danger'>{form.errors.description}</p> : null}
                           
                         </div>
                   </div>
