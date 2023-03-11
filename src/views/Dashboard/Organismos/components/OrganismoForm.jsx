@@ -1,40 +1,42 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types' 
 import * as Yup from 'yup';
-
 import { useNavigate } from "react-router-dom"
-
 import { useOrganismoContext } from '../context/OrganismoContext';
 
 import {ORGANISMOS} from '../../../../core/config/routes/paths';
-
 import { useEffect } from "react";
 
 const REQUIRED = <p className='text-danger'>Este campo es requerido</p>;
-
 const OrganismoSchema = Yup.object().shape({
   name: Yup.string().required(REQUIRED),
   description: Yup.string().required(REQUIRED),
   priorizado: Yup.boolean(),
 });
 
-
 function OrganismoForm ({ organismo }) {
 
-  const { addOrganismo } = useOrganismoContext();
+  const { addOrganismo, updateOrganismo } = useOrganismoContext();
 	const navigate = useNavigate()
-
-   
+  const initialValues = {
+    name: '',
+    description: '',
+    priorizado: false,
+  };
+  
   const form = useFormik({
-    initialValues: {
-      name: organismo ? organismo?.name : '',
-      description: organismo ? organismo?.description : '',
-      priorizado: organismo ? organismo?.priorizado : false,
-    },
-    onSubmit: async (newOrganismo, { resetForm }) => {
-      await addOrganismo.mutate({
-        ...newOrganismo
-      })
+    initialValues: organismo || initialValues,
+  
+    onSubmit: async (values, { resetForm }) => {
+      const formData = {
+        ...values
+      };
+
+      if (organismo) {
+        await updateOrganismo.mutate({ id: organismo._id, data: formData });
+      } else {
+        await addOrganismo.mutate(formData);
+      }
       resetForm();
       navigate(ORGANISMOS)
     },
@@ -45,10 +47,10 @@ function OrganismoForm ({ organismo }) {
   });
 
   useEffect(() => {
-
+    if (organismo) {
+      form.setValues(organismo);
+    }
   }, [organismo]);
-
-
 
     return (
       <div
@@ -122,7 +124,7 @@ function OrganismoForm ({ organismo }) {
   
     
   OrganismoForm.propTypes = {
-    organismo: PropTypes.object
-    }
-  
+    organismo: PropTypes.object,
+    };
+
   export default OrganismoForm;
