@@ -16,7 +16,6 @@ const OrganismoSchema = Yup.object().shape({
   name: Yup.string().required(REQUIRED),
   description: Yup.string().required(REQUIRED),
   priorizado: Yup.boolean(),
-
 });
 
 
@@ -29,7 +28,7 @@ function OrganismoForm ({ organismo }) {
   const form = useFormik({
     initialValues: {
       name: organismo ? organismo?.name : '',
-      description: organismo ? organismo?.name : '',
+      description: organismo ? organismo?.description : '',
       priorizado: organismo ? organismo?.priorizado : false,
     },
     onSubmit: async (newOrganismo, { resetForm }) => {
@@ -68,6 +67,7 @@ function OrganismoForm ({ organismo }) {
                                 type='text'
                                 className='form-control'
                                 id='name'
+                                name='name'
                                 placeholder='Nombre'
                                 value={form.values.name}
                                 onChange={form.handleChange}
@@ -80,6 +80,7 @@ function OrganismoForm ({ organismo }) {
                             <input    
                               type="checkbox" 
                               className="form-check-input m-md-1" 
+                              name='priorizado'
                               id='priorizado'
                               onChange={form.handleChange}
                               />
@@ -91,7 +92,8 @@ function OrganismoForm ({ organismo }) {
                   <div className='form-group mt-3 mb-3'>
                      <div className='row '>
                         <textarea className="form-control"
-                              rows={2} name="description"
+                              rows={2} 
+                              name="description"
                               id='description'
                               placeholder='Escriba una breve descripción'
                               value={form.values.description}
