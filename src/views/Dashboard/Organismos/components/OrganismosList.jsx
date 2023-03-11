@@ -5,9 +5,10 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import OrganismoForm from './OrganismoForm';
 
 const OrganismosList = () => {
-	const { organismos, deleteOrganismo, updateOrganismo } = useOrganismoContext();
+	const { organismos, deleteOrganismo } = useOrganismoContext();
 	const [organismosLocal, setOrganismosLocal] = useState([]);
 	const [search, setSearch] = useState('')
+	const [selectedOrganismo, setSelectedOrganismo] = useState(null);
 
 	useEffect(() => {
 		setOrganismosLocal(organismos);
@@ -25,13 +26,13 @@ const OrganismosList = () => {
 	};
 
 	const editOrganismo = async (id) => {
-		showForm();
 		const organismo = organismos.find((item) => item._id === id);
 		if (organismo) {
-		await updateOrganismo.mutate(id);
+		  setSelectedOrganismo(organismo);
+		  showForm();
 		}
-		};	  
-
+	  };
+	  
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
 		const elements = organismosLocal.filter((item) => {
@@ -71,10 +72,9 @@ const OrganismosList = () => {
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
 					
-					<button className='btn btn-sm'
-						onClick={() => editOrganismo(row._id)}>
+					<a className='btn btn-sm' href='#organismo' onClickCapture={() => editOrganismo(row._id)}>
 						<i className='action-btn bi bi-pencil-square'></i>
-					</button>
+					</a>
 
 					<button
 						onClick={() => deleteOrganismosById(row._id)}
@@ -136,7 +136,7 @@ const OrganismosList = () => {
 					</div>
 				</div>
 			</div>
-			<OrganismoForm />
+			<OrganismoForm organismo={selectedOrganismo} />
 		</section>
 	);
 };
