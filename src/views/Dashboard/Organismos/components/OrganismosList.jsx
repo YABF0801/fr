@@ -5,7 +5,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import OrganismoForm from './OrganismoForm';
 
 const OrganismosList = () => {
-	const { organismos, deleteOrganismo } = useOrganismoContext();
+	const { organismos, deleteOrganismo, updateOrganismo } = useOrganismoContext();
 	const [organismosLocal, setOrganismosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 
@@ -25,9 +25,12 @@ const OrganismosList = () => {
 	};
 
 	const editOrganismo = async (id) => {
-		const organismo = await organismos.filter((item) => item._id === id);
-		alert(`vas a editar${organismo}`); // abrir modal cargando el organismo de aqui arriba
-	};
+		showForm();
+		const organismo = organismos.find((item) => item._id === id);
+		if (organismo) {
+		await updateOrganismo.mutate(id);
+		}
+		};	  
 
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
@@ -69,7 +72,7 @@ const OrganismosList = () => {
 				<div className='d-flex gap-1 justify-content-center'>
 					
 					<button className='btn btn-sm'
-						onClick={editOrganismo}>
+						onClick={() => editOrganismo(row._id)}>
 						<i className='action-btn bi bi-pencil-square'></i>
 					</button>
 
