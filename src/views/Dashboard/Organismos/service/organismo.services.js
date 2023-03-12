@@ -15,9 +15,13 @@ export const organismosApiCreate = async (organismo) => {
 };
 
 export const organismosApiUpdate = async (organismo) => {
-	const organismoUpdated = await baseAxios.put(`/organismos/${organismo.id}`, organismo); 
-	return organismoUpdated.data;
-};
+	try {
+	  await baseAxios.put(`/organismos/${organismo._id}`, organismo);
+	} catch (error) {
+	  throw new Error(`Error al actualizar organismo: ${error.message}`);
+	}
+  };
+
 
 export const organismosApiDelete = async (id) => {
 	await baseAxios.delete(`/organismos/${id}`);

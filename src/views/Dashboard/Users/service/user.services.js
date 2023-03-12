@@ -6,14 +6,21 @@ export const usersApiGet = async () => {
 };
 
 export const usersApiCreate = async (user) => {
-	const userCreated = await baseAxios.post('/users/', user);
-	return userCreated.data;
+	try {
+		const userCreated = await baseAxios.post('/users/', user);
+		return userCreated.data;
+	} catch (error) {
+	throw new Error(`Error al crear user: ${error.message}`);
+  }
 };
 
 export const usersApiUpdate = async (user) => {
-	const userUpdated = await baseAxios.put(`/users/${user.id}`, user); 
-	return userUpdated.data;
-};
+	try {
+		await baseAxios.put(`/users/${user.id}`, user); 
+	} catch (error) {
+	  throw new Error(`Error al actualizar user: ${error.message}`);
+	}
+  };
 
 export const usersApiFindById = async (id) => {
 	const user = await baseAxios.get(`/users/${id}`);

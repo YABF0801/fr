@@ -6,14 +6,21 @@ export const circulosApiGet = async () => {
 };
 
 export const circulosApiCreate = async (circulo) => {
-	const circuloCreated = await baseAxios.post('/circulos/', circulo);
+	try {
+	const circuloCreated = await baseAxios.post('/circulos', circulo);
 	return circuloCreated.data;
+} catch (error) {
+	throw new Error(`Error al crear circulo: ${error.message}`);
+  }
 };
 
 export const circulosApiUpdate = async (circulo) => {
-	const circuloUpdated = await baseAxios.put(`/circulos/${circulo.id}`, circulo);
-	return circuloUpdated.data;
-};
+	try {
+		await baseAxios.put(`/circulos/${circulo.id}`, circulo);
+	} catch (error) {
+	  throw new Error(`Error al actualizar circulo: ${error.message}`);
+	}
+  };
 
 export const circulosApiFindById = async (id) => {
 	const circuloFind = await baseAxios.get(`/circulos/${id}`);

@@ -29,7 +29,7 @@ export const OrganismoProvider = ({ children }) => {
 			queryClient.invalidateQueries({ queryKey: ['organismos'] });
 		},
 	});
-
+ 
 	const deleteOrganismo = useMutation({
 		mutationFn: organismosApiDelete,
 		onSuccess: () => {

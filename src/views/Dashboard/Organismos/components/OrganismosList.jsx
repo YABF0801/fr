@@ -21,7 +21,7 @@ const OrganismosList = () => {
 		return function cleanUp() {};
 	}, [search])
 
-	const deleteOrganismosById = async (id) => {
+	const deleteOrganismoById = async (id) => {
 		await deleteOrganismo.mutate(id);
 	};
 
@@ -77,7 +77,7 @@ const OrganismosList = () => {
 					</a>
 
 					<button
-						onClick={() => deleteOrganismosById(row._id)}
+						onClick={() => deleteOrganismoById(row._id)}
 						className='btn btn-sm'
 					>
 						<i className='action-btn bi bi-trash-fill'></i>

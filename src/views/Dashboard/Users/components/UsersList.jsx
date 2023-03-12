@@ -7,6 +7,7 @@ const UsersList = () => {
 	const { users, deleteUser } = useUserContext();
 	const [usersLocal, setUsersLocal] = useState([]);
 	const [search, setSearch] = useState('')
+	const [selectedUser, setSelectedUser] = useState(null);
 
 	useEffect(() => {
 		setUsersLocal(users);
@@ -24,9 +25,12 @@ const UsersList = () => {
 	};
 
 	const editUser = async (id) => {
-		const user = await users.filter((item) => item._id === id);
-		alert('editar usuario', user); // abrir modal cargando el user de aqui arriba
-	};
+		const user = users.find((item) => item._id === id);
+		if (user) {
+		setSelectedUser(user);
+		showForm();
+		}
+	  };
 
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
@@ -72,10 +76,9 @@ const UsersList = () => {
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
 
-					<button className='btn btn-sm'
-						>
+					<a className='btn btn-sm' href='#user' onClickCapture={() => editUser(row._id)}>
 						<i className='action-btn bi bi-pencil-square'></i>
-					</button>
+					</a>
 
 					<button
 						onClick={() => deleteUsersById(row._id)}
@@ -138,7 +141,7 @@ const UsersList = () => {
 					</div>
 				</div>
 			</div>
-			<UserForm />
+			<UserForm user={selectedUser}/>
 		</section>
 	);
 };

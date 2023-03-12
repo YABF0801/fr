@@ -3,8 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 
 import CirculoForm from './CirculoForm';
-import DeleteModal from './DeleteModal';
-
+/* import DeleteModal from './DeleteModal'; */
 
 const CirculosList = () => {
 	const { circulos, deleteCirculo } = useCirculoContext();
@@ -13,12 +12,11 @@ const CirculosList = () => {
 	const [search, setSearch] = useState('')
 	const [hideMatricula, setHideMatricula] = useState(true);
 	const [hideActive, setHideActive] = useState(true);
-
-	const [circuloUpdate, setCirculoUpdate] = useState(null)
-
-	const [showDelModal, setShowDelModal] = useState({show: false, id: null});
-
-	const handleShowDelModal = (id) => {
+	const [selectedCirculo, setSelectedCirculo] = useState(null);
+	
+/* 	const [showDelModal, setShowDelModal] = useState({show: false, id: null});
+ */
+/* 	const handleShowDelModal = (id) => {
 			setShowDelModal({
 			show: true, 
 			id});
@@ -26,7 +24,7 @@ const CirculosList = () => {
 		const handleCloseDelModal = () => {
 			setShowDelModal({ show: false, id: null });
 			console.log("handleCloseDelModal ha sido llamada");
-		};
+		}; */
 		
 	useEffect(() => {
 		setCirculosLocal(circulos);
@@ -48,21 +46,27 @@ const CirculosList = () => {
 		setCirculosLocal(elements);
 	  };
 
-	  const deleteById = async () => {
-		if (showDelModal.show && showDelModal.id) {
-		  await deleteCirculo.mutate(showDelModal.id);
-		  setCirculosLocal(circulos.filter(item => item._id !== showDelModal.id)); 
+	  const deleteCirculoById = async (id) => {
+		await deleteCirculo.mutate(id);
+	};
+/* 	  const deleteById = async () => {
+		const circulo = circulos.find((item) => item._id === id);
+		if (circulo) {
+		  setSelectedCirculo(circulo);
 		  setShowDelModal({
 			show: false,
 			id: null,
 		  });
 		}
 	  };
-
-	const editCirculo = async (id) => {
-		const circulo = await circulos.filter(item => item._id === id)
-		setCirculoUpdate(circulo[0])
-	}
+ */
+	  const editCirculo = async (id) => {
+		const circulo = circulos.find((item) => item._id === id);
+		if (circulo) {
+		  setSelectedCirculo(circulo);
+		  showForm();
+		}
+	  };
 
 	  const handleExport = () => {
 		alert('export circulos');
@@ -160,12 +164,18 @@ const CirculosList = () => {
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
 
-				<button className='btn btn-sm'
-						onClick={editCirculo}>
+					<a className='btn btn-sm' href='#circulo' onClickCapture={() => editCirculo(row._id)}>
 						<i className='action-btn bi bi-pencil-square'></i>
-				</button>
+					</a>
 
-				<button className='btn btn-sm'
+					<button
+						onClick={() => deleteCirculoById(row._id)}
+						className='btn btn-sm'
+					>
+						<i className='action-btn bi bi-trash-fill'></i>
+					</button>
+
+				{/* <button className='btn btn-sm'
 						onClick={() => {handleShowDelModal(row._id)}}>
 						<i className='action-btn bi bi-trash-fill'></i>
 				</button> 
@@ -173,7 +183,8 @@ const CirculosList = () => {
 				<DeleteModal show={showDelModal.show} id={row._id}
 				handleCloseDelModal={handleCloseDelModal} 
 				deleteById={deleteById}  />
-				</div>
+				 */}
+				 </div>
 				
 			),
 			
@@ -261,7 +272,7 @@ const CirculosList = () => {
 					</div>
 				</div>
 			</div>
-			<CirculoForm circulo={circuloUpdate}/>
+			<CirculoForm circulo={selectedCirculo}/>
 		</section>
 	);
 };
