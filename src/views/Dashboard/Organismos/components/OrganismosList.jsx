@@ -78,8 +78,7 @@ const OrganismosList = () => {
 
 					<button
 						onClick={() => deleteOrganismoById(row._id)}
-						className='btn btn-sm'
-					>
+						className='btn btn-sm'>
 						<i className='action-btn bi bi-trash-fill'></i>
 					</button>
 				</div>

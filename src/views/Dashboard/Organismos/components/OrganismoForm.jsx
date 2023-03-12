@@ -31,7 +31,7 @@ function OrganismoForm ({ organismo }) {
       };
       
       if (organismo) {
-        await updateOrganismo.mutate({id: organismo.id, formData});
+        await updateOrganismo.mutate({id: organismo._id, formData});
       } else {
         await addOrganismo.mutate(formData);
       }
