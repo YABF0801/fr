@@ -1,43 +1,46 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types'
 import * as Yup from 'yup';
-
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 
 import {USERS} from '../../../../core/config/routes/paths';
 import { useEffect } from "react";
 
-const REQUIRED = 'Este campo es requerido';
-
 const UserSchema = Yup.object().shape({
-	nick_name: Yup.string().required(REQUIRED),
-	first_name: Yup.string().required(REQUIRED),
-	last_name: Yup.string().required(REQUIRED),
-	password: Yup.string().required(REQUIRED),
-	position: Yup.string().required(REQUIRED),
-	role: Yup.string().required(REQUIRED),
-	
+	nickname: Yup.string().required('El usuario es requerido'),
+	name: Yup.string().required('El nombre es requerido'),
+	lastname: Yup.string().required('El apellido es requerido'),
+	password: Yup.string().required('El password es requerido'),
+	position: Yup.string().required('El cargo es requerido'),
+	role: Yup.string(),
 });
 
 function UserForm({ user }) {
 
-	const { addUser } = useUserContext();
+	const { addUser, updateUser } = useUserContext();
 	const navigate = useNavigate();
+	  
 	const form = useFormik({
 		initialValues: {
-			nick_name: user ? user?.nick_name:'',
-			first_name: user ? user?.first_name:'',
-			last_name: user ? user?.last_name:'',
-			password: user ? user?.password:'',
-			position: user ? user?.position:'',
-			role: user ? user?.role:'guest',
-
+			nickname: user ? user.nickname: '',
+			name: user ? user.name: '',
+			lastname: user ? user.lastname: '',
+			password: user ? user.password: '',
+			position: user ? user.position: '',
+			role: user ? user.role: 'guest',
 		},
-		onSubmit: async (newUser, { resetForm }) => {
-			await addUser.mutate({
-			  ...newUser
-			});
+		
+		onSubmit: async (values, { resetForm }) => {
+			const formData = {
+			  ...values
+			};
+			
+			if (user) {
+			  await updateUser.mutate({id: user._id, formData});
+			} else {
+			  await addUser.mutate(formData);
+			}
 			resetForm();
 			navigate(USERS)
 		} ,
@@ -46,9 +49,21 @@ function UserForm({ user }) {
 		},
 		validationSchema: UserSchema
 	});
+
+	const handleChange = (event) => {
+		const isChecked = event.target.checked;
+		if (isChecked)
+			form.values.role = 'admin'
+		if (!isChecked) {
+			form.values.role = 'guest'
+		}
+	  };
+	  
 	  
 	useEffect(() => {
-
+	if (user) {
+		form.setValues(user);
+	}
 	}, [user]);
 
   return (
@@ -68,28 +83,28 @@ function UserForm({ user }) {
 									<input
 										type='text'
 										className='form-control'
-										name='first_name'
-										id='first_name'
+										name='name'
+										id='name'
 										placeholder='Nombre'
 										required
                     onChange={form.handleChange}
-										value={form.values.first_name}
+										value={form.values.name}
 									/>
-									{form.errors.first_name ? <p>{form.errors.first_name}</p> : null}
+									{form.errors.name ? <p>{form.errors.name}</p> : null}
 								</div>
 
              				   <div className='col-md-7 mb-3'>
 									<input
 										type='text'
 										className='form-control'
-										name='last_name'
-										id='last_name'
+										name='lastname'
+										id='lastname'
 										placeholder='Apellidos'
 										required
                    				 onChange={form.handleChange}
-										value={form.values.last_name}
+										value={form.values.lastname}
 									/>
-									{form.errors.last_name ? <p>{form.errors.last_name}</p> : null}
+									{form.errors.lastname ? <p>{form.errors.lastname}</p> : null}
 								</div>
 
 							</div>
@@ -124,14 +139,14 @@ function UserForm({ user }) {
 									<input
 										type='text'
 										className='form-control'
-										name='nick_name'
-										id='nick_name'
+										name='nickname'
+										id='nickname'
 										placeholder='Usuario'
 										required
 										onChange={form.handleChange}
-										value={form.values.nick_name}
+										value={form.values.nickname}
 									/>
-									{form.errors.nick_name ? <p>{form.errors.nick_name}</p> : null}
+									{form.errors.nickname ? <p>{form.errors.nickname}</p> : null}
 								</div>
 
 								<div className='col-md-4 mb-3'>
@@ -153,8 +168,10 @@ function UserForm({ user }) {
 										type="checkbox" 
 										className="form-check-input m-md-1"
 										id='role'
-										onChange={form.handleChange}
+										name='role'
+										onClickCapture={handleChange}
 										value={form.values.role}
+										
 										/>
 										<label className='custom-control-label text-secondary' >Administrador</label>
 

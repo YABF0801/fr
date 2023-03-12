@@ -16,7 +16,7 @@ export const usersApiCreate = async (user) => {
 
 export const usersApiUpdate = async (user) => {
 	try {
-		await baseAxios.put(`/users/${user.id}`, user); 
+		await baseAxios.put(`/users/${user._id}`, user); 
 	} catch (error) {
 	  throw new Error(`Error al actualizar user: ${error.message}`);
 	}
