@@ -1,14 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useMemo } from 'react';
-import { circulosApiGet, circulosApiCreate, circulosApiUpdate, circulosApiDelete, circulosApiFindById } from '../service/circulo.services';
+import { circulosApiGet, circulosApiCreate, circulosApiUpdate, circulosApiDelete } from '../service/circulo.services';
 import PropTypes from 'prop-types';
 
 const CirculoContext = createContext();
 
 export const CirculoProvider = ({ children }) => {
 	const { data: circulos } = useQuery({ queryKey: ['circulos'], queryFn: circulosApiGet });
-	const { data: circuloFind } = useQuery({ queryKey: ['circulos'], queryFn: circulosApiFindById });
-
+	
 	const queryClient = useQueryClient();
 
 	const addCirculo = useMutation({
@@ -32,20 +31,13 @@ export const CirculoProvider = ({ children }) => {
 		},
 	});
 
-/* 	 const findCirculoById = useMemo(async (id) => {
-    const circulo = await circulosApiFindById(id);
-    return circulo;
-  }, []) ;  */
-
 
 	const value = useMemo(
 		() => ({
 			circulos,
-			circuloFind,
 			addCirculo,
 			updateCirculo,
-			deleteCirculo,
-			
+			deleteCirculo,	
 		}),
 		[circulos]
 	);

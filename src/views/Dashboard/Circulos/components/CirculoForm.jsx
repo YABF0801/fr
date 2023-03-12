@@ -1,13 +1,10 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types' 
 import * as Yup from 'yup';
-
 import { useNavigate } from "react-router-dom"
-
 import { useCirculoContext } from '../context/CirculoContext';
 
 import {CIRCULOS} from '../../../../core/config/routes/paths';
-
 import { useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
@@ -21,30 +18,39 @@ import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
 		normed_capacity4: Yup.number().required('Se requiere la capacidad'),
 		normed_capacity5: Yup.number().required('Se requiere la capacidad'),
 		normed_capacity6: Yup.number().required('Se requiere la capacidad'),
-		lat: Yup.number().required("Se requiere una ubicación en el mapa"),
-   		lon: Yup.number().required("Se requiere una ubicación en el mapa"),
+/* 		marker
+		lat: Yup.number(),
+   		lon: Yup.number(), */
 	});
 
 function CirculoForm ({circulo}) {
 
-	const { addCirculo } = useCirculoContext();
+	const { addCirculo, updateCirculo } = useCirculoContext();
 	const navigate = useNavigate()
 
 	const form = useFormik({
 		initialValues: {
-			number: circulo ? circulo?.number : '',
-			name: circulo ? circulo?.name : '',
-			normed_capacity2: circulo ? circulo?.normed_capacity2 : '',
-			normed_capacity3: circulo ? circulo?.normed_capacity3 : '',
-			normed_capacity4: circulo ? circulo?.normed_capacity4 : '',
-			normed_capacity5: circulo ? circulo?.normed_capacity5 : '',
-			normed_capacity6: circulo ? circulo?.normed_capacity6 : '',
+			number: circulo ? circulo.number : '',
+			name: circulo ? circulo.name : '',
+			normed_capacity2: circulo ? circulo.normed_capacity2 : '',
+			normed_capacity3: circulo ? circulo.normed_capacity3 : '',
+			normed_capacity4: circulo ? circulo.normed_capacity4 : '',
+			normed_capacity5: circulo ? circulo.normed_capacity5 : '',
+			normed_capacity6: circulo ? circulo.normed_capacity6 : '',
+/* 			marker
+			lat: circulo ? circulo.lat : '',
+			lon: circulo ? circulo.lon : '', */
 		},
 
-		onSubmit: async (newCirculo, { resetForm }) => {
-			await addCirculo.mutate({
-			  ...newCirculo
-			});
+		onSubmit: async (values, { resetForm }) => {
+		const formData = {
+				...values
+		};
+		if (circulo) {
+			await updateCirculo.mutate({id: circulo._id, formData});
+		} else {
+			await addCirculo.mutate(formData);
+		}
 			resetForm();
 			navigate(CIRCULOS)
 		} ,
@@ -55,11 +61,11 @@ function CirculoForm ({circulo}) {
 	});
 	  
 	useEffect(() => {
-
+	if (circulo) {
+		form.setValues(circulo);
+		}
 	}, [circulo]);
 	
-
-
     return (
 
   <div

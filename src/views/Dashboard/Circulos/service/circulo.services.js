@@ -16,7 +16,7 @@ export const circulosApiCreate = async (circulo) => {
 
 export const circulosApiUpdate = async (circulo) => {
 	try {
-		await baseAxios.put(`/circulos/${circulo.id}`, circulo);
+		await baseAxios.put(`/circulos/${circulo._id}`, circulo);
 	} catch (error) {
 	  throw new Error(`Error al actualizar circulo: ${error.message}`);
 	}

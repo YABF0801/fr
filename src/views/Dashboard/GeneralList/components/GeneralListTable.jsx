@@ -26,8 +26,8 @@ const GeneralListTable = () => {
 		return function cleanUp() {};
 	}, [submisions]); 
 
-   /*  const submisionsList = submisionsLocal.filter(submision => submision.status !== 'propuesta'); 
- */
+       /* const submisionsList = submisionsLocal.filter(submision => submision.status !== 'propuesta'); */  
+
 	useEffect(() => {
 		if (search.trim() === '') {
 			setSubmisionsLocal(submisions)}
@@ -214,7 +214,7 @@ const GeneralListTable = () => {
 	], 	[hideSocialCase, hideAddress, hidePhone, hidePadre]);
 
     function showForm() {
-		document.getElementById("submision").style.display = "block";
+		document.getElementById('submision').style.display = "block";
 		}
 
 

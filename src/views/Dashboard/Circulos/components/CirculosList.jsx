@@ -3,28 +3,14 @@ import { useEffect, useMemo, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 
 import CirculoForm from './CirculoForm';
-/* import DeleteModal from './DeleteModal'; */
 
 const CirculosList = () => {
 	const { circulos, deleteCirculo } = useCirculoContext();
-
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 	const [hideMatricula, setHideMatricula] = useState(true);
 	const [hideActive, setHideActive] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
-	
-/* 	const [showDelModal, setShowDelModal] = useState({show: false, id: null});
- */
-/* 	const handleShowDelModal = (id) => {
-			setShowDelModal({
-			show: true, 
-			id});
-		}
-		const handleCloseDelModal = () => {
-			setShowDelModal({ show: false, id: null });
-			console.log("handleCloseDelModal ha sido llamada");
-		}; */
 		
 	useEffect(() => {
 		setCirculosLocal(circulos);
