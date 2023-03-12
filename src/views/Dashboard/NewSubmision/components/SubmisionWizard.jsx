@@ -156,8 +156,8 @@ const SubmisionSchema = Yup.object().shape({
 	
 });
 
-const SubmisionWizardForm = () => {
-  const { addSubmision } = useSubmisionContext();
+const SubmisionWizardForm = ({submision} ) => {
+  const { addSubmision, updateSubmision } = useSubmisionContext();
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState(0);
@@ -171,21 +171,22 @@ const SubmisionWizardForm = () => {
   const handlePrev = () => setActiveTab((prevTab) => prevTab - 1);
 
   const handleReset = () => {
-		navigate(GENERAL_LIST);
-		document.getElementById('plus').style.display = 'none';
+		document.getElementById('submision').style.display = 'none';
 	};
 
   return (
     
     <Formik
-      initialValues={initialValues}
+      initialValues={initialValues} 
       validationSchema={SubmisionSchema}
       onSubmit={async (values, { resetForm }) => {
         const data = { ...values};
         try {
-          await addSubmision.mutate({
-            data
-        });
+          if (submision) {
+            await updateSubmision.mutate({id: submision._id, data});
+          } else {
+            await addSubmision.mutate(data);
+          }
         resetForm();
         navigate(GENERAL_LIST);
         document.getElementById('plus').style.display = 'none';
@@ -193,10 +194,11 @@ const SubmisionWizardForm = () => {
           console.error(error);
         } 
       }}
+      
 
     >
       {({ isSubmitting, handleSubmit }) => (
-        <Form onSubmit={handleSubmit} className='wizard-form p-2'>
+        <Form onSubmit={handleSubmit} className='wizard-form p-2 show-form' id="submision">
           <h2 className='text-center mt-2 p-3'>Nueva Solicitud</h2>
           <Tabs 
                 activeKey={activeTab} 
@@ -229,9 +231,9 @@ const SubmisionWizardForm = () => {
             }
 
             {activeTab < 4 && (
-              <button className='btn cancel-btn mb-3' type="button" onClick={handleReset} >
+              <a href='#top' className='btn cancel-btn mb-3' type="button" onClick={handleReset} >
                 Cancelar
-              </button>
+              </a>
             )}
 
             {activeTab < 3 ? (

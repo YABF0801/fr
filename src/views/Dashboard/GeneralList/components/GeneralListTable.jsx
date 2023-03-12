@@ -2,9 +2,10 @@ import { useSubmisionContext } from '../context/SumisionContext';
 import { useEffect, useMemo, useState } from 'react';
 
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import { NEW_SUBMISISON, PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
+import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useNavigate } from 'react-router-dom';
 import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext';
+import SubmisionWizardForm from '../../NewSubmision/components/SubmisionWizard';
 
 
 const GeneralListTable = () => {
@@ -18,6 +19,7 @@ const GeneralListTable = () => {
 	const [hidePadre, setHidePadre] = useState(true);
     const [hidePhone, setHidePhone] = useState(true);
     const [hideAddress, setHideAddress] = useState(true);
+    const [selectedSubmision, setSelectedSubmision] = useState(null);
 
     useEffect(() => {
 		setSubmisionsLocal(submisions);
@@ -40,11 +42,6 @@ const GeneralListTable = () => {
 
 	const deleteSubmisionById = async (id) => {
 		await deleteSubmision.mutate(id);
-	};
-
-	const editSubmision = async (id) => {
-		const submision = await submisions.filter((item) => item._id === id);
-		alert(`vas a editar${submision}`); // abrir formulario cargando el circulo de aqui arriba
 	};
 
 	const handleSearch = (event) => {
@@ -71,13 +68,14 @@ const GeneralListTable = () => {
         setSubmisionsLocal(elements);
       };
 
-	const handleNewSub = () => {
-		navigate(NEW_SUBMISISON);
-        document.getElementById("plus").style.display = "block";
+    const editSubmision = async (id) => {
+		const submision = submisions.find((item) => item._id === id);
+		if (submision) {
+          setSelectedSubmision(submision);
+		  showForm();
+		}
+	  };
 
-	};
-
-      
 	  const handleExport = () => {
 		alert('export submisions');
 	  }
@@ -191,11 +189,10 @@ const GeneralListTable = () => {
 			name: '', // action buttons
 			cell: (row) => (
 				<div className='action d-flex '>
-					<button // MODAL
-						onClick={() => editSubmision(row._id)}
-						className='btn btn-sm'
-					><i className='action-btn bi bi-pencil-square'></i>
-					</button>
+					<a className='btn btn-sm' href='#submision'
+                    onClickCapture={() => editSubmision(row._id)}>
+						<i className='action-btn bi bi-pencil-square'></i>
+					</a>
 
 					<button
 						onClick={() => deleteSubmisionById(row._id)}
@@ -215,6 +212,11 @@ const GeneralListTable = () => {
 			width: '9rem'
 		},
 	], 	[hideSocialCase, hideAddress, hidePhone, hidePadre]);
+
+    function showForm() {
+		document.getElementById("submision").style.display = "block";
+		}
+
 
     return (
     <section className='list '>
@@ -272,8 +274,9 @@ const GeneralListTable = () => {
                             <div className="gap-3 form-check form-switch form-check-inline d-flex justify-content-between">
 
                             <a 
-                                onClick={handleNewSub}
-								className='btn customize-btn'>
+                                href='#submision'
+                                onClickCapture={showForm}
+ 								className='btn customize-btn'>
 								<i className='bi bi-plus-lg'></i>
 							</a>
 
@@ -311,6 +314,7 @@ const GeneralListTable = () => {
                 </div>
             </div>
         </div>
+        <SubmisionWizardForm submision={selectedSubmision} />
     </section>
 );
 };
