@@ -199,7 +199,7 @@ const SubmisionWizardForm = ({submision} ) => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className='wizard-form p-2 show-form' id="submision">
-          <h2 className='text-center mt-2 p-3'>Nueva Solicitud</h2>
+          <h2 className='text-center mt-5 p-3'>Nueva Solicitud</h2>
           <Tabs 
                 activeKey={activeTab} 
                 className='d-flex justify-content-center btn text-tab ' 
