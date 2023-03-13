@@ -16,8 +16,8 @@ const ChildSchema = Yup.object().shape({
 		cPopular: Yup.string(),
 		municipality: Yup.string(),
 		province: Yup.string(),
-		lat: Yup.number().required('Se requiere una ubicación en el mapa'),
-		lon: Yup.number().required('Se requiere una ubicación en el mapa'),
+/* 		lat: Yup.number().required('Se requiere una ubicación en el mapa'),
+		lon: Yup.number().required('Se requiere una ubicación en el mapa'), */
 		circulo: Yup.object().when('status', {
 			is: 'matricula',
 			then: Yup.object().shape({

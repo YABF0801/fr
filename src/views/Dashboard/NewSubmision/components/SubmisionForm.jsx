@@ -19,12 +19,12 @@ function SubmisionForm(submision) {
 
 	const form = useFormik({
 		initialValues: {
-			entryNumber: submision ? submision?.entryNumber : '',
-			socialCase:  submision ? submision?.socialCase : false,
-			finality:  submision ? submision?.finality : 'om',
-			submisiontype:  submision ? submision?.submisiontype : 'new',
-			motive:  submision ? submision?.motive : '',
-			ciPedido:  submision ? submision?.ciPedido : { name: ''},
+			entryNumber: submision ? submision.entryNumber : '',
+			socialCase:  submision ? submision.socialCase : false,
+			finality:  submision ? submision.finality : 'om',
+			submisiontype:  submision ? submision.submisiontype : 'new',
+			motive:  submision ? submision.motive : '',
+			ciPedido:  submision ? submision.ciPedido : { name: ''},
 			child: { circulo: { id: '', name: ''}},
 			},
 			validationSchema: SubSchema
@@ -124,6 +124,7 @@ function SubmisionForm(submision) {
 												type="checkbox" 
 												className="form-check-input" 
 												id='socialCase'
+												name='socialCase'
 												onChange={form.handleChange}
 												value={form.values.socialCase}
 												/>
@@ -140,6 +141,7 @@ function SubmisionForm(submision) {
 													className='form-control'
 													type='number'
 													id='entryNumber'
+													name='entryNumber'
 													value={form.values.entryNumber}
 													onChange={form.handleChange}
 												/>										
