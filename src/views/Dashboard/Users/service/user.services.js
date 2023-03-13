@@ -10,8 +10,7 @@ export const usersApiCreate = async (user) => {
 		const userCreated = await baseAxios.post('/users/', user);
 		return userCreated.data;
 	} catch (error) {
-	throw new Error(`Error al crear user: ${error.message}`);
-  }
+	throw new Error(`Error al crear user: ${error.message}`);}
 };
 
 export const usersApiUpdate = async (user) => {

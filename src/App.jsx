@@ -12,7 +12,7 @@ import PublicRoute from './core/guard/PublicRoute';
 
 // pantallas de paginas
 import { Circulos } from './views/Dashboard/Circulos';
-import { DashboardTest } from './views/dashboard/DashboardStats/Dashboard';
+import Dashboard from './views/Dashboard/DashboardStats/Dashboard';
 import { GeneralList } from './views/Dashboard/GeneralList';
 import { Help } from './views/Dashboard/Help';
 import { NewSubmision } from './views/Dashboard/NewSubmision';
@@ -34,7 +34,7 @@ function App() {
 				</Route>
 				<Route path={PRIVATE} element={<PrivateRoute />} >
 					<Route index element={<Navigate to={DASHBOARD} />} />
-					<Route path={DASHBOARD} element={<DashboardTest />} />
+					<Route path={DASHBOARD} element={<Dashboard />} />
 					<Route path={GENERAL_LIST} element={<GeneralList />} />
 					<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
 					<Route path={CIRCULOS} element={<Circulos />} />
