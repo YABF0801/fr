@@ -140,8 +140,9 @@ const UsersList = () => {
 
 					</div>
 				</div>
+				<UserForm user={selectedUser}/>
 			</div>
-			<UserForm user={selectedUser}/>
+
 		</section>
 	);
 };

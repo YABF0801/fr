@@ -313,8 +313,9 @@ const GeneralListTable = () => {
 							<h6>CS: Caso social  </h6></div>
                 </div>
             </div>
+            <SubmisionWizardForm submision={selectedSubmision} />
         </div>
-        <SubmisionWizardForm submision={selectedSubmision} />
+      
     </section>
 );
 };

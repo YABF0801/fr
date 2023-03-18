@@ -48,16 +48,18 @@ input[type="text"], input[type="number"], select.form-control, select.form-selec
         opacity: 0.7;}}
 
 ul.nav-tabs{
-    border: none;
+    display: none;
+    /* border: none;
     .nav-link{
     background-color: #7a898e64;}
-    border-radius: 5px;
+    border-radius: 5px; */
 
 }
 
 button.nav-link{
-    width: 7rem;
-    height: 5px;
+    display: none;
+   /*  width: 7rem;
+       height: 5px;
     margin-left: 0.25em;
     border: none;
     border-radius: 5px;
@@ -73,7 +75,7 @@ button.nav-link{
         border-radius: 5px;
 
         transition: 0.6s all;
-   }
+   } */
 }
 
 .tab-pane {
@@ -82,12 +84,16 @@ button.nav-link{
         padding-bottom: 3em;
         padding-inline: 5em;
         margin-top: 1em;
-        margin-left: 20em;
-        margin-right: 20em;
-        background: linear-gradient(125deg, #f8f9fabd, #f8f9fa3b);
+        margin-left: 10em;
+        margin-right: 10em;
+        &.active {
+            background: linear-gradient(0deg, #f8f9fade, #f8f9faf7);
+        }
         border: none;
         border-radius: 10px;
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
+
     }
 
 .transparent-btn{

@@ -257,8 +257,9 @@ const CirculosList = () => {
 							<h6>V: Cantidad de niños por año </h6></div>
 					</div>
 				</div>
+				<CirculoForm circulo={selectedCirculo}/>
 			</div>
-			<CirculoForm circulo={selectedCirculo}/>
+		
 		</section>
 	);
 };

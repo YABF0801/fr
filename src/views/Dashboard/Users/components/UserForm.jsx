@@ -71,7 +71,7 @@ function UserForm({ user }) {
   <div
       className='show-form container mt-3 col-6'  id="user"  >
 	  <div className=' p-5'>
-        <div className='card-form'>
+        <div className='card'>
           <form  className="f-modal p-3 gap-3 justify-content-between " onSubmit={form.handleSubmit}>      
 		 
 		  <h3 className='text-secondary mb-5'>Datos del usuario</h3>

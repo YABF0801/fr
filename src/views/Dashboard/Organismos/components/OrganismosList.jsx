@@ -134,9 +134,10 @@ const OrganismosList = () => {
 
 					</div>
 				</div>
+				<OrganismoForm organismo={selectedOrganismo} />
+		
 			</div>
-			<OrganismoForm organismo={selectedOrganismo} />
-		</section>
+			</section>
 	);
 };
 

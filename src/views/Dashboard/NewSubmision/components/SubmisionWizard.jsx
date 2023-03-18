@@ -200,9 +200,8 @@ const SubmisionWizardForm = ({submision} ) => {
           <h2 className='text-center mt-5 p-3'>Nueva Solicitud</h2>
           <Tabs 
                 activeKey={activeTab} 
-                className='d-flex justify-content-center btn text-tab ' 
                 onSelect={(key) => setActiveTab(parseInt(key))}>
-            <Tab eventKey={0} title="">
+            <Tab eventKey={0} title="" >
               <SubmisionForm />
             </Tab>
             <Tab eventKey={1} title=""> 
