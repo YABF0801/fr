@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
 
-
 	const CirculoSchema = Yup.object().shape({
 		number: Yup.number().required("Se requiere un numero"),
 		name: Yup.string().required("Se requiere un nombre"),
@@ -18,9 +17,12 @@ import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
 		normed_capacity4: Yup.number().required('Se requiere la capacidad'),
 		normed_capacity5: Yup.number().required('Se requiere la capacidad'),
 		normed_capacity6: Yup.number().required('Se requiere la capacidad'),
-/* 		marker
-		lat: Yup.number(),
-   		lon: Yup.number(), */
+		attendance2: Yup.number().required('Se requiere el % de asistencia'),
+		attendance3: Yup.number().required('Se requiere el % de asistencia'),
+		attendance4: Yup.number().required('Se requiere el % de asistencia'),
+		attendance5: Yup.number().required('Se requiere el % de asistencia'),
+		attendance6: Yup.number().required('Se requiere el % de asistencia'),
+/* 		latlng: Yup.array(), */
 	});
 
 function CirculoForm ({circulo}) {
@@ -37,9 +39,12 @@ function CirculoForm ({circulo}) {
 			normed_capacity4: circulo ? circulo.normed_capacity4 : '',
 			normed_capacity5: circulo ? circulo.normed_capacity5 : '',
 			normed_capacity6: circulo ? circulo.normed_capacity6 : '',
-/* 			marker
-			lat: circulo ? circulo.lat : '',
-			lon: circulo ? circulo.lon : '', */
+			attendance2: circulo ? circulo.attendance2 : '',
+			attendance3: circulo ? circulo.attendance3 : '',
+			attendance4: circulo ? circulo.attendance4 : '',
+			attendance5: circulo ? circulo.attendance5 : '',
+			attendance6: circulo ? circulo.attendance6 : '',
+/* 			latlng: circulo ? circulo.latlng: [], */
 		},
 
 		onSubmit: async (values, { resetForm }) => {
@@ -115,6 +120,7 @@ function CirculoForm ({circulo}) {
 											type='number'
 											className='form-control '
 											id='normed_capacity2'
+											name='normed_capacity2'
                                             placeholder='2do'
 											value={form.values.normed_capacity2}
 											onChange={form.handleChange}
@@ -127,6 +133,7 @@ function CirculoForm ({circulo}) {
 											type='number'
 											className='form-control '
 											id='normed_capacity3'
+											name='normed_capacity3'
                                             placeholder='3ro'
 											value={form.values.normed_capacity3}
 											onChange={form.handleChange}
@@ -139,6 +146,7 @@ function CirculoForm ({circulo}) {
 											type='number'
 											className='form-control '
 											id='normed_capacity4'
+											name='normed_capacity4'
 											placeholder='4to'
 											value={form.values.normed_capacity4}
 											onChange={form.handleChange}
@@ -151,6 +159,7 @@ function CirculoForm ({circulo}) {
 											type='number'
 											className='form-control '
 											id='normed_capacity5'
+											name='normed_capacity5'
 											placeholder='5to'
 											value={form.values.normed_capacity5}
 											onChange={form.handleChange}
@@ -163,6 +172,7 @@ function CirculoForm ({circulo}) {
 											type='number'
 											className='form-control '
 											id='normed_capacity6'
+											name='normed_capacity6'
 											placeholder='6to'
 											value={form.values.normed_capacity6}
 											onChange={form.handleChange}
@@ -171,6 +181,77 @@ function CirculoForm ({circulo}) {
 										</div>
 								</div>
                                 </div>
+
+								<div className='row '>
+                        		<h6 className="text-secondary mt-3 mb-3">Escriba el porciento de asistencia para cada año de vida</h6>
+								<div className='d-flex mb-2 gap-3 justify-content-between'>
+ 									<div >
+										<input
+											type='number'
+											className='form-control '
+											id='attendance2'
+											name='attendance2'
+                                            placeholder='% 2do'
+											value={form.values.attendance2}
+											onChange={form.handleChange}
+										/>
+										{form.errors.attendance2 ? <p className='text-danger'>{form.errors.attendance2}</p> : null}
+									</div>
+
+									<div >
+										<input
+											type='number'
+											className='form-control '
+											id='attendance3'
+											name='attendance3'
+                                            placeholder='% 3ro'
+											value={form.values.attendance3}
+											onChange={form.handleChange}
+										/>
+										{form.errors.attendance3 ? <p className='text-danger'>{form.errors.attendance3}</p> : null}
+									</div>
+
+									<div >
+										<input
+											type='number'
+											className='form-control '
+											id='attendance4'
+											name='attendance4'
+											placeholder='% 4to'
+											value={form.values.attendance4}
+											onChange={form.handleChange}
+										/>
+										{form.errors.attendance4 ? <p className='text-danger'>{form.errors.attendance4}</p> : null}
+										</div>
+
+										<div >
+										<input
+											type='number'
+											className='form-control '
+											id='attendance5'
+											name='attendance5'
+											placeholder='% 5to'
+											value={form.values.attendance5}
+											onChange={form.handleChange}
+										/>
+										{form.errors.attendance5 ? <p className='text-danger'>{form.errors.attendance5}</p> : null}
+										</div>
+
+										<div >
+										<input
+											type='number'
+											className='form-control '
+											id='attendance6'
+											name='attendance6'
+											placeholder='% 6to'
+											value={form.values.attendance6}
+											onChange={form.handleChange}
+										/>
+										{form.errors.attendance6 ? <p className='text-danger'>{form.errors.attendance6}</p> : null}
+										</div>
+								</div>
+								</div>
+
 								<div className='row align-items-center'>
 									<h3 className='text-secondary mt-3'>Ubicación geográfica</h3>
 									<h6 className="text-secondary mb-3">Busque la ubicación y haga click en el mapa</h6>
