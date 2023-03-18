@@ -52,7 +52,7 @@ function OrganismoForm ({ organismo }) {
 
     return (
       <div
-      className='show-form container mt-3 col-6'  id="organismo"  
+      className='show-form container list mt-3 col-6'  id="organismo"  
     >
     	<div className=' p-5'>
         <div className='card'>

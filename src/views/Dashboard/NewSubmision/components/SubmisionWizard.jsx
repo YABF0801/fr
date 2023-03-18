@@ -196,7 +196,7 @@ const SubmisionWizardForm = ({submision} ) => {
 
     >
       {({ isSubmitting, handleSubmit }) => (
-        <Form onSubmit={handleSubmit} className='wizard-form p-2 show-form' id="submision">
+        <Form onSubmit={handleSubmit} className='wizard-form p-2 list show-form' id="submision">
           <h2 className='text-center mt-5 p-3'>Nueva Solicitud</h2>
           <Tabs 
                 activeKey={activeTab} 
