@@ -16,8 +16,7 @@ const ChildSchema = Yup.object().shape({
 		cPopular: Yup.string(),
 		municipality: Yup.string(),
 		province: Yup.string(),
-/* 		lat: Yup.number().required('Se requiere una ubicación en el mapa'),
-		lon: Yup.number().required('Se requiere una ubicación en el mapa'), */
+/* 		latlng: Yup.array().required('Se requiere una ubicación en el mapa'), */
 		circulo: Yup.object().when('status', {
 			is: 'matricula',
 			then: Yup.object().shape({
@@ -42,8 +41,7 @@ function ChildForm(submision) {
 				cPopular: childData.cPopular || '',
 				municipality: childData.municipality || 'Isla de la Juventud',
 				province: childData.province || 'Isla de la Juventud',
-				lat: childData.lat || 21.72761,
-				lon: childData.lon || -82.834167,
+			/*	latlng: circulo ? circulo.latlng: [21.72761, -82.834167], */
 				circulo: childData.circulo || {
 					id: '',
 					name: ''},
@@ -202,7 +200,7 @@ function ChildForm(submision) {
 							<option value='1'>Isla de la Juventud</option>
 						</select>
 					</div>
-
+{/* 
 <div className='d-flex gap-3 mt-4'>
 <div className="form-group text-secondary text-center col-5 ">
 <label id= 'lat' htmlFor="lat">Latitud: {form.values.child.lat}</label>
@@ -212,7 +210,7 @@ function ChildForm(submision) {
 <div className="form-group text-secondary text-center ">
 <label id= 'lon' htmlFor="lon">Longitud: {form.values.child.lon}</label>
 </div>
-</div>
+</div> */}
 				</div>
 
 

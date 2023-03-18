@@ -22,7 +22,7 @@ import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
 		attendance4: Yup.number().required('Se requiere el % de asistencia'),
 		attendance5: Yup.number().required('Se requiere el % de asistencia'),
 		attendance6: Yup.number().required('Se requiere el % de asistencia'),
-/* 		latlng: Yup.array(), */
+/* 		latlng: Yup.array().required('Se requiere una ubicación en el mapa'), */
 	});
 
 function CirculoForm ({circulo}) {

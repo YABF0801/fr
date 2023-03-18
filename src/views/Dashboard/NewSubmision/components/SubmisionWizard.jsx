@@ -34,8 +34,7 @@ const initialValues = {
         cPopular: '',
         municipality: 'Isla de la Juventud',
         province: 'Isla de la Juventud',
-        lat: 21.72761,
-        lon: -82.834167,
+        latlng: [21.72761, -82.834167],
         circulo: {
             id: '',
             name: ''},
@@ -98,8 +97,7 @@ const SubmisionSchema = Yup.object().shape({
 		cPopular: Yup.string(),
 		municipality: Yup.string(),
 		province: Yup.string(),
-		lat: Yup.number().required('Se requiere una ubicación en el mapa'),
-		lon: Yup.number().required('Se requiere una ubicación en el mapa'),
+/*	latlng: Yup.array().required('Se requiere una ubicación en el mapa'), */
 		circulo: Yup.object().when('status', {
 			is: 'matricula',
 			then: Yup.object().shape({
