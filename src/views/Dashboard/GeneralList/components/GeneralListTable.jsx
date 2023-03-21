@@ -99,8 +99,9 @@ const GeneralListTable = () => {
       const columns = useMemo(
 		() => [
 		{
-		name: 'No.', id:1, selector: (row) => row.entryNumber, 
-        sortable: true, center: true, width: '4.5rem'
+            name: 'No.', id:1, 
+            selector: (row) => row.entryNumber + ' / ' + new Date(row.createdAt).getFullYear(),
+            sortable: true, center: true, width: '6rem'
 		},
         {
             name: ' ',

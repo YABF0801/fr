@@ -52,7 +52,7 @@ function CirculoForm ({circulo}) {
 				...values
 		};
 		if (circulo) {
-			await updateCirculo.mutate({id: circulo._id, formData});
+			await updateCirculo.mutate({...values});
 		} else {
 			await addCirculo.mutate(formData);
 		}

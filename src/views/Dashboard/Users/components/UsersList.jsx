@@ -28,10 +28,10 @@ const UsersList = () => {
 		const user = users.find((item) => item._id === id);
 		if (user) {
 		setSelectedUser(user);
-		showForm();
+		  showForm();
 		}
 	  };
-
+	  
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
 		const elements = usersLocal.filter((item) => {

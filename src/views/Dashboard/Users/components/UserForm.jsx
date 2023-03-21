@@ -11,7 +11,7 @@ const UserSchema = Yup.object().shape({
 	nickname: Yup.string().required('El usuario es requerido'),
 	name: Yup.string().required('El nombre es requerido'),
 	lastname: Yup.string().required('El apellido es requerido'),
-	password: Yup.string().required('El password es requerido'),
+	password: Yup.string(),
 	position: Yup.string().required('El cargo es requerido'),
 	role: Yup.string(),
 });
@@ -28,7 +28,7 @@ function UserForm({ user }) {
 			lastname: user ? user.lastname: '',
 			password: user ? user.password: '',
 			position: user ? user.position: '',
-			role: user ? user.role: 'guest',
+			role: user ? user.role: '',
 		},
 		
 		onSubmit: async (values, { resetForm }) => {
@@ -37,13 +37,13 @@ function UserForm({ user }) {
 			};
 			
 			if (user) {
-			  await updateUser.mutate({id: user._id, formData});
+			  await updateUser.mutate({ ...values});
 			} else {
 			  await addUser.mutate(formData);
 			}
 			resetForm();
 			navigate(USERS)
-		} ,
+		  },
 		onReset: async ( )  => {
 			document.getElementById("user").style.display = "none";
 		},

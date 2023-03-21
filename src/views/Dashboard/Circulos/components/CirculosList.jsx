@@ -46,10 +46,11 @@ const CirculosList = () => {
 		}
 	  };
  */
+
 	  const editCirculo = async (id) => {
 		const circulo = circulos.find((item) => item._id === id);
 		if (circulo) {
-		  setSelectedCirculo(circulo);
+			setSelectedCirculo(circulo);
 		  showForm();
 		}
 	  };

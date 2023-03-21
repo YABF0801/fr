@@ -18,7 +18,7 @@ export const organismosApiUpdate = async (organismo) => {
 	try {
 	  await baseAxios.put(`/organismos/${organismo._id}`, organismo);
 	} catch (error) {
-	  throw new Error(`Error al actualizar organismo: ${error.message}`);
+	  throw new Error(`Error al actualizar organismo: ${error.response.data}`);
 	}
   };
 
