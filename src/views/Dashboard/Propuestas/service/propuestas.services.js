@@ -1,5 +1,11 @@
 import { baseAxios } from '../../../../api/baseAxios';
 
+export const propuestasApiGet = async () => {
+	const allPropuestas = await baseAxios.get('/submisions');
+	const propuestas = allPropuestas.data.filter(submision => submision.status === 'propuesta')
+	return propuestas;
+};
+
 export const propuestaApiGenerar = async (submision) => {
 	const propuestasGeneradas = await baseAxios.post(`/submisions/propuestas`, submision);
 	return propuestasGeneradas.data;

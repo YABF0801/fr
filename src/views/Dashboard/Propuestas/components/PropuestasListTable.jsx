@@ -1,6 +1,4 @@
-import { useSubmisionContext } from '../../GeneralList/context/SumisionContext';
-import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext'; 
-
+import { usePropuestasContext } from '../context/PopuestasContext';
 import { useEffect, useMemo, useState } from 'react';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 
@@ -8,25 +6,24 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { useNavigate } from 'react-router-dom'; 
 
 
+
 const PropuestasListTable = () => {
     const navigate = useNavigate();
 
-    const { submisions } = useSubmisionContext();
-	const [submisionsLocal, setSubmisionsLocal] = useState([]);
+    const { propuestas } = usePropuestasContext();
+	const [propuestasLocal, setPropuestasLocal] = useState([]);
     const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
-
 	const [search, setSearch] = useState('')
 
     useEffect(() => {
-          setSubmisionsLocal(submisions);
+		setPropuestasLocal(propuestas);
 		return function cleanUp() {};
-	}, []); 
-
-    const submisionsProps = submisionsLocal.filter(submision => submision.status === 'propuesta'); 
+	}, [propuestas]); 
+ 
 
 	useEffect(() => {
 		if (search.trim() === '') {
-			setSubmisionsLocal(submisions)}
+			setPropuestasLocal(propuestas)}
 		return function cleanUp() {};
 	}, [search])
 
@@ -36,7 +33,7 @@ const PropuestasListTable = () => {
         const hasParentLastname = item => item.parentLastname !== undefined && item.parentLastname !== '';
         const hasPhone = item => item.phoneNumber !== undefined;
         setSearch(event.target.value);
-        const elements = submisionsLocal.filter((item) => { 
+        const elements = propuestasLocal.filter((item) => { 
           if (
             item.child.childAdress.toLowerCase().includes(search.toLowerCase()) ||
             item.child.childName.toLowerCase().includes(search.toLowerCase()) ||
@@ -50,13 +47,14 @@ const PropuestasListTable = () => {
           }
           return undefined;
         });
-        setSubmisionsLocal(elements);
+        setPropuestasLocal(elements);
       };
 
 	const handleAceptar = async (id) => {
         try {
         /* await aceptarPropuestas.mutate(id); */
         navigate(GENERAL_LIST);
+        document.getElementById("props").style.display = "none";
     } catch (error) {
         console.error(error);
       }
@@ -208,7 +206,7 @@ const PropuestasListTable = () => {
 
                         <DataTable
                             columns={columns}
-                            data={submisionsProps}
+                            data={propuestasLocal}
                             selectableRows
                             autoWidth={true}
                             

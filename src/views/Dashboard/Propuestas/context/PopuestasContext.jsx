@@ -2,13 +2,17 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useMemo } from 'react';
 
 import PropTypes from 'prop-types';
-import { propuestaApiAceptar, propuestaApiGenerar, propuestaApiRechazar } from '../service/propuestas.services';
-import { submisionsApiGet } from '../../GeneralList/service/submision.services';
+import { 
+		propuestasApiGet, 
+		propuestaApiAceptar, 
+		propuestaApiGenerar, 
+		propuestaApiRechazar 
+} from '../service/propuestas.services';
 
 const PropuestasContext = createContext();
 
 export const PropuestasProvider = ({ children }) => {
-	const { data: submision } = useQuery({ queryKey: ['submision'], queryFn: submisionsApiGet });
+	const { data: propuestas } = useQuery({ queryKey: ['submision'], queryFn: propuestasApiGet });
 	
 	const queryClient = useQueryClient();
 
@@ -35,12 +39,12 @@ export const PropuestasProvider = ({ children }) => {
 
 	const value = useMemo(
 		() => ({
-			submision,
+			propuestas,
 			generarPropuestas,
 			aceptarPropuestas,
 			rechazarPropuestas,
 		}),
-		[submision]
+		[propuestas]
 	);
 
 	return <PropuestasContext.Provider value={value}>{children}</PropuestasContext.Provider>;
