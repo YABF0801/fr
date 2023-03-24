@@ -1,8 +1,9 @@
-import { baseAxios } from '../../../../api/baseAxios';
+import  {baseAxios}  from '../../../../api/baseAxios';
 
 export const submisionsApiGet = async () => {
-	const submisions = await baseAxios.get('/submisions/');
-	return submisions.data;
+	const allSubmisions = await baseAxios.get('/submisions');
+	const submisions = allSubmisions.data.filter(submision => submision.status !== 'propuesta')
+	return submisions;
 };
 
 export const submisionsApiCreate = async (submision) => {
