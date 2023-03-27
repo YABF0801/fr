@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
+
 // paths creados en core para rutas de navergador
 import { HOME, PRIVATE, DASHBOARD, CIRCULOS, GENERAL_LIST, NEW_SUBMISISON, ORGANISMOS, PROPUESTAS_LIST, USERS, HELP } from './core/config/routes/paths';
 

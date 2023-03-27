@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
 import { submisionsApiGet } from '../../GeneralList/service/submision.services';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
-import { getCapacityAndMatricula } from '../service/dashboard.services';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
+import MarkerClusterGroup from "react-leaflet-markercluster";
 import L from 'leaflet';
-
-
 import './Stats.scss';
 
 
 const Map = () => {
     const [submisionsLocal, setSubmisionsLocal] = useState([]);
     const [circulosLocal, setCirculosLocal] = useState([]);
-    const [totalMatricula, setTotalMatricula] = useState(0);
   
+
     useEffect(() => {
 		const fetchData = async () => {
             const submisions = await submisionsApiGet();
@@ -31,37 +28,13 @@ const Map = () => {
           fetchData();
 	}, []); 
 
-    useEffect(() => {
-        const fetchData = async () => {
-          const result = await getCapacityAndMatricula();
-          setTotalMatricula(result.Matricula);
-        };
-        fetchData();
-      }, []);
 
-      const childIcon = L.AwesomeMarkers.icon({
-        icon: '',
-        iconUrl: '/kid.png',
-        markerColor: 'red', 
-        iconColor: 'white'
-    }
-    );
+      const childIcon = L.icon({ iconUrl: '/public/kid2.png', iconSize: [32, 32], 
+      iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
+  
 
-    const ciIcon = L.AwesomeMarkers.icon({
-        markerColor: 'blue',
-        prefix: 'fa',
-        extraClasses: 'fas',
-        icon: 'arrow-alt-circle-down' 
-      });
-/* 
-      const childIcon = L.AwesomeMarkers.icon({
-        icon: '',
-        iconUrl: '/public/kid.png',
-        markerColor: 'red',
-      }) */
-/* 
-      const ciIcon = L.icon({ iconUrl: '/public/pin.png', iconSize: [32, 32], 
-      iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); */
+      const ciIcon = L.icon({ iconUrl: '/public/ci.png', iconSize: [32, 32], 
+      iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
 
 	return (
         <section className='estadisticas'>
@@ -69,35 +42,42 @@ const Map = () => {
         <div className='container-main mt-3 '>
             
             <div className='row mt-3 justify-content-evenly'>
-                <div className='col-md-8 col-xl-8'>
-                <canvas className='card' id="myChart" width='900' height="400">
+                <div className='col-md-7 col-xl-7'>
+                <canvas className='card' id="myChart" width='800' height="400">
 
 
                 </canvas>
                 </div>
 
-                <div className='col-md-4 col-xl-4'>
+                <div className='col-md-5 col-xl-5'>
                      <div className='row align-items-center'>
 										<div className='col-md-12 '>
-											<MapContainer className='map-container' style={{ width: '100%', height: '400px' }} center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={false}>
+
+											<MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
+                                            
+                                            center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={false} >
                                                 
-												<TileLayer
+												<TileLayer 
 													attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
+                                                 <MarkerClusterGroup>
                                                 {submisionsLocal.map((submision) => (
-                                                <Marker key={submision._id} position={submision.child.latlng} icon={childIcon}>
+                                                <Marker key={submision._id} position={submision.child.latlng} icon={childIcon} >
+
                                                     <Popup>
-                                                    <div>
-                                                        <p>Nombre: {submision.child.childName + submision.child.childLastname}</p>
-                                                        <p>Entry number: {submision.entryNumber}</p>
-                                                    </div>
+                                                    <span className='popup'>
+                                                        <h3>{submision.child.childName + submision.child.childLastname}</h3>
+                                                        <p>{submision.child.childAdress}</p>
+                                                        <p>Edad: {submision.child.age},  {submision.child.sex}</p>
+                                                    </span>
                                                     </Popup>
                                                 </Marker>
                                                 ))}
- 
-                                            {circulosLocal.map((circulo) => (
+                                                </MarkerClusterGroup>
+
+                                                 {circulosLocal.map((circulo) => (
                                                 <Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>
                                                 <Popup>
                                                     <div>
@@ -106,8 +86,10 @@ const Map = () => {
                                                 </Popup>
                                                 </Marker>
                                                 ))}
+                                               
                                             
 											</MapContainer>
+                                            
 										</div>
 
 									</div>
