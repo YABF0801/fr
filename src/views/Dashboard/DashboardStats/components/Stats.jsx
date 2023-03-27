@@ -1,9 +1,10 @@
-import Cards from './Cards';
+
+import StatsComponents from './StatsComponents';
 import './Stats.scss';
 
 const Stats = () => {
 	return (
-        <Cards/>
+        <StatsComponents/>
         );
     };
     
