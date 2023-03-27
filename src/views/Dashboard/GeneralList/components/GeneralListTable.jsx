@@ -26,8 +26,6 @@ const GeneralListTable = () => {
 		return function cleanUp() {};
 	}, [submisions]); 
 
-       /* const submisionsList = submisionsLocal.filter(submision => submision.status !== 'propuesta'); */  
-
 	useEffect(() => {
 		if (search.trim() === '') {
 			setSubmisionsLocal(submisions)}
@@ -119,7 +117,7 @@ const GeneralListTable = () => {
 		},
 		{
 		name: 'Nombre',	selector: (row) => <h4 className='fw-bold'>{row.child.childName} {row.child.childLastname}</h4>, 
-        sortable: true, grow: 2, width: '12rem'
+        sortable: true, grow: 2, width: '14rem'
 		},
 		{
         name: 'Carnet',	selector: (row) => row.child.carnet, 
@@ -139,7 +137,11 @@ const GeneralListTable = () => {
             sortable: true, center: true, width: '6rem'
         },
         {
-            name: 'Edad', selector: (row) => row.child.age, 
+            name: 'Edad', cell: (row) => {
+            if (row.child.age < 1) {
+                return row.child.age / 0.01 + 'm'
+            }
+            return row.child.age }, 
             sortable: true, center: true, width: '5rem'
         },
         {
@@ -148,7 +150,7 @@ const GeneralListTable = () => {
         },
         {
             name: 'Madre', selector: (row) => row.child.parents[0].parentName + ' ' + row.child.parents[0].parentLastname , 
-            sortable: true, grow:2, width: '9rem'
+            sortable: true, grow:2, width: '12rem'
         },
         {
             name: 'Teléfono', selector: (row) => row.child.parents[0].phoneNumber, 

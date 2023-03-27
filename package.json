@@ -11,6 +11,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
+		"@changey/react-leaflet-markercluster": "^4.0.0-rc1",
 		"@tanstack/react-query": "^4.23.0",
 		"@tanstack/react-query-devtools": "^4.23.0",
 		"axios": "^1.2.5",

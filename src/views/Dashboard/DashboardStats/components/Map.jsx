@@ -62,20 +62,20 @@ const Map = () => {
 													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
-                                                 <MarkerClusterGroup>
+                                                
                                                 {submisionsLocal.map((submision) => (
                                                 <Marker key={submision._id} position={submision.child.latlng} icon={childIcon} >
 
                                                     <Popup>
                                                     <span className='popup'>
                                                         <h3>{submision.child.childName + submision.child.childLastname}</h3>
-                                                        <p>{submision.child.childAdress}</p>
+                                                        <p>{submision.child.childAddress}</p>
                                                         <p>Edad: {submision.child.age},  {submision.child.sex}</p>
                                                     </span>
                                                     </Popup>
                                                 </Marker>
                                                 ))}
-                                                </MarkerClusterGroup>
+                                               
 
                                                  {circulosLocal.map((circulo) => (
                                                 <Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>

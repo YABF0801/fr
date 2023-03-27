@@ -12,7 +12,7 @@ import {
 const PropuestasContext = createContext();
 
 export const PropuestasProvider = ({ children }) => {
-	const { data: propuestas } = useQuery({ queryKey: ['submision'], queryFn: propuestasApiGet });
+	const { data: propuestas } = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
 	
 	const queryClient = useQueryClient();
 

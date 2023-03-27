@@ -14,7 +14,7 @@ const SubmisionContext = createContext();
 
 export const SubmisionProvider = ({ children }) => {
 	const { data: submisions } = useQuery({ queryKey: ['submision'], queryFn: submisionsApiGet });
-
+		
 	const queryClient = useQueryClient();
 
 	const addSubmision = useMutation({
