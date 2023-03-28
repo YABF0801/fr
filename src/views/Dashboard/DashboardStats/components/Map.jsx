@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { submisionsApiGet } from '../../GeneralList/service/submision.services';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MarkerClusterGroup from "react-leaflet-markercluster";
+import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
 import L from 'leaflet';
 import './Stats.scss';
-
+/* 
+require ('../node_modules/leaflet/dist/leaflet.css');
+require ('../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css')
+ */
 
 const Map = () => {
     const [submisionsLocal, setSubmisionsLocal] = useState([]);
@@ -15,19 +18,12 @@ const Map = () => {
     useEffect(() => {
 		const fetchData = async () => {
             const submisions = await submisionsApiGet();
-            setSubmisionsLocal(submisions);
-          };
-          fetchData();
-	}, []); 
-
-    useEffect(() => {
-		const fetchData = async () => {
             const circulos = await circulosApiGet();
+            setSubmisionsLocal(submisions);
             setCirculosLocal(circulos);
           };
           fetchData();
 	}, []); 
-
 
       const childIcon = L.icon({ iconUrl: '/public/kid2.png', iconSize: [32, 32], 
       iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
@@ -63,9 +59,9 @@ const Map = () => {
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
                                                 
+                                                <MarkerClusterGroup spiderfyDistanceMultiplier={1} showCoverageOnHover={true} >
                                                 {submisionsLocal.map((submision) => (
                                                 <Marker key={submision._id} position={submision.child.latlng} icon={childIcon} >
-
                                                     <Popup>
                                                     <span className='popup'>
                                                         <h3>{submision.child.childName + submision.child.childLastname}</h3>
@@ -75,8 +71,8 @@ const Map = () => {
                                                     </Popup>
                                                 </Marker>
                                                 ))}
-                                               
-
+                                              </MarkerClusterGroup>
+                                              <MarkerClusterGroup>
                                                  {circulosLocal.map((circulo) => (
                                                 <Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>
                                                 <Popup>
@@ -86,7 +82,7 @@ const Map = () => {
                                                 </Popup>
                                                 </Marker>
                                                 ))}
-                                               
+                                                </MarkerClusterGroup>
                                             
 											</MapContainer>
                                             

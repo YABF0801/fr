@@ -3,13 +3,11 @@ import { useState } from 'react';
 import { Marker, Popup, useMapEvents } from 'react-leaflet';
 
 const LocationMaker = () => {
-	const [latLng, setLatLng] = useState({lat: null, lon: null});
+	const [latLng, setLatLng] = useState([]);
 	const map = useMapEvents({
 			click(e) {
 				map.locate()
-				setLatLng({ 
-					lat: e.latlng.lat, 
-					lng: e.latlng.lng })
+				setLatLng(e.latlng )
 			},
 			
 		})

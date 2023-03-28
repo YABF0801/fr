@@ -200,17 +200,7 @@ function ChildForm(submision) {
 							<option value='1'>Isla de la Juventud</option>
 						</select>
 					</div>
-{/* 
-<div className='d-flex gap-3 mt-4'>
-<div className="form-group text-secondary text-center col-5 ">
-<label id= 'lat' htmlFor="lat">Latitud: {form.values.child.lat}</label>
 
-</div>
-
-<div className="form-group text-secondary text-center ">
-<label id= 'lon' htmlFor="lon">Longitud: {form.values.child.lon}</label>
-</div>
-</div> */}
 				</div>
 
 
@@ -228,8 +218,7 @@ function ChildForm(submision) {
 							url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
 						<LocationMaker />
 
-						{/* form.values.child.lat = latLng.lat;
-						form.values.child.lat = latLng.lon; */}
+					
 						
 					</MapContainer>
 				</div>
