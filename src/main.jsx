@@ -9,7 +9,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './styles/main.scss';
 import 'leaflet/dist/leaflet.js'
 import '../node_modules/leaflet/dist/leaflet.css';
-import 'leaflet.markercluster/dist/leaflet.markercluster.js'
+import '../node_modules/leaflet.markercluster/dist/leaflet.markercluster-src'
 import '../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css'
 import 'react-tooltip/dist/react-tooltip.css';
 

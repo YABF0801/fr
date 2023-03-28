@@ -7,7 +7,7 @@ import { useCirculoContext } from '../context/CirculoContext';
 import {CIRCULOS} from '../../../../core/config/routes/paths';
 import { useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
+/* import LocationMaker from '../../../../common/LocationMaker/LocationMaker'; */
 
 	const CirculoSchema = Yup.object().shape({
 		number: Yup.number().required("Se requiere un numero"),
@@ -264,7 +264,7 @@ function CirculoForm ({circulo}) {
 													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
-												<LocationMaker/>
+												{/* <LocationMaker/> */}
 											</MapContainer>
 										</div>
 

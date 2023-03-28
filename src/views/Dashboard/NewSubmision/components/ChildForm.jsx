@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
 import { MapContainer, TileLayer} from 'react-leaflet';
-import LocationMaker from '../../../../common/LocationMaker/LocationMaker';
+/* import LocationMaker from '../../../../common/LocationMaker/LocationMaker'; */
 
 const ChildSchema = Yup.object().shape({
 	child: Yup.object().shape({
@@ -216,7 +216,7 @@ function ChildForm(submision) {
 						<TileLayer 
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 							url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
-						<LocationMaker />
+					{/* 	<LocationMaker /> */}
 
 					
 						

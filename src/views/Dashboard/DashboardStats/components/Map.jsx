@@ -10,7 +10,7 @@ require ('../node_modules/leaflet/dist/leaflet.css');
 require ('../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css')
  */
 
-const Map = () => {
+const MapComponent = () => {
     const [submisionsLocal, setSubmisionsLocal] = useState([]);
     const [circulosLocal, setCirculosLocal] = useState([]);
   
@@ -20,6 +20,7 @@ const Map = () => {
             const submisions = await submisionsApiGet();
             const circulos = await circulosApiGet();
             setSubmisionsLocal(submisions);
+            
             setCirculosLocal(circulos);
           };
           fetchData();
@@ -58,10 +59,9 @@ const Map = () => {
 													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
-                                                
-                                                <MarkerClusterGroup spiderfyDistanceMultiplier={1} showCoverageOnHover={true} >
+
                                                 {submisionsLocal.map((submision) => (
-                                                <Marker key={submision._id} position={submision.child.latlng} icon={childIcon} >
+                                                 <Marker key={submision._id} position={submision.child.latlng} icon={childIcon} >
                                                     <Popup>
                                                     <span className='popup'>
                                                         <h3>{submision.child.childName + submision.child.childLastname}</h3>
@@ -71,18 +71,19 @@ const Map = () => {
                                                     </Popup>
                                                 </Marker>
                                                 ))}
-                                              </MarkerClusterGroup>
-                                              <MarkerClusterGroup>
+                                             
+
+                                           
                                                  {circulosLocal.map((circulo) => (
                                                 <Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>
                                                 <Popup>
                                                     <div>
-                                                    <p>CI {circulo.name }</p>
+                                                    <p>CI {circulo.name }</p>¨
                                                     </div>
                                                 </Popup>
                                                 </Marker>
                                                 ))}
-                                                </MarkerClusterGroup>
+                                               
                                             
 											</MapContainer>
                                             
@@ -97,5 +98,5 @@ const Map = () => {
         );
     };
     
-export default Map;
+export default MapComponent;
 
