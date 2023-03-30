@@ -14,15 +14,15 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import '../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css';
 import 'react-tooltip/dist/react-tooltip.css';
+import 'chart.js/auto';
 
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
 		<QueryClientProvider client={new QueryClient()}>
 			<App />
 		</QueryClientProvider>
-	</React.StrictMode>
+
 );
 

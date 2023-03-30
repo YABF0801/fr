@@ -19,9 +19,16 @@ export const userApiLogout = async () => {
 
 // CIRCULOS
 export const getMatriculaPerYear = async () => {   // TOTAL MATRICULA POR AÑO
-	const totalMatriculaYear = await baseAxios.get('/estadisticas/matricula');
-	const matriculaYear = totalMatriculaYear.data;
-	return matriculaYear;
+	const result = await baseAxios.get('/estadisticas/matricula');
+	const matriculaYear = result.data[0];
+	const data = [
+		matriculaYear.totalMatricula2, 
+		matriculaYear.totalMatricula3,
+		matriculaYear.totalMatricula4,
+		matriculaYear.totalMatricula5,
+		matriculaYear.totalMatricula6]
+		console.log(matriculaYear)
+		return data;
 };
 
 export const getCapacityCperYear = async () => {   // TOTAL CAPACIDADES CALCULADAS POR AÑO
@@ -31,16 +38,31 @@ export const getCapacityCperYear = async () => {   // TOTAL CAPACIDADES CALCULAD
 };
 
 export const getCapacityNperYear = async () => {   // TOTAL CAPACIDADES NORMADAS POR AÑO 
-	const capacityNYear = await baseAxios.get('/estadisticas/capacidad-n');
-	const capacidadNYear = capacityNYear.data;
-	return capacidadNYear;
+	const result = await baseAxios.get('/estadisticas/capacidad-n');
+	const capacityNYear = result.data[0];
+	const data = [
+		capacityNYear.totalNormedCapacity2, 
+		capacityNYear.totalNormedCapacity3,
+		capacityNYear.totalNormedCapacity4,
+		capacityNYear.totalNormedCapacity5,
+		capacityNYear.totalNormedCapacity6]
+		console.log(capacityNYear)
+		return data;
 };
 
-export const getAverageAttendance = async () => {   //  PROMEDIOS DE ASISTENCIA POR AÑO 
-	const avgAttendanceYear = await baseAxios.get('/estadisticas/asistencia');
-	const asistenciaAvgYear = avgAttendanceYear.data;
-	return asistenciaAvgYear;
-};
+export const getAverageAttendance = async () => {
+	  const result = await baseAxios.get('/estadisticas/asistencia');
+	  const attendanceData = result.data[0]; 
+	  const data = [
+			  attendanceData.totalAttendance2 || 50, // remove numbers
+			  attendanceData.totalAttendance3 || 25,
+			  attendanceData.totalAttendance4 || 80,
+			  attendanceData.totalAttendance5 || 10,
+			  attendanceData.totalAttendance6 || 100,
+			]
+	  return data;
+  };
+  
 
 export const getTotalGirlsPerYear = async () => {   //  TOTAL NIÑAS POR AÑO
 	const totalGirlsYear = await baseAxios.get('/estadisticas/girls');

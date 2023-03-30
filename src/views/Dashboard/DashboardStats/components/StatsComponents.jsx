@@ -1,8 +1,11 @@
 
 import { useEffect, useState } from 'react';
 import { getCapacityAndMatricula, getTotalGirlsAndBoys } from '../service/dashboard.services';
+import Charts from './Charts';
+import MapComponent from './MapAndBarChart';
+
 import './Stats.scss';
-import MapComponent from './Map';
+
 
 
 const Cards = () => {
@@ -82,6 +85,7 @@ const Cards = () => {
                 </div>
             </div>
             <MapComponent/>
+            <Charts/>
         </div>
 
        
