@@ -1,37 +1,37 @@
 import { useEffect, useState } from 'react';
-import { submisionsApiGet } from '../../GeneralList/service/submision.services';
-import { circulosApiGet } from '../../Circulos/service/circulo.services';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { circulosPositionGet, submisionsPositionGet } from '../service/dashboard.services';
+import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
+
 import L from 'leaflet';
 import './Stats.scss';
-/* 
-require ('../node_modules/leaflet/dist/leaflet.css');
-require ('../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css')
- */
+
 
 const MapComponent = () => {
     const [submisionsLocal, setSubmisionsLocal] = useState([]);
     const [circulosLocal, setCirculosLocal] = useState([]);
-  
 
-    useEffect(() => {
+
+     useEffect(() => {
 		const fetchData = async () => {
-            const submisions = await submisionsApiGet();
-            const circulos = await circulosApiGet();
-            setSubmisionsLocal(submisions);
-            
-            setCirculosLocal(circulos);
-          };
-          fetchData();
-	}, []); 
+            const submisions = await submisionsPositionGet();
+            const circulos = await circulosPositionGet();
+                setSubmisionsLocal(submisions);
+                setCirculosLocal(circulos); 
+            };
+            fetchData();
+          }, []); 
+        
 
       const childIcon = L.icon({ iconUrl: '/public/kid2.png', iconSize: [32, 32], 
       iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
   
-
       const ciIcon = L.icon({ iconUrl: '/public/ci.png', iconSize: [32, 32], 
       iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
+
+                                            
+     
+   
 
 	return (
         <section className='estadisticas'>
@@ -50,43 +50,47 @@ const MapComponent = () => {
                      <div className='row align-items-center'>
 										<div className='col-md-12 '>
 
-											<MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
-                                            
-                                            center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={false} >
-                                                
+										
+                                            <MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
+                                            center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true} >
 												<TileLayer 
 													attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
+                                           
 
-                                                {submisionsLocal.map((submision) => (
-                                                 <Marker key={submision._id} position={submision.child.latlng} icon={childIcon} >
-                                                    <Popup>
+                                            {submisionsLocal.map((submision) => (
+                                            <Marker
+                                                key={submision._id}
+                                                position={submision.child.latlng}
+                                                icon={childIcon}
+                                            >
+                                                <Popup>
                                                     <span className='popup'>
                                                         <h3>{submision.child.childName + submision.child.childLastname}</h3>
                                                         <p>{submision.child.childAddress}</p>
-                                                        <p>Edad: {submision.child.age},  {submision.child.sex}</p>
+                                                        <p>Edad: {submision.child.age}, {submision.child.sex}</p>
                                                     </span>
-                                                    </Popup>
-                                                </Marker>
-                                                ))}
-                                             
+                                                </Popup>
+                                            </Marker>
+                                        ))}
 
-                                           
-                                                 {circulosLocal.map((circulo) => (
-                                                <Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>
+                                        {circulosLocal.map((circulo) => (
+                                            <Marker 
+                                            key={circulo._id} 
+                                            position={circulo.latlng} 
+                                            icon={ciIcon}>
                                                 <Popup>
                                                     <div>
-                                                    <p>CI {circulo.name }</p>¨
+                                                        <p>CI {circulo.name}</p>
                                                     </div>
                                                 </Popup>
-                                                </Marker>
-                                                ))}
-                                               
-                                            
-											</MapContainer>
-                                            
+                                            </Marker>
+                                        ))}
+                       
+                                            </MapContainer>
+                                                                    
 										</div>
 
 									</div>

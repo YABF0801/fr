@@ -1,5 +1,17 @@
 import { baseAxios } from '../../../../api/baseAxios';
 
+export const submisionsPositionGet = async () => {
+	const allSubmisions = await baseAxios.get('/submisions');
+	const submisions = allSubmisions.data.filter(submision => submision.status === 'matricula')
+	return submisions;
+};
+
+export const circulosPositionGet = async () => {
+		const circulos = await baseAxios.get('/circulos/');
+		return circulos.data;
+	};
+	
+
 export const userApiLogout = async () => {
 	const userLoggedOut = await baseAxios.get(`/users/logout`);
 	return userLoggedOut.data; // ?
