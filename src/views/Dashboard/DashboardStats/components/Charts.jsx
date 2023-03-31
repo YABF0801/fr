@@ -1,79 +1,324 @@
-import { useEffect, useState } from 'react';
-import { circulosPositionGet, getAverageAttendance, getCapacityNperYear, getMatriculaPerYear, submisionsPositionGet } from '../service/dashboard.services';
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
+import { useEffect, useState } from 'react'; 
 import 'chart.js/auto';
-
-import L from 'leaflet';
 import './Stats.scss';
-import { Bar } from 'react-chartjs-2';
+import { Radar, Line, Doughnut } from 'react-chartjs-2';
+import { getMatriculaPerYear, getMatriculaPorCp, getOtherChildrenInCi, getRandomColor, getSocialCase, getStatusCount, getSubmisionAprovedByYear, getSubmisionCountByDate, getTotalBoysPerYear, getTotalChildrenPerAge, getTotalGirlsAndBoys, getTotalGirlsPerYear } from '../service/dashboard.services';
 
 const Charts = () => {
-    const [asistencia, setAttendance] = useState([]);
-    const [matricula, setMatricula] = useState([]);
-    const [capacidad, setCapacidad] = useState([]);
- 
+    const [totalchildrenByYear, setTotalchildrenByYear] = useState([]);
+    const [girlsByYear, setGirlsByYear] = useState([]);
+    const [boysByYear, setBoysByYear] = useState([]);
+    const [totalGirlsAndBoys, setTotalGirlsAndBoys] = useState();
+    const [childrenPerAge, setChildrenPerAge] = useState([]);
+    const [totalSocialCase, setTotalSocialCase] = useState(0);
+    const [haveOtherChildren, setHaveOtherChildren] = useState (0);
+    const [statusCount, setStatusCount] = useState ([]);
+    const [matriculaPorCP, setMatriculaPorCP] = useState([]);
+    const [submisionsAddedByYear, setSubmisionsAddedByYear] = useState([]);
+    const [submisionsAprovedByYear, setSubmisionsAprovedByYear] = useState([]);
 
      useEffect(() => {
 		const fetchData = async () => {
-            const attendances = await getAverageAttendance();
-            const matriculas = await getMatriculaPerYear();
-            const capacidades = await getCapacityNperYear();
-                setAttendance(attendances);
-                setMatricula(matriculas)
-                setCapacidad(capacidades)
+            const totalchildren = await getMatriculaPerYear();
+            const girls = await getTotalGirlsPerYear();
+            const boys = await getTotalBoysPerYear();
+            const boysAndGilrs = await getTotalGirlsAndBoys();
+            const childrenAge = await getTotalChildrenPerAge();
+            const socialCase = await getSocialCase();
+            const otherChildren = await getOtherChildrenInCi();
+            const status = await getStatusCount();
+            const matriculaCP = await getMatriculaPorCp();
+            const submisionsAdded = await getSubmisionCountByDate();
+                  const years = [...new Set(submisionsAdded.map(s => s.año))];
+                  const dataAdded = years.map(year => {
+                  const submisionsYear = submisionsAdded.filter(s => s.año === year);
+                  const submisionsByMonth = new Array(12).fill(0);
+                  submisionsYear.forEach(s => {
+                      submisionsByMonth[s.mes - 1] = s.cant;
+                    });
+                    return {
+                      label: `Recibidas ${year.toString()}`,
+                      data: submisionsByMonth,
+                      fill: false,
+                      borderColor: getRandomColor(),
+                    };
+                  });
+            const submisionsAproved = await getSubmisionAprovedByYear();
+                  const dataAproved = years.map(year => {
+                  const submisionsYear = submisionsAproved.filter(s => s.año === year);
+                  const submisionsByMonth = new Array(12).fill(0);
+                  submisionsYear.forEach(s => {
+                    submisionsByMonth[s.mes - 1] = s.cant;
+                  });
+                  return {
+                    label: `Aprobadas ${year.toString()}`,
+                    data: submisionsByMonth,
+                    fill: true,
+                    backgroundColor: getRandomColor(),
+                  };
+                });
+
+            setTotalchildrenByYear(totalchildren);
+            setGirlsByYear(girls)
+            setBoysByYear(boys)
+            setTotalGirlsAndBoys(boysAndGilrs)
+            setChildrenPerAge(childrenAge)
+            setTotalSocialCase(socialCase)
+            setHaveOtherChildren(otherChildren)
+            setStatusCount(status)
+            setMatriculaPorCP(matriculaCP)
+            setSubmisionsAddedByYear(dataAdded);
+            setSubmisionsAprovedByYear(dataAproved)
             };
             fetchData();
           }, []); 
         
-          const barChartData = {
+          const radarChartData = {
             labels: ['2do', '3ro', '4to', '5to', '6to'],
             datasets: [
               {
-                label: 'Porciento de asistencia por año de vida',
-                data: asistencia,
+                label: 'Totales',
+                data: boysByYear,
                 fill: true,
-                backgroundColor: 'rgba(75,192,192,0.5)',
-                borderColor: 'rgba(75,192,192,1)'
+                backgroundColor: 'rgba(225, 179, 104, 0.2)', 
+                borderColor: 'rgba(225, 179, 104, 0.8)', 
+                tension: 0.1, pointBorderWidth:3
               },
               {
-                label: 'Matricula total por año de vida ',
-                data: matricula,
+                label: 'Niñas ',
+                data: girlsByYear,
                 fill: true,
-                backgroundColor: 'rgba(150,192,102,0.5)',
-                borderColor: 'rgba(150,192,102,1)'
+                backgroundColor: 'rgba(225, 129, 124, 0.2)',
+                borderColor: 'rgba(225, 129, 124, 0.8)',
+                tension: 0.1, pointBorderWidth:3
               },
               {
-                label: 'Capacidad normada por año de vida',
-                data: capacidad,
+                label: 'Niños',
+                data: totalchildrenByYear,
                 fill: true,
-                backgroundColor: 'rgba(150,122,102,0.5)',
-                borderColor: 'rgba(150,122,102,1)'
+                backgroundColor: 'rgba(125, 192, 202, 0.2)',
+                borderColor: 'rgba(125, 192, 202, 0.8)',
+                tension: 0.1, pointBorderWidth:3
               }
             ],
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                r: {
+                  ticks: {
+                    beginAtZero: true,
+                    precision: 0 
+                  }
+                }
+              },
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                },
+                title: {
+                  display: true,
+                  text: 'Datos de los niños por año de vida'
+                }
+              }
+            }
+            
           };
+ 
+           const lineChartData = {
+            labels: ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6'],
+            datasets: [
+              {
+                label: '',
+                data: childrenPerAge,
+                fill: true,
+                backgroundColor: 'rgba(75, 162, 180, 0.3)',
+                borderColor: 'rgba(75, 162, 180, 1)',
+                tension: 0.3, pointBorderWidth:3
+              },
+            ],
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                title: {
+                  display: true,
+                  text: 'Cantidad de niños por edades'
+                }
+              },
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                    min: 0,
+                    max: 20,
+                    ticks: {
+                        stepSize: 3
+                    }
+                }
+            }
+            }
+            
+          };
+
+          const lineYearsChartData = {
+            labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            datasets: submisionsAddedByYear.concat(submisionsAprovedByYear),
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: true,
+                },
+                title: {
+                  display: true,
+                  text: 'Solicitudes recibidas y aprobadas por año',
+                },
+              },
+              maintainAspectRatio:false,
+              scales: {
+                y: {
+                  min: 0,
+                  max: 20,
+                  ticks: {
+                    stepSize: 3
+                  }
+                }
+              },
+            }
+          };
+
+          const  doughnutChartData = {
+            labels: matriculaPorCP.labels,
+            datasets: [
+              {
+                data: matriculaPorCP.cant,
+                backgroundColor: 
+                 [
+                  'rgba(255, 159, 64, 0.3)', 
+                    'rgba(75, 192, 192, 0.3)',
+                    'rgba(185, 149, 162, 0.3)',
+                    'rgba(123, 122, 225, 0.3)',
+                    'rgba(54, 162, 235, 0.3)',
+                  ], 
+              },
+            ],
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                },
+                title: {
+                  display: true,
+                  text: 'Matrículas por Consejo Popular',
+                },
+              },
+
+            }
+          };
+      
+ 
  
 	return (
         <section className='estadisticas2'>
 
         <div className='container-main mt-3 '>
             
-            <div className='row mt-3 justify-content-evenly'>
-                <div className='col-md-6 col-xl-6'>
+            <div className='row mt-5 justify-content-evenly'>
+                <div className='col-md-4 col-xl-4'>
     
-               <Bar data={barChartData} />
+               <Radar data={radarChartData} options={radarChartData.options}/>
 
                 </div>
 
                 <div className='col-md-6 col-xl-6'>
                      <div className='row align-items-center'>
-                     <Bar data={barChartData} />
-
+                     <Line data={lineChartData} options={lineChartData.options} />
+                      
 									</div>
                 </div>
 
+                <div className='col-md-1 col-xl-1'>
+                <div className='row '>
+                    <div className='card bg-c-blue2 order-card'>
+                        <div className='card-block'>
+                            <p className='m-b-10'>Casos Sociales</p>
+                            <h4 className='text-right display-5'>
+                                <span>{totalSocialCase}</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
 
-                                                
+                <div className='row '>
+                    <div className='card bg-c-blue2 order-card'>
+                        <div className='card-block'>
+                            <p className='m-b-10'>Familias con más de un niño en el CI</p>
+                            <h4 className='text-right display-5'>
+                                <span>{haveOtherChildren}</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+
+                </div>                           
             </div>
+
+
+            <div className='row mt-5 justify-content-evenly'>
+
+            <div className='col-md-2 col-xl-2'>
+
+            <div className='card bg-c-yellow order-card '>
+                   <div className='order-card  '>
+                        <div className='card-block'>
+                            <p className='m-b-10'>Pendientes</p>
+                            <h4 className='text-right display-5'>
+                                <span>{statusCount[0]}</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className='order-card  '>
+                        <div className='card-block'>
+                            <p className='m-b-10'>Matrículas</p>
+                            <h4 className='text-right display-5'>
+                                <span>{statusCount[1]}</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div className='order-card '>
+                        <div className='card-block'>
+                            <p className='m-b-10'>Bajas</p>
+                            <h4 className='text-right display-5'>
+                                <span>{statusCount[2]}</span>
+                            </h4>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div className='col-md-7 col-xl-7'>
+               <div className='row align-items-center'>
+                 <Line data={lineYearsChartData} options={lineYearsChartData.options} />
+							</div>
+            </div>
+
+            
+            <div className='col-md-3 col-xl-3'>
+               <div className='row align-items-center'>
+                 <Doughnut data={doughnutChartData} options={doughnutChartData.options} /> 
+							</div>
+            </div>
+
+            </div>
+
+
+
         </div>
     </section>
         );

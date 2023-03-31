@@ -37,8 +37,9 @@ const Cards = () => {
         <section className='estadisticas'>
 
         <div className='container-main mt-3 p-3'>
-            
+       
             <div className='row mt-3 justify-content-evenly'>
+               
                 <div className='col-md-3 col-xl-3'>
                     <div className='card bg-c-yellow order-card'>
                         <div className='card-block'>

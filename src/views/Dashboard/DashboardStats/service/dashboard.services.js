@@ -1,5 +1,10 @@
 import { baseAxios } from '../../../../api/baseAxios';
 
+export const userApiLogout = async () => {
+	const userLoggedOut = await baseAxios.get(`/users/logout`);
+	return userLoggedOut.data; // ?
+};
+
 export const submisionsPositionGet = async () => {
 	const allSubmisions = await baseAxios.get('/submisions');
 	const submisions = allSubmisions.data.filter(submision => submision.status === 'matricula')
@@ -10,12 +15,6 @@ export const circulosPositionGet = async () => {
 		const circulos = await baseAxios.get('/circulos/');
 		return circulos.data;
 	};
-	
-
-export const userApiLogout = async () => {
-	const userLoggedOut = await baseAxios.get(`/users/logout`);
-	return userLoggedOut.data; // ?
-};
 
 // CIRCULOS
 export const getMatriculaPerYear = async () => {   // TOTAL MATRICULA POR AÑO
@@ -27,14 +26,20 @@ export const getMatriculaPerYear = async () => {   // TOTAL MATRICULA POR AÑO
 		matriculaYear.totalMatricula4,
 		matriculaYear.totalMatricula5,
 		matriculaYear.totalMatricula6]
-		console.log(matriculaYear)
 		return data;
 };
 
+
 export const getCapacityCperYear = async () => {   // TOTAL CAPACIDADES CALCULADAS POR AÑO
-	const capacityCYear = await baseAxios.get('/estadisticas/capacidad-c');
-	const capacidadCYear = capacityCYear.data;
-	return capacidadCYear;
+	const result = await baseAxios.get('/estadisticas/capacidad-c');
+	const calculatedCapacity = result.data[0];
+	const data = [
+		calculatedCapacity.totalCalculatedCapacity2|| 50, // remove numbers
+		calculatedCapacity.totalCalculatedCapacity3|| 50,
+		calculatedCapacity.totalCalculatedCapacity4|| 50,
+		calculatedCapacity.totalCalculatedCapacity5|| 50,
+		calculatedCapacity.totalCalculatedCapacity6|| 50]
+		return data;
 };
 
 export const getCapacityNperYear = async () => {   // TOTAL CAPACIDADES NORMADAS POR AÑO 
@@ -46,7 +51,6 @@ export const getCapacityNperYear = async () => {   // TOTAL CAPACIDADES NORMADAS
 		capacityNYear.totalNormedCapacity4,
 		capacityNYear.totalNormedCapacity5,
 		capacityNYear.totalNormedCapacity6]
-		console.log(capacityNYear)
 		return data;
 };
 
@@ -63,23 +67,30 @@ export const getAverageAttendance = async () => {
 	  return data;
   };
   
-
 export const getTotalGirlsPerYear = async () => {   //  TOTAL NIÑAS POR AÑO
-	const totalGirlsYear = await baseAxios.get('/estadisticas/girls');
-	const girlsYear = totalGirlsYear.data;
-	return girlsYear;
+	const result = await baseAxios.get('/estadisticas/girls');
+	const totalGirlsYear = result.data[0]; 
+	const data = [
+			totalGirlsYear.totalGirls2 , 
+			totalGirlsYear.totalGirls3 ,
+			totalGirlsYear.totalGirls4 ,
+			totalGirlsYear.totalGirls5 ,
+			totalGirlsYear.totalGirls6 ,
+		  ]
+	return data;
 };
 
 export const getTotalBoysPerYear = async () => {   //  TOTAL NIÑOS POR AÑO
-	const totalBoysYear = await baseAxios.get('/estadisticas/boys');
-	const boysYear = totalBoysYear.data;
-	return boysYear;
-};
-
-export const getTotalGirlsAndBoys = async () => {   //  TOTAL NIÑOS POR AÑO
-	const totalBoysGirls = await baseAxios.get('/estadisticas/boys-girls');
-	const boysAdnGirls = totalBoysGirls.data;
-	return boysAdnGirls;
+	const result = await baseAxios.get('/estadisticas/boys');
+	const totalBoysYear = result.data; 
+	const data = [
+			totalBoysYear.totalBoys2 , 
+			totalBoysYear.totalBoys3 ,
+			totalBoysYear.totalBoys4 ,
+			totalBoysYear.totalBoys5 ,
+			totalBoysYear.totalBoys6 ,
+		  ]
+	return data;
 };
 
 export const getCapacityAndMatricula = async () => {   //  TOTALES GENERALES CAPACIDAD NORMADA Y MATRICULA
@@ -88,37 +99,76 @@ export const getCapacityAndMatricula = async () => {   //  TOTALES GENERALES CAP
 	return capacidadMatricula;
 };
 
+export const getTotalGirlsAndBoys = async () => {   //  TOTAL NIÑOS POR AÑO
+	const totalBoysGirls = await baseAxios.get('/estadisticas/boys-girls');
+	const boysAdnGirls = totalBoysGirls.data;
+	return boysAdnGirls;
+};
 
-//  SUBMISIONS
 export const getTotalChildrenPerAge = async () => {   // CANT niños por edades
-	const totalChildrenPerAge = await baseAxios.get('/estadisticas/childs-age');
-	const childrenPerAge = totalChildrenPerAge.data;
-	return childrenPerAge;
-};
-
-export const getTotalChildrenPerYear = async () => {   // CANT niños por año de vida
-	const totalChildrenPerYear = await baseAxios.get('/estadisticas/childs-year');
-	const childrenPerYear = totalChildrenPerYear.data;
-	return childrenPerYear;
-};
-
-export const getMatriculaPorCp = async () => {   // CANT  matricula cpor consejo popular
-	const totalMatriculaPerCp = await baseAxios.get('/estadisticas/m-cpopular');
-	const matriculaPerCp = totalMatriculaPerCp.data;
-	return matriculaPerCp;
+	const result = await baseAxios.get('/estadisticas/childs-age');
+	const totalChildrenPerAge = result.data; 
+	const data = [
+			totalChildrenPerAge.childs_age0 || 0, 
+			totalChildrenPerAge.childs_age1 || 0,
+			totalChildrenPerAge.childs_age2 || 0,
+			totalChildrenPerAge.childs_age3 || 0,
+			totalChildrenPerAge.childs_age4 || 0,
+			totalChildrenPerAge.childs_age5 || 0,
+		  ]
+	return data;
 };
 
 export const getSocialCase = async () => {   // CANT casos sociales
-	const totalSocialCase = await baseAxios.get('/estadisticas/social');
-	const socialCase = totalSocialCase.data;
+	const result = await baseAxios.get('/estadisticas/social');
+	const socialCase = result.data[0].cant;
 	return socialCase;
 };
 
+export const getOtherChildrenInCi = async () => {   // CANT fammilias que tienen mas de un niño en el circulo 
+	const result = await baseAxios.get('/estadisticas/other-children');
+	const haveOtherChildren = result.data[0].cant;
+	return haveOtherChildren;
+	};
+
 export const getStatusCount = async () => {   // CANT planillas por status
-	const submisionsStatusCount = await baseAxios.get('/estadisticas/status-count');
-	const submisionsByStatus = submisionsStatusCount.data;
-	return submisionsByStatus;
+	const result = await baseAxios.get('/estadisticas/status-count');
+	const submisionsByStatus = result.data; 
+	const data = [
+			submisionsByStatus.pendiente || 0, 
+			submisionsByStatus.matricula || 0,
+			submisionsByStatus.baja || 0,
+		  ]
+	return data;
+	};
+
+
+	export const getSubmisionCountByDate = async () => {   // CANT solicitues registradas por año y por mes
+		const result = await baseAxios.get('/estadisticas/date-count');
+		const submisionsByDate = result.data;
+		return submisionsByDate;
+	};
+
+		export const getSubmisionAprovedByYear = async () => {   // CANT matriculas aprobadas por año
+		const result = await baseAxios.get('/estadisticas/aprove-count');
+		const aprovedByYear = result.data;
+		return aprovedByYear;
+	};
+	
+export const getMatriculaPorCp = async () => {   // CANT  matricula cpor consejo popular
+	const result = await baseAxios.get('/estadisticas/m-cpopular');
+	const matriculaPerCp = result.data;
+    const labels = matriculaPerCp.map((d) => d._id);
+    const cant = matriculaPerCp.map((d) => d.cant);
+	const data = {
+		labels, cant
+	};
+	console.log(data)
+	return data;
 };
+
+
+
 
 export const getOcupationCount = async () => {   // CANT padres por ocupacion
 	const parentsOcupationCount = await baseAxios.get('/estadisticas/ocupation-count');
@@ -126,28 +176,15 @@ export const getOcupationCount = async () => {   // CANT padres por ocupacion
 	return parentsByOcupation;
 };
 
-//
-export const getOtherChildrenInCi = async () => {   // CANT fammilias que tienen mas de un niño en el circulo 
-	const otherChildren = await baseAxios.get('/estadisticas/other-children');
-	const haveOtherChildren = otherChildren.data;
-	return haveOtherChildren;
-};
-
-export const getSubmisionCountByDate = async () => {   // CANT solicitues registradas por año y por mes
-	const submisionsCountByDate = await baseAxios.get('/estadisticas/date-count');
-	const submisionsByDate = submisionsCountByDate.data;
-	return submisionsByDate;
-};
-
-export const getSubmisionAprovedByYear = async () => {   // CANT matriculas aprobadas por año
-	const submisionAprovedByYear = await baseAxios.get('/estadisticas/aprove-count');
-	const aprovedByYear = submisionAprovedByYear.data;
-	return aprovedByYear;
-};
-
-
 export const getSubmisionsByUser = async () => {   // CANT planillas creadas por usuario
 	const submisionsCreatedByUser = await baseAxios.get('/estadisticas/user-count');
 	const submisionsByUser = submisionsCreatedByUser.data;
 	return submisionsByUser;
 };
+
+export const getRandomColor = () => {
+    const colors = ['rgba(255, 159, 64, 0.6)', 'rgba(75, 192, 192, 0.6)','rgba(185, 149, 162, 0.6)','rgba(123, 122, 225, 0.6)','rgba(54, 162, 235, 0.6)',];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+

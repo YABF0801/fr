@@ -4,21 +4,24 @@
 }
 
 .bg-c-green {
-  background: linear-gradient(45deg,#819EA5,#bff5e0);
+  background: linear-gradient(45deg,#819ea5e7,#bff5e0e5);
 }
 
 .bg-c-yellow {
-  background: linear-gradient(45deg,#819EA5,#f0d7b4);
+  background: linear-gradient(45deg,#819ea5e1,#f0d7b4e5);
 }
 
 .bg-c-pink {
-  background: linear-gradient(45deg,#819EA5,#f3cdd3);
+  background: linear-gradient(45deg,#819ea5e5,#f3cdd3e1);
 }
 
 .bg-c-blue {
-  background: linear-gradient(45deg,#819EA5,#cef8fc);
+  background: linear-gradient(45deg,#819ea5e5,#c0e9eee1);
 }
 
+.bg-c-blue2 {
+  background: linear-gradient(45deg,#819ea5e5,#9fc3cce5);
+}
 
 .card, .map-container {
   border-radius: 5px;
