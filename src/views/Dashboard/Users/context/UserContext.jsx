@@ -7,7 +7,7 @@ import { usersApiCreate, usersApiDelete, usersApiGet, usersApiUpdate } from '../
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-	const { data: users } = useQuery({ queryKey: ['users'], queryFn: usersApiGet });
+	const { data: users = null  } = useQuery({ queryKey: ['users'], queryFn: usersApiGet });
 
 	const queryClient = useQueryClient();
 
@@ -41,6 +41,11 @@ export const UserProvider = ({ children }) => {
 		}),
 		[users]
 	);
+
+	if (users === null) {
+		return <div>Cargando users...</div>;
+	  }
+
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 

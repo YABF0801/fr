@@ -111,18 +111,19 @@ const MapComponent = () => {
                 },
                 scales: {
                     x: {
-                      stacked: true, 
+                     /*  stacked: true,  */
                     },
                     y: {
-                      stacked: true, 
+                      /* stacked: true,  */
                       ticks: {
                         beginAtZero: true,
                         stepSize: 1, // ajusta la escala en el eje y a números enteros
+                        suggestedMin: 0,
+                        suggestedMax: 30,
                       }
                     }
                   },
-                  grouped: false, 
-                  barPercentage: 0.8, 
+                  barPercentage: 1, 
                   categoryPercentage: 0.8, 
                   maintainAspectRatio: false
               },
@@ -155,16 +156,15 @@ const MapComponent = () => {
 										<div className='col-md-12 '>
 
 										
-                                            <MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
-                                            center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true} >
-												<TileLayer 
+                     <MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
+                     center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true} >
+												
+                        <TileLayer 
 													attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 												// /Tiles/{z}/{x}/{y}.png  
 												/>
-                                           
-
-                                            
+    
                                             {submisionsLocal.map((submision) => (
                                             <Marker
                                                 key={submision._id}

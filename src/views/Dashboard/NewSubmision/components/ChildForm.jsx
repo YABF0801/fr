@@ -1,9 +1,10 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-
+import L from 'leaflet';
 import { MapContainer, TileLayer} from 'react-leaflet';
-/* import LocationMaker from '../../../../common/LocationMaker/LocationMaker'; */
+import MapMarker from '../../../../common/MapMarker/MapMarker';
+
 
 const ChildSchema = Yup.object().shape({
 	child: Yup.object().shape({
@@ -16,7 +17,7 @@ const ChildSchema = Yup.object().shape({
 		cPopular: Yup.string(),
 		municipality: Yup.string(),
 		province: Yup.string(),
-/* 		latlng: Yup.array().required('Se requiere una ubicación en el mapa'), */
+		latlng: Yup.array(),
 		circulo: Yup.object().when('status', {
 			is: 'matricula',
 			then: Yup.object().shape({
@@ -41,7 +42,7 @@ function ChildForm(submision) {
 				cPopular: childData.cPopular || '',
 				municipality: childData.municipality || 'Isla de la Juventud',
 				province: childData.province || 'Isla de la Juventud',
-			/*	latlng: circulo ? circulo.latlng: [21.72761, -82.834167], */
+				latlng: childData.latlng || null,
 				circulo: childData.circulo || {
 					id: '',
 					name: ''},
@@ -50,6 +51,16 @@ function ChildForm(submision) {
 			validationSchema: ChildSchema
 		});
 
+
+		const markerIcon = L.icon({ iconUrl: '/public/markerBlue.png', iconSize: [32, 32], 
+		iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
+
+		const handleLatlngChange = (value) => {
+			form.setFieldValue('latlng', value);
+			console.log(value)
+		};
+
+	
 	return (      
 
 		<div id='child'>
@@ -207,20 +218,17 @@ function ChildForm(submision) {
 {/*  ****************************************************** */}	
 
 				<div className='col-md-7 p-3'>
-					<MapContainer 
-						style={{ width: '100%', height: '350px'}}
-						center={[21.72761, -82.834167]}
-						zoom={10} scrollWheelZoom={true}>
-							
+				<MapContainer style={{ 	width: '100%', height: '300px' }} center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={true} >
+						<TileLayer
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+							// /Tiles/{z}/{x}/{y}.png  
+							/>
 
-						<TileLayer 
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-							url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
-					{/* 	<LocationMaker /> */}
+							<MapMarker icon={markerIcon} onPositionChange={handleLatlngChange}/>
+				</MapContainer>
 
-					
-						
-					</MapContainer>
+
 				</div>
 			</div>
 		</div>

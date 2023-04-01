@@ -1,11 +1,11 @@
 import { useSubmisionContext } from '../context/SumisionContext';
 import { useEffect, useMemo, useState } from 'react';
-
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useNavigate } from 'react-router-dom';
 import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext';
 import SubmisionWizardForm from '../../NewSubmision/components/SubmisionWizard';
+import { exportExcel } from './Export';
 
 
 const GeneralListTable = () => {
@@ -20,6 +20,22 @@ const GeneralListTable = () => {
     const [hidePhone, setHidePhone] = useState(true);
     const [hideAddress, setHideAddress] = useState(true);
     const [selectedSubmision, setSelectedSubmision] = useState(null);
+ 
+     const handleExport = () => { 
+        const dataset = submisionsLocal.map((item) => ({
+            No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
+            Nombre: item.child.childName + item.child.childLastname,
+            Sexo: item.child.sex,
+            Año_de_vida: item.child.year_of_life,
+            Madre: item.child.parents[0].parentName,
+            Centro_de_Trabajo: item.child.parents[0].workName || '',
+            Dirección: item.child.childAdress,
+            Consejo_Popular: item.child.cPopular,
+            Caso_Social: item.socialCase ? 'X' : '',
+            }));
+
+ 		exportExcel(dataset, 'Planillas', 'Listado') 
+    }; 
 
     useEffect(() => {
 		setSubmisionsLocal(submisions);
@@ -74,9 +90,6 @@ const GeneralListTable = () => {
 		}
 	  };
 
-	  const handleExport = () => {
-		alert('export submisions');
-	  }
 
       const handleHideSocialCase = () => {
 		setHideSocialCase(!hideSocialCase)
@@ -220,7 +233,6 @@ const GeneralListTable = () => {
 		document.getElementById('submision').style.display = "block";
 		}
 
-
     return (
     <section className='list '>
         <div className='container-main mt-3 p-2 pb-5'>
@@ -283,12 +295,13 @@ const GeneralListTable = () => {
 								<i className='bi bi-plus-lg'></i>
 							</a>
 
-                            <button
+
+                           <button
                                 type='excel'
                                 onClick={handleExport}
                                 className='btn export-btn'>
                                 Exportar
-                            </button>
+                            </button> 
 
                             <button
                                 type='button'
@@ -306,7 +319,6 @@ const GeneralListTable = () => {
                             columns={columns}
                             data={submisionsLocal}
                             autoWidth={true}
-                            
                         />
 
 <div className='text-secondary d-flex justify-conten-evenly gap-3'>

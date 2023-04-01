@@ -42,10 +42,6 @@ const OrganismosList = () => {
 		setOrganismosLocal(elements);
 	};
 
-	  const handleExport = () => {
-		alert('export organismos');
-	  }
-
 	const columns = [
 		{
 			name: 'Nombre',
@@ -118,12 +114,7 @@ const OrganismosList = () => {
 								<i className='bi bi-plus-lg'></i>
 								</a>
 
-								<button
-									type='excel'
-									onClick={handleExport}
-									className='btn export-btn'
-								> Exportar
-								</button>
+								
 							</div>
 					</div>
 

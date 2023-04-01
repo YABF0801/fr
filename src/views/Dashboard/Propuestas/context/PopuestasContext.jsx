@@ -12,7 +12,7 @@ import {
 const PropuestasContext = createContext();
 
 export const PropuestasProvider = ({ children }) => {
-	const { data: propuestas } = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
+	const { data: propuestas = null  } = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
 	
 	const queryClient = useQueryClient();
 
@@ -47,6 +47,10 @@ export const PropuestasProvider = ({ children }) => {
 		[propuestas]
 	);
 
+	if (propuestas === null) {
+		return <div>Cargando propuestas...</div>;
+	  }
+	
 	return <PropuestasContext.Provider value={value}>{children}</PropuestasContext.Provider>;
 };
 

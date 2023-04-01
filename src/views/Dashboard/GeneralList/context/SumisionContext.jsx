@@ -13,7 +13,7 @@ import {
 const SubmisionContext = createContext();
 
 export const SubmisionProvider = ({ children }) => {
-	const { data: submisions } = useQuery({ queryKey: ['submision'], queryFn: submisionsApiGet });
+	const { data: submisions = null  } = useQuery({ queryKey: ['submision'], queryFn: submisionsApiGet });
 		
 	const queryClient = useQueryClient();
 
@@ -56,6 +56,9 @@ export const SubmisionProvider = ({ children }) => {
 		[submisions]
 	);
 
+	if (submisions === null) {
+		return <div>Cargando planillas...</div>;
+	  }
 	return <SubmisionContext.Provider value={value}>{children}</SubmisionContext.Provider>;
 };
 

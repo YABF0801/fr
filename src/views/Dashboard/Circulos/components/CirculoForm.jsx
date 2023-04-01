@@ -1,13 +1,13 @@
+import MapMarker from '../../../../common/MapMarker/MapMarker';
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types' 
 import * as Yup from 'yup';
 import { useNavigate } from "react-router-dom"
 import { useCirculoContext } from '../context/CirculoContext';
-
+import L from 'leaflet';
 import {CIRCULOS} from '../../../../core/config/routes/paths';
 import { useEffect } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
-/* import LocationMaker from '../../../../common/LocationMaker/LocationMaker'; */
+import { MapContainer, TileLayer } from 'react-leaflet';
 
 	const CirculoSchema = Yup.object().shape({
 		number: Yup.number().required("Se requiere un numero"),
@@ -22,11 +22,10 @@ import { MapContainer, TileLayer } from "react-leaflet";
 		attendance4: Yup.number().required('Se requiere el % de asistencia'),
 		attendance5: Yup.number().required('Se requiere el % de asistencia'),
 		attendance6: Yup.number().required('Se requiere el % de asistencia'),
-/* 		latlng: Yup.array().required('Se requiere una ubicación en el mapa'), */
+ 		latlng: Yup.array(), 
 	});
 
 function CirculoForm ({circulo}) {
-
 	const { addCirculo, updateCirculo } = useCirculoContext();
 	const navigate = useNavigate()
 
@@ -44,7 +43,7 @@ function CirculoForm ({circulo}) {
 			attendance4: circulo ? circulo.attendance4 : '',
 			attendance5: circulo ? circulo.attendance5 : '',
 			attendance6: circulo ? circulo.attendance6 : '',
-/* 			latlng: circulo ? circulo.latlng: [], */
+			latlng: circulo ? circulo.latlng: null, 
 		},
 
 		onSubmit: async (values, { resetForm }) => {
@@ -71,6 +70,13 @@ function CirculoForm ({circulo}) {
 		}
 	}, [circulo]);
 	
+	  const markerIcon = L.icon({ iconUrl: '/public/marker.png', iconSize: [32, 32], 
+      iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
+	  
+	const handleLatlngChange = (value) => {
+		form.setFieldValue('latlng', value);
+	};
+
     return (
 
 		
@@ -258,17 +264,17 @@ function CirculoForm ({circulo}) {
 									<h6 className="text-secondary mb-3">Busque la ubicación y haga click en el mapa</h6>
 										<div className='col-md-12'>
 
-											<MapContainer className='map-container' style={{ 	width: '100%', height: '300px' }} center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={false}>
-												<TileLayer
-													attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-												// /Tiles/{z}/{x}/{y}.png  
-												/>
-												{/* <LocationMaker/> */}
-											</MapContainer>
-										</div>
+									<MapContainer style={{ 	width: '100%', height: '300px' }} center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={true} >
+										<TileLayer
+											attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+											url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+											// /Tiles/{z}/{x}/{y}.png  
+											/>
 
-									</div>
+											<MapMarker icon={markerIcon} onPositionChange={handleLatlngChange}/>
+										</MapContainer>
+										
+	 									</div>
 
 						</div>
 
@@ -279,7 +285,7 @@ function CirculoForm ({circulo}) {
 						<button type="submit" className="btn save-btn"> Guardar</button>
 
 						</article>
-
+						</div>
 					</form>
 	</div>
 	</div>

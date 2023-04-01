@@ -41,10 +41,6 @@ const UsersList = () => {
             setUsersLocal(elements);
 	};
 
-	  const handleExport = () => {
-		alert('export users');
-	  }
-
 	const columns = [
 		{
 			name: 'Usuario',
@@ -124,12 +120,6 @@ const UsersList = () => {
 								<i className='bi bi-plus-lg'></i>
 								</a>
 
-								<button
-									type='excel'
-									onClick={handleExport}
-									className='btn export-btn'
-								> Exportar
-								</button>
 							</div>
 					</div>
 

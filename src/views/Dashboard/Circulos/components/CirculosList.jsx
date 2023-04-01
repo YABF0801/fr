@@ -5,7 +5,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import CirculoForm from './CirculoForm';
 
 const CirculosList = () => {
-	const { circulos, deleteCirculo } = useCirculoContext();
+	const {circulos, deleteCirculo } = useCirculoContext();
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 	const [hideMatricula, setHideMatricula] = useState(true);
@@ -35,17 +35,6 @@ const CirculosList = () => {
 	  const deleteCirculoById = async (id) => {
 		await deleteCirculo.mutate(id);
 	};
-/* 	  const deleteById = async () => {
-		const circulo = circulos.find((item) => item._id === id);
-		if (circulo) {
-		  setSelectedCirculo(circulo);
-		  setShowDelModal({
-			show: false,
-			id: null,
-		  });
-		}
-	  };
- */
 
 	  const editCirculo = async (id) => {
 		const circulo = circulos.find((item) => item._id === id);

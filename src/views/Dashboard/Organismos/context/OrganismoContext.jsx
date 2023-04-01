@@ -12,7 +12,7 @@ import {
 const OrganismoContext = createContext();
 
 export const OrganismoProvider = ({ children }) => {
-	const { data: organismos } = useQuery({ queryKey: ['organismos'], queryFn: organismosApiGet });
+	const { data: organismos = null } = useQuery({ queryKey: ['organismos'], queryFn: organismosApiGet });
 
 	const queryClient = useQueryClient();
 
@@ -46,6 +46,10 @@ export const OrganismoProvider = ({ children }) => {
 		}),
 		[organismos]
 	);
+
+	if (organismos === null) {
+		return <div>Cargando organismos...</div>;
+	  }
 	return <OrganismoContext.Provider value={value}>{children}</OrganismoContext.Provider>;
 };
 
