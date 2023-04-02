@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
-import { exportExcel } from '../../../../common/Export';
+import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 
 const CirculosList = () => {
 	const {circulos, deleteCirculo } = useCirculoContext();
@@ -13,8 +13,24 @@ const CirculosList = () => {
 	const [hideActive, setHideActive] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
-	
-	const handleExport = () => { 
+
+	const handleExport = () => {
+		const dataset = circulosFullDataset(circulosLocal);
+		exportExcel(dataset, "Circulos", "Listado de Circulos");
+		confirmAlert({
+		  message: `Circulos exportados con éxito`,
+		  buttons: [
+			{
+			  className: "save-btn",
+			  label: "Aceptar",
+			  onClick: () => {},
+			},
+		  ],
+		});
+	  };
+
+	  
+/* 	const handleExport = () => { 
         const dataset = circulosLocal.map((item) => ({
             No: item.number,
             Nombre: item.name ,
@@ -48,7 +64,7 @@ const CirculosList = () => {
         onClick: () => {},
       }]});
     }; 
-
+ */
 	useEffect(() => {
 		setCirculosLocal(circulos);
 		return function cleanUp() {};
