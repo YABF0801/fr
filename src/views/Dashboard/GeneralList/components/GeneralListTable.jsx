@@ -5,6 +5,7 @@ import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useNavigate } from 'react-router-dom';
 import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext';
 import SubmisionWizardForm from '../../NewSubmision/components/SubmisionWizard';
+import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from './Export';
 
 
@@ -53,6 +54,24 @@ const GeneralListTable = () => {
         navigate(PROPUESTAS_LIST);
         document.getElementById("props").style.display = "block";
      };
+
+     const confirmDelete = (row) => {
+		confirmAlert({ 
+		  message: `Va a eliminar la planilla ${row.entryNumber}, ¿está seguro de eliminarla?`,
+		  buttons: [ 
+			{
+				className: 'cancel-btn ',
+			  label: 'Cancelar',
+			  onClick: () => {},
+			},
+			{ className: 'save-btn',
+			  label: 'Eliminar',
+			  onClick: () => deleteSubmisionById(row._id),
+			},
+		  ],
+		  className: 'button-group d-flex justify-content-evenly'
+		});
+	  };
 
 	const deleteSubmisionById = async (id) => {
 		await deleteSubmision.mutate(id);
@@ -211,7 +230,7 @@ const GeneralListTable = () => {
 					</a>
 
 					<button
-						onClick={() => deleteSubmisionById(row._id)}
+						onClick={() => confirmDelete(row)}
 						className='btn btn-sm'
 					><i className='action-btn bi bi-trash-fill'></i>
 					</button>

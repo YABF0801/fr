@@ -1,7 +1,7 @@
 import { useOrganismoContext } from '../context/OrganismoContext';
 import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
-
+import { confirmAlert } from 'react-confirm-alert';
 import OrganismoForm from './OrganismoForm';
 
 const OrganismosList = () => {
@@ -20,6 +20,24 @@ const OrganismosList = () => {
 			setOrganismosLocal(organismos)}
 		return function cleanUp() {};
 	}, [search])
+
+	const confirmDelete = (row) => {
+		confirmAlert({ 
+		  message: `Va a eliminar el organismo ${row.name}, ¿está seguro de eliminarlo?`,
+		  buttons: [ 
+			{
+				className: 'cancel-btn ',
+			  label: 'Cancelar',
+			  onClick: () => {},
+			},
+			{ className: 'save-btn',
+			  label: 'Eliminar',
+			  onClick: () => deleteOrganismoById(row._id),
+			},
+		  ],
+		  className: 'button-group d-flex justify-content-evenly'
+		});
+	  };
 
 	const deleteOrganismoById = async (id) => {
 		await deleteOrganismo.mutate(id);
@@ -73,7 +91,7 @@ const OrganismosList = () => {
 					</a>
 
 					<button
-						onClick={() => deleteOrganismoById(row._id)}
+						onClick={() => confirmDelete(row)}
 						className='btn btn-sm'>
 						<i className='action-btn bi bi-trash-fill'></i>
 					</button>

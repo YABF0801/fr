@@ -1,8 +1,8 @@
 import { useCirculoContext } from '../context/CirculoContext';
 import { useEffect, useMemo, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
-
 import CirculoForm from './CirculoForm';
+import { confirmAlert } from 'react-confirm-alert';
 
 const CirculosList = () => {
 	const {circulos, deleteCirculo } = useCirculoContext();
@@ -31,6 +31,25 @@ const CirculosList = () => {
 				return undefined });
 		setCirculosLocal(elements);
 	  };
+
+	const confirmDelete = (row) => {
+		confirmAlert({ 
+		  message: `Va a eliminar el circulo ${row.name}, ¿está seguro de eliminarlo?`,
+		  buttons: [ 
+			{
+				className: 'cancel-btn ',
+			  label: 'Cancelar',
+			  onClick: () => {},
+			},
+			{ className: 'save-btn',
+			  label: 'Eliminar',
+			  onClick: () => deleteCirculoById(row._id),
+			},
+		  ],
+		  className: 'button-group d-flex justify-content-evenly'
+		});
+	  };
+	  
 
 	  const deleteCirculoById = async (id) => {
 		await deleteCirculo.mutate(id);
@@ -145,21 +164,14 @@ const CirculosList = () => {
 					</a>
 
 					<button
-						onClick={() => deleteCirculoById(row._id)}
+						onClick={() => confirmDelete(row)}
 						className='btn btn-sm'
 					>
 						<i className='action-btn bi bi-trash-fill'></i>
 					</button>
 
-				{/* <button className='btn btn-sm'
-						onClick={() => {handleShowDelModal(row._id)}}>
-						<i className='action-btn bi bi-trash-fill'></i>
-				</button> 
-					
-				<DeleteModal show={showDelModal.show} id={row._id}
-				handleCloseDelModal={handleCloseDelModal} 
-				deleteById={deleteById}  />
-				 */}
+
+
 				 </div>
 				
 			),

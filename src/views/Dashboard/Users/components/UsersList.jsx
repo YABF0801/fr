@@ -2,6 +2,7 @@ import { useUserContext } from '../context/UserContext';
 import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import UserForm from './UserForm';
+import { confirmAlert } from 'react-confirm-alert';
 
 const UsersList = () => {
 	const { users, deleteUser } = useUserContext();
@@ -19,6 +20,25 @@ const UsersList = () => {
 			setUsersLocal(users)}
 		return function cleanUp() {};
 	}, [search])
+
+
+const confirmDelete = (row) => {
+	confirmAlert({ 
+	  message: `Va a eliminar el usuario ${row.nickname}, ¿está seguro de eliminarlo?`,
+	  buttons: [ 
+		{
+			className: 'cancel-btn ',
+		  label: 'Cancelar',
+		  onClick: () => {},
+		},
+		{ className: 'save-btn',
+		  label: 'Eliminar',
+		  onClick: () => deleteUsersById(row._id),
+		},
+	  ],
+	  className: 'button-group d-flex justify-content-evenly'
+	});
+  };
 
 	const deleteUsersById = async (id) => {
 		await deleteUser.mutate(id);
@@ -77,7 +97,7 @@ const UsersList = () => {
 					</a>
 
 					<button
-						onClick={() => deleteUsersById(row._id)}
+						onClick={() => confirmDelete(row)}
 						className='btn btn-sm'
 					>
 						<i className='action-btn bi bi-trash-fill'></i>
