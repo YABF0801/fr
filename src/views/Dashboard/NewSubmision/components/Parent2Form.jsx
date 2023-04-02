@@ -67,8 +67,11 @@ function Parent2Form(submision) {
                                 name='child.parents[1].parentName'
                                 value={form.values.child.parents[1].parentName}
                                 onChange={form.handleChange}
-                            />
-                        </div>
+                                onBlur={form.handleBlur}
+                                /> {form.errors.child?.parents?.[1]?.parentName && form.touched.child?.parents?.[1]?.parentName && (
+                                    <p className='text-danger'>{form.errors.child.parents[1].parentName}</p>
+                                  )}
+                            </div>
 
                         <div className='col-md-4 mb-3'>
                         <input
@@ -79,8 +82,11 @@ function Parent2Form(submision) {
                                 name='child.parents[1].parentLastname'
                                 value={form.values.child.parents[1].parentLastname}
                                 onChange={form.handleChange}
-                            />
-                        </div>
+                                onBlur={form.handleBlur}
+											/>      {form.errors.child?.parents?.[1]?.parentLastname && form.touched.child?.parents?.[1]?.parentLastname && (
+												<p className='text-danger'>{form.errors.child.parents[1].parentLastname}</p>
+											  )}
+										</div>
 
                         <div className='col-md-2 mb-3'>
                         <select
@@ -89,7 +95,10 @@ function Parent2Form(submision) {
                                 name='child.parents[1].typeParent'
                                 value={form.values.child.parents[1].typeParent}
                                 onChange={form.handleChange}
-                            >
+                                onBlur={form.handleBlur}
+                            > {form.errors.child?.parents?.[1]?.typeParent && form.touched.child?.parents?.[1]?.typeParent && (
+                                <p className='text-danger'>{form.errors.child.parents[1].typeParent}</p>
+                              )} 
                                 <option>Parentesco</option>
                                 <option value='madre'>Madre</option>
                                 <option value='padre'>Padre</option>
@@ -107,7 +116,10 @@ function Parent2Form(submision) {
                                 name='child.parents[1].phoneNumber'
                                 value={form.values.child.parents[1].phoneNumber}
                                 onChange={form.handleChange}
-                            />
+                                onBlur={form.handleBlur}
+                            />{form.errors.child?.parents?.[1]?.phoneNumber && form.touched.child?.parents?.[1]?.phoneNumber && (
+                                <p className='text-danger'>{form.errors.child.parents[1].phoneNumber}</p>
+                            )}
                         </div>
 
                     </div>
@@ -125,11 +137,15 @@ function Parent2Form(submision) {
                                         id='convivencia2'
                                         name='child.parents[1].convivencia'
                                         onChange={form.handleChange}
+                                        onBlur={form.handleBlur}
                                         value={form.values.child.parents[1].convivencia}
                                     />
                                         <label htmlFor='convivencia'>
                                             Convive
                                         </label>
+                                        {form.errors.child?.parents?.[1]?.convivencia && form.touched.child?.parents?.[1]?.convivencia && (
+													<p className='text-danger'>{form.errors.child.parents[1].convivencia}</p>
+												)}
                         </div>
 
 
@@ -142,7 +158,10 @@ function Parent2Form(submision) {
                                 name='child.parents[1].parentAddress'
                                 value={form.values.child.parents[1].parentAddress}
                                 onChange={form.handleChange}
-                            />
+                                onBlur={form.handleBlur}
+                            />{form.errors.child?.parents?.[1]?.parentAddress && form.touched.child?.parents?.[1]?.parentAddress && (
+                                <p className='text-danger'>{form.errors.child.parents[1].parentAddress}</p>
+                            )}
                         </div>							
 
                         
@@ -164,6 +183,7 @@ function Parent2Form(submision) {
                                 name="child.parents[1].occupation"
                                 value={form.values.child.parents[1].occupation === 'trabajador'}
                                 onChange={form.handleChange}
+                                onBlur={form.handleBlur}
                                 
                             />
                             <label className="form-check-label" htmlFor="trabajador">
@@ -179,6 +199,7 @@ function Parent2Form(submision) {
                                 name="child.parents[1].occupation"
                                 value={form.values.child.parents[1].occupation === 'jubilado'}
                                 onChange={form.handleChange}
+                                onBlur={form.handleBlur}
                                 />
                             
                             <label className="form-check-label" htmlFor="jubilado">
@@ -194,6 +215,7 @@ function Parent2Form(submision) {
                                 name="child.parents[1].occupation"
                                 value={form.values.child.parents[1].occupation === 'asistenciado'}
                                 onChange={form.handleChange}
+                                onBlur={form.handleBlur}
                                 />
                             
                             <label className="form-check-label" htmlFor="asistenciado">
@@ -209,6 +231,7 @@ function Parent2Form(submision) {
                                 name="child.parents[1].occupation"
                                 value={form.values.child.parents[1].occupation === 'estudiante'}
                                 onChange={form.handleChange}
+                                onBlur={form.handleBlur}
                                 />
                             
                             <label className="form-check-label" htmlFor="estudiante">
@@ -227,7 +250,10 @@ function Parent2Form(submision) {
                                 placeholder='Nombre del centro de trabajo...'
                                 value={form.values.child.parents[1].workName}
                                 onChange={form.handleChange}
-                            />
+                                onBlur={form.handleBlur}
+                            />{form.errors.child?.parents?.[1]?.workName && form.touched.child?.parents?.[1]?.workName && (
+                                <p className='text-danger'>{form.errors.child.parents[1].workName}</p>
+                            )}
                     </div>
 
                     </div>
@@ -247,7 +273,10 @@ function Parent2Form(submision) {
                                 placeholder='Cargo...'
                                 value={form.values.child.parents[1].jobTitle}
                                 onChange={form.handleChange}
-                            />
+                                onBlur={form.handleBlur}
+                            />{form.errors.child?.parents?.[1]?.jobTitle && form.touched.child?.parents?.[1]?.jobTitle && (
+													<p className='text-danger'>{form.errors.child.parents[1].jobTitle}</p>
+												)}
                         </div>		
 
 
@@ -268,7 +297,10 @@ function Parent2Form(submision) {
                                 placeholder='Dirección del centro de trabajo...'
                                 value={form.values.child.parents[1].workAddress}
                                 onChange={form.handleChange}
-                            />
+                                onBlur={form.handleBlur}
+                            />{form.errors.child?.parents?.[1]?.workAddress && form.touched.child?.parents?.[1]?.workAddress && (
+                                <p className='text-danger'>{form.errors.child.parents[1].workAddress}</p>
+                            )}
                         </div>
                         
                         <div className='col-md-2 mb-3'>
@@ -280,7 +312,10 @@ function Parent2Form(submision) {
                                 placeholder='Salario'
                                 value={form.values.child.parents[1].salary}
                                 onChange={form.handleChange}
-                            />
+                                onBlur={form.handleBlur}
+                            />{form.errors.child?.parents?.[1]?.salary && form.touched.child?.parents?.[1]?.salary && (
+                                <p className='text-danger'>{form.errors.child.parents[1].salary}</p>
+                            )}
                         </div>
 
                       

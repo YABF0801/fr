@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
+import { exportExcel } from '../../../../common/Export';
 
 const CirculosList = () => {
 	const {circulos, deleteCirculo } = useCirculoContext();
@@ -11,7 +12,43 @@ const CirculosList = () => {
 	const [hideMatricula, setHideMatricula] = useState(true);
 	const [hideActive, setHideActive] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
-		
+	const [showAttendance, setShowAttendance] = useState(false);
+	
+	const handleExport = () => { 
+        const dataset = circulosLocal.map((item) => ({
+            No: item.number,
+            Nombre: item.name ,
+            Cap2: item.normed_capacity2,
+            Mat2: item.matricula2,
+            H_2: item.girls2,
+            V_2: item.matricula2 - item.girls2,
+			Cap3: item.normed_capacity3,
+            Mat3: item.matricula3,
+            H_3: item.girls3,
+            V_3: item.matricula3 - item.girls3,
+			Cap4: item.normed_capacity4,
+            Mat4: item.matricula4,
+            H_4: item.girls4,
+            V_4: item.matricula4 - item.girls4,
+			Cap5: item.normed_capacity5,
+            Mat5: item.matricula5,
+            H_5: item.girls5,
+            V_5: item.matricula5 - item.girls5,
+			Cap6: item.normed_capacity6,
+            Mat6: item.matricula6,
+            H_6: item.girls6,
+            V_6: item.matricula6 - item.girls6,
+            }));
+
+ 	exportExcel(dataset, 'Circulos', 'Listado de Circulos') 
+     confirmAlert({ 
+      message: `Circulos exportados con éxito`,
+      buttons: [{ className: 'save-btn',
+        label: 'Aceptar',
+        onClick: () => {},
+      }]});
+    }; 
+
 	useEffect(() => {
 		setCirculosLocal(circulos);
 		return function cleanUp() {};
@@ -55,17 +92,15 @@ const CirculosList = () => {
 		await deleteCirculo.mutate(id);
 	};
 
+
 	  const editCirculo = async (id) => {
 		const circulo = circulos.find((item) => item._id === id);
 		if (circulo) {
+			setShowAttendance(true)
 			setSelectedCirculo(circulo);
-		  showForm();
+		 	showForm();
 		}
 	  };
-
-	  const handleExport = () => {
-		alert('export circulos');
-	  }
 
 	  const handleShowMatricula = () => {
 		setHideMatricula(!hideMatricula)
@@ -187,7 +222,6 @@ const CirculosList = () => {
 		document.getElementById("circulo").style.display = "block";
 		}
 
-		
 
 	return (
 		<section className='list '>
@@ -259,7 +293,7 @@ const CirculosList = () => {
 							<h6>V: Cantidad de niños por año </h6></div>
 					</div>
 				</div>
-				<CirculoForm circulo={selectedCirculo}/>
+				<CirculoForm circulo={selectedCirculo} showAttendance={showAttendance}/>
 			</div>
 		
 		</section>

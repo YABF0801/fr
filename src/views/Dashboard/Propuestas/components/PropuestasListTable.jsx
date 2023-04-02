@@ -1,11 +1,10 @@
 import { usePropuestasContext } from '../context/PopuestasContext';
 import { useEffect, useMemo, useState } from 'react';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
-
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { useNavigate } from 'react-router-dom'; 
-
-
+import { confirmAlert } from 'react-confirm-alert';
+import { exportExcel } from '../../../../common/Export';
 
 const PropuestasListTable = () => {
     const navigate = useNavigate();
@@ -14,6 +13,29 @@ const PropuestasListTable = () => {
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
     const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
 	const [search, setSearch] = useState('')
+
+    const handleExport = () => { 
+        const dataset = propuestasLocal.map((item) => ({
+            No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
+            Nombre: item.child.childName + item.child.childLastname,
+            Sexo: item.child.sex,
+            Año_de_vida: item.child.year_of_life,
+            Madre: item.child.parents[0].parentName,
+            Centro_de_Trabajo: item.child.parents[0].workName || '',
+            Dirección: item.child.childAdress,
+            Consejo_Popular: item.child.cPopular,
+            Caso_Social: item.socialCase ? 'X' : '',
+            Circulo: item.child.circulo || ''
+            }));
+
+ 		exportExcel(dataset, 'Propuestas', 'Listado de Propuestas') 
+     confirmAlert({ 
+      message: `Propuestas exportadas con éxito`,
+      buttons: [{ className: 'save-btn',
+        label: 'Aceptar',
+        onClick: () => {},
+      }]});
+    }; 
 
     useEffect(() => {
 		setPropuestasLocal(propuestas);
@@ -59,10 +81,6 @@ const PropuestasListTable = () => {
         console.error(error);
       }
 	};
-  
-	  const handleExport = () => {
-		alert('export submisions');
-	  }
 
          
       const columns = useMemo(
@@ -136,17 +154,15 @@ const PropuestasListTable = () => {
 		{
 			name: ' ',
             cell: (row) => {
-                  if (row.status === 'matricula') {
-                    return <h4 className='text-success '>Matrícula</h4>} 
-                  else if (row.status === 'pendiente') {
-                    return <h4 className='text-secondary '>Pendiente</h4>} 
-                  else if (row.status === 'baja') {
-                    return <h4 className='text-danger '>Baja</h4>} 
-                  else if (row.status === 'propuesta') {
+                   if (row.status === 'propuesta') {
                     return <h4 className='text-info '>Propuesta</h4>} 
                 }, 
 			sortable: true, center: true, 
 		},
+      /*   {
+            name: 'Ciculo', selector: (row) => row.child.circulo, 
+            sortable: true, grow:2, width: '8rem'
+        },  */
 		{
 			name: 'Aceptar', // action buttons
 			cell: (row) => (

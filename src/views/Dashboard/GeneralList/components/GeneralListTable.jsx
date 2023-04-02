@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext';
 import SubmisionWizardForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
-import { exportExcel } from './Export';
+import { exportExcel } from '../../../../common/Export';
 
 
 const GeneralListTable = () => {
@@ -22,6 +22,7 @@ const GeneralListTable = () => {
     const [hideAddress, setHideAddress] = useState(true);
     const [selectedSubmision, setSelectedSubmision] = useState(null);
  
+    
      const handleExport = () => { 
         const dataset = submisionsLocal.map((item) => ({
             No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
@@ -33,9 +34,17 @@ const GeneralListTable = () => {
             Dirección: item.child.childAdress,
             Consejo_Popular: item.child.cPopular,
             Caso_Social: item.socialCase ? 'X' : '',
+            Estado: item.status,
+            Circulo: item.child.circulo || ''
             }));
 
- 		exportExcel(dataset, 'Planillas', 'Listado') 
+ 		exportExcel(dataset, 'Planillas', 'Listado de Planillas') 
+     confirmAlert({ 
+      message: `Planillas exportadas con éxito`,
+      buttons: [{ className: 'save-btn',
+        label: 'Aceptar',
+        onClick: () => {},
+      }]});
     }; 
 
     useEffect(() => {
@@ -220,6 +229,10 @@ const GeneralListTable = () => {
                 }, 
 			sortable: true, center: true, 
 		},
+/*     {
+      name: 'Ciculo', selector: (row) => row.child.circulo, 
+      sortable: true, grow:2, width: '8rem'
+  },  */
 		{
 			name: '', // action buttons
 			cell: (row) => (

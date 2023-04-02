@@ -93,6 +93,7 @@ function SubmisionForm(submision) {
 												name="submisiontype"
 												value={form.values.submisiontype === 'new'}
 												onChange={form.handleChange}
+												 onBlur={form.handleBlur}
 												
 											/>
 											<label className="form-check-label" htmlFor="new">
@@ -108,6 +109,7 @@ function SubmisionForm(submision) {
 											name="submisiontype"
 											value={form.values.submisiontype === 'traslado'}
 											onChange={form.handleChange}
+											 onBlur={form.handleBlur}
 											/>
 											
 											<label className="form-check-label" htmlFor="traslado">
@@ -126,11 +128,13 @@ function SubmisionForm(submision) {
 												id='socialCase'
 												name='socialCase'
 												onChange={form.handleChange}
+												 onBlur={form.handleBlur}
 												value={form.values.socialCase}
 												/>
 												<label htmlFor='socialCase'>
 													Caso Social
 												</label>
+												
 											</div>
 
 {/*  ****************************************************** */}		
@@ -144,6 +148,7 @@ function SubmisionForm(submision) {
 													name='entryNumber'
 													value={form.values.entryNumber}
 													onChange={form.handleChange}
+													 onBlur={form.handleBlur}
 												/>										
 											</div>
 
@@ -162,6 +167,7 @@ function SubmisionForm(submision) {
 										name="ciPedido"
 										value={form.values.ciPedido}
 										onChange={form.handleChange}
+										 onBlur={form.handleBlur}
 									>
 										<option className='text-center'>------ Seleccione -------</option>								
 										<option value="">Select an option</option>
@@ -180,6 +186,7 @@ function SubmisionForm(submision) {
 											placeholder="Escriba el motivo de la solicitud..."
 											value={form.values.motive}
 											onChange={form.handleChange}
+											 onBlur={form.handleBlur}
 										></textarea>
 							</div>
 
@@ -197,7 +204,10 @@ function SubmisionForm(submision) {
 										name='child.circulo'
 										value={form.values.child.circulo}
 										onChange={form.handleChange}
+										 onBlur={form.handleBlur}
 									>
+										{form.errors.child.circulo && form.touched.child.circulo ? <p className='text-danger'>{form.errors.child.circulo}</p> : null}
+										
 										<option className='text-center'>------ Seleccione -------</option>
 										<option value="option1">circulos</option>
 									</select>

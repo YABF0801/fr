@@ -65,7 +65,7 @@ function ChildForm(submision) {
 
 		<div id='child'>
 		<h3 className='text-center text-secondary'>Datos del menor</h3>
-		<h6 className="text-secondary mb-4">Llene la infomración personal del menor, proporcione la dirección particular y ubicación geográfica</h6>
+		<h6 className="text-secondary mb-4">Llene la informmación personal del menor, proporcione la dirección particular y ubicación geográfica</h6>
 
 
 		<div className='form-group '>
@@ -79,7 +79,9 @@ function ChildForm(submision) {
 						placeholder='Nombre(s)'
 						value={form.values.child.childName}
 						onChange={form.handleChange}
+						onBlur={form.handleBlur}
 					/>
+					{form.errors.child.childName && form.touched.child.childName ? <p className='text-danger'>{form.errors.child.childName}</p> : null}
 				</div>
 
 				<div className='col-md-4 '>
@@ -91,7 +93,9 @@ function ChildForm(submision) {
 						placeholder='Apellidos'
 						value={form.values.child.childLastname}
 						onChange={form.handleChange}
+						onBlur={form.handleBlur}
 					/>
+					{form.errors.child.childLastname && form.touched.child.childLastname ? <p className='text-danger'>{form.errors.child.childLastname}</p> : null}
 				</div>
 
 				<div className='col-md-3 '>
@@ -103,7 +107,9 @@ function ChildForm(submision) {
 						placeholder='CI'
 						value={form.values.child.carnet}
 						onChange={form.handleChange}
+						onBlur={form.handleBlur}
 					/>
+					{form.errors.child.carnet && form.touched.child.carnet ? <p className='text-danger'>{form.errors.child.carnet}</p> : null}
 				</div>
 
 				<div className='col-md-2 '>
@@ -113,7 +119,9 @@ function ChildForm(submision) {
 						name='child.year_of_life'
 						value={form.values.child.year_of_life}
 						onChange={form.handleChange}
-					>
+						onBlur={form.handleBlur}
+					>{form.errors.child.year_of_life && form.touched.child.year_of_life ? <p className='text-danger'>{form.errors.child.year_of_life}</p> : null}
+
 						<option>Año de vida</option>
 						<option value='1'>2</option>
 						<option value='2'>3</option>
@@ -144,7 +152,9 @@ function ChildForm(submision) {
 						placeholder='Direccion...'
 						value={form.values.child.childAdress}
 						onChange={form.handleChange}
+						onBlur={form.handleBlur}
 					></textarea>
+					{form.errors.child.childAdress && form.touched.child.childAdress ? <p className='text-danger'>{form.errors.child.childAdress}</p> : null}
 				</div>
 
 		
@@ -157,7 +167,9 @@ function ChildForm(submision) {
 							name='child.neighborhood'
 							value={form.values.child.neighborhood}
 							onChange={form.handleChange}
+							onBlur={form.handleBlur}
 						/>
+						{form.errors.child.neighborhood && form.touched.child.neighborhood ? <p className='text-danger'>{form.errors.child.neighborhood}</p> : null}
 					</div>
 
 					<div className='mb-3'>
@@ -167,7 +179,9 @@ function ChildForm(submision) {
 							name='child.cPopular'
 							value={form.values.child.cPopular}
 							onChange={form.handleChange}
-						>
+							onBlur={form.handleBlur}
+						>{form.errors.child.cPopular && form.touched.child.cPopular ? <p className='text-danger'>{form.errors.child.cPopular}</p> : null}
+
 							<option value=''>Consejo Popular</option>
 							<option value='1'>Micro 70</option>
 							<option value='2'>Abel Santamaría</option>
@@ -193,7 +207,9 @@ function ChildForm(submision) {
 							name='child.municipality'
 							value={form.values.child.municipality}
 							onChange={form.handleChange}
-						>
+							onBlur={form.handleBlur}
+						> {form.errors.child.municipality && form.touched.child.municipality ? <p className='text-danger'>{form.errors.child.municipality}</p> : null}
+
 							<option value=''>Municipio</option>
 							<option value='1'>Isla de la Juventud</option>
 						</select>
@@ -206,7 +222,9 @@ function ChildForm(submision) {
 							name='child.province'
 							value={form.values.child.province}
 							onChange={form.handleChange}
-						>
+							onBlur={form.handleBlur}
+						>{form.errors.child.province && form.touched.child.province ? <p className='text-danger'>{form.errors.child.province}</p> : null}
+
 							<option value=''>Provincia</option>
 							<option value='1'>Isla de la Juventud</option>
 						</select>
@@ -218,12 +236,18 @@ function ChildForm(submision) {
 {/*  ****************************************************** */}	
 
 				<div className='col-md-7 p-3'>
-				<MapContainer style={{ 	width: '100%', height: '300px' }} center={[21.72761, -82.834167]} zoom={10} scrollWheelZoom={true} >
-						<TileLayer
-							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-							url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-							// /Tiles/{z}/{x}/{y}.png  
-							/>
+				<MapContainer 
+				className='map-container' style={{ width: '100%', height: '400px' }}
+				center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true}
+				minZoom={9} maxBounds={[
+					[21.410303, -83.269720], // Suroeste
+					[21.961168, -82.531547], // Noreste
+				  ]} >
+						<TileLayer 
+						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+						url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+						// /Tiles/{z}/{x}/{y}.png  
+						/>
 
 							<MapMarker icon={markerIcon} onPositionChange={handleLatlngChange}/>
 				</MapContainer>

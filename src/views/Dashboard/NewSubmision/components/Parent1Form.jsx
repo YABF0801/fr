@@ -94,7 +94,10 @@ function Parent1Form(submision) {
 												name='child.parents[0].parentName'
 												value={form.values.child.parents[0].parentName}
 												onChange={form.handleChange}
-											/>
+												onBlur={form.handleBlur}
+											/> {form.errors.child?.parents?.[0]?.parentName && form.touched.child?.parents?.[0]?.parentName && (
+												<p className='text-danger'>{form.errors.child.parents[0].parentName}</p>
+											  )}
 										</div>
 
 										<div className='col-md-4 '>
@@ -106,7 +109,10 @@ function Parent1Form(submision) {
 												name='child.parents[0].parentLastname'
 												value={form.values.child.parents[0].parentLastname}
 												onChange={form.handleChange}
-											/>
+												onBlur={form.handleBlur}
+											/>      {form.errors.child?.parents?.[0]?.parentLastname && form.touched.child?.parents?.[0]?.parentLastname && (
+												<p className='text-danger'>{form.errors.child.parents[0].parentLastname}</p>
+											  )}
 										</div>
 
 										<div className='col-md-2 '>
@@ -116,7 +122,11 @@ function Parent1Form(submision) {
 												name='child.parents[0].typeParent'
 												value={form.values.child.parents[0].typeParent}
 												onChange={form.handleChange}
-											>
+												onBlur={form.handleBlur}
+											> {form.errors.child?.parents?.[0]?.typeParent && form.touched.child?.parents?.[0]?.typeParent && (
+												<p className='text-danger'>{form.errors.child.parents[0].typeParent}</p>
+											  )} 
+											  
 												<option>Parentesco</option>
 												<option value='madre'>Madre</option>
 												<option value='padre'>Padre</option>
@@ -133,6 +143,7 @@ function Parent1Form(submision) {
 														id='uniqueParent1'
 														name='child.parents[0].uniqueParent'
 														onChange={form.handleChange}
+														onBlur={form.handleBlur}
 														value={form.values.child.parents[0].uniqueParent}
 													/>
 													<label htmlFor='uniqueParent1'>
@@ -155,9 +166,13 @@ function Parent1Form(submision) {
 														id='convivencia1'
 														name='child.parents[0].convivencia'
 														onChange={form.handleChange}
+														onBlur={form.handleBlur}
 														value={form.values.child.parents[0].convivencia}
 													/>
 													<label htmlFor='convivencia1'>Convive</label>
+													{form.errors.child?.parents?.[0]?.convivencia && form.touched.child?.parents?.[0]?.convivencia && (
+													<p className='text-danger'>{form.errors.child.parents[0].convivencia}</p>
+												)}
 										</div>
 
 
@@ -170,7 +185,11 @@ function Parent1Form(submision) {
 												name='child.parents[0].parentAddress'
 												value={form.values.child.parents[0].parentAddress}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.parentAddress && form.touched.child?.parents?.[0]?.parentAddress && (
+													<p className='text-danger'>{form.errors.child.parents[0].parentAddress}</p>
+												)}
 										</div>
 
 										
@@ -183,7 +202,11 @@ function Parent1Form(submision) {
 												name='child.parents[0].phoneNumber'
 												value={form.values.child.parents[0].phoneNumber}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.phoneNumber && form.touched.child?.parents?.[0]?.phoneNumber && (
+													<p className='text-danger'>{form.errors.child.parents[0].phoneNumber}</p>
+												)}
 										</div>
 										
 									</div>
@@ -204,6 +227,7 @@ function Parent1Form(submision) {
 												name="child.parents[0].occupation"
 												value={form.values.child.parents[0].occupation === 'trabajador'}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												
 											/>
 											<label className="form-check-label" htmlFor="trabajador1">
@@ -219,6 +243,7 @@ function Parent1Form(submision) {
 												name="child.parents[0].occupation"
 												value={form.values.child.parents[0].occupation === 'jubilado'}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												/>
 												
 											<label className="form-check-label" htmlFor="jubilado1">
@@ -234,6 +259,7 @@ function Parent1Form(submision) {
 												name="child.parents[0].occupation"
 												value={form.values.child.parents[0].occupation === 'asistenciado'}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												/>
 											
 											<label className="form-check-label" htmlFor="asistenciado1">
@@ -249,6 +275,7 @@ function Parent1Form(submision) {
 												name="child.parents[0].occupation"
 												value={form.values.child.parents[0].occupation === 'estudiante'}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												/>
 											
 											<label className="form-check-label" htmlFor="estudiante1">
@@ -267,7 +294,11 @@ function Parent1Form(submision) {
 												placeholder='Nombre del centro de trabajo...'
 												value={form.values.child.parents[0].workName}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.workName && form.touched.child?.parents?.[0]?.workName && (
+													<p className='text-danger'>{form.errors.child.parents[0].workName}</p>
+												)}
 									</div>
 
 									</div>
@@ -285,7 +316,12 @@ function Parent1Form(submision) {
 												name='child.parents[0].organismo'
 												value={form.values.child.parents[0].organismo}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											>
+													{form.errors.child?.parents?.[0]?.organismo && form.touched.child?.parents?.[0]?.organismo && (
+													<p className='text-danger'>{form.errors.child.parents[0].organismo}</p>
+												)}
+
 												<option>Organismo</option>
 												<option value=''>organismos</option>
 											</select>
@@ -300,7 +336,11 @@ function Parent1Form(submision) {
 												placeholder='Cargo...'
 												value={form.values.child.parents[0].jobTitle}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.jobTitle && form.touched.child?.parents?.[0]?.jobTitle && (
+													<p className='text-danger'>{form.errors.child.parents[0].jobTitle}</p>
+												)}
 										</div>
 		
 
@@ -321,7 +361,11 @@ function Parent1Form(submision) {
 												placeholder='Dirección del centro de trabajo...'
 												value={form.values.child.parents[0].workAddress}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.workAddress && form.touched.child?.parents?.[0]?.workAddress && (
+													<p className='text-danger'>{form.errors.child.parents[0].workAddress}</p>
+												)}
 										</div>		
 										
 										<div className='col-md-2 '>
@@ -333,7 +377,11 @@ function Parent1Form(submision) {
 												placeholder='Salario'
 												value={form.values.child.parents[0].salary}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.salary && form.touched.child?.parents?.[0]?.salary && (
+													<p className='text-danger'>{form.errors.child.parents[0].salary}</p>
+												)}
 										</div>
 
 										
@@ -354,11 +402,13 @@ function Parent1Form(submision) {
 												id='otherChildrenInCi1'
 												name='child.parents[0].otherChildrenInCi'
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												value={form.values.child.parents[0].otherChildrenInCi}
 												/>
 												<label htmlFor='otherChildrenInCi1'>
 													Tiene otros niños en círculo?
 												</label>
+												
 											</div>
 
 
@@ -371,7 +421,11 @@ function Parent1Form(submision) {
 												placeholder='Cantidad'
 												value={form.values.child.parents[0].numberOfOtherChildrenInCi}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 											/>
+											{form.errors.child?.parents?.[0]?.numberOfOtherChildrenInCi && form.touched.child?.parents?.[0]?.numberOfOtherChildrenInCi && (
+													<p className='text-danger'>{form.errors.child.parents[0].numberOfOtherChildrenInCi}</p>
+												)}
 										</div>
 
 
@@ -382,7 +436,11 @@ function Parent1Form(submision) {
 												name='child.parents[0].otherChildrenCenter'
 												value={form.values.child.parents[0].otherChildrenCenter}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												>
+													{form.errors.child?.parents?.[0]?.otherChildrenCenter && form.touched.child?.parents?.[0]?.otherChildrenCenter && (
+													<p className='text-danger'>{form.errors.child.parents[0].otherChildrenCenter}</p>
+												)}
 												<option className='text-center' value=""> Seleccione el centro</option>								
 												<option value="">otherChildrenCenter</option>
 												
@@ -398,6 +456,7 @@ function Parent1Form(submision) {
 												name='child.parents[0].pregnant'
 												value={form.values.child.parents[0].pregnant}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												
 												/>
 											<label className="form-check-label" htmlFor="pregnant1">
@@ -413,6 +472,7 @@ function Parent1Form(submision) {
 												name='child.parents[0].deaf'
 												value={form.values.child.parents[0].deaf}
 												onChange={form.handleChange}
+												onBlur={form.handleBlur}
 												/>
 											
 											<label className="form-check-label" htmlFor="deaf1">

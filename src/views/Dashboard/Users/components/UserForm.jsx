@@ -86,11 +86,11 @@ function UserForm({ user }) {
 										name='name'
 										id='name'
 										placeholder='Nombre'
-										required
-                    onChange={form.handleChange}
+                   						onChange={form.handleChange}
 										value={form.values.name}
+										onBlur={form.handleBlur}
 									/>
-									{form.errors.name ? <p>{form.errors.name}</p> : null}
+									{form.errors.name && form.touched.name ? <p className='text-danger'>{form.errors.name}</p> : null}
 								</div>
 
              				   <div className='col-md-7 mb-3'>
@@ -100,11 +100,11 @@ function UserForm({ user }) {
 										name='lastname'
 										id='lastname'
 										placeholder='Apellidos'
-										required
-                   				 onChange={form.handleChange}
+                   				 		onChange={form.handleChange}
 										value={form.values.lastname}
+										onBlur={form.handleBlur}
 									/>
-									{form.errors.lastname ? <p>{form.errors.lastname}</p> : null}
+									{form.errors.lastname && form.touched.lastname ? <p className='text-danger'>{form.errors.lastname}</p> : null}
 								</div>
 
 							</div>
@@ -120,11 +120,11 @@ function UserForm({ user }) {
 									name='position'
 									id='position'
 									placeholder='Cargo que ocupa en la empresa'
-									required
-								onChange={form.handleChange}
-								value={form.values.position}
+									onChange={form.handleChange}
+									value={form.values.position}
+									onBlur={form.handleBlur}
 								/>
-								{form.errors.position ? <p>{form.errors.position}</p> : null}
+								{form.errors.position && form.touched.position ? <p className='text-danger'>{form.errors.position}</p> : null}
 							</div>
 
 								</div>
@@ -142,11 +142,11 @@ function UserForm({ user }) {
 										name='nickname'
 										id='nickname'
 										placeholder='Usuario'
-										required
 										onChange={form.handleChange}
 										value={form.values.nickname}
+										onBlur={form.handleBlur}
 									/>
-									{form.errors.nickname ? <p>{form.errors.nickname}</p> : null}
+									{form.errors.nickname && form.touched.nickname ? <p className='text-danger'>{form.errors.nickname}</p> : null}
 								</div>
 
 								<div className='col-md-4 mb-3'>
@@ -156,10 +156,11 @@ function UserForm({ user }) {
 										name='password'
 										id='password'
 										placeholder='Contraseña'
-									onChange={form.handleChange}
-									value={form.values.password}
+										onChange={form.handleChange}
+										value={form.values.password}
+										onBlur={form.handleBlur}
 									/>
-									{form.errors.password ? <p>{form.errors.password}</p> : null}
+									{form.errors.password && form.touched.password ? <p className='text-danger'>{form.errors.password}</p> : null}
 								</div>
 
 								<div className='col-md-4 mb-3 form-check form-switch '>

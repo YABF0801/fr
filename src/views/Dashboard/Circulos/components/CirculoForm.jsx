@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom"
 import { useCirculoContext } from '../context/CirculoContext';
 import L from 'leaflet';
 import {CIRCULOS} from '../../../../core/config/routes/paths';
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { MapContainer, TileLayer } from 'react-leaflet';
+
 
 	const CirculoSchema = Yup.object().shape({
 		number: Yup.number().required("Se requiere un numero"),
@@ -17,16 +18,33 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 		normed_capacity4: Yup.number().required('Se requiere la capacidad'),
 		normed_capacity5: Yup.number().required('Se requiere la capacidad'),
 		normed_capacity6: Yup.number().required('Se requiere la capacidad'),
-		attendance2: Yup.number().required('Se requiere el % de asistencia'),
-		attendance3: Yup.number().required('Se requiere el % de asistencia'),
-		attendance4: Yup.number().required('Se requiere el % de asistencia'),
-		attendance5: Yup.number().required('Se requiere el % de asistencia'),
-		attendance6: Yup.number().required('Se requiere el % de asistencia'),
+		attendance2: Yup.number().when('showAttendance', {
+			is: true,
+			then: Yup.number().required('Se requiere asistencia'),
+		  }),
+		  attendance3: Yup.number().when('showAttendance', {
+			is: true,
+			then: Yup.number().required('Se requiere asistencia'),
+		  }),
+		  attendance4: Yup.number().when('showAttendance', {
+			is: true,
+			then: Yup.number().required('Se requiere asistencia'),
+		  }),
+		  attendance5: Yup.number().when('showAttendance', {
+			is: true,
+			then: Yup.number().required('Se requiere asistencia'),
+		  }),
+		  attendance6: Yup.number().when('showAttendance', {
+			is: true,
+			then: Yup.number().required('Se requiere asistencia'),
+		  }),
  		latlng: Yup.array(), 
 	});
 
-function CirculoForm ({circulo}) {
+function CirculoForm ({circulo, showAttendance}) {
+	console.log(showAttendance)
 	const { addCirculo, updateCirculo } = useCirculoContext();
+
 	const navigate = useNavigate()
 
 	const form = useFormik({
@@ -38,11 +56,11 @@ function CirculoForm ({circulo}) {
 			normed_capacity4: circulo ? circulo.normed_capacity4 : '',
 			normed_capacity5: circulo ? circulo.normed_capacity5 : '',
 			normed_capacity6: circulo ? circulo.normed_capacity6 : '',
-			attendance2: circulo ? circulo.attendance2 : '',
-			attendance3: circulo ? circulo.attendance3 : '',
-			attendance4: circulo ? circulo.attendance4 : '',
-			attendance5: circulo ? circulo.attendance5 : '',
-			attendance6: circulo ? circulo.attendance6 : '',
+			attendance2: circulo ? circulo.attendance2 : 0,
+			attendance3: circulo ? circulo.attendance3 : 0,
+			attendance4: circulo ? circulo.attendance4 : 0,
+			attendance5: circulo ? circulo.attendance5 : 0,
+			attendance6: circulo ? circulo.attendance6 : 0,
 			latlng: circulo ? circulo.latlng: null, 
 		},
 
@@ -53,6 +71,7 @@ function CirculoForm ({circulo}) {
 		if (circulo) {
 			await updateCirculo.mutate({...values});
 		} else {
+			console.log(formData)
 			await addCirculo.mutate(formData);
 		}
 			resetForm();
@@ -98,9 +117,10 @@ function CirculoForm ({circulo}) {
 										placeholder='#'
 										value={form.values.number}
 										onChange={form.handleChange}
+										onBlur={form.handleBlur}
 										autoFocus
 									/>
-									{form.errors.number ? <p className='text-danger'>{form.errors.number}</p> : null}
+									{form.errors.number && form.touched.number ? <p className='text-danger'>{form.errors.number}</p> : null}
 								</div>
 
 								<div className='col-md-9 mb-3'>
@@ -111,8 +131,9 @@ function CirculoForm ({circulo}) {
 										placeholder='Nombre del círculo'
 										value={form.values.name}
 										onChange={form.handleChange}
+										onBlur={form.handleBlur}
 									/>
-									{form.errors.name ? <p className='text-danger'>{form.errors.name}</p> : null}
+									{form.errors.name && form.touched.name ? <p className='text-danger'>{form.errors.name}</p> : null}
 								</div>
 							</div>
 						</div>
@@ -131,8 +152,9 @@ function CirculoForm ({circulo}) {
                                             placeholder='2do'
 											value={form.values.normed_capacity2}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.normed_capacity2 ? <p className='text-danger'>{form.errors.normed_capacity2}</p> : null}
+										{form.errors.normed_capacity2 && form.touched.normed_capacity2 ? <p className='text-danger'>{form.errors.normed_capacity2}</p> : null}
 									</div>
 
 									<div >
@@ -144,8 +166,9 @@ function CirculoForm ({circulo}) {
                                             placeholder='3ro'
 											value={form.values.normed_capacity3}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.normed_capacity3 ? <p className='text-danger'>{form.errors.normed_capacity3}</p> : null}
+										{form.errors.normed_capacity3 && form.touched.normed_capacity3 ? <p className='text-danger'>{form.errors.normed_capacity3}</p> : null}
 									</div>
 
 									<div >
@@ -157,8 +180,9 @@ function CirculoForm ({circulo}) {
 											placeholder='4to'
 											value={form.values.normed_capacity4}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.normed_capacity4 ? <p className='text-danger'>{form.errors.normed_capacity4}</p> : null}
+										{form.errors.normed_capacity4 && form.touched.normed_capacity4 ? <p className='text-danger'>{form.errors.normed_capacity4}</p> : null}
 										</div>
 
 										<div >
@@ -170,8 +194,9 @@ function CirculoForm ({circulo}) {
 											placeholder='5to'
 											value={form.values.normed_capacity5}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.normed_capacity5 ? <p className='text-danger'>{form.errors.normed_capacity5}</p> : null}
+										{form.errors.normed_capacity5 && form.touched.normed_capacity5 ? <p className='text-danger'>{form.errors.normed_capacity5}</p> : null}
 										</div>
 
 										<div >
@@ -183,16 +208,19 @@ function CirculoForm ({circulo}) {
 											placeholder='6to'
 											value={form.values.normed_capacity6}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.normed_capacity6 ? <p className='text-danger'>{form.errors.normed_capacity6}</p> : null}
+										{form.errors.normed_capacity6 && form.touched.normed_capacity6 ? <p className='text-danger'>{form.errors.normed_capacity6}</p> : null}
 										</div>
 								</div>
                                 </div>
 
+								{showAttendance ? (
 								<div className='row '>
                         		<h6 className="text-secondary mt-3 mb-3">Escriba el porciento de asistencia para cada año de vida</h6>
 								<div className='d-flex mb-2 gap-3 justify-content-between'>
- 									<div >
+								
+									<div >
 										<input
 											type='number'
 											className='form-control '
@@ -201,8 +229,9 @@ function CirculoForm ({circulo}) {
                                             placeholder='% 2do'
 											value={form.values.attendance2}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.attendance2 ? <p className='text-danger'>{form.errors.attendance2}</p> : null}
+										 {form.touched.attendance2 && form.errors.attendance2 ?  <p className='text-danger'>{form.errors.attendance2}</p> : null}
 									</div>
 
 									<div >
@@ -214,8 +243,9 @@ function CirculoForm ({circulo}) {
                                             placeholder='% 3ro'
 											value={form.values.attendance3}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.attendance3 ? <p className='text-danger'>{form.errors.attendance3}</p> : null}
+										{form.touched.attendance3 && form.errors.attendance3 ? <p className='text-danger'>{form.errors.attendance3}</p> : null}
 									</div>
 
 									<div >
@@ -227,8 +257,9 @@ function CirculoForm ({circulo}) {
 											placeholder='% 4to'
 											value={form.values.attendance4}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.attendance4 ? <p className='text-danger'>{form.errors.attendance4}</p> : null}
+										{form.touched.attendance4 && form.errors.attendance4 ? <p className='text-danger'>{form.errors.attendance4}</p> : null}
 										</div>
 
 										<div >
@@ -240,8 +271,9 @@ function CirculoForm ({circulo}) {
 											placeholder='% 5to'
 											value={form.values.attendance5}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.attendance5 ? <p className='text-danger'>{form.errors.attendance5}</p> : null}
+										{form.touched.attendance5 && form.errors.attendance5 ? <p className='text-danger'>{form.errors.attendance5}</p> : null}
 										</div>
 
 										<div >
@@ -253,11 +285,12 @@ function CirculoForm ({circulo}) {
 											placeholder='% 6to'
 											value={form.values.attendance6}
 											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										{form.errors.attendance6 ? <p className='text-danger'>{form.errors.attendance6}</p> : null}
+										{form.touched.attendance6 && form.errors.attendance6 ? <p className='text-danger'>{form.errors.attendance6}</p> : null}
 										</div>
 								</div>
-								</div>
+								</div> ) : null}
 
 								<div className='row align-items-center'>
 									<h3 className='text-secondary mt-3'>Ubicación geográfica</h3>

@@ -1,10 +1,11 @@
 // FIX THIS NAVBAR AND TRY TO FIX TOGGLE TOO
 import { Tooltip } from 'react-tooltip';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 // import { useState } from 'react';
 
 import {
-	/* HOME */ DASHBOARD,
+	HOME, 
+	DASHBOARD,
 	CIRCULOS,
 	GENERAL_LIST,
 	NEW_SUBMISISON,
@@ -15,8 +16,29 @@ import {
 } from '../../core/config/routes/paths';
 
 import './Navbar.scss';
+import { confirmAlert } from 'react-confirm-alert';
 
 const Navbar = () => {
+	const navigate = useNavigate();
+
+	const confirmExit = (row) => {
+		confirmAlert({ 
+			title: `Cerrar sesión`,
+		  buttons: [ 
+			{
+				className: 'cancel-btn ',
+			  label: 'Cancelar',
+			  onClick: () => {},
+			},
+			{ className: 'save-btn',
+			  label: 'Salir',
+			  onClick: () =>  navigate("/"),
+			},
+		  ],
+		  className: 'button-group d-flex justify-content-evenly'
+		});
+	  };
+	  
 
 	return (
 		<nav className='navbar navbar-expand-sm sticky-top bg-light shadow-sm '>
@@ -118,12 +140,12 @@ const Navbar = () => {
 							<i className='inav bi-question-lg' data-tooltip-id="tooltip" data-tooltip-content="Ayuda"></i>
 						</Link>
 
-						<Link
+						<a
 							className='nav-link link text-success text-primary '
-							to='/'
+							onClick={() => confirmExit()}
 						>
 							<i className='inav bi bi-box-arrow-in-right' data-tooltip-id="tooltip" data-tooltip-content="Cerrar Sesión" ></i>
-						</Link>
+						</a>
 					</ul>
 				</div>
 			</div>

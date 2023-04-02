@@ -71,9 +71,10 @@ function OrganismoForm ({ organismo }) {
                                 placeholder='Nombre'
                                 value={form.values.name}
                                 onChange={form.handleChange}
+                                onBlur={form.handleBlur}
                                 autoFocus
                               />
-                              {form.errors.name ? <p className='text-danger'>{form.errors.name}</p> : null}
+                              {form.errors.name && form.touched.name ? <p className='text-danger'>{form.errors.name}</p> : null}
                           </div>
 
                             <div className='col-md-3 mb-3 form-check form-switch'>
@@ -83,6 +84,7 @@ function OrganismoForm ({ organismo }) {
                               name='priorizado'
                               id='priorizado'
                               onChange={form.handleChange}
+                              onBlur={form.handleBlur}
                               />
                             <label className='custom-control-label text-secondary' htmlFor='priorizado'>Priorizado</label>
                           </div>
@@ -98,8 +100,9 @@ function OrganismoForm ({ organismo }) {
                               placeholder='Escriba una breve descripción'
                               value={form.values.description}
                               onChange={form.handleChange}
+                              onBlur={form.handleBlur}
                             />
-                            {form.errors.description ? <p className='text-danger'>{form.errors.description}</p> : null}
+                            {form.errors.description && form.touched.description ? <p className='text-danger'>{form.errors.description}</p> : null}
                           
                         </div>
                   </div>
