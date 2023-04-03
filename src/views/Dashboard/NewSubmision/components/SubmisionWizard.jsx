@@ -1,5 +1,5 @@
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
-import { consecutiveApiGet } from '../../GeneralList/service/submision.services';
+
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 import { useSubmisionContext } from '../../GeneralList/context/SumisionContext';
 import './SumisionForm.scss';
+import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
 
 const SubmisionSchema = Yup.object().shape({
 	socialCase: Yup.boolean(),
@@ -178,7 +179,6 @@ function SubmisionWizardForm({ submision }) {
 		validationSchema: SubmisionSchema,
 	});
 
-  console.log(form.values)
   
 	useEffect(() => {
 		if (submision) {
@@ -190,7 +190,7 @@ function SubmisionWizardForm({ submision }) {
 		const fetchData = async () => {
 			const circulos = await circulosApiGet();
 			setCirculosToMap(circulos);
-			const consecutive = await consecutiveApiGet();
+			const consecutive = await consecustiveApiGet();
 			setNewEntryNumber(consecutive + 1);
 			const organismos = await organismosApiGet();
 			setOrganismosToMap(organismos);

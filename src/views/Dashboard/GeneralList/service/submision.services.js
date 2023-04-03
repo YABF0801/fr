@@ -32,8 +32,8 @@ export const submisionsApiFindById = async (id) => {
 	return submision.data;
 };
 
-export const consecutiveApiGet = async () => {
-	const tools = await baseAxios.get(`/submisions/get-consecutive`);
+export const consecustiveApiGet = async () => {
+	const tools = await baseAxios.get(`/submisions/get-tools`);
 	return tools.data.consecutive;
 };
 

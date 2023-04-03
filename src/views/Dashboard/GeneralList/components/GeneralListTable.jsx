@@ -4,9 +4,10 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useNavigate } from 'react-router-dom';
 import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext';
-import SubmisionWizardForm from '../../NewSubmision/components/SubmisionWizard';
+import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
+import DatePickerToOm from './datePicker';
 
 
 const GeneralListTable = () => {
@@ -292,13 +293,20 @@ const GeneralListTable = () => {
     return (
     <section className='list '>
         <div className='container-main mt-3 p-2 pb-5'>
+          <div className='row'><div className='col-md-4 '></div>
+          <div className='col-md-4 '>
             <h2 className='text-center mt-2 p-3'>Listado de Planillas</h2>
+            </div>
+            <div className='col-md-4 mt-4'>
+            <DatePickerToOm/>
+            </div>
+            </div>
             <div className='card '>
                 <div className='card-body '>
                         
                     <div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
                             
-                                    <div className="searchbar">
+                  <div className="searchbar">
 									<input 
 									className="search_input " 
 									id='search'
@@ -384,7 +392,7 @@ const GeneralListTable = () => {
 							<h6>CS: Caso social  </h6></div>
                 </div>
             </div>
-            <SubmisionWizardForm submision={selectedSubmision} />
+            <SubmisionForm submision={selectedSubmision} />
         </div>
       
     </section>
