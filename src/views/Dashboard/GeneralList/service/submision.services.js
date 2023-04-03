@@ -17,7 +17,7 @@ export const submisionsApiCreate = async (submision) => {
 
 export const submisionsApiUpdate = async (submision) => {
 	try {
-		await baseAxios.put(`/organismos/${submision.id}`, submision);
+		await baseAxios.put(`/submisions/${submision.id}`, submision);
 	} catch (error) {
 		throw new Error(`Error al actualizar submision: ${error.message}`);
 	}
@@ -32,13 +32,17 @@ export const submisionsApiFindById = async (id) => {
 	return submision.data;
 };
 
-
 export const consecutiveApiGet = async () => {
 	const tools = await baseAxios.get(`/submisions/get-consecutive`);
 	return tools.data.consecutive;
 };
 
-export const submisionsApiBaja = async (submision) => {
-	const response = await baseAxios.put(`/submisions/${submision.id}`, submision);
-	return response.data;
-};
+export const submisionsApiBaja = async (id) => {
+	try {
+		await baseAxios.put(`/submisions/baja/${id}`);
+	} catch (error) {
+	  throw new Error(`Error al dar baja : ${error.message}`);
+	}
+  };
+  
+

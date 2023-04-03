@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'; 
 import 'chart.js/auto';
 import './Stats.scss';
-import { Radar, Line, Doughnut } from 'react-chartjs-2';
-import { getMatriculaPerYear, getMatriculaPorCp, getOtherChildrenInCi, getRandomColor, getSocialCase, getStatusCount, getSubmisionAprovedByYear, getSubmisionCountByDate, getTotalBoysPerYear, getTotalChildrenPerAge, getTotalGirlsAndBoys, getTotalGirlsPerYear } from '../service/dashboard.services';
+import { Radar, Line } from 'react-chartjs-2';
+import { getMatriculaPerYear, getOtherChildrenInCi, getSocialCase,   getTotalBoysPerYear, getTotalChildrenPerAge, getTotalGirlsAndBoys, getTotalGirlsPerYear } from '../service/dashboard.services';
 
 const Charts = () => {
     const [totalchildrenByYear, setTotalchildrenByYear] = useState([]);
@@ -12,11 +12,7 @@ const Charts = () => {
     const [childrenPerAge, setChildrenPerAge] = useState([]);
     const [totalSocialCase, setTotalSocialCase] = useState(0);
     const [haveOtherChildren, setHaveOtherChildren] = useState (0);
-    const [statusCount, setStatusCount] = useState ([]);
-    const [matriculaPorCP, setMatriculaPorCP] = useState([]);
-    const [submisionsAddedByYear, setSubmisionsAddedByYear] = useState([]);
-    const [submisionsAprovedByYear, setSubmisionsAprovedByYear] = useState([]);
-
+   
      useEffect(() => {
 		const fetchData = async () => {
             const totalchildren = await getMatriculaPerYear();
@@ -24,54 +20,30 @@ const Charts = () => {
             const boys = await getTotalBoysPerYear();
             const boysAndGilrs = await getTotalGirlsAndBoys();
             const childrenAge = await getTotalChildrenPerAge();
-            const socialCase = await getSocialCase();
-            const otherChildren = await getOtherChildrenInCi();
-            const status = await getStatusCount();
-            const matriculaCP = await getMatriculaPorCp();
-            const submisionsAdded = await getSubmisionCountByDate();
-                  const years = [...new Set(submisionsAdded.map(s => s.año))];
-                  const dataAdded = years.map(year => {
-                  const submisionsYear = submisionsAdded.filter(s => s.año === year);
-                  const submisionsByMonth = new Array(12).fill(0);
-                  submisionsYear.forEach(s => {
-                      submisionsByMonth[s.mes - 1] = s.cant;
-                    });
-                    return {
-                      label: `Recibidas ${year.toString()}`,
-                      data: submisionsByMonth,
-                      fill: false,
-                      borderColor: getRandomColor(),
-                    };
-                  });
-            const submisionsAproved = await getSubmisionAprovedByYear();
-                  const dataAproved = years.map(year => {
-                  const submisionsYear = submisionsAproved.filter(s => s.año === year);
-                  const submisionsByMonth = new Array(12).fill(0);
-                  submisionsYear.forEach(s => {
-                    submisionsByMonth[s.mes - 1] = s.cant;
-                  });
-                  return {
-                    label: `Aprobadas ${year.toString()}`,
-                    data: submisionsByMonth,
-                    fill: true,
-                    backgroundColor: getRandomColor(),
-                  };
-                });
-
             setTotalchildrenByYear(totalchildren);
             setGirlsByYear(girls)
             setBoysByYear(boys)
             setTotalGirlsAndBoys(boysAndGilrs)
             setChildrenPerAge(childrenAge)
-            setTotalSocialCase(socialCase)
-            setHaveOtherChildren(otherChildren)
-            setStatusCount(status)
-            setMatriculaPorCP(matriculaCP)
-            setSubmisionsAddedByYear(dataAdded);
-            setSubmisionsAprovedByYear(dataAproved)
             };
             fetchData();
           }, []); 
+
+          useEffect(() => {
+            const fetchData = async () => {
+                    const socialCase = await getSocialCase();
+                    setTotalSocialCase(socialCase)
+                    };
+                    fetchData();
+                  }, []); 
+        
+                  useEffect(() => {
+                    const fetchData = async () => {
+                            const otherChildren = await getOtherChildrenInCi();
+                            setHaveOtherChildren(otherChildren)
+                            };
+                            fetchData();
+                          }, []); 
         
           const radarChartData = {
             labels: ['2do', '3ro', '4to', '5to', '6to'],
@@ -161,64 +133,6 @@ const Charts = () => {
             }
             
           };
-
-          const lineYearsChartData = {
-            labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-            datasets: submisionsAddedByYear.concat(submisionsAprovedByYear),
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  display: true,
-                },
-                title: {
-                  display: true,
-                  text: 'Solicitudes recibidas y aprobadas por año',
-                },
-              },
-              maintainAspectRatio:false,
-              scales: {
-                y: {
-                  min: 0,
-                  max: 20,
-                  ticks: {
-                    stepSize: 3
-                  }
-                }
-              },
-            }
-          };
-
-          const  doughnutChartData = {
-            labels: matriculaPorCP.labels,
-            datasets: [
-              {
-                data: matriculaPorCP.cant,
-                backgroundColor: 
-                 [
-                  'rgba(255, 159, 64, 0.3)', 
-                    'rgba(75, 192, 192, 0.3)',
-                    'rgba(185, 149, 162, 0.3)',
-                    'rgba(123, 122, 225, 0.3)',
-                    'rgba(54, 162, 235, 0.3)',
-                  ], 
-              },
-            ],
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'bottom',
-                },
-                title: {
-                  display: true,
-                  text: 'Matrículas por Consejo Popular',
-                },
-              },
-
-            }
-          };
-      
  
  
 	return (
@@ -265,58 +179,6 @@ const Charts = () => {
 
                 </div>                           
             </div>
-
-
-            <div className='row mt-5 justify-content-evenly'>
-
-            <div className='col-md-2 col-xl-2'>
-
-            <div className='card bg-c-yellow order-card '>
-                   <div className='order-card  '>
-                        <div className='card-block'>
-                            <p className='m-b-10'>Pendientes</p>
-                            <h4 className='text-right display-5'>
-                                <span>{statusCount[0]}</span>
-                            </h4>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className='order-card  '>
-                        <div className='card-block'>
-                            <p className='m-b-10'>Matrículas</p>
-                            <h4 className='text-right display-5'>
-                                <span>{statusCount[1]}</span>
-                            </h4>
-                        </div>
-                    </div>
-                    <hr />
-
-                    <div className='order-card '>
-                        <div className='card-block'>
-                            <p className='m-b-10'>Bajas</p>
-                            <h4 className='text-right display-5'>
-                                <span>{statusCount[2]}</span>
-                            </h4>
-                        </div>
-                    </div>
-                    </div>
-            </div>
-
-            <div className='col-md-7 col-xl-7'>
-               <div className='row align-items-center'>
-                 <Line data={lineYearsChartData} options={lineYearsChartData.options} />
-							</div>
-            </div>
-
-            
-            <div className='col-md-3 col-xl-3'>
-               <div className='row align-items-center'>
-                 <Doughnut data={doughnutChartData} options={doughnutChartData.options} /> 
-							</div>
-            </div>
-
-            </div>
-
 
 
         </div>

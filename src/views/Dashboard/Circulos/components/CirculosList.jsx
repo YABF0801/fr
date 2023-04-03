@@ -6,7 +6,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 
 const CirculosList = () => {
-	const {circulos, deleteCirculo } = useCirculoContext();
+	const {circulos, deleteCirculo, changeStatusCirculo } = useCirculoContext();
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 	const [hideMatricula, setHideMatricula] = useState(true);
@@ -85,6 +85,29 @@ const CirculosList = () => {
 		setCirculosLocal(elements);
 	  };
 
+	const confirmStatusChange = (row) => {
+		confirmAlert({ 
+		  message: `Va a descativar el circulo ${row.name}, ¿está seguro de desactivarlo?`, 
+		  buttons: [ 
+			{
+				className: 'cancel-btn ',
+			  label: 'Cancelar',
+			  onClick: () => {},
+			},
+			{ className: 'save-btn',
+			  label: 'Cambiar',
+			  onClick: () => statusChangeCirculoById(row._id),
+			},
+		  ],
+		  className: 'button-group d-flex justify-content-evenly'
+		});
+	  };
+	  
+
+	  const statusChangeCirculoById = async (id) => {
+		await changeStatusCirculo.mutate(id);
+	};
+
 	const confirmDelete = (row) => {
 		confirmAlert({ 
 		  message: `Va a eliminar el circulo ${row.name}, ¿está seguro de eliminarlo?`,
@@ -108,7 +131,6 @@ const CirculosList = () => {
 		await deleteCirculo.mutate(id);
 	};
 
-
 	  const editCirculo = async (id) => {
 		const circulo = circulos.find((item) => item._id === id);
 		if (circulo) {
@@ -129,7 +151,7 @@ const CirculosList = () => {
 	const columns = useMemo(
 		() => [
 		{
-		name: 'Numero',	id:1, selector: (row) => row.number, sortable: true, center: true,
+		name: 'Numero',	id:1, selector: (row) => row.number, sortable: true, center: true, width: '8rem'
 		},
 		
 		{
@@ -220,8 +242,14 @@ const CirculosList = () => {
 					>
 						<i className='action-btn bi bi-trash-fill'></i>
 					</button>
+{/* 
+					<button
+						onClick={() => confirmStatusChange(row)}
+						className='btn btn-sm'
+					><i className="action-btn bi bi-house-dash"></i>
+					</button>
 
-
+					 */}
 
 				 </div>
 				
@@ -230,6 +258,7 @@ const CirculosList = () => {
 			allowOverflow: true,
 			button: true,
 			width: '100px',
+
 		},
 		
 	], 	[hideMatricula, hideActive]);

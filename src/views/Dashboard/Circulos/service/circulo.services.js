@@ -29,7 +29,14 @@ export const circulosApiFindById = async (id) => {
 
 export const circulosApiDelete = async (id) => {
 	await baseAxios.delete(`/circulos/${id}`);
-	
 };
 
+export const circulosApiStatus = async (id) => {
+	try {
+		await baseAxios.put(`/circulos/status/${id}`);
+	} catch (error) {
+	  throw new Error(`Error al cambiar estado del circulo : ${error.message}`);
+	}
+  };
+  
 

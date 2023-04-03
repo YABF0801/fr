@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useMemo } from 'react';
-import { circulosApiGet, circulosApiCreate, circulosApiUpdate, circulosApiDelete } from '../service/circulo.services';
+import { circulosApiGet, circulosApiCreate, circulosApiUpdate, circulosApiDelete, circulosApiStatus } from '../service/circulo.services';
 import PropTypes from 'prop-types';
 
 const CirculoContext = createContext();
@@ -31,6 +31,12 @@ export const CirculoProvider = ({ children }) => {
 		},
 	});
 
+	const changeStatusCirculo = useMutation({
+		mutationFn: circulosApiStatus,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['circulos'] });
+		},
+	});
 
 	const value = useMemo(
 		() => (
@@ -38,7 +44,8 @@ export const CirculoProvider = ({ children }) => {
 			circulos,
 			addCirculo,
 			updateCirculo,
-			deleteCirculo,	
+			deleteCirculo,
+			changeStatusCirculo,	
 		}),
 		[circulos]
 	);

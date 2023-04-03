@@ -12,7 +12,7 @@ import { exportExcel } from '../../../../common/Export';
 const GeneralListTable = () => {
     const navigate = useNavigate();
 
-    const { submisions, deleteSubmision } = useSubmisionContext();
+    const { submisions, deleteSubmision, bajaSubmision } = useSubmisionContext();
     const { generarPropuestas } = usePropuestasContext
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
 	const [search, setSearch] = useState('')
@@ -86,6 +86,30 @@ const GeneralListTable = () => {
 		await deleteSubmision.mutate(id);
 	};
 
+  
+  const confirmBaja = (row) => {
+		confirmAlert({ 
+		  message: `Va a dar baja de la matricula a ${row.child.childName} ${row.child.childLastname}, ¿está seguro?`,
+		  buttons: [ 
+			{
+				className: 'cancel-btn ',
+			  label: 'Cancelar',
+			  onClick: () => {},
+			},
+			{ className: 'save-btn',
+			  label: 'Dar Baja',
+			  onClick: () => bajaSubmisionById(row._id),
+			},
+		  ],
+		  className: 'button-group d-flex justify-content-evenly'
+		});
+	  };
+    
+  const bajaSubmisionById = async (id) => {
+    await bajaSubmision.mutate(id);
+  };
+ 
+  
 	const handleSearch = (event) => {
         const hasWorkName = item => item.workName !== undefined && item.workName !== '';
         const hasParentName = item => item.parentName !== undefined && item.parentName !== '';
@@ -249,7 +273,7 @@ const GeneralListTable = () => {
 					</button>
 
                     <button
-						onClick={() => alert('DAR BAJA')}
+						onClick={() => confirmBaja(row)}
 						className='btn btn-sm'
 					><i className="action-btn bi bi-person-dash"></i>
 					</button>

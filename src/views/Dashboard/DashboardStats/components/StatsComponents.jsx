@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getCapacityAndMatricula, getTotalGirlsAndBoys } from '../service/dashboard.services';
 import Charts from './Charts';
+import Charts2 from './Charts2';
 import MapComponent from './MapAndBarChart';
 
 import './Stats.scss';
@@ -87,6 +88,7 @@ const Cards = () => {
             </div>
             <MapComponent/>
             <Charts/>
+            <Charts2/>
         </div>
 
        
