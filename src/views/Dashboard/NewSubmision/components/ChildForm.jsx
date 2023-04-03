@@ -4,12 +4,12 @@ import * as Yup from 'yup';
 import L from 'leaflet';
 import { MapContainer, TileLayer} from 'react-leaflet';
 import MapMarker from '../../../../common/MapMarker/MapMarker';
-
+import { useEffect, useState} from 'react';
 
 const ChildSchema = Yup.object().shape({
 	child: Yup.object().shape({
 		childName: Yup.string().required('Se requiere un nombre'),
-		childLastname: Yup.string().required('Se requiere un apellido'),
+		childLastname: Yup.string().required('Se requiere al menos un apellido'),
 		carnet: Yup.number().required('Se requiere un número de identificación'),
 		year_of_life: Yup.number().required('Seleccione un año de vida'),
 		childAdress: Yup.string().required('Se requiere una dirección'),
@@ -18,18 +18,24 @@ const ChildSchema = Yup.object().shape({
 		municipality: Yup.string(),
 		province: Yup.string(),
 		latlng: Yup.array(),
-		circulo: Yup.object().when('status', {
-			is: 'matricula',
-			then: Yup.object().shape({
-				name: Yup.string(),
-			}),
-		}),
 	}),
 });
 
 function ChildForm(submision) {
 	const childData = submision.child || {};
 
+	const [consejosPopulares, setConsejosPopulares] = useState([]);
+
+	useEffect(() => {
+		async function fetchData() {
+		  const response = await fetch('/src/utils/ConsejosPopulares.json');
+		  const data = await response.json();
+		  setConsejosPopulares(data.consejosPopulares);
+		}
+		fetchData();
+	  }, []);
+
+	 
 	const form = useFormik({
 		
 		initialValues: {
@@ -37,30 +43,33 @@ function ChildForm(submision) {
 				childName: childData.childName || '',
 				childLastname: childData.childLastname || '',
 				year_of_life: childData.year_of_life || '',
+				carnet: childData.carnet || '',
 				childAdress: childData.childAdress || '',
 				neighborhood: childData.neighborhood || '',
 				cPopular: childData.cPopular || '',
 				municipality: childData.municipality || 'Isla de la Juventud',
 				province: childData.province || 'Isla de la Juventud',
 				latlng: childData.latlng || null,
-				circulo: childData.circulo || {
-					id: '',
-					name: ''},
 				},
 			},
 			validationSchema: ChildSchema
 		});
 
+		/* 	  useEffect(() => {
+		if (submision) {
+			form.setValues(submision);
+			}
+		}, [submision]); */
 
 		const markerIcon = L.icon({ iconUrl: '/public/markerBlue.png', iconSize: [32, 32], 
 		iconAnchor: [16, 32], popupAnchor: [0, -32], shadowAnchor: [4, 62]}); 
 
 		const handleLatlngChange = (value) => {
-			form.setFieldValue('latlng', value);
-			console.log(value)
+			form.setFieldValue('child.latlng', value);
 		};
 
-	
+		console.log('2', form.values)
+
 	return (      
 
 		<div id='child'>
@@ -80,9 +89,8 @@ function ChildForm(submision) {
 						value={form.values.child.childName}
 						onChange={form.handleChange}
 						onBlur={form.handleBlur}
-					/>
-					{form.errors.child.childName && form.touched.child.childName ? <p className='text-danger'>{form.errors.child.childName}</p> : null}
-				</div>
+					/>		
+						</div>
 
 				<div className='col-md-4 '>
 				<input
@@ -94,9 +102,8 @@ function ChildForm(submision) {
 						value={form.values.child.childLastname}
 						onChange={form.handleChange}
 						onBlur={form.handleBlur}
-					/>
-					{form.errors.child.childLastname && form.touched.child.childLastname ? <p className='text-danger'>{form.errors.child.childLastname}</p> : null}
-				</div>
+					/> 
+						</div>
 
 				<div className='col-md-3 '>
 				<input
@@ -109,8 +116,7 @@ function ChildForm(submision) {
 						onChange={form.handleChange}
 						onBlur={form.handleBlur}
 					/>
-					{form.errors.child.carnet && form.touched.child.carnet ? <p className='text-danger'>{form.errors.child.carnet}</p> : null}
-				</div>
+					</div>
 
 				<div className='col-md-2 '>
 					<select
@@ -120,14 +126,13 @@ function ChildForm(submision) {
 						value={form.values.child.year_of_life}
 						onChange={form.handleChange}
 						onBlur={form.handleBlur}
-					>{form.errors.child.year_of_life && form.touched.child.year_of_life ? <p className='text-danger'>{form.errors.child.year_of_life}</p> : null}
-
+					>
 						<option>Año de vida</option>
-						<option value='1'>2</option>
-						<option value='2'>3</option>
-						<option value='3'>4</option>
-						<option value='4'>5</option>
-						<option value='5'>6</option>
+						<option value='2'>2</option>
+						<option value='3'>3</option>
+						<option value='4'>4</option>
+						<option value='5'>5</option>
+						<option value='6'>6</option>
 						
 					</select>
 				</div>
@@ -153,9 +158,10 @@ function ChildForm(submision) {
 						value={form.values.child.childAdress}
 						onChange={form.handleChange}
 						onBlur={form.handleBlur}
-					></textarea>
-					{form.errors.child.childAdress && form.touched.child.childAdress ? <p className='text-danger'>{form.errors.child.childAdress}</p> : null}
-				</div>
+					>
+					</textarea>
+					
+						</div>
 
 		
 					<div className='mb-3'>
@@ -169,8 +175,7 @@ function ChildForm(submision) {
 							onChange={form.handleChange}
 							onBlur={form.handleBlur}
 						/>
-						{form.errors.child.neighborhood && form.touched.child.neighborhood ? <p className='text-danger'>{form.errors.child.neighborhood}</p> : null}
-					</div>
+							</div>
 
 					<div className='mb-3'>
 					<select
@@ -180,24 +185,15 @@ function ChildForm(submision) {
 							value={form.values.child.cPopular}
 							onChange={form.handleChange}
 							onBlur={form.handleBlur}
-						>{form.errors.child.cPopular && form.touched.child.cPopular ? <p className='text-danger'>{form.errors.child.cPopular}</p> : null}
+						>
+							 <option >Consejo Popular</option>
+							{consejosPopulares.map((consejo) => (
+								<option key={consejo.nombre} value={consejo.nombre}>
+								{consejo.nombre}
+								</option>
+							))}
 
-							<option value=''>Consejo Popular</option>
-							<option value='1'>Micro 70</option>
-							<option value='2'>Abel Santamaría</option>
-							<option value='3'>Centro Histórico Nueva Gerona</option>
-							<option value='4'>Pueblo Nuevo</option>
-							<option value='5'>26 de Julio</option>
-							<option value='6'>Sierra Caballos</option>
-							<option value='7'>Delio Chacón</option>
-							<option value='8'>Patria</option>
-							<option value='9'>Centro Histórico Santa Fé</option>
-							<option value='10'>Los Paneles (Santa Fe)</option>
-							<option value='11'>Julio Antonio Mella (Santa Fe)</option>
-							<option value='12'>Consejo Popular La Demajagua</option>
-							<option value='13'>La Reforma</option>
-							<option value='14'>Argelia-Victoria</option>
-						</select>
+							</select>
 					</div>
 
 					<div className='mb-3'>
@@ -208,10 +204,10 @@ function ChildForm(submision) {
 							value={form.values.child.municipality}
 							onChange={form.handleChange}
 							onBlur={form.handleBlur}
-						> {form.errors.child.municipality && form.touched.child.municipality ? <p className='text-danger'>{form.errors.child.municipality}</p> : null}
-
-							<option value=''>Municipio</option>
-							<option value='1'>Isla de la Juventud</option>
+						> 
+							<option >Municipio</option>
+							<option value='Isla de la Juventud'>Isla de la Juventud</option>
+							
 						</select>
 					</div>
 
@@ -223,10 +219,9 @@ function ChildForm(submision) {
 							value={form.values.child.province}
 							onChange={form.handleChange}
 							onBlur={form.handleBlur}
-						>{form.errors.child.province && form.touched.child.province ? <p className='text-danger'>{form.errors.child.province}</p> : null}
+						>	<option >Provincia</option>
+							<option value='Isla de la Juventud'>Isla de la Juventud</option>
 
-							<option value=''>Provincia</option>
-							<option value='1'>Isla de la Juventud</option>
 						</select>
 					</div>
 
@@ -237,7 +232,7 @@ function ChildForm(submision) {
 
 				<div className='col-md-7 p-3'>
 				<MapContainer 
-				className='map-container' style={{ width: '100%', height: '400px' }}
+				className='map-container' style={{ width: '100%', height: '300px' }}
 				center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true}
 				minZoom={9} maxBounds={[
 					[21.410303, -83.269720], // Suroeste

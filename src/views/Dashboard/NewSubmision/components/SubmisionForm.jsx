@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
+import { consecutiveApiGet } from '../../GeneralList/service/submision.services';
 
 const SubSchema = Yup.object().shape({
 	socialCase: Yup.boolean(),
@@ -10,65 +11,76 @@ const SubSchema = Yup.object().shape({
 	submisiontype: Yup.string(),
 	motive: Yup.string(),
 	status: Yup.string(),
-	ciPedido: Yup.object().shape({ name: Yup.string() }),
-	child: Yup.object().shape({
-		circulo: Yup.object().when('status', {
-			is: 'matricula',
-			then: Yup.object().shape({ name: Yup.string() }),
-		}),
-	}),
+	ciPedido: Yup.string(),
 });
 
 function SubmisionForm(submision) {
 	const [circulosToMap, setCirculosToMap] = useState([]);
-
+	const [newEntryNumber, setNewEntryNumber] = useState(null);
+	
 	useEffect(() => {
 		const fetchData = async () => {
 			const circulos = await circulosApiGet();
 			setCirculosToMap(circulos);
+			const consecutive = await consecutiveApiGet(); 
+			setNewEntryNumber(consecutive + 1);
 		};
 		fetchData();
 	}, []);
 
 	const form = useFormik({
 		initialValues: {
+			entryNumber: submision ? submision.entryNumber: '',
 			socialCase: submision ? submision.socialCase : false,
 			finality: submision ? submision.finality : 'om',
 			submisiontype: submision ? submision.submisiontype : 'new',
 			motive: submision ? submision.motive : '',
-			ciPedido: submision ? submision.ciPedido : { name: '' },
-			child: { circulo: { id: '', name: '' } },
+			ciPedido: submision ? submision.ciPedido : '' ,
 		},
 		validationSchema: SubSchema,
 	});
-	console.log('submisiontype', form.values.submisiontype)
 
 	const handleOm = () => {
-		form.values.finality = 'om';
+		form.setFieldValue('finality', 'om');
 		if (document.getElementById('om').style.background !== 'indianred') {
 			document.getElementById('om').style.background = 'indianred';
 			document.getElementById('os').style.background = 'radial-gradient(#686251a6, #635730c2)';
-			document.getElementById('os-select').style.display = 'none';
 		}
 	};
 
 	const handleOs = () => {
-		form.values.finality = 'os';
+		form.setFieldValue('finality', 'os');
 		if (document.getElementById('os').style.background !== 'indianred') {
 			document.getElementById('os').style.background = 'indianred';
 			document.getElementById('os').style.opacity = 1;
 			document.getElementById('om').style.background = 'radial-gradient(#0c3d4a, #0c3d4a)';
-			document.getElementById('os-select').style.display = 'block';
 		}
 	};
+    console.log('1', form.values)
+
+	const now = new Date().getFullYear();
+	const numberLabel = `${newEntryNumber}/${now}`
+
+	useEffect(() => {
+        if (newEntryNumber) {
+          form.setFieldValue('entryNumber', newEntryNumber);
+        }
+      }, [newEntryNumber]);
+
+/* 	  useEffect(() => {
+		if (submision) {
+			form.setValues(submision);
+			}
+		}, [submision]); */
 
 	return (
 		<div id='submision'>
 			<h3 className='text-center text-secondary '>Datos generales de la planilla</h3>
 			<h6 className='text-secondary mb-4'>Introduzca los datos de la planilla de solicitud</h6>
 
-			<div className='form-group'>
-				<div className='row '>
+			<div className='form-group '>
+				<div className='row d-flex justify-content-center'>
+				<div className='col-md-10 mb-10 '>
 					<div className='form-group '>
 						<div className='row align-items-center mt-3 mb-3'>
 							<div className='col-md-3 mb-3'>
@@ -77,23 +89,23 @@ function SubmisionForm(submision) {
 										className='btn '
 										role='button'
 										id='os'
+										name='finality'
 										onClickCapture={handleOs}
-									>
-										OS
+									> OS
 									</a>
 									<a
 										className='btn '
 										role='button'
 										id='om'
+										name='finality'
 										onClickCapture={handleOm}
-									>
-										OM
+									> OM
 									</a>
 								</div>
 							</div>
 							{/*  ****************************************************** */}
 
-							<div className='col-md-4 mb-3 d-flex justify-content-evenly'>
+							<div className='col-md-4 mb-4 d-flex justify-content-evenly'>
 
 								<div className='form-check form-check-inline'>
 									<input
@@ -102,6 +114,7 @@ function SubmisionForm(submision) {
 										id='new'
 										name='submisiontype'
 										value='new'
+										defaultChecked
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
@@ -135,7 +148,7 @@ function SubmisionForm(submision) {
 
 							{/*  ****************************************************** */}
 
-							<div className='col-md-2 mb-3 form-check form-switch'>
+							<div className='col-md-2 mb-4 form-check form-switch'>
 								<input
 									type='checkbox'
 									className='form-check-input'
@@ -150,18 +163,17 @@ function SubmisionForm(submision) {
 
 							{/*  ****************************************************** */}
 
-							{/* 								<div className='col-md-3 mb-3 gap-1 d-inline-flex'>
-												<label className='m-md-2 d-inline-flex'>No.Entrada </label>
+							<div className='col-md-3 mb-4 gap-1 d-inline-flex'>
+												<label className='m-md-2 d-inline-flex'>No. </label>
 												<input
 													className='form-control'
-													type='number'
+													type='text'
 													id='entryNumber'
 													name='entryNumber'
-													value={form.values.entryNumber}
-													onChange={form.handleChange}
-													 onBlur={form.handleBlur}
+													placeholder={numberLabel}
+													disabled
 												/>										
-											</div> */}
+											</div> 
 
 							{/*  ****************************************************** */}
 						</div>
@@ -173,7 +185,7 @@ function SubmisionForm(submision) {
 							className='col-md-6 m-md-2 text-secondary'
 							htmlFor='ciPedido'
 						>
-							Si se solicita un circulo en particular como preferencia seleccione
+							Si se solicita un circulo en particular como preferencia 
 						</label>
 						<select
 							className='form-control'
@@ -209,39 +221,8 @@ function SubmisionForm(submision) {
 						></textarea>
 					</div>
 
-					<div
-						id='os-select'
-						className='row show-form mt-3 mb-3'
-					>
-						<h6 className='text-success mb-3'>
-							SE HA SELECCIONADO ESTA SOLICITUD COMO OTORGAMIENTO SISTEMÁTICO
-						</h6>
-						<div className='form-group col-md-12 mb-3 d-flex'>
-							<label
-								className='col-md-7 m-md-2'
-								htmlFor='ciPedido'
-							>
-								Para continuar con el otrogamiento seleccione el circulo para matricular
-							</label>
-							<select
-								className='form-control'
-								id='circulo'
-								name='child.circulo'
-								value={form.values.child.circulo}
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-							>
-								<option className='text-center'>------ Seleccione un círculo para matricular -------</option>
-								{circulosToMap.map((circulo) => (
-								<option
-									key={circulo._id}
-									value={circulo._id}
-								>{circulo.name}
-								</option>
-							))}
 
-							</select>
-						</div>
+				
 					</div>
 				</div>
 			</div>

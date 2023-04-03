@@ -121,7 +121,7 @@ export const getTotalChildrenPerAge = async () => {   // CANT niños por edades
 
 export const getSocialCase = async () => {   // CANT casos sociales
 	const result = await baseAxios.get('/estadisticas/social');
-	const socialCase = result.data[0].cant;
+	const socialCase = result.data[0].cant || 0;
 	return socialCase;
 };
 

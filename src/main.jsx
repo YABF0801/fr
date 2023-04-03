@@ -16,6 +16,7 @@ import '../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css
 import 'react-tooltip/dist/react-tooltip.css';
 import 'chart.js/auto';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import 'xlsx/xlsx'
 
 
 

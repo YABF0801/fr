@@ -42,7 +42,6 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 	});
 
 function CirculoForm ({circulo, showAttendance}) {
-	console.log(showAttendance)
 	const { addCirculo, updateCirculo } = useCirculoContext();
 
 	const navigate = useNavigate()
@@ -71,7 +70,6 @@ function CirculoForm ({circulo, showAttendance}) {
 		if (circulo) {
 			await updateCirculo.mutate({...values});
 		} else {
-			console.log(formData)
 			await addCirculo.mutate(formData);
 		}
 			resetForm();
