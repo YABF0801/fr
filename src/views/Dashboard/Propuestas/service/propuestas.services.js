@@ -6,17 +6,20 @@ export const propuestasApiGet = async () => {
 	return propuestas;
 };
 
-export const propuestaApiGenerar = async (submision) => {
-	const propuestasGeneradas = await baseAxios.post(`/submisions/propuestas`, submision);
-	return propuestasGeneradas.data;
+export const propuestaApiGenerar = async () => {
+    try {
+        await baseAxios.post(`/propuestas/generar`);
+    } catch (error) {
+        throw new Error(`Error al generar las propuestas : ${error.message}`);
+    }
 };
 
-export const propuestaApiAceptar = async (submision) => {
-	const propuestas = await baseAxios.put(`/submisions/propuestas/${submision.id}`, submision);
+export const propuestaApiAceptar = async (submision) => { // pasarle un arreglo 
+	const propuestas = await baseAxios.put(`/propuestas/aceptar`, submision);
 	return propuestas.data;
 };
 
 export const propuestaApiRechazar = async (submision) => {
-	const propuestas = await baseAxios.put(`/submisions/propuestas/${submision.id}`, submision);
+	const propuestas = await baseAxios.put(`/propuestas/rechazar`, submision);
 	return propuestas.data;
 };

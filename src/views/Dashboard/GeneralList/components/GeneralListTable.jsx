@@ -9,6 +9,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
 import DatePickerToOm from './datePicker';
 import { FechaOmApiGet, setContadorGp } from '../../../../utils/utiles.sevices';
+import { propuestaApiGenerar } from '../../Propuestas/service/propuestas.services';
 
 const GeneralListTable = () => {
 	const navigate = useNavigate();
@@ -74,7 +75,7 @@ const GeneralListTable = () => {
 	}, [search]);
 
 	const handleGenerateProps = async () => {
-		/* await generarPropuestas.mutate(); */
+		await propuestaApiGenerar(); 
 		await setContadorGp(1); // Actualizar contador en la base de datos
 		navigate(PROPUESTAS_LIST);
 		document.getElementById('props').style.display = 'block';

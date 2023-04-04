@@ -36,8 +36,6 @@ const PropuestasListTable = () => {
     const handleCambioDeCurso = () => {
         setCambioDeCurso(true);
         document.getElementById("cambio-btn").disabled = true;
-       
-       
        };
 
     const handleExport = () => { 
@@ -132,7 +130,7 @@ const PropuestasListTable = () => {
       }
 	};
 
-	const handleAceptar = async (id) => {
+	const handleAceptar = async (id) => { // un arreglo
         try {
         /* await aceptarPropuestas.mutate(id); */
 
@@ -173,9 +171,6 @@ const PropuestasListTable = () => {
         sortable: true, center: true, width: '7rem'
         },
         {
-        name: 'Dirección',	selector: (row) => row.child.childAdress, grow: 4, 
-        },
-        {
             name: 'Sexo', cell: (row) => { 
             if (row.child.sex === 'masculino') {
                 return <h4 className='text-info '>M</h4>} 
@@ -186,8 +181,16 @@ const PropuestasListTable = () => {
             sortable: true, center: true, width: '6rem'
         },
         {
-            name: 'Edad', selector: (row) => row.child.age, 
-            sortable: true, center: true, width: '5rem'
+            name: 'Edad',
+				cell: (row) => {
+					if (row.child.age < 1) {
+						return row.child.age / 0.01 + 'm';
+					}
+					return row.child.age;
+				},
+				sortable: true,
+				center: true,
+				width: '5rem',
         },
         {
             name: 'Año', selector: (row) => row.child.year_of_life, 
@@ -211,7 +214,7 @@ const PropuestasListTable = () => {
                 else if (!row.child.parents[0].workName && row.child.parents[0].occupation === 'asistenciado') {
                   return <p className='text-secondary'>Asistenciado</p>} 
               }, 
-            sortable: true, grow:2, width: '9rem'
+            sortable: true, grow:2, width: '9rem', center: true,
         },
 		{
 			name: ' ',
@@ -221,11 +224,11 @@ const PropuestasListTable = () => {
                 }, 
 			sortable: true, center: true, 
 		},
-      /*   {
-            name: 'Ciculo', selector: (row) => row.child.circulo, 
-            sortable: true, grow:2, width: '8rem'
-        },  */
-		{
+        {
+            name: 'Ciculo', selector: (row) => row.child.circulo.name, 
+            sortable: true, grow:2, width: '8rem', center: true,
+        }, 
+		/* {
 			name: 'Aceptar', // action buttons
 			cell: (row) => (
 				<div className='action d-flex '>
@@ -239,7 +242,7 @@ const PropuestasListTable = () => {
 			allowOverflow: true,
 			button: true,
 			width: '9rem'
-		},
+		}, */
 	], 	[]);
 
     return (
