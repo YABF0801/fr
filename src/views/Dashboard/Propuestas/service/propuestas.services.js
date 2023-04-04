@@ -19,7 +19,7 @@ export const propuestaApiAceptar = async (submisions) => { // pasarle un arreglo
 	return propuestas.data;
 };
 
-export const propuestaApiRechazar = async (submisions) => {
+export const propuestaApiRechazar = async (submisions) => { // pasarle un arreglo 
 	const propuestas = await baseAxios.put(`/propuestas/rechazar`, submisions);
 	return propuestas.data;
 };

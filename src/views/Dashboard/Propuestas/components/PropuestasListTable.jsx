@@ -5,18 +5,15 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { useNavigate } from 'react-router-dom'; 
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
-import CustomSelector from '../../../../common/DataTableBase/customSelector';
 
 const PropuestasListTable = () => {
     const navigate = useNavigate();
-
+    const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
     const { propuestas } = usePropuestasContext();
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
-    const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
 	const [search, setSearch] = useState('')
     const [cambioDeCurso, setCambioDeCurso] = useState(false);
     const [rowsSelected, setRowsSelected] = useState([])
-    const [rowsNotSelected, setRowsNotSelected] = useState([])
 
     const confirmCambioDeCurso = () => {
 		confirmAlert({
@@ -124,11 +121,12 @@ const PropuestasListTable = () => {
         setRowsSelected(rows.selectedRows)
       };
 
-    const handleAceptarRechazar = async (id) => {
+    const handleAceptarRechazar = async () => {
         try {
-        /* await aceptarPropuestas.mutate(id); */
-        /* await rechazarPropuestas.mutate(id); */
-
+            const allRows = [...propuestasLocal];
+            const notSelectedRows = allRows.filter(row => !rowsSelected.includes(row));
+            await aceptarPropuestas.mutate(rowsSelected);
+            await rechazarPropuestas.mutate(notSelectedRows);
         navigate(GENERAL_LIST);
         document.getElementById("props").style.display = "none";
 
@@ -139,7 +137,6 @@ const PropuestasListTable = () => {
 
 	const handleAceptar = async () => { // un arreglo
         try {
-            console.log('yes', rowsSelected);
         await aceptarPropuestas.mutate(rowsSelected); 
         navigate(GENERAL_LIST);
         document.getElementById("props").style.display = "none";
