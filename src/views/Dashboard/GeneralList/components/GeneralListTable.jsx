@@ -229,7 +229,7 @@ const GeneralListTable = () => {
 				),
 				sortable: true,
 				grow: 2,
-				width: '14rem',
+				width: '11rem',
 			},
 			{
 				name: 'Carnet',
@@ -283,7 +283,7 @@ const GeneralListTable = () => {
 				selector: (row) => row.child.parents[0].parentName + ' ' + row.child.parents[0].parentLastname,
 				sortable: true,
 				grow: 2,
-				width: '12rem',
+				width: '10rem',
 			},
 			{
 				name: 'Teléfono',
@@ -339,10 +339,15 @@ const GeneralListTable = () => {
 				sortable: true,
 				center: true,
 			},
-			/*     {
-      name: 'Ciculo', selector: (row) => row.child.circulo, 
-      sortable: true, grow:2, width: '8rem'
-  },  */
+			{
+				name: 'Ciculo', cell: (row) => {
+					if (row.child.circulo) {
+						return row.child.circulo.name}
+					else{
+						return ''
+					}},
+				sortable: true, grow:2, width: '8rem', center: true,
+			}, 
 			{
 				name: '', // action buttons
 				cell: (row) => (

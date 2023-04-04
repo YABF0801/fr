@@ -228,7 +228,12 @@ const PropuestasListTable = () => {
 			sortable: true, center: true, 
 		},
         {
-            name: 'Ciculo', selector: (row) => row.child.circulo.name, 
+            name: 'Ciculo', cell: (row) => {
+                if (row.child.circulo) {
+                    return row.child.circulo.name}
+                else{
+                    return ''
+                }},
             sortable: true, grow:2, width: '8rem', center: true,
         }, 
 	], 	[]);
