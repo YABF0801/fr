@@ -60,6 +60,7 @@ const DatePickerToOm = () => {
 
   const date = existingDate ? new Date(existingDate).toLocaleDateString() : null;
 
+
   return (
     <div className='pb-3 mb-4 gap-3 d-flex justify-content-end '>
       <div className='gap-3 form-check form-switch form-check-inline d-flex '>
@@ -80,15 +81,17 @@ const DatePickerToOm = () => {
           <>
 
             <DatePicker
+                id='datePicker'
               selected={selectedDate}
               onChange={handleDateChange}
               dateFormat='dd/MM/yyyy'
-              className='form-control'
-              placeholderText='Establezca la fecha para el otorgamiento masivo'
+              className='form-control '
+              placeholderText='Nueva Fecha'
+              
             />
 
-            <button onClick={() => handleSave()}
-              className='btn btn-sm'
+            <button id='icon' onClick={() => handleSave()}
+              className='btn btn-sm '
             ><i className='action-btn bi bi-check2-square' 
             data-tooltip-id="tooltip" 
             data-tooltip-content="Guardar fecha"></i>

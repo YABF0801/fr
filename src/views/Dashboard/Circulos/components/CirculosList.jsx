@@ -4,6 +4,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
+import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
 const CirculosList = () => {
 	const {circulos, deleteCirculo, changeStatusCirculo } = useCirculoContext();
@@ -29,42 +30,7 @@ const CirculosList = () => {
 		});
 	  };
 
-	  
-/* 	const handleExport = () => { 
-        const dataset = circulosLocal.map((item) => ({
-            No: item.number,
-            Nombre: item.name ,
-            Cap2: item.normed_capacity2,
-            Mat2: item.matricula2,
-            H_2: item.girls2,
-            V_2: item.matricula2 - item.girls2,
-			Cap3: item.normed_capacity3,
-            Mat3: item.matricula3,
-            H_3: item.girls3,
-            V_3: item.matricula3 - item.girls3,
-			Cap4: item.normed_capacity4,
-            Mat4: item.matricula4,
-            H_4: item.girls4,
-            V_4: item.matricula4 - item.girls4,
-			Cap5: item.normed_capacity5,
-            Mat5: item.matricula5,
-            H_5: item.girls5,
-            V_5: item.matricula5 - item.girls5,
-			Cap6: item.normed_capacity6,
-            Mat6: item.matricula6,
-            H_6: item.girls6,
-            V_6: item.matricula6 - item.girls6,
-            }));
 
- 	exportExcel(dataset, 'Circulos', 'Listado de Circulos') 
-     confirmAlert({ 
-      message: `Circulos exportados con éxito`,
-      buttons: [{ className: 'save-btn',
-        label: 'Aceptar',
-        onClick: () => {},
-      }]});
-    }; 
- */
 	useEffect(() => {
 		setCirculosLocal(circulos);
 		return function cleanUp() {};
@@ -269,9 +235,17 @@ const CirculosList = () => {
 
 
 	return (
-		<section className='list '>
-			<div id='top' className='container-main mt-3 p-2 pb-5'>
+		<section className='list ' >
+			<div id='topCirculos' className='container-main mt-3 p-2 pb-5'>
+				<div className='row'><div className='col-md-4 '></div>
+				<div className='col-md-4 '>
 				<h2 className='text-center mt-2 p-3'>Listado de Circulos</h2>
+					</div>
+					<div className='col-md-4 mt-4'>
+					<Proyeccion/>
+					</div>
+					</div>
+				
 				<div className='card '>
 					<div className='card-body '>
 							
@@ -339,6 +313,7 @@ const CirculosList = () => {
 					</div>
 				</div>
 				<CirculoForm circulo={selectedCirculo} showAttendance={showAttendance}/>
+				<ProyeccionTable/>
 			</div>
 		
 		</section>

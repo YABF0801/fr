@@ -19,11 +19,11 @@ const Help = () => {
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
 									{/*   PONER CAPTURA DE PANTALLA DE FORM */}
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar1.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 							<div className='col-lg-6'>
@@ -56,11 +56,11 @@ const Help = () => {
 							</div>
 							<div className='col-lg-6'>
 								<div className='duration duration-right '>
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar6.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 						</div>
@@ -71,11 +71,11 @@ const Help = () => {
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar7.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 							<div className='col-lg-6'>
@@ -108,11 +108,11 @@ const Help = () => {
 							</div>
 							<div className='col-lg-6'>
 								<div className='duration duration-right '>
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar6.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 						</div>
@@ -123,11 +123,11 @@ const Help = () => {
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar7.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 							<div className='col-lg-6'>
@@ -162,11 +162,11 @@ const Help = () => {
 							</div>
 							<div className='col-lg-6'>
 								<div className='duration duration-right '>
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar6.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 						</div>
@@ -177,11 +177,11 @@ const Help = () => {
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
-									<img
+									{/* <img
 										src='https://bootdey.com/img/Content/avatar/avatar7.png'
 										alt=''
 										className='img-fluid rounded-circle'
-									/>
+									/> */}
 								</div>
 							</div>
 							<div className='col-lg-6'>
