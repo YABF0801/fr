@@ -111,7 +111,6 @@ body {
 	display:none;
 }
 
-
 .action{
 	display: inline;
 }
@@ -206,6 +205,23 @@ body {
 
 .save-btn {
 	width: 6rem;
+	height: 2.5rem;
+	display: flex;
+	color: #f3f3f3;
+	background: radial-gradient(#0c3d4a, #0c3d4a) !important;
+	transition: 0.2s all;
+
+	&:hover {
+		color: #f3f3f3;
+		border-radius: 5px;
+		background: radial-gradient(#a09570d2, #a08a41ea) !important;
+		transition: 0.2s all;
+		box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+	}
+}
+
+.acept-btn {
+	width: 15rem;
 	height: 2.5rem;
 	display: flex;
 	color: #f3f3f3;

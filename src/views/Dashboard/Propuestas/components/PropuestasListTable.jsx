@@ -13,6 +13,32 @@ const PropuestasListTable = () => {
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
     const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
 	const [search, setSearch] = useState('')
+    const [cambioDeCurso, setCambioDeCurso] = useState(false);
+
+    const confirmCambioDeCurso = () => {
+		confirmAlert({
+			message: <><div><p>Va a ejecutar el cambio de curso, esta acción modificará su base de datos </p></div>
+                <div><p>Está seguro? </p></div></>,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				
+                { className: 'save-btn', label: 'Aceptar', onClick: () => handleCambioDeCurso() },
+
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
+	};
+
+    const handleCambioDeCurso = () => {
+        setCambioDeCurso(true);
+        document.getElementById("cambio-btn").disabled = true;
+       
+       
+       };
 
     const handleExport = () => { 
         const dataset = propuestasLocal.map((item) => ({
@@ -72,11 +98,47 @@ const PropuestasListTable = () => {
         setPropuestasLocal(elements);
       };
 
+      const confirmAceptar = () => {
+		confirmAlert({
+			message: <><div><p>Opción 1: Aceptar las propuestas que ha seleccionado y
+                rechazar las que no ha seleccionado</p></div>
+                <div><p>Opción 2: Aceptar las que ha
+                    seleccionado y volver luego a revisar las otras</p></div></>,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				
+                { className: 'acept-btn', label: 'Solo Aceptar', onClick: () => handleAceptar() },
+
+                { className: 'acept-btn', label: 'Aceptar / Rechazar', onClick: () => handleAceptarRechazar() },
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
+	};
+
+    const handleAceptarRechazar = async (id) => {
+        try {
+        /* await aceptarPropuestas.mutate(id); */
+        /* await rechazarPropuestas.mutate(id); */
+
+        navigate(GENERAL_LIST);
+        document.getElementById("props").style.display = "none";
+
+    } catch (error) {
+        console.error(error);
+      }
+	};
+
 	const handleAceptar = async (id) => {
         try {
         /* await aceptarPropuestas.mutate(id); */
+
         navigate(GENERAL_LIST);
         document.getElementById("props").style.display = "none";
+       
     } catch (error) {
         console.error(error);
       }
@@ -210,11 +272,21 @@ const PropuestasListTable = () => {
                                 Exportar
                             </button>
 
-                            <a 
-                                onClick={ handleAceptar }
-								className='btn prop-btn'>
+                            <button 
+                                id='cambio-btn'
+                                onClick={ confirmCambioDeCurso }
+								className='btn prop-btn'
+                                >
+								Cambio de Curso
+							</button>
+
+                            <button 
+                                 onClick={confirmAceptar}
+								className='btn prop-btn'
+                                disabled={!cambioDeCurso}
+                             >
 								Aceptar propuestas
-							</a>
+							</button>
 
                             </div>
 

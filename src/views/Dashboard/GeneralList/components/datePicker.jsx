@@ -73,7 +73,7 @@ const DatePickerToOm = () => {
               className='btn btn-sm'
             ><i className='action-btn bi bi-trash-fill'
             data-tooltip-id="tooltip" 
-            data-tooltip-content="Elminar fecha"></i>
+            data-tooltip-content="Eliminar fecha"></i>
             </button>
 
           </>
@@ -86,7 +86,7 @@ const DatePickerToOm = () => {
               onChange={handleDateChange}
               dateFormat='dd/MM/yyyy'
               className='form-control '
-              placeholderText='Nueva Fecha'
+              placeholderText='Nueva Fecha de otorgamimento'
               
             />
 

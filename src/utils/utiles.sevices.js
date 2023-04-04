@@ -23,13 +23,28 @@ export const saveFechaOm = async (date) => {
      }
    };
 
-/* 
+   export const setContadorGp = async () => {
+    try {
+        await baseAxios.put('/propuestas/set-counter', );
+    } catch (error) {
+        throw new Error(`Error al setear el contador de generar propuestas: ${error.message}`);
+ }
+};
 
- ResetConsecutive 
- 'el consecutivo ha sido reseteado correctamente.' 
- 'Error al resetear el consecutivo.' 
- 
- ResetContadorGP 
-  'el contador de generacion de propuestas ha sido reseteado.' 
-   'Error al resetear el contadorGP.' 
-    */
+   
+export const resetContadorGp = async () => {
+    try {
+        await baseAxios.put('/propuestas/reset-counter', );
+    } catch (error) {
+        throw new Error(`Error al Resetear el contador de generar propuestas: ${error.message}`);
+ }
+};
+
+export const ResetConsecutive = async () => {
+    try {
+        await baseAxios.put('/propuestas/reset-consecutive', );
+    } catch (error) {
+        throw new Error(`Error al Resetear el consecutivo: ${error.message}`);
+ }
+};
+
