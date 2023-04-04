@@ -14,12 +14,12 @@ export const propuestaApiGenerar = async () => {
     }
 };
 
-export const propuestaApiAceptar = async (submision) => { // pasarle un arreglo 
-	const propuestas = await baseAxios.put(`/propuestas/aceptar`, submision);
+export const propuestaApiAceptar = async (submisions) => { // pasarle un arreglo 
+	const propuestas = await baseAxios.put(`/propuestas/aceptar`, submisions);
 	return propuestas.data;
 };
 
-export const propuestaApiRechazar = async (submision) => {
-	const propuestas = await baseAxios.put(`/propuestas/rechazar`, submision);
+export const propuestaApiRechazar = async (submisions) => {
+	const propuestas = await baseAxios.put(`/propuestas/rechazar`, submisions);
 	return propuestas.data;
 };

@@ -5,6 +5,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { useNavigate } from 'react-router-dom'; 
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
+import CustomSelector from '../../../../common/DataTableBase/customSelector';
 
 const PropuestasListTable = () => {
     const navigate = useNavigate();
@@ -14,6 +15,8 @@ const PropuestasListTable = () => {
     const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
 	const [search, setSearch] = useState('')
     const [cambioDeCurso, setCambioDeCurso] = useState(false);
+    const [rowsSelected, setRowsSelected] = useState([])
+    const [rowsNotSelected, setRowsNotSelected] = useState([])
 
     const confirmCambioDeCurso = () => {
 		confirmAlert({
@@ -117,6 +120,10 @@ const PropuestasListTable = () => {
 		});
 	};
 
+    const handleRowSelected = (rows) => {
+        setRowsSelected(rows.selectedRows)
+      };
+
     const handleAceptarRechazar = async (id) => {
         try {
         /* await aceptarPropuestas.mutate(id); */
@@ -130,13 +137,12 @@ const PropuestasListTable = () => {
       }
 	};
 
-	const handleAceptar = async (id) => { // un arreglo
+	const handleAceptar = async () => { // un arreglo
         try {
-        /* await aceptarPropuestas.mutate(id); */
-
+            console.log('yes', rowsSelected);
+        await aceptarPropuestas.mutate(rowsSelected); 
         navigate(GENERAL_LIST);
         document.getElementById("props").style.display = "none";
-       
     } catch (error) {
         console.error(error);
       }
@@ -228,22 +234,10 @@ const PropuestasListTable = () => {
             name: 'Ciculo', selector: (row) => row.child.circulo.name, 
             sortable: true, grow:2, width: '8rem', center: true,
         }, 
-		/* {
-			name: 'Aceptar', // action buttons
-			cell: (row) => (
-				<div className='action d-flex '>
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value={row.status}             
-                    />
-				</div>
-			),
-			allowOverflow: true,
-			button: true,
-			width: '9rem'
-		}, */
 	], 	[]);
+
+   
+      
 
     return (
     <section className='prop-list'>
@@ -298,9 +292,10 @@ const PropuestasListTable = () => {
                         <DataTable
                             columns={columns}
                             data={propuestasLocal}
-                            selectableRows
                             autoWidth={true}
-                            
+                            selectableRows
+                            selectableRowsHighlight
+                            onSelectedRowsChange={handleRowSelected}
                         />
 
 <div className='text-secondary d-flex justify-conten-evenly gap-3'>
