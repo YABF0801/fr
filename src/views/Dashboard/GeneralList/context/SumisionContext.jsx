@@ -13,35 +13,35 @@ import {
 const SubmisionContext = createContext();
 
 export const SubmisionProvider = ({ children }) => {
-	const { data: submisions = null  } = useQuery({ queryKey: ['submision'], queryFn: submisionsApiGet });
+	const { data: submisions = null  } = useQuery({ queryKey: ['submisions'], queryFn: submisionsApiGet });
 		
 	const queryClient = useQueryClient();
 
 	const addSubmision = useMutation({
 		mutationFn: submisionsApiCreate,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
 	const updateSubmision = useMutation({
 		mutationFn: submisionsApiUpdate,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
 	const deleteSubmision = useMutation({
 		mutationFn: submisionsApiDelete,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
 	const bajaSubmision = useMutation({
 		mutationFn: submisionsApiBaja,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 

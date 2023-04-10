@@ -50,7 +50,7 @@ body {
 	color: #fff;
 	background-color: rgba(146, 189, 197);
 }
-  
+
 .f-modal{
 	margin-inline: 1em;
 	
@@ -109,10 +109,6 @@ body {
 
 .show-form{
 	display:none;
-}
-
-.parent2{
-	display:block;
 }
 
 .action{
@@ -224,6 +220,23 @@ body {
 	}
 }
 
+.acept-btn {
+	width: 15rem;
+	height: 2.5rem;
+	display: flex;
+	color: #f3f3f3;
+	background: radial-gradient(#0c3d4a, #0c3d4a) !important;
+	transition: 0.2s all;
+
+	&:hover {
+		color: #f3f3f3;
+		border-radius: 5px;
+		background: radial-gradient(#a09570d2, #a08a41ea) !important;
+		transition: 0.2s all;
+		box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+	}
+}
+
 .istat {
 	display: flex;
 	justify-content: center;
@@ -287,7 +300,7 @@ body {
     text-decoration:none;
     }
 	
-
+		
 	h1 {
 		font-size: 2.5em;
 		line-height: 1.1;
@@ -321,8 +334,6 @@ body {
 .react-confirm-alert-overlay {
   background-color: rgba(117, 114, 114, 0.5)!important;
 }
-
-
 
 
   

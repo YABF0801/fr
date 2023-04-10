@@ -21,11 +21,11 @@ export const getMatriculaPerYear = async () => {   // TOTAL MATRICULA POR AÑO
 	const result = await baseAxios.get('/estadisticas/matricula');
 	const matriculaYear = result.data[0];
 	const data = [
-		matriculaYear.totalMatricula2, 
-		matriculaYear.totalMatricula3,
-		matriculaYear.totalMatricula4,
-		matriculaYear.totalMatricula5,
-		matriculaYear.totalMatricula6]
+		matriculaYear.totalMatricula2 || 0, 
+		matriculaYear.totalMatricula3 || 0,
+		matriculaYear.totalMatricula4 || 0,
+		matriculaYear.totalMatricula5 || 0,
+		matriculaYear.totalMatricula6 || 0]
 		return data;
 };
 
@@ -71,11 +71,11 @@ export const getTotalGirlsPerYear = async () => {   //  TOTAL NIÑAS POR AÑO
 	const result = await baseAxios.get('/estadisticas/girls');
 	const totalGirlsYear = result.data[0]; 
 	const data = [
-			totalGirlsYear.totalGirls2 , 
-			totalGirlsYear.totalGirls3 ,
-			totalGirlsYear.totalGirls4 ,
-			totalGirlsYear.totalGirls5 ,
-			totalGirlsYear.totalGirls6 ,
+			totalGirlsYear.totalGirls2 || 0, 
+			totalGirlsYear.totalGirls3 || 0,
+			totalGirlsYear.totalGirls4 || 0,
+			totalGirlsYear.totalGirls5 || 0,
+			totalGirlsYear.totalGirls6 || 0,
 		  ]
 	return data;
 };
@@ -84,11 +84,11 @@ export const getTotalBoysPerYear = async () => {   //  TOTAL NIÑOS POR AÑO
 	const result = await baseAxios.get('/estadisticas/boys');
 	const totalBoysYear = result.data; 
 	const data = [
-			totalBoysYear.totalBoys2 , 
-			totalBoysYear.totalBoys3 ,
-			totalBoysYear.totalBoys4 ,
-			totalBoysYear.totalBoys5 ,
-			totalBoysYear.totalBoys6 ,
+			totalBoysYear.totalBoys2 || 0, 
+			totalBoysYear.totalBoys3 || 0,
+			totalBoysYear.totalBoys4 || 0,
+			totalBoysYear.totalBoys5 || 0,
+			totalBoysYear.totalBoys6 || 0,
 		  ]
 	return data;
 };
@@ -121,7 +121,7 @@ export const getTotalChildrenPerAge = async () => {   // CANT niños por edades
 
 export const getSocialCase = async () => {   // CANT casos sociales
 	const result = await baseAxios.get('/estadisticas/social');
-	const socialCase = result.data[0].cant || 0;
+	const socialCase = result.data[0].cant ;
 	return socialCase;
 };
 

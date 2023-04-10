@@ -20,20 +20,25 @@ const MapComponent = () => {
 		const fetchData = async () => {
             const submisions = await submisionsPositionGet();
             const circulos = await circulosPositionGet();
-            const attendances = await getAverageAttendance();
-            const matriculas = await getMatriculaPerYear();
-            const capacidades = await getCapacityNperYear();
-            const capacidadesCalculadas = await getCapacityCperYear();
                 setSubmisionsLocal(submisions);
                 setCirculosLocal(circulos); 
-                setAttendance(attendances);
-                setMatricula(matriculas)
-                setCapacidad(capacidades)
-                setCapacidadCalc(capacidadesCalculadas)
             };
             fetchData();
           }, []); 
         
+          useEffect(() => {
+            const fetchData = async () => {
+                    const attendances = await getAverageAttendance();
+                    const matriculas = await getMatriculaPerYear();
+                    const capacidades = await getCapacityNperYear();
+                    const capacidadesCalculadas = await getCapacityCperYear();
+                        setAttendance(attendances);
+                        setMatricula(matriculas)
+                        setCapacidad(capacidades)
+                        setCapacidadCalc(capacidadesCalculadas)
+                    };
+                    fetchData();
+                  }, []); 
           const polarChartData = {
             labels: ['2do', '3ro', '4to', '5to', '6to'],
             datasets: [

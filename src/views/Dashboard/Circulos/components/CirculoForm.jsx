@@ -77,6 +77,7 @@ function CirculoForm ({circulo, showAttendance}) {
 		} ,
 		onReset: async ( )  => {
 			document.getElementById("circulo").style.display = "none";
+			document.getElementById("table").style.display = "none";
 		},
 		validationSchema: CirculoSchema
 	});
@@ -311,7 +312,7 @@ function CirculoForm ({circulo, showAttendance}) {
 
 						<article className=" m-4 d-flex w-100 justify-content-center align-items-center gap-5">
 
-						<a href='#top' className="btn cancel-btn" onClickCapture={form.handleReset}> Cancelar</a>
+						<a href='#topCirculos' className="btn cancel-btn" onClickCapture={form.handleReset}> Cancelar</a>
 
 						<button type="submit" className="btn save-btn"> Guardar</button>
 

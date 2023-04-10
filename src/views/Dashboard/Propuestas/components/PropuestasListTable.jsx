@@ -8,11 +8,35 @@ import { exportExcel } from '../../../../common/Export';
 
 const PropuestasListTable = () => {
     const navigate = useNavigate();
-
+    const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
     const { propuestas } = usePropuestasContext();
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
-    const {aceptarPropuestas, rechazarPropuestas} = usePropuestasContext();
 	const [search, setSearch] = useState('')
+    const [cambioDeCurso, setCambioDeCurso] = useState(false);
+    const [rowsSelected, setRowsSelected] = useState([])
+
+    const confirmCambioDeCurso = () => {
+		confirmAlert({
+			message: <><div><p>Va a ejecutar el cambio de curso, esta acción modificará su base de datos </p></div>
+                <div><p>Está seguro? </p></div></>,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				
+                { className: 'save-btn', label: 'Aceptar', onClick: () => handleCambioDeCurso() },
+
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
+	};
+
+    const handleCambioDeCurso = () => {
+        setCambioDeCurso(true);
+        document.getElementById("cambio-btn").disabled = true;
+       };
 
     const handleExport = () => { 
         const dataset = propuestasLocal.map((item) => ({
@@ -72,9 +96,48 @@ const PropuestasListTable = () => {
         setPropuestasLocal(elements);
       };
 
-	const handleAceptar = async (id) => {
+      const confirmAceptar = () => {
+		confirmAlert({
+			message: <><div><p>Opción 1: Aceptar las propuestas que ha seleccionado y
+                rechazar las que no ha seleccionado</p></div>
+                <div><p>Opción 2: Aceptar las que ha
+                    seleccionado y volver luego a revisar las otras</p></div></>,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				
+                { className: 'acept-btn', label: 'Solo Aceptar', onClick: () => handleAceptar() },
+
+                { className: 'acept-btn', label: 'Aceptar / Rechazar', onClick: () => handleAceptarRechazar() },
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
+	};
+
+    const handleRowSelected = (rows) => {
+        setRowsSelected(rows.selectedRows)
+      };
+
+    const handleAceptarRechazar = async () => {
         try {
-        /* await aceptarPropuestas.mutate(id); */
+            const allRows = [...propuestasLocal];
+            const notSelectedRows = allRows.filter(row => !rowsSelected.includes(row));
+            await aceptarPropuestas.mutate(rowsSelected);
+            await rechazarPropuestas.mutate(notSelectedRows);
+        navigate(GENERAL_LIST);
+        document.getElementById("props").style.display = "none";
+
+    } catch (error) {
+        console.error(error);
+      }
+	};
+
+	const handleAceptar = async () => { // un arreglo
+        try {
+        await aceptarPropuestas.mutate(rowsSelected); 
         navigate(GENERAL_LIST);
         document.getElementById("props").style.display = "none";
     } catch (error) {
@@ -111,9 +174,6 @@ const PropuestasListTable = () => {
         sortable: true, center: true, width: '7rem'
         },
         {
-        name: 'Dirección',	selector: (row) => row.child.childAdress, grow: 4, 
-        },
-        {
             name: 'Sexo', cell: (row) => { 
             if (row.child.sex === 'masculino') {
                 return <h4 className='text-info '>M</h4>} 
@@ -124,8 +184,16 @@ const PropuestasListTable = () => {
             sortable: true, center: true, width: '6rem'
         },
         {
-            name: 'Edad', selector: (row) => row.child.age, 
-            sortable: true, center: true, width: '5rem'
+            name: 'Edad',
+				cell: (row) => {
+					if (row.child.age < 1) {
+						return row.child.age / 0.01 + 'm';
+					}
+					return row.child.age;
+				},
+				sortable: true,
+				center: true,
+				width: '5rem',
         },
         {
             name: 'Año', selector: (row) => row.child.year_of_life, 
@@ -149,7 +217,7 @@ const PropuestasListTable = () => {
                 else if (!row.child.parents[0].workName && row.child.parents[0].occupation === 'asistenciado') {
                   return <p className='text-secondary'>Asistenciado</p>} 
               }, 
-            sortable: true, grow:2, width: '9rem'
+            sortable: true, grow:2, width: '9rem', center: true,
         },
 		{
 			name: ' ',
@@ -159,26 +227,19 @@ const PropuestasListTable = () => {
                 }, 
 			sortable: true, center: true, 
 		},
-      /*   {
-            name: 'Ciculo', selector: (row) => row.child.circulo, 
-            sortable: true, grow:2, width: '8rem'
-        },  */
-		{
-			name: 'Aceptar', // action buttons
-			cell: (row) => (
-				<div className='action d-flex '>
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value={row.status}             
-                    />
-				</div>
-			),
-			allowOverflow: true,
-			button: true,
-			width: '9rem'
-		},
+        {
+            name: 'Ciculo', cell: (row) => {
+                if (row.child.circulo) {
+                    return row.child.circulo.name}
+                else{
+                    return ''
+                }},
+            sortable: true, grow:2, width: '8rem', center: true,
+        }, 
 	], 	[]);
+
+   
+      
 
     return (
     <section className='prop-list'>
@@ -210,11 +271,21 @@ const PropuestasListTable = () => {
                                 Exportar
                             </button>
 
-                            <a 
-                                onClick={ handleAceptar }
-								className='btn prop-btn'>
+                            <button 
+                                id='cambio-btn'
+                                onClick={ confirmCambioDeCurso }
+								className='btn prop-btn'
+                                >
+								Cambio de Curso
+							</button>
+
+                            <button 
+                                 onClick={confirmAceptar}
+								className='btn prop-btn'
+                                disabled={!cambioDeCurso}
+                             >
 								Aceptar propuestas
-							</a>
+							</button>
 
                             </div>
 
@@ -223,9 +294,10 @@ const PropuestasListTable = () => {
                         <DataTable
                             columns={columns}
                             data={propuestasLocal}
-                            selectableRows
                             autoWidth={true}
-                            
+                            selectableRows
+                            selectableRowsHighlight
+                            onSelectedRowsChange={handleRowSelected}
                         />
 
 <div className='text-secondary d-flex justify-conten-evenly gap-3'>

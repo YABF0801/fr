@@ -29,7 +29,28 @@ export const circulosApiFindById = async (id) => {
 
 export const circulosApiDelete = async (id) => {
 	await baseAxios.delete(`/circulos/${id}`);
-	
 };
 
+export const circulosApiStatus = async (id) => {
+	try {
+		await baseAxios.put(`/circulos/status/${id}`);
+	} catch (error) {
+	  throw new Error(`Error al cambiar estado del circulo : ${error.message}`);
+	}
+  };
 
+  export const proyeccionApiGet = async () => {
+	try {
+		await baseAxios.get('/circulos/proyectar', );
+	} catch (error) {
+		throw new Error(`Error ejecutar la proyeccion de matriculas: ${error.message}`);
+ }
+};
+
+ export const nuevoCursoApiGet = async () => {
+	try {
+		await baseAxios.get('/circulos/nuevo-curso', );
+	} catch (error) {
+		throw new Error(`Error ejecutar el cambio de curso: ${error.message}`);
+ }
+ };
