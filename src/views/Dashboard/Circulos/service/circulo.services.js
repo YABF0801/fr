@@ -42,9 +42,17 @@ export const circulosApiStatus = async (id) => {
   export const proyeccionApiGet = async () => {
 	try {
 		await baseAxios.get('/circulos/proyectar', );
+		const tools = await baseAxios.get('/submisions/get-tools')
+		return tools.data.proyeccionParaGP
+		
 	} catch (error) {
 		throw new Error(`Error ejecutar la proyeccion de matriculas: ${error.message}`);
  }
+};
+
+export const cursoApiGet = async () => {
+	const tools = await baseAxios.get(`/submisions/get-tools`);
+	return tools.data.curso;
 };
 
  export const nuevoCursoApiGet = async () => {

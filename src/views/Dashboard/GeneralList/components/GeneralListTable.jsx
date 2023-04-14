@@ -1,21 +1,12 @@
 import { useSubmisionContext } from '../context/SumisionContext';
 import { useEffect, useMemo, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
-import { useNavigate } from 'react-router-dom';
-import { usePropuestasContext } from '../../Propuestas/context/PopuestasContext';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
-import DatePickerToOm from './datePicker';
-import { FechaOmApiGet, setContadorGp } from '../../../../utils/utiles.sevices';
-import { propuestaApiGenerar } from '../../Propuestas/service/propuestas.services';
 
 const GeneralListTable = () => {
-	const navigate = useNavigate();
-
 	const { submisions, deleteSubmision, bajaSubmision } = useSubmisionContext();
-	const { generarPropuestas } = usePropuestasContext;
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [hideSocialCase, setHideSocialCase] = useState(true);
@@ -23,22 +14,6 @@ const GeneralListTable = () => {
 	const [hidePhone, setHidePhone] = useState(true);
 	const [hideAddress, setHideAddress] = useState(true);
 	const [selectedSubmision, setSelectedSubmision] = useState(null);
-	const [botonHabilitado, setBotonHabilitado] = useState(false); // habilitar o deshabilitar boton de generar
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const storedDate = await FechaOmApiGet();
-
-			if (storedDate) {
-				const fechaActual = new Date();
-				const fechaGuardada = new Date(); // definir fecha actual
-				if (fechaActual >= fechaGuardada) {
-					setBotonHabilitado(true); // habilitar boton de generar
-				}
-			}
-		};
-		fetchData();
-	}, []);
 
 	const handleExport = () => {
 		const dataset = submisionsLocal.map((item) => ({
@@ -74,12 +49,6 @@ const GeneralListTable = () => {
 		return function cleanUp() {};
 	}, [search]);
 
-	const handleGenerateProps = async () => {
-		await propuestaApiGenerar(); 
-		await setContadorGp(1); // Actualizar contador en la base de datos
-		navigate(PROPUESTAS_LIST);
-		document.getElementById('props').style.display = 'block';
-	};
 
 	const confirmDelete = (row) => {
 		confirmAlert({
@@ -119,22 +88,7 @@ const GeneralListTable = () => {
 		await bajaSubmision.mutate(id);
 	};
 
-  const confirmFinalizarOms = () => {
-		confirmAlert({
-			message: `Va a dar por finalizado el otorgamiento masivo de este año. ¿Está seguro?`,
-			buttons: [
-				{
-					className: 'cancel-btn ',
-					label: 'Cancelar',
-					onClick: () => {},
-				},
-				{ className: 'save-btn', label: 'Aceptar', onClick: () => {},},
-			],
-			className: 'button-group d-flex justify-content-evenly',
-		});
-	};
-  
-  
+
 	const handleSearch = (event) => {
 		const hasWorkName = (item) => item.workName !== undefined && item.workName !== '';
 		const hasParentName = (item) => item.parentName !== undefined && item.parentName !== '';
@@ -340,14 +294,19 @@ const GeneralListTable = () => {
 				center: true,
 			},
 			{
-				name: 'Ciculo', cell: (row) => {
+				name: 'Ciculo',
+				cell: (row) => {
 					if (row.child.circulo) {
-						return row.child.circulo.name}
-					else{
-						return ''
-					}},
-				sortable: true, grow:2, width: '8rem', center: true,
-			}, 
+						return row.child.circulo.name;
+					} else {
+						return '';
+					}
+				},
+				sortable: true,
+				grow: 2,
+				width: '8rem',
+				center: true,
+			},
 			{
 				name: '', // action buttons
 				cell: (row) => (
@@ -390,15 +349,8 @@ const GeneralListTable = () => {
 	return (
 		<section className='list '>
 			<div className='container-main mt-3 p-2 pb-5'>
-				<div className='row'>
-					<div className='col-md-4 '></div>
-					<div className='col-md-4 '>
 						<h2 className='text-center mt-2 p-3'>Listado de Planillas</h2>
-					</div>
-					<div className='col-md-4 mt-4'>
-						<DatePickerToOm />
-					</div>
-				</div>
+						
 				<div className='card '>
 					<div className='card-body '>
 						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
@@ -483,29 +435,10 @@ const GeneralListTable = () => {
 									Exportar
 								</button>
 
-								<button
-									type='button'
-                  id='generar-btn'
-									onClick={handleGenerateProps}
-									className='btn prop-btn'
-									disabled={!botonHabilitado}
-								>
-									Generar propuestas
-								</button>
 
-                <button
-									type='button'
-                  id='finalizar-btn'                  
-									className='btn prop-btn'
-                  data-tooltip-id="tooltip" 
-                  onClick={confirmFinalizarOms}
-                  data-tooltip-content="Finalizar otorgamiento"
-								>
-									Finalizar
-								</button>
-							</div>
+							
 						</div>
-
+						</div>
 						<DataTable
 							columns={columns}
 							data={submisionsLocal}
@@ -518,10 +451,12 @@ const GeneralListTable = () => {
 							<h6>OS: Otorgamiento sistemático | </h6>
 							<h6>CS: Caso social </h6>
 						</div>
+					
 					</div>
 				</div>
 				<SubmisionForm submision={selectedSubmision} />
 			</div>
+		
 		</section>
 	);
 };

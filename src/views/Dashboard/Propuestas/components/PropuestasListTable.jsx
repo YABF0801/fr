@@ -12,31 +12,7 @@ const PropuestasListTable = () => {
     const { propuestas } = usePropuestasContext();
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
 	const [search, setSearch] = useState('')
-    const [cambioDeCurso, setCambioDeCurso] = useState(false);
     const [rowsSelected, setRowsSelected] = useState([])
-
-    const confirmCambioDeCurso = () => {
-		confirmAlert({
-			message: <><div><p>Va a ejecutar el cambio de curso, esta acción modificará su base de datos </p></div>
-                <div><p>Está seguro? </p></div></>,
-			buttons: [
-				{
-					className: 'cancel-btn ',
-					label: 'Cancelar',
-					onClick: () => {},
-				},
-				
-                { className: 'save-btn', label: 'Aceptar', onClick: () => handleCambioDeCurso() },
-
-			],
-			className: 'button-group d-flex justify-content-evenly',
-		});
-	};
-
-    const handleCambioDeCurso = () => {
-        setCambioDeCurso(true);
-        document.getElementById("cambio-btn").disabled = true;
-       };
 
     const handleExport = () => { 
         const dataset = propuestasLocal.map((item) => ({
@@ -272,17 +248,8 @@ const PropuestasListTable = () => {
                             </button>
 
                             <button 
-                                id='cambio-btn'
-                                onClick={ confirmCambioDeCurso }
-								className='btn prop-btn'
-                                >
-								Cambio de Curso
-							</button>
-
-                            <button 
                                  onClick={confirmAceptar}
 								className='btn prop-btn'
-                                disabled={!cambioDeCurso}
                              >
 								Aceptar propuestas
 							</button>
