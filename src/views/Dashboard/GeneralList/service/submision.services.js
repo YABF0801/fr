@@ -37,6 +37,15 @@ export const consecustiveApiGet = async () => {
 	return tools.data.consecutive;
 };
 
+export const consecustiveApiReset= async () => {
+	try {
+		await baseAxios.put(`/submisions/reset-consecutive`);
+	} catch (error) {
+		throw new Error(`Error al resetear consecutivo: ${error.message}`);
+	}
+};
+
+
 export const submisionsApiBaja = async (id) => {
 	try {
 		await baseAxios.put(`/submisions/baja/${id}`);

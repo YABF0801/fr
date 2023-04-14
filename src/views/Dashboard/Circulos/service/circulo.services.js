@@ -57,7 +57,7 @@ export const cursoApiGet = async () => {
 
  export const nuevoCursoApiGet = async () => {
 	try {
-		await baseAxios.get('/circulos/nuevo-curso', );
+		await baseAxios.post('/circulos/nuevo-curso', );
 	} catch (error) {
 		throw new Error(`Error ejecutar el cambio de curso: ${error.message}`);
  }

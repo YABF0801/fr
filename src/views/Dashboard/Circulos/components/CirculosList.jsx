@@ -7,7 +7,7 @@ import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
 const CirculosList = () => {
-	const {circulos, deleteCirculo, changeStatusCirculo } = useCirculoContext();
+	const {circulos, deleteCirculo, /* changeStatusCirculo */ } = useCirculoContext();
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 	const [hideMatricula, setHideMatricula] = useState(true);
@@ -51,7 +51,7 @@ const CirculosList = () => {
 		setCirculosLocal(elements);
 	  };
 
-	const confirmStatusChange = (row) => {
+/* 	const confirmStatusChange = (row) => {
 		confirmAlert({ 
 		  message: `Va a descativar el circulo ${row.name}, ¿está seguro de desactivarlo?`, 
 		  buttons: [ 
@@ -67,12 +67,12 @@ const CirculosList = () => {
 		  ],
 		  className: 'button-group d-flex justify-content-evenly'
 		});
-	  };
+	  }; */
 	  
 
-	  const statusChangeCirculoById = async (id) => {
+/* 	  const statusChangeCirculoById = async (id) => {
 		await changeStatusCirculo.mutate(id);
-	};
+	}; */
 
 	const confirmDelete = (row) => {
 		confirmAlert({ 
@@ -127,7 +127,7 @@ const CirculosList = () => {
 		name: 'C 2', selector: (row) => row.normed_capacity2, sortable: true,	center: true, 
 		},
 		{
-			name: 'M', selector: (row) => <h4 className='text-info'>{row.matricula2}</h4>, center: true, omit: hideMatricula, width: '5rem'
+			name: 'M 2', selector: (row) => <h4 className='text-info'>{row.matricula2}</h4>, center: true, omit: hideMatricula, width: '5rem'
 		},
 		{
 			name: 'H', selector: (row) => <h4 className='text-success'>{row.girls2}</h4>, center: true, omit: hideMatricula, width: '5rem'
@@ -140,7 +140,7 @@ const CirculosList = () => {
 		name: 'C 3', selector: (row) => row.normed_capacity3, sortable: true, center: true, 
 		},
 		{
-			name: 'M', selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>, center: true, omit: hideMatricula, width: '5rem'
+			name: 'M 3', selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>, center: true, omit: hideMatricula, width: '5rem'
 		},
 		{
 			name: 'H', selector: (row) => <h4 className='text-success'>{row.girls3}</h4>, center: true, omit: hideMatricula, width: '5rem'
@@ -153,7 +153,7 @@ const CirculosList = () => {
 		name: 'C 4',selector: (row) => row.normed_capacity4, sortable: true, center: true, 
 		},
 		{
-			name: 'M', selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>, center: true,	omit: hideMatricula, width: '5rem'
+			name: 'M 4', selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>, center: true,	omit: hideMatricula, width: '5rem'
 		},
 		{
 			name: 'H', selector: (row) => <h4 className='text-success'>{row.girls4}</h4>, center: true, omit: hideMatricula, width: '5rem'
@@ -166,7 +166,7 @@ const CirculosList = () => {
 		name: 'C 5', selector: (row) => row.normed_capacity5, sortable: true, center: true, 
 		},
 		{
-			name: 'M', selector: (row) => <h4 className='text-info'>{row.matricula5}</h4>, center: true,	omit: hideMatricula, width: '5rem'
+			name: 'M 5', selector: (row) => <h4 className='text-info'>{row.matricula5}</h4>, center: true,	omit: hideMatricula, width: '5rem'
 		},
 		{
 			name: 'H', selector: (row) => <h4 className='text-success'>{row.girls5}</h4>, center: true, omit: hideMatricula, width: '5rem'
@@ -179,7 +179,7 @@ const CirculosList = () => {
 		name: 'C 6', selector: (row) => row.normed_capacity6,  sortable: true, center: true, 
 		},
 		{
-			name: 'M', selector: (row) => <h4 className='text-info'>{row.matricula6}</h4>, center: true,	omit: hideMatricula, width: '5rem'
+			name: 'M 6', selector: (row) => <h4 className='text-info'>{row.matricula6}</h4>, center: true,	omit: hideMatricula, width: '5rem'
 		},
 		{
 			name: 'H', selector: (row) => <h4 className='text-success'>{row.girls6}</h4>, center: true, omit: hideMatricula, width: '5rem'

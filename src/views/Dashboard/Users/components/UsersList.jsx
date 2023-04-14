@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import DatePickerToOm from './datePicker';
 import { propuestaApiGenerar } from '../../Propuestas/service/propuestas.services';
+import { nuevoCursoApiGet } from '../../Circulos/service/circulo.services';
+import { consecustiveApiReset } from '../../GeneralList/service/submision.services';
 
 const UsersList = () => {
 	const { users, deleteUser } = useUserContext();
@@ -94,9 +96,11 @@ const UsersList = () => {
 		});
 	};
 
-	const handleCambioDeCurso = () => {
+	const handleCambioDeCurso = async () => {
 		setCambioDeCurso(true);
 		document.getElementById('cambio-btn').disabled = true;
+		await nuevoCursoApiGet();
+		await consecustiveApiReset();
 	};
 
 	const confirmDelete = (row) => {
