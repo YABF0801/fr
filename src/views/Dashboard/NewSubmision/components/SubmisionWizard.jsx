@@ -230,7 +230,7 @@ function SubmisionWizardForm({ submision }) {
 	};
 
 	const now = new Date().getFullYear();
-	const numberLabel = `${newEntryNumber}/${now}`;
+	const numberLabel = submision ? submision.entryNumber: `${newEntryNumber}/${now}`;
 
 	const markerIcon = L.icon({
 		iconUrl: '/public/markerBlue.png',
