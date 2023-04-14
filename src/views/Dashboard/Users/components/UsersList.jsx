@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import UserForm from './UserForm';
 import { confirmAlert } from 'react-confirm-alert';
-import { FechaOmApiGet, setContadorGp } from '../../../../utils/utiles.sevices';
-
+import { FechaOmApiGet, resetContadorGp, setContadorGp, resetFechaOm, resetToolsArrays, getContadorGp, setContadorCc, getContadorCc } from '../../../../utils/utiles.sevices';
 import { useNavigate } from 'react-router-dom';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import DatePickerToOm from './datePicker';
@@ -17,11 +16,63 @@ const UsersList = () => {
 	const [usersLocal, setUsersLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [selectedUser, setSelectedUser] = useState(null);
-	const [cambioDeCurso, setCambioDeCurso] = useState(false);
-	const [botonHabilitado, setBotonHabilitado] = useState(false); // habilitar o deshabilitar boton de generar
+	const [botonComenzarHabilitado, setBotonComenzarHabilitado] = useState(false);
+	const [botonCambioDeCursoHabilitado, setBotonCambioDeCursoHabilitado] = useState(false);
+	const [botonGenerarPropuestaHabilitado, setBotonGenerarPropuestaHabilitado] = useState(false);
+	const [botonFinalizarHabilitado, setBotonFinalizarHabilitado] = useState(false);
 
 	const navigate = useNavigate();
 
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			UsersList();
+		}, 1000);
+	
+		return () => {
+		  clearInterval(intervalId);
+		};
+	  }, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const storedDate = await FechaOmApiGet();
+			const date = new Date(storedDate);
+			const fechaActual = new Date();
+		
+			const compare = date.getTime() <= fechaActual.getTime();
+			if (storedDate && compare) {
+				setBotonComenzarHabilitado(true);
+/* 				await consecustiveApiReset(); */
+			}  
+			
+		};
+		fetchData();
+	}, []);
+
+	
+	useEffect(() => {
+		const fetchData = async () => {
+			const contadorGP = await getContadorGp();
+
+			if (contadorGP !== 0) {
+				setBotonCambioDeCursoHabilitado(true);
+			}
+		};
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const contadorCC = await getContadorCc();
+			if (contadorCC !== 0) {
+				setBotonGenerarPropuestaHabilitado(true);
+				setBotonFinalizarHabilitado(true);
+				setBotonComenzarHabilitado(false)
+			}
+		};
+		fetchData();
+	}, []);
+	
 	useEffect(() => {
 		setUsersLocal(users);
 		return function cleanUp() {};
@@ -34,21 +85,6 @@ const UsersList = () => {
 		return function cleanUp() {};
 	}, [search]);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const storedDate = await FechaOmApiGet();
-
-			if (storedDate) {
-				const fechaActual = new Date();
-				const fechaGuardada = new Date(); // definir fecha actual
-				if (fechaActual >= fechaGuardada) {
-					setBotonHabilitado(true); // habilitar boton de generar
-				}
-			}
-		};
-		fetchData();
-	}, []);
-
 	const confirmFinalizarOms = () => {
 		confirmAlert({
 			message: `Va a dar por finalizado el otorgamiento masivo de este año. ¿Está seguro?`,
@@ -58,7 +94,7 @@ const UsersList = () => {
 					label: 'Cancelar',
 					onClick: () => {},
 				},
-				{ className: 'save-btn', label: 'Aceptar', onClick: () => {} },
+				{ className: 'save-btn', label: 'Aceptar', onClick: () => handleFinalizar() },
 			],
 			className: 'button-group d-flex justify-content-evenly',
 		});
@@ -96,11 +132,21 @@ const UsersList = () => {
 		});
 	};
 
-	const handleCambioDeCurso = async () => {
-		setCambioDeCurso(true);
-		document.getElementById('cambio-btn').disabled = true;
-		await nuevoCursoApiGet();
+	const handleResetConsecutivo = async () => { // para cuando llegue la fecha del otorgamiento
 		await consecustiveApiReset();
+	};
+
+	const handleCambioDeCurso = async () => {
+		await setContadorCc(1); 
+		setBotonComenzarHabilitado(false)
+		await nuevoCursoApiGet();
+
+	};
+
+	const handleFinalizar = async () => {
+		await resetContadorGp();
+		await resetFechaOm();
+		await resetToolsArrays();
 	};
 
 	const confirmDelete = (row) => {
@@ -225,17 +271,20 @@ const UsersList = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Comenzar otorgamiento'
+								disabled={!botonComenzarHabilitado}
 							>
 								Comenzar
 							</button>
 
 
 							<button
+								type='button'
 								id='cambio-btn'
 								onClick={confirmCambioDeCurso}
 								data-tooltip-id='tooltip'
 								className='btn prop-btn'
 								data-tooltip-content='Cambio de Curso'
+								disabled={!botonCambioDeCursoHabilitado}
 							>
 								Cambio de Curso
 							</button>
@@ -247,6 +296,7 @@ const UsersList = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Generar nueva propuesta '
+								disabled={!botonGenerarPropuestaHabilitado}
 							>
 								Generar propuesta  
 							</button>
@@ -258,6 +308,7 @@ const UsersList = () => {
 								data-tooltip-id='tooltip'
 								onClick={confirmFinalizarOms}
 								data-tooltip-content='Finalizar otorgamiento'
+								disabled={!botonFinalizarHabilitado}
 							>
 								Finalizar
 							</button>

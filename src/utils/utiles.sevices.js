@@ -32,6 +32,14 @@ export const saveFechaOm = async (date) => {
 };
 
    
+export const resetToolsArrays = async () => {
+    try {
+        await baseAxios.put('/propuestas/reset-arrays', );
+    } catch (error) {
+        throw new Error(`Error al Resetear los arreglos en tools: ${error.message}`);
+ }
+};
+   
 export const resetContadorGp = async () => {
     try {
         await baseAxios.put('/propuestas/reset-counter', );
