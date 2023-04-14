@@ -68,7 +68,7 @@ const Navbar = () => {
 								className='nav-link link text-dark '
 								to={PROPUESTAS_LIST}
 							>
-								<i className='inav bi bi-ui-checks-grid' data-tooltip-id="tooltip" data-tooltip-content="Listado de Propuestas"></i>
+								<i className='inav bi bi-list-check' data-tooltip-id="tooltip" data-tooltip-content="Listado de Propuestas"></i>
 
 							</NavLink>
 						</li>
@@ -88,7 +88,7 @@ const Navbar = () => {
 								className='nav-link link text-dark '
 								to={GENERAL_LIST}
 							>
-								<i className='inav bi bi-files' data-tooltip-id="tooltip" data-tooltip-content="Listado de Planillas" ></i>
+								<i className='inav bi bi-file-earmark-text' data-tooltip-id="tooltip" data-tooltip-content="Listado de Planillas" ></i>
 							</NavLink>
 						</li>
 
@@ -128,7 +128,7 @@ const Navbar = () => {
 								to={USERS}
 							>
 								<i
-									className='inav bi bi-person-fill-gear' data-tooltip-id="tooltip" data-tooltip-content="Listado de Usuarios"
+									className='inav bi bi-gear-fill' data-tooltip-id="tooltip" data-tooltip-content="Administración"
 								></i>
 							</NavLink>
 						</li>

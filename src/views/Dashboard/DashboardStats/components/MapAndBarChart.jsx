@@ -170,8 +170,8 @@ const MapComponent = () => {
 												
                         <TileLayer 
 													attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-													url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-												// /Tiles/{z}/{x}/{y}.png  
+													url='/public/Tiles/{z}/{x}/{y}.png'
+												// https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png  
 												/>
     
                                             {submisionsLocal.map((submision) => (
