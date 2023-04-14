@@ -31,6 +31,13 @@ export const saveFechaOm = async (date) => {
  }
 };
 
+export const setContadorCc = async () => {
+    try {
+        await baseAxios.put('/propuestas/curso-counter', );
+    } catch (error) {
+        throw new Error(`Error al setear el contador de nuevo curso: ${error.message}`);
+ }
+};
    
 export const resetToolsArrays = async () => {
     try {
@@ -39,6 +46,17 @@ export const resetToolsArrays = async () => {
         throw new Error(`Error al Resetear los arreglos en tools: ${error.message}`);
  }
 };
+
+export const getContadorGp = async () => {
+	const tools = await baseAxios.get(`/submisions/get-tools`);
+	return tools.data.contadorGp;
+};
+
+export const getContadorCc = async () => {
+	const tools = await baseAxios.get(`/submisions/get-tools`);
+	return tools.data.contadorCC;
+};
+
    
 export const resetContadorGp = async () => {
     try {
