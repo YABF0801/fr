@@ -1,5 +1,5 @@
-// ACTUALIZAR REAL 
-// COMO HACER ESTO PARA JWT AUTHENTICATION 
+// ACTUALIZAR REAL
+// COMO HACER ESTO PARA JWT AUTHENTICATION
 
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -11,8 +11,8 @@ export const AuthContext = createContext();
 export function AuthContextProvider({ children }) {
 	const [isAuthenticated, setIsAuthenticated] = useState(window.localStorage.getItem(MY_AUTH_APP) ?? false);
 
-	const login = useCallback(function () {
-		window.localStorage.setItem(MY_AUTH_APP, '1');
+	const login = useCallback(function (user, token) {
+		window.localStorage.setItem(MY_AUTH_APP, { user, token });
 		setIsAuthenticated(true);
 	}, []);
 
@@ -26,6 +26,7 @@ export function AuthContextProvider({ children }) {
 			login,
 			logout,
 			isAuthenticated,
+			setIsAuthenticated,
 		}),
 		[login, logout, isAuthenticated]
 	);
