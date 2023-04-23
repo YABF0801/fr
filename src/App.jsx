@@ -18,7 +18,7 @@ import {
 import { AuthContextProvider } from './core/context/authContext';
 
 // configuracion de rutas privadas y publicas que hay q descomentar dentro despues
-import PrivateRoute from './core/guard/PrivateROute';
+import PrivateRoute from './core/guard/PrivateRoute';
 import PublicRoute from './core/guard/PublicRoute';
 
 // pantallas de paginas
@@ -32,69 +32,35 @@ import Organismos from './views/Dashboard/Organismos/Organismos';
 import { Propuestas } from './views/Dashboard/Propuestas';
 import { Users } from './views/Dashboard/Users';
 import LandingPage from './views/Home/LandingPage';
+import DashboardLayout from './views/dashboard/layout/DashboardLayout';
 
 function App() {
 	return (
-		<AuthContextProvider>
-			<BrowserRouter>
+		<BrowserRouter>
+			<AuthContextProvider>
 				<Routes>
-					<Route
-						path={HOME}
-						element={<PublicRoute />}
-					>
-						<Route
-							index
-							element={<LandingPage />}
-						/>
+					<Route path={HOME} element={<PublicRoute />}>
+						<Route index element={<LandingPage />} />
 					</Route>
-					<Route
-						path={PRIVATE}
-						element={<PrivateRoute />}
-					>
-						<Route
-							index
-							element={<Navigate to={DASHBOARD} />}
-						/>
-						<Route
-							path={DASHBOARD}
-							element={<Dashboard />}
-						/>
-						<Route
-							path={GENERAL_LIST}
-							element={<GeneralList />}
-						/>
-						<Route
-							path={NEW_SUBMISISON}
-							element={<NewSubmision />}
-						/>
-						<Route
-							path={CIRCULOS}
-							element={<Circulos />}
-						/>
-						<Route
-							path={ORGANISMOS}
-							element={<Organismos />}
-						/>
-						<Route
-							path={PROPUESTAS_LIST}
-							element={<Propuestas />}
-						/>
-						<Route
-							path={USERS}
-							element={<Users />}
-						/>
-						<Route
-							path={HELP}
-							element={<Help />}
-						/>
+
+					<Route path={PRIVATE} element={<PrivateRoute />}>
+						<Route element={<DashboardLayout />}>
+							<Route index element={<Navigate to={DASHBOARD} />} />
+							<Route path={DASHBOARD} element={<Dashboard />} />
+							<Route path={GENERAL_LIST} element={<GeneralList />} />
+							<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
+							<Route path={CIRCULOS} element={<Circulos />} />
+							<Route path={ORGANISMOS} element={<Organismos />} />
+							<Route path={PROPUESTAS_LIST} element={<Propuestas />} />
+							<Route path={USERS} element={<Users />} />
+							<Route path={HELP} element={<Help />} />
+						</Route>
 					</Route>
-					<Route
-						path='*'
-						element={<NotFound />}
-					/>
+
+					<Route path='*' element={<NotFound />} />
 				</Routes>
-			</BrowserRouter>
-		</AuthContextProvider>
+			</AuthContextProvider>
+		</BrowserRouter>
 	);
 }
 

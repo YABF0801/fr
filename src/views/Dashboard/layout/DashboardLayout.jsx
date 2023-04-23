@@ -1,12 +1,13 @@
+import { Outlet } from 'react-router-dom';
 import Navbar from '../../../common/Navbar/Navbar';
 import PropTypes from 'prop-types';
 
-function DashboardLayout({ children }) {
+function DashboardLayout() {
 	return (
 		<>
-			<div>
-				<Navbar />
-				<div className='container-main'>{children}</div>
+			<Navbar />
+			<div className='container-main'>
+				<Outlet />
 			</div>
 		</>
 	);

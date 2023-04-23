@@ -1,29 +1,26 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
-
-import { PRIVATE } from "../../../../core/config/routes/paths";
 import { useLogin } from "../../hooks/useLogin";
 import "./styles/LoginFormStyle.scss";
-import { useFormik } from "formik";
+import { replace, useFormik } from "formik";
+import { useAuthContext } from "../../../../core/context/authContext";
+import { useNavigate } from "react-router-dom";
+import { DASHBOARD } from "../../../../core/config/routes/paths";
 
 const LoginForm = () => {
-	const navigate = useNavigate();
+	const { loginUser } = useLogin();
+	const navigate = useNavigate()
 
 	const formik = useFormik({
 		initialValues: {
 			nickname: "",
 			password: "",
 		},
+		onSubmit: async ({ nickname, password }) => {
+			loginUser({ nickname, password });			
+			navigate(DASHBOARD, {replace:true})
+		},
 	});
-
-	const { isLoading, error, loginUser } = useLogin();
-
-	const handleClick = async () => {
-		try {
-		} catch (error) {}
-		navigate(PRIVATE);
-	};
 
 	return (
 		<div className="container ">
@@ -33,7 +30,7 @@ const LoginForm = () => {
 						<div className="input-group form-group mt-3">
 							<div className="input-group-login ">
 								<span className="text-light gap-3 m-3 ">
-									<i className="bi bi-person-fill"></i>
+									<i className="bi bi-person-fill" />
 								</span>
 							</div>
 							<input
@@ -50,7 +47,7 @@ const LoginForm = () => {
 						<div className="input-group form-group">
 							<div className="input-group-login">
 								<span className="text-light gap-3 m-3">
-									<i className="bi bi-key-fill"></i>
+									<i className="bi bi-key-fill" />
 								</span>
 							</div>
 							<input

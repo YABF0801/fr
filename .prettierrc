@@ -10,5 +10,5 @@
 	"arrowParens": "always",
 	"endOfLine": "lf",
 	"printWidth": 120,
-	"singleAttributePerLine": true
+	"singleAttributePerLine": false
 }
