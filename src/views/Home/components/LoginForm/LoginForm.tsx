@@ -1,9 +1,9 @@
 import React from "react";
+import Yup from 'yup'
 
 import { useLogin } from "../../hooks/useLogin";
 import "./styles/LoginFormStyle.scss";
-import { replace, useFormik } from "formik";
-import { useAuthContext } from "../../../../core/context/authContext";
+import {  useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { DASHBOARD } from "../../../../core/config/routes/paths";
 
@@ -11,11 +11,17 @@ const LoginForm = () => {
 	const { loginUser } = useLogin();
 	const navigate = useNavigate()
 
+	const LoginSchema = Yup.object().shape({
+		nickname: Yup.string().required('El nombre es requerido'),
+		password: Yup.string().required('La descripción es requerida'),
+	});
+
 	const formik = useFormik({
 		initialValues: {
 			nickname: "",
 			password: "",
 		},
+		validationSchema:LoginSchema,
 		onSubmit: async ({ nickname, password }) => {
 			loginUser({ nickname, password });			
 			navigate(DASHBOARD, {replace:true})
@@ -42,6 +48,7 @@ const LoginForm = () => {
 								className="loginput mb-3 text-center"
 								placeholder="Usuario"
 							/>
+							{formik.errors.nickname && formik.touched.nickname ? <p className='text-danger'>{formik.errors.nickname}</p> : null}
 						</div>
 
 						<div className="input-group form-group">
@@ -59,6 +66,7 @@ const LoginForm = () => {
 								className="loginput mb-3 text-center"
 								placeholder="Contraseña"
 							/>
+							{formik.errors.password && formik.touched.password ? <p className='text-danger'>{formik.errors.password}</p> : null}
 						</div>
 
 						<div>
