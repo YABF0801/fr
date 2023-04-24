@@ -1,5 +1,5 @@
 import React from "react";
-import Yup from 'yup'
+import  * as Yup from 'yup'
 
 import { useLogin } from "../../hooks/useLogin";
 import "./styles/LoginFormStyle.scss";
@@ -10,6 +10,7 @@ import { DASHBOARD } from "../../../../core/config/routes/paths";
 const LoginForm = () => {
 	const { loginUser } = useLogin();
 	const navigate = useNavigate()
+
 
 	const LoginSchema = Yup.object().shape({
 		nickname: Yup.string().required('El nombre es requerido'),
@@ -22,9 +23,9 @@ const LoginForm = () => {
 			password: "",
 		},
 		validationSchema:LoginSchema,
-		onSubmit: async ({ nickname, password }) => {
-			loginUser({ nickname, password });			
-			navigate(DASHBOARD, {replace:true})
+		onSubmit:  ({ nickname, password }) => {
+				loginUser({ nickname, password });			
+				navigate(DASHBOARD, {replace:true});			
 		},
 	});
 

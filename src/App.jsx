@@ -34,34 +34,38 @@ import { Users } from './views/Dashboard/Users';
 import LandingPage from './views/Home/LandingPage';
 import DashboardLayout from './views/dashboard/layout/DashboardLayout';
 import { AdminRoute } from './core/guard';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<AuthContextProvider>
-				<Routes>
-					<Route path={HOME} element={<PublicRoute />}>
-						<Route index element={<LandingPage />} />
-					</Route>
+				<>
+					<Routes>
+						<Route path={HOME} element={<PublicRoute />}>
+							<Route index element={<LandingPage />} />
+						</Route>
 
-					<Route path={PRIVATE} element={<PrivateRoute />}>
-						<Route element={<DashboardLayout />}>
-							<Route index element={<Navigate to={DASHBOARD} />} />
-							<Route path={DASHBOARD} element={<Dashboard />} />
-							<Route path={GENERAL_LIST} element={<GeneralList />} />
-							<Route path={CIRCULOS} element={<Circulos />} />
-							<Route path={ORGANISMOS} element={<Organismos />} />
-							<Route path={PROPUESTAS_LIST} element={<Propuestas />} />
-							<Route path={HELP} element={<Help />} />
-							<Route element={<AdminRoute />}>
-								<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
-								<Route path={USERS} element={<Users />} />
+						<Route path={PRIVATE} element={<PrivateRoute />}>
+							<Route element={<DashboardLayout />}>
+								<Route index element={<Navigate to={DASHBOARD} />} />
+								<Route path={DASHBOARD} element={<Dashboard />} />
+								<Route path={GENERAL_LIST} element={<GeneralList />} />
+								<Route path={CIRCULOS} element={<Circulos />} />
+								<Route path={ORGANISMOS} element={<Organismos />} />
+								<Route path={PROPUESTAS_LIST} element={<Propuestas />} />
+								<Route path={HELP} element={<Help />} />
+								<Route element={<AdminRoute />}>
+									<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
+									<Route path={USERS} element={<Users />} />
+								</Route>
 							</Route>
 						</Route>
-					</Route>
 
-					<Route path='*' element={<NotFound />} />
-				</Routes>
+						<Route path='*' element={<NotFound />} />
+					</Routes>
+					<ToastContainer />
+				</>
 			</AuthContextProvider>
 		</BrowserRouter>
 	);

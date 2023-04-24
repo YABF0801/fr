@@ -18,6 +18,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import 'xlsx/xlsx';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<App />
