@@ -4,6 +4,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
+import { useAuthContext } from '../../../../core/context/authContext';
 
 const GeneralListTable = () => {
 	const { submisions, deleteSubmision, bajaSubmision } = useSubmisionContext();
@@ -14,6 +15,8 @@ const GeneralListTable = () => {
 	const [hidePhone, setHidePhone] = useState(true);
 	const [hideAddress, setHideAddress] = useState(true);
 	const [selectedSubmision, setSelectedSubmision] = useState(null);
+
+	const { isAuthenticated } = useAuthContext();
 
 	const handleExport = () => {
 		const dataset = submisionsLocal.map((item) => ({
@@ -48,7 +51,6 @@ const GeneralListTable = () => {
 		}
 		return function cleanUp() {};
 	}, [search]);
-
 
 	const confirmDelete = (row) => {
 		confirmAlert({
@@ -87,7 +89,6 @@ const GeneralListTable = () => {
 	const bajaSubmisionById = async (id) => {
 		await bajaSubmision.mutate(id);
 	};
-
 
 	const handleSearch = (event) => {
 		const hasWorkName = (item) => item.workName !== undefined && item.workName !== '';
@@ -309,31 +310,23 @@ const GeneralListTable = () => {
 			},
 			{
 				name: '', // action buttons
-				cell: (row) => (
-					<div className='action d-flex '>
-						<a
-							className='btn btn-sm'
-							href='#submision'
-							onClickCapture={() => editSubmision(row._id)}
-						>
-							<i className='action-btn bi bi-pencil-square'></i>
-						</a>
+				cell: (row) => {
+					isAuthenticated.user?.role === 'admin' && (
+						<div className='action d-flex '>
+							<a className='btn btn-sm' href='#submision' onClickCapture={() => editSubmision(row._id)}>
+								<i className='action-btn bi bi-pencil-square'></i>
+							</a>
 
-						<button
-							onClick={() => confirmDelete(row)}
-							className='btn btn-sm'
-						>
-							<i className='action-btn bi bi-trash-fill'></i>
-						</button>
+							<button onClick={() => confirmDelete(row)} className='btn btn-sm'>
+								<i className='action-btn bi bi-trash-fill'></i>
+							</button>
 
-						<button
-							onClick={() => confirmBaja(row)}
-							className='btn btn-sm'
-						>
-							<i className='action-btn bi bi-person-dash'></i>
-						</button>
-					</div>
-				),
+							<button onClick={() => confirmBaja(row)} className='btn btn-sm'>
+								<i className='action-btn bi bi-person-dash'></i>
+							</button>
+						</div>
+					);
+				},
 				allowOverflow: true,
 				button: true,
 				width: '9rem',
@@ -349,8 +342,8 @@ const GeneralListTable = () => {
 	return (
 		<section className='list '>
 			<div className='container-main mt-3 p-2 pb-5'>
-						<h2 className='text-center mt-2 p-3'>Listado de Planillas</h2>
-						
+				<h2 className='text-center mt-2 p-3'>Listado de Planillas</h2>
+
 				<div className='card '>
 					<div className='card-body '>
 						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
@@ -374,10 +367,7 @@ const GeneralListTable = () => {
 									id='show_matricula'
 									onClick={handleHideSocialCase}
 								/>
-								<label
-									className='custom-control-label '
-									htmlFor='show_matricula'
-								>
+								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Caso Social
 								</label>
 								<input
@@ -386,10 +376,7 @@ const GeneralListTable = () => {
 									id='show_matricula'
 									onClick={handleHidePhone}
 								/>
-								<label
-									className='custom-control-label '
-									htmlFor='show_matricula'
-								>
+								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Teléfono
 								</label>
 								<input
@@ -398,10 +385,7 @@ const GeneralListTable = () => {
 									id='show_matricula'
 									onClick={handleHideAddress}
 								/>
-								<label
-									className='custom-control-label '
-									htmlFor='show_matricula'
-								>
+								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Dirección
 								</label>
 								<input
@@ -410,40 +394,22 @@ const GeneralListTable = () => {
 									id='show_matricula'
 									onClick={handleHidePadre}
 								/>
-								<label
-									className='custom-control-label '
-									htmlFor='show_matricula'
-								>
+								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Padre
 								</label>
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<a
-									href='#submision'
-									onClickCapture={showForm}
-									className='btn customize-btn'
-								>
+								<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
 									<i className='bi bi-plus-lg'></i>
 								</a>
 
-								<button
-									type='excel'
-									onClick={handleExport}
-									className='btn export-btn'
-								>
+								<button type='excel' onClick={handleExport} className='btn export-btn'>
 									Exportar
 								</button>
-
-
-							
+							</div>
 						</div>
-						</div>
-						<DataTable
-							columns={columns}
-							data={submisionsLocal}
-							autoWidth={true}
-						/>
+						<DataTable columns={columns} data={submisionsLocal} autoWidth={true} />
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 							<h4>Leyenda: </h4>
@@ -451,12 +417,10 @@ const GeneralListTable = () => {
 							<h6>OS: Otorgamiento sistemático | </h6>
 							<h6>CS: Caso social </h6>
 						</div>
-					
 					</div>
 				</div>
 				<SubmisionForm submision={selectedSubmision} />
 			</div>
-		
 		</section>
 	);
 };

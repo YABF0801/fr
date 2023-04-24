@@ -10,6 +10,7 @@ import Charts2 from './Charts2';
 import MapComponent from './MapAndBarChart';
 
 import './Stats.scss';
+import { useFetch } from '../../../../core/hooks/useFetch';
 
 const Cards = () => {
 	const [totalMatricula, setTotalMatricula] = useState(0);
@@ -50,17 +51,19 @@ const Cards = () => {
 	// 	fetchData();
 	// }, []);
 
+	const { data: childrens, isLoading } = useFetch('/estadisticas/boys-girls');
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const result = await getTotalGirlsAndBoys();
-				setTotalBoys(result.totalBoys);
-				setTotalGirls(result.totalGirls);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		fetchData();
+		// const fetchData = async () => {
+		// 	try {
+		// 		const result = await getTotalGirlsAndBoys();
+		// setTotalBoys(childrens.totalBoys);
+		// setTotalGirls(childrens.totalGirls);
+		// 	} catch (error) {
+		// 		console.log(error);
+		// 	}
+		// };
+		// fetchData();
 	}, []);
 
 	return (
@@ -99,27 +102,33 @@ const Cards = () => {
 						</div>
 					</div>
 
-					<div className='col-md-3 col-xl-3'>
-						<div className='card bg-c-green order-card'>
-							<div className='card-block'>
-								<h5 className='m-b-10'>Total de Niñas</h5>
-								<h1 className='text-right display-1'>
-									<span>{totalGirls}</span>
-								</h1>
+					{isLoading ? (
+						<p>Loading...</p>
+					) : (
+						<>
+							<div className='col-md-3 col-xl-3'>
+								<div className='card bg-c-green order-card'>
+									<div className='card-block'>
+										<h5 className='m-b-10'>Total de Niñas</h5>
+										<h1 className='text-right display-1'>
+											<span>{childrens.totalGirls}</span>
+										</h1>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
 
-					<div className='col-md-3 col-xl-3'>
-						<div className='card bg-c-blue order-card'>
-							<div className='card-block'>
-								<h5 className='m-b-10'>Total de Niños</h5>
-								<h1 className='text-right display-1'>
-									<span>{totalBoys}</span>
-								</h1>
+							<div className='col-md-3 col-xl-3'>
+								<div className='card bg-c-blue order-card'>
+									<div className='card-block'>
+										<h5 className='m-b-10'>Total de Niños</h5>
+										<h1 className='text-right display-1'>
+											<span>{childrens?.totalBoys}</span>
+										</h1>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+						</>
+					)}
 				</div>
 				{/* <MapComponent />
 				<Charts />

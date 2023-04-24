@@ -33,6 +33,7 @@ import { Propuestas } from './views/Dashboard/Propuestas';
 import { Users } from './views/Dashboard/Users';
 import LandingPage from './views/Home/LandingPage';
 import DashboardLayout from './views/dashboard/layout/DashboardLayout';
+import { AdminRoute } from './core/guard';
 
 function App() {
 	return (
@@ -48,12 +49,14 @@ function App() {
 							<Route index element={<Navigate to={DASHBOARD} />} />
 							<Route path={DASHBOARD} element={<Dashboard />} />
 							<Route path={GENERAL_LIST} element={<GeneralList />} />
-							<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
 							<Route path={CIRCULOS} element={<Circulos />} />
 							<Route path={ORGANISMOS} element={<Organismos />} />
 							<Route path={PROPUESTAS_LIST} element={<Propuestas />} />
-							<Route path={USERS} element={<Users />} />
 							<Route path={HELP} element={<Help />} />
+							<Route element={<AdminRoute />}>
+								<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
+								<Route path={USERS} element={<Users />} />
+							</Route>
 						</Route>
 					</Route>
 
