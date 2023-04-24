@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+
 import { FechaOmApiGet } from '../../../../utils/utiles.sevices';
 import { cursoApiGet } from '../../Circulos/service/circulo.services';
-import { getCapacityAndMatricula, getTotalGirlsAndBoys } from '../service/dashboard.services';
+import { getCapacityAndMatricula } from '../services/dashboard.services';
+import { getTotalGirlsAndBoys } from '../services/getTotalGirlsAndBoys';
+
 import Charts from './Charts';
 import Charts2 from './Charts2';
 import MapComponent from './MapAndBarChart';
@@ -14,45 +17,48 @@ const Cards = () => {
 	const [totalBoys, setTotalBoys] = useState(0);
 	const [totalGirls, setTotalGirls] = useState(0);
 	const [curso, setCurso] = useState();
-    const [date, setDate] = useState(false);
-    const [existingDate, setExistingDate] = useState(false);
+	const [date, setDate] = useState(false);
+	const [existingDate, setExistingDate] = useState(false);
 
-    const dateShow = existingDate ? new Date(date).toLocaleDateString() : '__ / __ / ____';
+	const dateShow = existingDate ? new Date(date).toLocaleDateString() : '__ / __ / ____';
+
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const curso = await cursoApiGet();
+	// 		setCurso(curso);
+	// 	};
+	// 	fetchData();
+	// }, []);
+
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const omDate = await FechaOmApiGet();
+	// 		if (omDate) {
+	// 			setDate(omDate);
+	// 			setExistingDate(true);
+	// 		}
+	// 	};
+	// 	fetchData();
+	// }, []);
+
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const result = await getCapacityAndMatricula();
+	// 		setTotalCapacidad(result.NormedCapacity);
+	// 		setTotalMatricula(result.Matricula);
+	// 	};
+	// 	fetchData();
+	// }, []);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const curso = await cursoApiGet();
-			setCurso(curso);
-		};
-		fetchData();
-	}, []);
-
-    
-  useEffect(() => {
-    const fetchData = async () => {
-      const omDate = await FechaOmApiGet();
-      if (omDate) {
-        setDate(omDate)
-        setExistingDate(true);
-      }
-    };
-    fetchData();
-  }, []);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const result = await getCapacityAndMatricula();
-			setTotalCapacidad(result.NormedCapacity);
-			setTotalMatricula(result.Matricula);
-		};
-		fetchData();
-	}, []);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const result = await getTotalGirlsAndBoys();
-			setTotalBoys(result.totalBoys);
-			setTotalGirls(result.totalGirls);
+			try {
+				const result = await getTotalGirlsAndBoys();
+				setTotalBoys(result.totalBoys);
+				setTotalGirls(result.totalGirls);
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		fetchData();
 	}, []);
@@ -62,9 +68,9 @@ const Cards = () => {
 			<div className='container-main mt-3 p-3'>
 				<div className='row'>
 					<div className='col-md-4 '>
-                    <h3 className='text-secondary '>Fecha de nuevo otorgamiento masivo {dateShow}</h3>
-                    </div>
-                    <div className='col-md-6 '></div>
+						<h3 className='text-secondary '>Fecha de nuevo otorgamiento masivo {dateShow}</h3>
+					</div>
+					<div className='col-md-6 '></div>
 					<div className='col-md-2'>
 						<h2 className='text-center '>Curso {curso}</h2>
 					</div>
@@ -115,9 +121,9 @@ const Cards = () => {
 						</div>
 					</div>
 				</div>
-				<MapComponent />
+				{/* <MapComponent />
 				<Charts />
-				<Charts2 />
+				<Charts2 /> */}
 			</div>
 		</section>
 	);
