@@ -1,11 +1,11 @@
-import { /* Navigate */ Outlet } from 'react-router-dom';
-/* import { PRIVATE } from '../config/routes/paths';
-import { useAuthContext } from '../context/authContext'; */
+import { Navigate, Outlet } from 'react-router-dom';
+import { DASHBOARD } from '../config/routes/paths';
+import { useAuthContext } from '../context/authContext';
 
 const PublicRoute = () => {
-	/*   const { isAuthenticated } = useAuthContext()
+	const { isAuthenticated } = useAuthContext();
 
-  if (isAuthenticated) return <Navigate to={PRIVATE} /> */
+	if (isAuthenticated.user?._id) return <Navigate to={DASHBOARD} />;
 
 	return (
 		<div>
