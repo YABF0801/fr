@@ -5,6 +5,7 @@ import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
+import { useAuthContext } from '../../../../core/context/authContext';
 
 const CirculosList = () => {
 	const {circulos, deleteCirculo, /* changeStatusCirculo */ } = useCirculoContext();
@@ -14,6 +15,8 @@ const CirculosList = () => {
 	const [hideActive, setHideActive] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
+
+	const { isAuthenticated } = useAuthContext();
 
 	const handleExport = () => {
 		const dataset = circulosFullDataset(circulosLocal);
@@ -195,7 +198,8 @@ const CirculosList = () => {
 		},
 		{
 			name: '', // action buttons
-			cell: (row) => (
+			cell: (row) => {
+				isAuthenticated.user?.role === 'admin' && (
 				<div className='d-flex gap-1 justify-content-center'>
 
 					<a className='btn btn-sm' href='#circulo' onClickCapture={() => editCirculo(row._id)}>
@@ -219,7 +223,7 @@ const CirculosList = () => {
 
 				 </div>
 				
-			),
+			)},
 			
 			allowOverflow: true,
 			button: true,
@@ -282,10 +286,11 @@ const CirculosList = () => {
 								
 								<div className="gap-3 form-check form-switch form-check-inline d-flex justify-content-between">
 								
-								<a href='#circulo' onClickCapture={showForm}
+								{
+								isAuthenticated.user?.role === 'admin' && (<a href='#circulo' onClickCapture={showForm}
 								className='btn customize-btn'>
 								<i className='bi bi-plus-lg'></i>
-								</a>
+								</a>)}
 
 
 								<button

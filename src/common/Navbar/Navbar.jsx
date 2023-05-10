@@ -21,7 +21,8 @@ import { useAuthContext } from '../../core/context/authContext';
 const Navbar = () => {
 	const navigate = useNavigate();
 	const { logout } = useAuthContext();
-
+	const { isAuthenticated } = useAuthContext();
+	
 	const confirmExit = (row) => {
 		confirmAlert({
 			title: `Cerrar sesión`,
@@ -118,7 +119,8 @@ const Navbar = () => {
 							</NavLink>
 						</li>
 
-						<li className='nav-item'>
+						{
+								isAuthenticated.user?.role === 'admin' && (<li className='nav-item'>
 							<NavLink className='nav-link link text-success text-primary' to={USERS}>
 								<i
 									className='inav bi bi-gear-fill'
@@ -126,7 +128,7 @@ const Navbar = () => {
 									data-tooltip-content='Administración'
 								/>
 							</NavLink>
-						</li>
+						</li>)}
 
 						<Link className='nav-link link text-success text-primary ' to={HELP}>
 							<i
