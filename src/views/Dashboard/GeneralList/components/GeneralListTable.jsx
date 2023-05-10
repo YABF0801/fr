@@ -6,6 +6,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
 import { useAuthContext } from '../../../../core/context/authContext';
 
+
 const GeneralListTable = () => {
 	const { submisions, deleteSubmision, bajaSubmision } = useSubmisionContext();
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
@@ -400,9 +401,10 @@ const GeneralListTable = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
+							{
+								isAuthenticated.user?.role === 'admin' && (<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
 									<i className='bi bi-plus-lg'></i>
-								</a>
+								</a>)}
 
 								<button type='excel' onClick={handleExport} className='btn export-btn'>
 									Exportar
