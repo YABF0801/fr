@@ -23,47 +23,47 @@ const Cards = () => {
 
 	const dateShow = existingDate ? new Date(date).toLocaleDateString() : '__ / __ / ____';
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const curso = await cursoApiGet();
-	// 		setCurso(curso);
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			const curso = await cursoApiGet();
+			setCurso(curso);
+		};
+		fetchData();
+	}, []);
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const omDate = await FechaOmApiGet();
-	// 		if (omDate) {
-	// 			setDate(omDate);
-	// 			setExistingDate(true);
-	// 		}
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			const omDate = await FechaOmApiGet();
+			if (omDate) {
+				setDate(omDate);
+				setExistingDate(true);
+			}
+		};
+		fetchData();
+	}, []);
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const result = await getCapacityAndMatricula();
-	// 		setTotalCapacidad(result.NormedCapacity);
-	// 		setTotalMatricula(result.Matricula);
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			const result = await getCapacityAndMatricula();
+			setTotalCapacidad(result.NormedCapacity);
+			setTotalMatricula(result.Matricula);
+		};
+		fetchData();
+	}, []);
 
 	const { data: childrens, isLoading } = useFetch('/estadisticas/boys-girls');
 
 	useEffect(() => {
-		// const fetchData = async () => {
-		// 	try {
-		// 		const result = await getTotalGirlsAndBoys();
-		// setTotalBoys(childrens.totalBoys);
-		// setTotalGirls(childrens.totalGirls);
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// };
-		// fetchData();
+		const fetchData = async () => {
+			try {
+				const result = await getTotalGirlsAndBoys();
+		setTotalBoys(childrens.totalBoys);
+		setTotalGirls(childrens.totalGirls);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
 	}, []);
 
 	return (
@@ -130,9 +130,9 @@ const Cards = () => {
 						</>
 					)}
 				</div>
-				{/* <MapComponent />
+				<MapComponent />
 				<Charts />
-				<Charts2 /> */}
+				<Charts2 /> 
 			</div>
 		</section>
 	);

@@ -142,7 +142,7 @@ function CirculoForm ({circulo, showAttendance}) {
                         <h3 className='text-secondary mt-3'>Capacidades por año de vida </h3>
                         <h6 className="text-secondary mb-3">Escriba la capacidad total para cada año de vida</h6>
 								<div className='d-flex mb-2 gap-3 justify-content-between'>
- 									<div >
+ 									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -156,7 +156,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.errors.normed_capacity2 && form.touched.normed_capacity2 ? <p className='text-danger'>{form.errors.normed_capacity2}</p> : null}
 									</div>
 
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -170,7 +170,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.errors.normed_capacity3 && form.touched.normed_capacity3 ? <p className='text-danger'>{form.errors.normed_capacity3}</p> : null}
 									</div>
 
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -184,7 +184,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.errors.normed_capacity4 && form.touched.normed_capacity4 ? <p className='text-danger'>{form.errors.normed_capacity4}</p> : null}
 										</div>
 
-										<div >
+										<div>
 										<input
 											type='number'
 											className='form-control '
@@ -198,7 +198,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.errors.normed_capacity5 && form.touched.normed_capacity5 ? <p className='text-danger'>{form.errors.normed_capacity5}</p> : null}
 										</div>
 
-										<div >
+										<div>
 										<input
 											type='number'
 											className='form-control '
@@ -219,7 +219,7 @@ function CirculoForm ({circulo, showAttendance}) {
                         		<h6 className="text-secondary mt-3 mb-3">Escriba el porciento de asistencia para cada año de vida</h6>
 								<div className='d-flex mb-2 gap-3 justify-content-between'>
 								
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -233,7 +233,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										 {form.touched.attendance2 && form.errors.attendance2 ?  <p className='text-danger'>{form.errors.attendance2}</p> : null}
 									</div>
 
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -247,7 +247,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.touched.attendance3 && form.errors.attendance3 ? <p className='text-danger'>{form.errors.attendance3}</p> : null}
 									</div>
 
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -261,7 +261,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.touched.attendance4 && form.errors.attendance4 ? <p className='text-danger'>{form.errors.attendance4}</p> : null}
 										</div>
 
-										<div >
+										<div>
 										<input
 											type='number'
 											className='form-control '
@@ -275,7 +275,7 @@ function CirculoForm ({circulo, showAttendance}) {
 										{form.touched.attendance5 && form.errors.attendance5 ? <p className='text-danger'>{form.errors.attendance5}</p> : null}
 										</div>
 
-										<div >
+										<div>
 										<input
 											type='number'
 											className='form-control '
@@ -295,7 +295,7 @@ function CirculoForm ({circulo, showAttendance}) {
 									<h3 className='text-secondary mt-3'>Ubicación geográfica</h3>
 									<h6 className="text-secondary mb-3">Busque la ubicación y haga click en el mapa</h6>
 										<div className='col-md-12'>
->
+
 										<MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
 											center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true} 
 											minZoom={9} maxBounds={[
