@@ -309,10 +309,10 @@ const GeneralListTable = () => {
 				width: '8rem',
 				center: true,
 			},
-			{
+			isAuthenticated.user?.role === 'admin' && ({
 				name: '', // action buttons
-				cell: (row) => {
-					isAuthenticated.user?.role === 'admin' && (
+				cell: (row) => (
+					
 						<div className='action d-flex '>
 							<a className='btn btn-sm' href='#submision' onClickCapture={() => editSubmision(row._id)}>
 								<i className='action-btn bi bi-pencil-square'></i>
@@ -326,12 +326,12 @@ const GeneralListTable = () => {
 								<i className='action-btn bi bi-person-dash'></i>
 							</button>
 						</div>
-					);
-				},
+					
+				),
 				allowOverflow: true,
 				button: true,
 				width: '9rem',
-			},
+			}),
 		],
 		[hideSocialCase, hideAddress, hidePhone, hidePadre]
 	);

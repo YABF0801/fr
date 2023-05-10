@@ -196,10 +196,10 @@ const CirculosList = () => {
 			cell: (row) => (row.isCiActive ? <h4 className='text-active' >Activo</h4> : <p className='text-inactive'>Inactivo</p>),
 			sortable: true, omit:hideActive
 		},
-		{
+		isAuthenticated.user?.role === 'admin' && ({
 			name: '', // action buttons
-			cell: (row) => {
-				isAuthenticated.user?.role === 'admin' && (
+			cell: (row) => (
+				
 				<div className='d-flex gap-1 justify-content-center'>
 
 					<a className='btn btn-sm' href='#circulo' onClickCapture={() => editCirculo(row._id)}>
@@ -223,13 +223,13 @@ const CirculosList = () => {
 
 				 </div>
 				
-			)},
+				),
 			
-			allowOverflow: true,
-			button: true,
-			width: '100px',
+				allowOverflow: true,
+				button: true,
+				width: '100px',
+			}),
 
-		},
 		
 	], 	[hideMatricula, hideActive]);
 

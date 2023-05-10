@@ -10,7 +10,7 @@ const OrganismosList = () => {
 	const [organismosLocal, setOrganismosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 	const [selectedOrganismo, setSelectedOrganismo] = useState(null);
-	
+
 	const { isAuthenticated } = useAuthContext();
 
 	useEffect(() => {
@@ -84,7 +84,7 @@ const OrganismosList = () => {
 			sortable: true,
 			center:true
 		},
-		{
+		isAuthenticated.user?.role === 'admin' && ({
 			name: '', // action buttons
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
@@ -100,10 +100,11 @@ const OrganismosList = () => {
 					</button>
 				</div>
 			),
+			
 			allowOverflow: true,
 			button: true,
 			width: '100px',
-		},
+		}),
 	];
 
 	function showForm() {
