@@ -17,12 +17,20 @@ import {
 import './Navbar.scss';
 import { confirmAlert } from 'react-confirm-alert';
 import { useAuthContext } from '../../core/context/authContext';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
 	const navigate = useNavigate();
 	const { logout } = useAuthContext();
 	const { isAuthenticated } = useAuthContext();
-	
+
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		const user = isAuthenticated.user?.nickname
+		setUser(user);
+		}, []);
+
 	const confirmExit = (row) => {
 		confirmAlert({
 			title: `Cerrar sesión`,
@@ -138,7 +146,12 @@ const Navbar = () => {
 							></i>
 						</Link>
 
-						<a className='nav-link link text-success text-primary ' onClick={() => confirmExit()}>
+						{isAuthenticated.user && (
+						<a className='nav-link link text-secondary text-center mt-4' >
+								<h4>Hola {user}!</h4>
+						</a>)}
+								
+								<a className='nav-link link text-success text-primary ' onClick={() => confirmExit()}>
 							<i
 								className='inav bi bi-box-arrow-in-right'
 								data-tooltip-id='tooltip'
