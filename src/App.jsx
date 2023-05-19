@@ -23,7 +23,7 @@ import PublicRoute from './core/guard/PublicRoute';
 
 // pantallas de paginas
 import { Circulos } from './views/Dashboard/Circulos';
-import Dashboard from './views/Dashboard/DashboardStats/Dashboard';
+import DashboardScreen from './views/Dashboard/DashboardStats/DashboardScreen';
 import { GeneralList } from './views/Dashboard/GeneralList';
 import { Help } from './views/Dashboard/Help';
 import { NewSubmision } from './views/Dashboard/NewSubmision';
@@ -42,27 +42,27 @@ function App() {
 			<AuthContextProvider>
 				<>
 					<Routes>
-						<Route path={HOME} element={<PublicRoute />}>
-							<Route index element={<LandingPage />} />
+						<Route path={ HOME } element={ <PublicRoute /> }>
+							<Route index element={ <LandingPage /> } />
 						</Route>
 
-						<Route path={PRIVATE} element={<PrivateRoute />}>
-							<Route element={<DashboardLayout />}>
-								<Route index element={<Navigate to={DASHBOARD} />} />
-								<Route path={DASHBOARD} element={<Dashboard />} />
-								<Route path={GENERAL_LIST} element={<GeneralList />} />
-								<Route path={CIRCULOS} element={<Circulos />} />
-								<Route path={ORGANISMOS} element={<Organismos />} />
-								<Route path={PROPUESTAS_LIST} element={<Propuestas />} />
-								<Route path={HELP} element={<Help />} />
-								<Route element={<AdminRoute />}>
-									<Route path={NEW_SUBMISISON} element={<NewSubmision />} />
-									<Route path={USERS} element={<Users />} />
+						<Route path={ PRIVATE } element={ <PrivateRoute /> }>
+							<Route element={ <DashboardLayout /> }>
+								<Route index element={ <Navigate to={ DASHBOARD } /> } />
+								<Route path={ DASHBOARD } element={ <DashboardScreen /> } />
+								<Route path={ GENERAL_LIST } element={ <GeneralList /> } />
+								<Route path={ CIRCULOS } element={ <Circulos /> } />
+								<Route path={ ORGANISMOS } element={ <Organismos /> } />
+								<Route path={ PROPUESTAS_LIST } element={ <Propuestas /> } />
+								<Route path={ HELP } element={ <Help /> } />
+								<Route element={ <AdminRoute /> }>
+									<Route path={ USERS } element={ <Users /> } />
+									<Route path={ NEW_SUBMISISON } element={ <NewSubmision /> } />
 								</Route>
 							</Route>
 						</Route>
 
-						<Route path='*' element={<NotFound />} />
+						<Route path='*' element={ <NotFound /> } />
 					</Routes>
 					<ToastContainer />
 				</>

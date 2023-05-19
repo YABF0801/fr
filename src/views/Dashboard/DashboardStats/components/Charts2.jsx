@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import 'chart.js/auto';
-import './Stats.scss';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
 	getMatriculaPorCp,
@@ -123,7 +122,7 @@ const Charts2 = () => {
 								<div className='card-block'>
 									<p className='m-b-10'>Pendientes</p>
 									<h4 className='text-right display-5'>
-										<span>{statusCount[0]}</span>
+										<span>{ statusCount[0] }</span>
 									</h4>
 								</div>
 							</div>
@@ -132,7 +131,7 @@ const Charts2 = () => {
 								<div className='card-block'>
 									<p className='m-b-10'>Matrículas</p>
 									<h4 className='text-right display-5'>
-										<span>{statusCount[1]}</span>
+										<span>{ statusCount[1] }</span>
 									</h4>
 								</div>
 							</div>
@@ -142,7 +141,7 @@ const Charts2 = () => {
 								<div className='card-block'>
 									<p className='m-b-10'>Bajas</p>
 									<h4 className='text-right display-5'>
-										<span>{statusCount[2]}</span>
+										<span>{ statusCount[2] }</span>
 									</h4>
 								</div>
 							</div>
@@ -151,13 +150,13 @@ const Charts2 = () => {
 
 					<div className='col-md-7 col-xl-7'>
 						<div className='row align-items-center'>
-							<Line data={lineYearsChartData} options={lineYearsChartData.options} />
+							<Line data={ lineYearsChartData } options={ lineYearsChartData.options } />
 						</div>
 					</div>
 
 					<div className='col-md-3 col-xl-3'>
 						<div className='row align-items-center'>
-							<Doughnut data={doughnutChartData} options={doughnutChartData.options} />
+							<Doughnut data={ doughnutChartData } options={ doughnutChartData.options } />
 						</div>
 					</div>
 				</div>

@@ -100,12 +100,6 @@ export const getTotalBoysPerYear = async () => {
 	return data;
 };
 
-export const getCapacityAndMatricula = async () => {
-	//  TOTALES GENERALES CAPACIDAD NORMADA Y MATRICULA
-	const capacityMatricula = await baseAxios.get('/estadisticas/cap-mat');
-	const capacidadMatricula = capacityMatricula.data;
-	return capacidadMatricula;
-};
 
 export const getTotalGirlsAndBoys = async () => {
 	//  TOTAL NIÑOS POR AÑO

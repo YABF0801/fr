@@ -23,8 +23,8 @@ const LoginForm = () => {
 			password: "",
 		},
 		validationSchema:LoginSchema,
-		onSubmit:  ({ nickname, password }) => {
-				loginUser({ nickname, password });			
+		onSubmit:  async ({ nickname, password }) => {
+				await loginUser({ nickname, password });			
 				navigate(DASHBOARD, {replace:true});			
 		},
 	});

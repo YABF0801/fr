@@ -19,7 +19,7 @@ const DatePickerToOm = () => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [existingDate, selectedDate]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -64,16 +64,16 @@ const DatePickerToOm = () => {
   return (
     <div className='pb-3 mb-4 gap-3 d-flex justify-content-end '>
       <div className='gap-3 form-check form-switch form-check-inline d-flex '>
-        {existingDate ? (
+        { existingDate ? (
           <>
             <p className='text-secondary'>Fecha para el otorgamiento masivo</p>
-            <h3 className='text-secondary'>{date}</h3>
+            <h3 className='text-secondary'>{ date }</h3>
 
-            <button onClick={confirmDelete}
+            <button onClick={ confirmDelete }
               className='btn btn-sm'
             ><i className='action-btn bi bi-trash-fill'
-            data-tooltip-id="tooltip" 
-            data-tooltip-content="Eliminar fecha"></i>
+              data-tooltip-id="tooltip"
+              data-tooltip-content="Eliminar fecha"></i>
             </button>
 
           </>
@@ -81,26 +81,26 @@ const DatePickerToOm = () => {
           <>
 
             <DatePicker
-                id='datePicker'
-              selected={selectedDate}
-              onChange={handleDateChange}
+              id='datePicker'
+              selected={ selectedDate }
+              onChange={ handleDateChange }
               dateFormat='dd/MM/yyyy'
               className='form-control '
               placeholderText='Nueva Fecha de otorgamimento'
-              
+
             />
 
-            <button id='icon' onClick={() => handleSave()}
+            <button id='icon' onClick={ () => handleSave() }
               className='btn btn-sm '
-            ><i className='action-btn bi bi-check2-square' 
-            data-tooltip-id="tooltip" 
-            data-tooltip-content="Guardar fecha"></i>
+            ><i className='action-btn bi bi-check2-square'
+              data-tooltip-id="tooltip"
+              data-tooltip-content="Guardar fecha"></i>
             </button>
 
 
 
           </>
-        )}
+        ) }
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import 'chart.js/auto';
-import './Stats.scss';
 import { Radar, Line } from 'react-chartjs-2';
 import {
 	getMatriculaPerYear,
@@ -149,12 +148,12 @@ const Charts = () => {
 			<div className='container-main mt-3 '>
 				<div className='row mt-5 justify-content-evenly'>
 					<div className='col-md-4 col-xl-4'>
-						<Radar data={radarChartData} options={radarChartData.options} />
+						<Radar data={ radarChartData } options={ radarChartData.options } />
 					</div>
 
 					<div className='col-md-6 col-xl-6'>
 						<div className='row align-items-center'>
-							<Line data={lineChartData} options={lineChartData.options} />
+							<Line data={ lineChartData } options={ lineChartData.options } />
 						</div>
 					</div>
 
@@ -164,7 +163,7 @@ const Charts = () => {
 								<div className='card-block'>
 									<p className='m-b-10'>Casos Sociales</p>
 									<h4 className='text-right display-5'>
-										<span>{totalSocialCase}</span>
+										<span>{ totalSocialCase }</span>
 									</h4>
 								</div>
 							</div>
@@ -175,7 +174,7 @@ const Charts = () => {
 								<div className='card-block'>
 									<p className='m-b-10'>Familias con más de un niño en el CI</p>
 									<h4 className='text-right display-5'>
-										<span>{haveOtherChildren}</span>
+										<span>{ haveOtherChildren }</span>
 									</h4>
 								</div>
 							</div>

@@ -22,6 +22,7 @@ export const useLogin = () => {
 			const { user, token } = await userApiLogin(userData);
 			login(user, token);
 		} catch (error) {
+
 			notifyError();
 		}
 	};

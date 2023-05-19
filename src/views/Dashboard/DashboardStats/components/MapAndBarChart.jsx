@@ -11,7 +11,6 @@ import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
 import 'chart.js/auto';
 
 import L from 'leaflet';
-import './Stats.scss';
 import { Bar, PolarArea } from 'react-chartjs-2';
 
 const MapComponent = () => {
@@ -158,11 +157,11 @@ const MapComponent = () => {
 			<div className='container-main mt-3 '>
 				<div className='row mt-5 d-flex justify-content-between'>
 					<div className=' col-md-4 '>
-						<Bar data={barChartData} options={barChartData.options} />
+						<Bar data={ barChartData } options={ barChartData.options } />
 					</div>
 
 					<div className='col-md-3 '>
-						<PolarArea data={polarChartData} options={polarChartData.options} />
+						<PolarArea data={ polarChartData } options={ polarChartData.options } />
 					</div>
 
 					<div className=' col-md-4 '>
@@ -170,46 +169,46 @@ const MapComponent = () => {
 							<div className='col-md-12 '>
 								<MapContainer
 									className='map-container'
-									style={{ width: '100%', height: '400px' }}
-									center={[21.72761, -82.834167]}
-									zoom={10}
-									setView={[21.72761, -82.834167]}
-									scrollWheelZoom={true}
-									minZoom={9}
-									maxBounds={[
+									style={ { width: '100%', height: '400px' } }
+									center={ [21.72761, -82.834167] }
+									zoom={ 10 }
+									setView={ [21.72761, -82.834167] }
+									scrollWheelZoom={ true }
+									minZoom={ 9 }
+									maxBounds={ [
 										[21.410303, -83.26972], // Suroeste
 										[21.961168, -82.531547], // Noreste
-									]}
+									] }
 								>
 									<TileLayer
 										attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 										url='/public/Tiles/{z}/{x}/{y}.png'
-										// https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+									// https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 									/>
 
-									{submisionsLocal.map((submision) => (
-										<Marker key={submision._id} position={submision.child.latlng} icon={childIcon}>
+									{ submisionsLocal.map((submision) => (
+										<Marker key={ submision._id } position={ submision.child.latlng } icon={ childIcon }>
 											<Popup>
 												<span className='popup'>
-													<h3>{submision.child.childName + submision.child.childLastname}</h3>
-													<p>{submision.child.childAddress}</p>
+													<h3>{ submision.child.childName + submision.child.childLastname }</h3>
+													<p>{ submision.child.childAddress }</p>
 													<p>
-														Edad: {submision.child.age}, {submision.child.sex}
+														Edad: { submision.child.age }, { submision.child.sex }
 													</p>
 												</span>
 											</Popup>
 										</Marker>
-									))}
+									)) }
 
-									{circulosLocal.map((circulo) => (
-										<Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>
+									{ circulosLocal.map((circulo) => (
+										<Marker key={ circulo._id } position={ circulo.latlng } icon={ ciIcon }>
 											<Popup>
 												<div>
-													<p>CI {circulo.name}</p>
+													<p>CI { circulo.name }</p>
 												</div>
 											</Popup>
 										</Marker>
-									))}
+									)) }
 								</MapContainer>
 							</div>
 						</div>
