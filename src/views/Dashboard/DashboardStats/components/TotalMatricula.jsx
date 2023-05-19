@@ -46,36 +46,37 @@ const TotalMatricula = () => {
           </div>
         </div>
 
-        { queryTotalBoysAndGirls.isLoading ? (
-          <p>Loading...</p>
-        ) :
-          (
-            <>
-              <div className='col-md-3 col-xl-3'>
-                <div className='card bg-c-green order-card'>
-                  <div className='card-block'>
-                    <h5 className='m-b-10'>Total de Niñas</h5>
-                    <h1 className='text-right display-1'>
-                      <span>{ queryTotalBoysAndGirls.data.totalGirls }</span>
-                    </h1>
-                  </div>
-                </div>
-              </div>
+        <div className='col-md-3 col-xl-3'>
+          <div className='card bg-c-green order-card'>
+            <div className='card-block'>
+              <h5 className='m-b-10'>Total de Niñas</h5>
+              <h1 className='text-right display-1'>
+                <span>{
+                  queryTotalBoysAndGirls.isLoading ?
+                    (
+                      <p>Loading...</p>
+                    ) :
+                    (
+                      queryTotalBoysAndGirls.data.totalGirls
+                    )
+                }</span>
+              </h1>
+            </div>
+          </div>
+        </div>
 
-              <div className='col-md-3 col-xl-3'>
-                <div className='card bg-c-blue order-card'>
-                  <div className='card-block'>
-                    <h5 className='m-b-10'>Total de Niños</h5>
-                    <h1 className='text-right display-1'>
-                      <span>{ queryTotalBoysAndGirls.data.totalBoys }</span>
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) }
+        <div className='col-md-3 col-xl-3'>
+          <div className='card bg-c-blue order-card'>
+            <div className='card-block'>
+              <h5 className='m-b-10'>Total de Niños</h5>
+              <h1 className='text-right display-1'>
+                <span>{ queryTotalBoysAndGirls.data.totalBoys }</span>
+              </h1>
+            </div>
+          </div>
+        </div>
 
-      </div>
+      </div >
     </>
 
   )
