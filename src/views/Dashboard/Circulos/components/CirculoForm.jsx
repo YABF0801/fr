@@ -144,7 +144,11 @@ function CirculoForm({ circulo, showAttendance }) {
 								<h3 className='text-secondary mt-3'>Capacidades por año de vida </h3>
 								<h6 className="text-secondary mb-3">Escriba la capacidad total para cada año de vida</h6>
 								<div className='d-flex mb-2 gap-3 justify-content-between'>
+<<<<<<< HEAD
 									<div >
+=======
+ 									<div>
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
 										<input
 											type='number'
 											className='form-control '
@@ -158,7 +162,7 @@ function CirculoForm({ circulo, showAttendance }) {
 										{ form.errors.normed_capacity2 && form.touched.normed_capacity2 ? <p className='text-danger'>{ form.errors.normed_capacity2 }</p> : null }
 									</div>
 
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -172,7 +176,7 @@ function CirculoForm({ circulo, showAttendance }) {
 										{ form.errors.normed_capacity3 && form.touched.normed_capacity3 ? <p className='text-danger'>{ form.errors.normed_capacity3 }</p> : null }
 									</div>
 
-									<div >
+									<div>
 										<input
 											type='number'
 											className='form-control '
@@ -186,7 +190,11 @@ function CirculoForm({ circulo, showAttendance }) {
 										{ form.errors.normed_capacity4 && form.touched.normed_capacity4 ? <p className='text-danger'>{ form.errors.normed_capacity4 }</p> : null }
 									</div>
 
+<<<<<<< HEAD
 									<div >
+=======
+										<div>
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
 										<input
 											type='number'
 											className='form-control '
@@ -200,7 +208,11 @@ function CirculoForm({ circulo, showAttendance }) {
 										{ form.errors.normed_capacity5 && form.touched.normed_capacity5 ? <p className='text-danger'>{ form.errors.normed_capacity5 }</p> : null }
 									</div>
 
+<<<<<<< HEAD
 									<div >
+=======
+										<div>
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
 										<input
 											type='number'
 											className='form-control '
@@ -218,6 +230,7 @@ function CirculoForm({ circulo, showAttendance }) {
 
 							{ showAttendance ? (
 								<div className='row '>
+<<<<<<< HEAD
 									<h6 className="text-secondary mt-3 mb-3">Escriba el porciento de asistencia para cada año de vida</h6>
 									<div className='d-flex mb-2 gap-3 justify-content-between'>
 
@@ -261,8 +274,82 @@ function CirculoForm({ circulo, showAttendance }) {
 												onBlur={ form.handleBlur }
 											/>
 											{ form.touched.attendance4 && form.errors.attendance4 ? <p className='text-danger'>{ form.errors.attendance4 }</p> : null }
+=======
+                        		<h6 className="text-secondary mt-3 mb-3">Escriba el porciento de asistencia para cada año de vida</h6>
+								<div className='d-flex mb-2 gap-3 justify-content-between'>
+								
+									<div>
+										<input
+											type='number'
+											className='form-control '
+											id='attendance2'
+											name='attendance2'
+                                            placeholder='% 2do'
+											value={form.values.attendance2}
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
+										/>
+										 {form.touched.attendance2 && form.errors.attendance2 ?  <p className='text-danger'>{form.errors.attendance2}</p> : null}
+									</div>
+
+									<div>
+										<input
+											type='number'
+											className='form-control '
+											id='attendance3'
+											name='attendance3'
+                                            placeholder='% 3ro'
+											value={form.values.attendance3}
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
+										/>
+										{form.touched.attendance3 && form.errors.attendance3 ? <p className='text-danger'>{form.errors.attendance3}</p> : null}
+									</div>
+
+									<div>
+										<input
+											type='number'
+											className='form-control '
+											id='attendance4'
+											name='attendance4'
+											placeholder='% 4to'
+											value={form.values.attendance4}
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
+										/>
+										{form.touched.attendance4 && form.errors.attendance4 ? <p className='text-danger'>{form.errors.attendance4}</p> : null}
 										</div>
 
+										<div>
+										<input
+											type='number'
+											className='form-control '
+											id='attendance5'
+											name='attendance5'
+											placeholder='% 5to'
+											value={form.values.attendance5}
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
+										/>
+										{form.touched.attendance5 && form.errors.attendance5 ? <p className='text-danger'>{form.errors.attendance5}</p> : null}
+										</div>
+
+										<div>
+										<input
+											type='number'
+											className='form-control '
+											id='attendance6'
+											name='attendance6'
+											placeholder='% 6to'
+											value={form.values.attendance6}
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
+										/>
+										{form.touched.attendance6 && form.errors.attendance6 ? <p className='text-danger'>{form.errors.attendance6}</p> : null}
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
+										</div>
+
+<<<<<<< HEAD
 										<div >
 											<input
 												type='number'
@@ -301,6 +388,16 @@ function CirculoForm({ circulo, showAttendance }) {
 									<MapContainer className='map-container' style={ { width: '100%', height: '400px' } }
 										center={ [21.72761, -82.834167] } zoom={ 10 } setView={ [21.72761, -82.834167] } scrollWheelZoom={ true }
 										minZoom={ 9 } maxBounds={ [
+=======
+								<div className='row align-items-center'>
+									<h3 className='text-secondary mt-3'>Ubicación geográfica</h3>
+									<h6 className="text-secondary mb-3">Busque la ubicación y haga click en el mapa</h6>
+										<div className='col-md-12'>
+
+										<MapContainer className='map-container' style={{ width: '100%', height: '400px' }} 
+											center={[21.72761, -82.834167]} zoom={10}  setView={[21.72761, -82.834167]} scrollWheelZoom={true} 
+											minZoom={9} maxBounds={[
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
 											[21.410303, -83.269720], // Suroeste
 											[21.961168, -82.531547], // Noreste
 										] }>

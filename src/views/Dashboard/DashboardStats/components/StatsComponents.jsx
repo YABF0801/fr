@@ -24,6 +24,7 @@ const Cards = () => {
 
 	const dateShow = existingDate ? new Date(date).toLocaleDateString() : '__ / __ / ____';
 
+<<<<<<< HEAD
 	const { data: circulos, isLoadingCirculos } = useFetch(CIRCULOS);
 
 	// useEffect(() => {
@@ -33,29 +34,39 @@ const Cards = () => {
 	// 	};
 	// 	fetchData();`
 	// }, []);
+=======
+	useEffect(() => {
+		const fetchData = async () => {
+			const curso = await cursoApiGet();
+			setCurso(curso);
+		};
+		fetchData();
+	}, []);
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const omDate = await FechaOmApiGet();
-	// 		if (omDate) {
-	// 			setDate(omDate);
-	// 			setExistingDate(true);
-	// 		}
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			const omDate = await FechaOmApiGet();
+			if (omDate) {
+				setDate(omDate);
+				setExistingDate(true);
+			}
+		};
+		fetchData();
+	}, []);
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const result = await getCapacityAndMatricula();
-	// 		setTotalCapacidad(result.NormedCapacity);
-	// 		setTotalMatricula(result.Matricula);
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			const result = await getCapacityAndMatricula();
+			setTotalCapacidad(result.NormedCapacity);
+			setTotalMatricula(result.Matricula);
+		};
+		fetchData();
+	}, []);
 
 	const { data: childrens, isLoading: isLoadingChildren } = useFetch(ESTADISTICAS_CHILDREN);
 
+<<<<<<< HEAD
 	// useEffect(() => {
 	// const fetchData = async () => {
 	// 	try {
@@ -68,6 +79,20 @@ const Cards = () => {
 	// };
 	// fetchData();
 	// }, []);
+=======
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await getTotalGirlsAndBoys();
+		setTotalBoys(childrens.totalBoys);
+		setTotalGirls(childrens.totalGirls);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, []);
+>>>>>>> 632c17b266562dba3d462a065b4e42a7a1fc9eee
 
 	return (
 		<section className='estadisticas'>
@@ -133,9 +158,9 @@ const Cards = () => {
 						</>
 					) }
 				</div>
-				{/* <MapComponent />
+				<MapComponent />
 				<Charts />
-				<Charts2 /> */}
+				<Charts2 /> 
 			</div>
 		</section>
 	);

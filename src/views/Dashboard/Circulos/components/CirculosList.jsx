@@ -5,6 +5,7 @@ import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
+import { useAuthContext } from '../../../../core/context/authContext';
 
 const CirculosList = () => {
 	const {circulos, deleteCirculo, /* changeStatusCirculo */ } = useCirculoContext();
@@ -14,6 +15,8 @@ const CirculosList = () => {
 	const [hideActive, setHideActive] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
+
+	const { isAuthenticated } = useAuthContext();
 
 	const handleExport = () => {
 		const dataset = circulosFullDataset(circulosLocal);
@@ -193,9 +196,10 @@ const CirculosList = () => {
 			cell: (row) => (row.isCiActive ? <h4 className='text-active' >Activo</h4> : <p className='text-inactive'>Inactivo</p>),
 			sortable: true, omit:hideActive
 		},
-		{
+		isAuthenticated.user?.role === 'admin' && ({
 			name: '', // action buttons
 			cell: (row) => (
+				
 				<div className='d-flex gap-1 justify-content-center'>
 
 					<a className='btn btn-sm' href='#circulo' onClickCapture={() => editCirculo(row._id)}>
@@ -219,13 +223,13 @@ const CirculosList = () => {
 
 				 </div>
 				
-			),
+				),
 			
-			allowOverflow: true,
-			button: true,
-			width: '100px',
+				allowOverflow: true,
+				button: true,
+				width: '100px',
+			}),
 
-		},
 		
 	], 	[hideMatricula, hideActive]);
 
@@ -282,10 +286,11 @@ const CirculosList = () => {
 								
 								<div className="gap-3 form-check form-switch form-check-inline d-flex justify-content-between">
 								
-								<a href='#circulo' onClickCapture={showForm}
+								{
+								isAuthenticated.user?.role === 'admin' && (<a href='#circulo' onClickCapture={showForm}
 								className='btn customize-btn'>
 								<i className='bi bi-plus-lg'></i>
-								</a>
+								</a>)}
 
 
 								<button

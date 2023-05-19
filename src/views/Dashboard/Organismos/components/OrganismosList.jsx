@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { confirmAlert } from 'react-confirm-alert';
 import OrganismoForm from './OrganismoForm';
+import { useAuthContext } from '../../../../core/context/authContext';
 
 const OrganismosList = () => {
 	const { organismos, deleteOrganismo } = useOrganismoContext();
 	const [organismosLocal, setOrganismosLocal] = useState([]);
 	const [search, setSearch] = useState('')
 	const [selectedOrganismo, setSelectedOrganismo] = useState(null);
+
+	const { isAuthenticated } = useAuthContext();
 
 	useEffect(() => {
 		setOrganismosLocal(organismos);
@@ -81,7 +84,7 @@ const OrganismosList = () => {
 			sortable: true,
 			center:true
 		},
-		{
+		isAuthenticated.user?.role === 'admin' && ({
 			name: '', // action buttons
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
@@ -97,10 +100,11 @@ const OrganismosList = () => {
 					</button>
 				</div>
 			),
+			
 			allowOverflow: true,
 			button: true,
 			width: '100px',
-		},
+		}),
 	];
 
 	function showForm() {
@@ -127,10 +131,11 @@ const OrganismosList = () => {
 							</div> 
 
 							<div className="gap-3 form-check form-switch form-check-inline d-flex justify-content-between">
-								<a href='#organismo' onClickCapture={showForm}
+							{
+								isAuthenticated.user?.role === 'admin' && (<a href='#organismo' onClickCapture={showForm}
 								className='btn customize-btn'>
 								<i className='bi bi-plus-lg'></i>
-								</a>
+								</a>)}
 
 								
 							</div>
