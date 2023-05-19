@@ -3,9 +3,9 @@ import StatsComponents from './StatsComponents';
 import './Stats.scss';
 
 const Stats = () => {
-	return (
-        <StatsComponents/>
-        );
-    };
-    
+    return (
+        <StatsComponents />
+    )
+};
+
 export default Stats;

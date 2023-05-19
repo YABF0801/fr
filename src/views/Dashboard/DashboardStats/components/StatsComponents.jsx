@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { FechaOmApiGet } from '../../../../utils/utiles.sevices';
 import { cursoApiGet } from '../../Circulos/service/circulo.services';
@@ -11,6 +11,7 @@ import MapComponent from './MapAndBarChart';
 
 import './Stats.scss';
 import { useFetch } from '../../../../core/hooks/useFetch';
+import { ESTADISTICAS_CHILDREN, CIRCULOS } from '../../../../core/config/routes/api';
 
 const Cards = () => {
 	const [totalMatricula, setTotalMatricula] = useState(0);
@@ -23,12 +24,14 @@ const Cards = () => {
 
 	const dateShow = existingDate ? new Date(date).toLocaleDateString() : '__ / __ / ____';
 
+	const { data: circulos, isLoadingCirculos } = useFetch(CIRCULOS);
+
 	// useEffect(() => {
 	// 	const fetchData = async () => {
 	// 		const curso = await cursoApiGet();
 	// 		setCurso(curso);
 	// 	};
-	// 	fetchData();
+	// 	fetchData();`
 	// }, []);
 
 	// useEffect(() => {
@@ -51,31 +54,31 @@ const Cards = () => {
 	// 	fetchData();
 	// }, []);
 
-	const { data: childrens, isLoading } = useFetch('/estadisticas/boys-girls');
+	const { data: childrens, isLoading: isLoadingChildren } = useFetch(ESTADISTICAS_CHILDREN);
 
-	useEffect(() => {
-		// const fetchData = async () => {
-		// 	try {
-		// 		const result = await getTotalGirlsAndBoys();
-		// setTotalBoys(childrens.totalBoys);
-		// setTotalGirls(childrens.totalGirls);
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// };
-		// fetchData();
-	}, []);
+	// useEffect(() => {
+	// const fetchData = async () => {
+	// 	try {
+	// 		const result = await getTotalGirlsAndBoys();
+	// setTotalBoys(childrens.totalBoys);
+	// setTotalGirls(childrens.totalGirls);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+	// fetchData();
+	// }, []);
 
 	return (
 		<section className='estadisticas'>
 			<div className='container-main mt-3 p-3'>
 				<div className='row'>
 					<div className='col-md-4 '>
-						<h3 className='text-secondary '>Fecha de nuevo otorgamiento masivo {dateShow}</h3>
+						<h3 className='text-secondary '>Fecha de nuevo otorgamiento masivo { dateShow }</h3>
 					</div>
 					<div className='col-md-6 '></div>
 					<div className='col-md-2'>
-						<h2 className='text-center '>Curso {curso}</h2>
+						<h2 className='text-center '>Curso { curso }</h2>
 					</div>
 				</div>
 
@@ -85,7 +88,7 @@ const Cards = () => {
 							<div className='card-block'>
 								<h5 className='m-b-10'>Total de Matriculados</h5>
 								<h1 className='text-right display-1'>
-									<span>{totalMatricula}</span>
+									<span>{ totalMatricula }</span>
 								</h1>
 							</div>
 						</div>
@@ -96,13 +99,13 @@ const Cards = () => {
 							<div className='card-block'>
 								<h5 className='m-b-10'>Total de Capacidades</h5>
 								<h1 className='text-right display-1'>
-									<span>{totalCapacidad}</span>
+									<span>{ totalCapacidad }</span>
 								</h1>
 							</div>
 						</div>
 					</div>
 
-					{isLoading ? (
+					{ isLoadingChildren ? (
 						<p>Loading...</p>
 					) : (
 						<>
@@ -111,7 +114,7 @@ const Cards = () => {
 									<div className='card-block'>
 										<h5 className='m-b-10'>Total de Niñas</h5>
 										<h1 className='text-right display-1'>
-											<span>{childrens.totalGirls}</span>
+											<span>{ childrens.totalGirls }</span>
 										</h1>
 									</div>
 								</div>
@@ -122,13 +125,13 @@ const Cards = () => {
 									<div className='card-block'>
 										<h5 className='m-b-10'>Total de Niños</h5>
 										<h1 className='text-right display-1'>
-											<span>{childrens?.totalBoys}</span>
+											<span>{ childrens?.totalBoys }</span>
 										</h1>
 									</div>
 								</div>
 							</div>
 						</>
-					)}
+					) }
 				</div>
 				{/* <MapComponent />
 				<Charts />
