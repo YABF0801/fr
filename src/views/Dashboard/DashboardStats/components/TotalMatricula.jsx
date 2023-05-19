@@ -70,7 +70,15 @@ const TotalMatricula = () => {
             <div className='card-block'>
               <h5 className='m-b-10'>Total de Niños</h5>
               <h1 className='text-right display-1'>
-                <span>{ queryTotalBoysAndGirls.data.totalBoys }</span>
+                <span>{
+                  queryTotalBoysAndGirls.isLoading ?
+                    (
+                      <p>Loading...</p>
+                    ) :
+                    (
+                      queryTotalBoysAndGirls.data.totalBoys
+                    )
+                }</span>
               </h1>
             </div>
           </div>
