@@ -9,9 +9,12 @@ export const baseAxios = axios.create({
 
 
 baseAxios.interceptors.request.use(config => {
-	const { token } = JSON.parse(localStorage.getItem('MY_AUTH_APP_1'));
-	if (token) {
+	const auth = localStorage.getItem('MY_AUTH_APP_1');
+
+	if (auth) {
+		const { token } = JSON.parse(auth)
 		config.headers.authorization = `Bearer ${token}`;
+		return config;
 	}
 	return config;
 });

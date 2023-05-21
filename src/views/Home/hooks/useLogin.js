@@ -20,9 +20,9 @@ export const useLogin = () => {
 	const loginUser = async (userData) => {
 		try {
 			const { user, token } = await userApiLogin(userData);
+			console.log(user);
 			login(user, token);
 		} catch (error) {
-
 			notifyError();
 		}
 	};

@@ -10,7 +10,8 @@ import { DASHBOARD } from "../../../../core/config/routes/paths";
 const LoginForm = () => {
 	const { loginUser } = useLogin();
 	const navigate = useNavigate()
-
+	
+	const lastPath = localStorage.getItem('lastPath') || DASHBOARD
 
 	const LoginSchema = Yup.object().shape({
 		nickname: Yup.string().required('El nombre es requerido'),
@@ -25,7 +26,7 @@ const LoginForm = () => {
 		validationSchema:LoginSchema,
 		onSubmit:  async ({ nickname, password }) => {
 				await loginUser({ nickname, password });			
-				navigate(DASHBOARD, {replace:true});			
+				navigate(lastPath, {replace:true});			
 		},
 	});
 
