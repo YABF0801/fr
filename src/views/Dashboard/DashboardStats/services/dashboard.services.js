@@ -1,10 +1,6 @@
-import { baseAxios } from '../../../../api/baseAxios';
-
-export const userApiLogout = async () => {
-	const userLoggedOut = await baseAxios.get(`/users/logout`);
-	return userLoggedOut.data; // ?
-};
-
+/* import { baseAxios } from '../../../../api/baseAxios';
+ */
+/* 
 export const submisionsPositionGet = async () => {
 	const allSubmisions = await baseAxios.get('/submisions');
 	const submisions = allSubmisions.data.filter((submision) => submision.status === 'matricula');
@@ -14,10 +10,9 @@ export const submisionsPositionGet = async () => {
 export const circulosPositionGet = async () => {
 	const circulos = await baseAxios.get('/circulos/');
 	return circulos.data;
-};
+}; */
 
-// CIRCULOS
-export const getMatriculaPerYear = async () => {
+/* export const getMatriculaPerYear = async () => {
 	// TOTAL MATRICULA POR AÑO
 	const result = await baseAxios.get('/estadisticas/matricula');
 	const matriculaYear = result.data[0];
@@ -29,9 +24,9 @@ export const getMatriculaPerYear = async () => {
 		matriculaYear.totalMatricula6 || 0,
 	];
 	return data;
-};
+}; */
 
-export const getCapacityCperYear = async () => {
+/* export const getCapacityCperYear = async () => {
 	// TOTAL CAPACIDADES CALCULADAS POR AÑO
 	const result = await baseAxios.get('/estadisticas/capacidad-c');
 	const calculatedCapacity = result.data[0];
@@ -44,8 +39,9 @@ export const getCapacityCperYear = async () => {
 	];
 	return data;
 };
+ */
 
-export const getCapacityNperYear = async () => {
+/* export const getCapacityNperYear = async () => {
 	// TOTAL CAPACIDADES NORMADAS POR AÑO
 	const result = await baseAxios.get('/estadisticas/capacidad-n');
 	const capacityNYear = result.data[0];
@@ -57,9 +53,9 @@ export const getCapacityNperYear = async () => {
 		capacityNYear.totalNormedCapacity6,
 	];
 	return data;
-};
+}; */
 
-export const getAverageAttendance = async () => {
+/* export const getAverageAttendance = async () => {
 	const result = await baseAxios.get('/estadisticas/asistencia');
 	const attendanceData = result.data[0];
 	const data = [
@@ -70,9 +66,9 @@ export const getAverageAttendance = async () => {
 		attendanceData.totalAttendance6 || 100,
 	];
 	return data;
-};
+}; */
 
-export const getTotalGirlsPerYear = async () => {
+/* export const getTotalGirlsPerYear = async () => {
 	//  TOTAL NIÑAS POR AÑO
 	const result = await baseAxios.get('/estadisticas/girls');
 	const totalGirlsYear = result.data[0];
@@ -84,9 +80,9 @@ export const getTotalGirlsPerYear = async () => {
 		totalGirlsYear.totalGirls6 || 0,
 	];
 	return data;
-};
+}; */
 
-export const getTotalBoysPerYear = async () => {
+/* export const getTotalBoysPerYear = async () => {
 	//  TOTAL NIÑOS POR AÑO
 	const result = await baseAxios.get('/estadisticas/boys');
 	const totalBoysYear = result.data;
@@ -99,16 +95,16 @@ export const getTotalBoysPerYear = async () => {
 	];
 	return data;
 };
+ */
 
-
-export const getTotalGirlsAndBoys = async () => {
+/* export const getTotalGirlsAndBoysPerYear = async () => {
 	//  TOTAL NIÑOS POR AÑO
 	const totalBoysGirls = await baseAxios.get('/estadisticas/boys-girls');
-	const boysAdnGirls = totalBoysGirls.data;
-	return boysAdnGirls;
-};
+	const boysAndGirls = totalBoysGirls.data;
+	return boysAndGirls;
+}; */
 
-export const getTotalChildrenPerAge = async () => {
+/* export const getTotalChildrenPerAge = async () => {
 	// CANT niños por edades
 	const result = await baseAxios.get('/estadisticas/childs-age');
 	const totalChildrenPerAge = result.data;
@@ -121,45 +117,47 @@ export const getTotalChildrenPerAge = async () => {
 		totalChildrenPerAge.childs_age5 || 0,
 	];
 	return data;
-};
+}; */
 
-export const getSocialCase = async () => {
+/* export const getSocialCase = async () => {
 	// CANT casos sociales
 	const result = await baseAxios.get('/estadisticas/social');
 	const socialCase = result.data[0].cant;
 	return socialCase;
 };
+ */
 
-export const getOtherChildrenInCi = async () => {
+/* export const getOtherChildrenInCi = async () => {
 	// CANT fammilias que tienen mas de un niño en el circulo
 	const result = await baseAxios.get('/estadisticas/other-children');
 	const haveOtherChildren = result.data[0].cant;
 	return haveOtherChildren;
-};
+}; */
 
-export const getStatusCount = async () => {
+/* export const getStatusCount = async () => {
 	// CANT planillas por status
 	const result = await baseAxios.get('/estadisticas/status-count');
 	const submisionsByStatus = result.data;
 	const data = [submisionsByStatus.pendiente || 0, submisionsByStatus.matricula || 0, submisionsByStatus.baja || 0];
 	return data;
-};
+}; */
 
+/* 
 export const getSubmisionCountByDate = async () => {
 	// CANT solicitues registradas por año y por mes
 	const result = await baseAxios.get('/estadisticas/date-count');
 	const submisionsByDate = result.data;
 	return submisionsByDate;
-};
+}; */
 
-export const getSubmisionAprovedByYear = async () => {
+/* export const getSubmisionAprovedByYear = async () => {
 	// CANT matriculas aprobadas por año
 	const result = await baseAxios.get('/estadisticas/aprove-count');
 	const aprovedByYear = result.data;
 	return aprovedByYear;
-};
+}; */
 
-export const getMatriculaPorCp = async () => {
+/* export const getMatriculaPorCp = async () => {
 	// CANT  matricula cpor consejo popular
 	const result = await baseAxios.get('/estadisticas/m-cpopular');
 	const matriculaPerCp = result.data;
@@ -171,30 +169,20 @@ export const getMatriculaPorCp = async () => {
 	};
 	console.log(data);
 	return data;
-};
+}; */
 
-export const getOcupationCount = async () => {
+/* export const getOcupationCount = async () => {
 	// CANT padres por ocupacion
 	const parentsOcupationCount = await baseAxios.get('/estadisticas/ocupation-count');
 	const parentsByOcupation = parentsOcupationCount.data;
 	return parentsByOcupation;
 };
+ */
 
-export const getSubmisionsByUser = async () => {
+/* export const getSubmisionsByUser = async () => {
 	// CANT planillas creadas por usuario
 	const submisionsCreatedByUser = await baseAxios.get('/estadisticas/user-count');
 	const submisionsByUser = submisionsCreatedByUser.data;
 	return submisionsByUser;
 };
-
-export const getRandomColor = () => {
-	const colors = [
-		'rgba(255, 159, 64, 0.6)',
-		'rgba(75, 192, 192, 0.6)',
-		'rgba(185, 149, 162, 0.6)',
-		'rgba(123, 122, 225, 0.6)',
-		'rgba(54, 162, 235, 0.6)',
-	];
-	const randomIndex = Math.floor(Math.random() * colors.length);
-	return colors[randomIndex];
-};
+ */

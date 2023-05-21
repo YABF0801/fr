@@ -3,7 +3,6 @@ import 'chart.js/auto';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
 	getMatriculaPorCp,
-	getRandomColor,
 	getStatusCount,
 	getSubmisionAprovedByYear,
 	getSubmisionCountByDate,
@@ -31,7 +30,13 @@ const Charts2 = () => {
 					label: `Recibidas ${year.toString()}`,
 					data: submisionsByMonth,
 					fill: false,
-					borderColor: getRandomColor(),
+					borderColor: [
+						'rgba(255, 159, 64, 0.6)',
+						'rgba(75, 192, 192, 0.6)',
+						'rgba(185, 149, 162, 0.6)',
+						'rgba(123, 122, 225, 0.6)',
+						'rgba(54, 162, 235, 0.6)',
+					],
 				};
 			});
 			const submisionsAproved = await getSubmisionAprovedByYear();
@@ -45,7 +50,13 @@ const Charts2 = () => {
 					label: `Aprobadas ${year.toString()}`,
 					data: submisionsByMonth,
 					fill: true,
-					backgroundColor: getRandomColor(),
+					backgroundColor: [
+						'rgba(255, 159, 64, 0.6)',
+						'rgba(75, 192, 192, 0.6)',
+						'rgba(185, 149, 162, 0.6)',
+						'rgba(123, 122, 225, 0.6)',
+						'rgba(54, 162, 235, 0.6)',
+					],
 				};
 			});
 
