@@ -1,0 +1,87 @@
+.btn-switch {
+	position: relative;
+	height: 56px;
+}
+
+.btn-switch input {
+	position: relative;
+	width: 200px;
+	height: 50px;
+	border-radius: 25px;
+	/* cursor: none; */
+	outline: none;
+	appearance: none;
+	box-shadow: 1px 6px 11px #000;
+}
+
+.btn-switch input::before,
+.btn-switch input::after {
+	z-index: 1;
+	top: 50%;
+	position: absolute;
+	transform: translateY(-50%);
+	color: #111;
+}
+
+.btn-switch input::before {
+	content: 'ON';
+	left: 40px;
+}
+
+.btn-switch input::after {
+	content: 'OFF';
+	right: 40px;
+}
+
+.btn-switch label {
+	z-index: 1;
+	position: absolute;
+	top: 10px;
+	bottom: 10px;
+	border-radius: 20px;
+}
+.btn-switch.btn-1 {
+	transition: 0.2s -0.1s;
+}
+.btn-switch.btn-1 input:checked {
+	background: #fff;
+}
+
+.btn-switch.btn-1 input:checked::before {
+	color: #111;
+	transition: color 0.5s 0.2s;
+}
+
+.btn-switch input:checked::after {
+	color: #111;
+	transition: color 0.5s;
+}
+
+.btn-switch.btn1 input:checked + label {
+	left: 10px;
+	right: 100px;
+	background-color: #d2ab21;
+	transition: left 0.5s, right 0.4s 0.2s;
+}
+
+.btn-switch.btn-1 input:not(:checked) {
+	background-color: #d2ab21;
+	transition: background-color 0.5s -0.1s;
+}
+
+.btn-switch.btn-1 input:not(:checked)::before {
+	color: #111;
+	transition: color 0.5s;
+}
+
+.btn-switch.btn-1 input:not(:checked)::after {
+	color: #1e1e1e;
+	transition: color 0.5s;
+}
+
+.btn-switch.btn-1 input:not(:checked) + label {
+	left: 100px;
+	right: 100px;
+	background-color: #fff;
+	transition: left 0.4s 0.2s, right 0.5s, background-color 0.35s -0.1s;
+}
