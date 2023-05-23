@@ -1,6 +1,6 @@
 import { baseAxios } from '../../../../api/baseAxios';
 
-export const getAverageAttendance = async () => {
+const getAverageAttendance = async () => {
 	// porcientos de asistencia
 	const result = await baseAxios.get('/estadisticas/asistencia');
 	const attendanceData = result.data[0];
@@ -13,3 +13,6 @@ export const getAverageAttendance = async () => {
 	];
 	return data;
 };
+
+
+export default getAverageAttendance
