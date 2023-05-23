@@ -125,9 +125,10 @@ const Parent1Form = ({ form }) => {
 								id='parentAddress1'
 								placeholder='Dirección...'
 								name='child.parents[0].parentAddress'
-								value={ form.values.child.parents[0].parentAddress }
+								value={ form.values.child?.parents?.[0].convivencia ? form.values.child.childAdress : form.values.child.parents[0].parentAddress }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ form.values.child?.parents?.[0].convivencia }
 							/>
 							{ form.errors.child?.parents?.[0]?.parentAddress &&
 								form.touched.child?.parents?.[0]?.parentAddress && (
@@ -246,10 +247,11 @@ const Parent1Form = ({ form }) => {
 								className='form-control'
 								id='workName1'
 								name='child.parents[0].workName'
-								placeholder='Nombre del centro de trabajo...'
+								placeholder={ form.values.child?.parents?.[0].occupation === 'estudiante' ? 'Nombre del centro estudiantil...' : 'Nombre del centro de trabajo...' }
 								value={ form.values.child.parents[0].workName }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ form.values.child?.parents?.[0].occupation !== 'trabajador' && form.values.child?.parents?.[0].occupation !== 'estudiante' }
 							/>
 							{ form.errors.child?.parents?.[0]?.workName &&
 								form.touched.child?.parents?.[0]?.workName && (
@@ -272,6 +274,7 @@ const Parent1Form = ({ form }) => {
 								value={ form.values.child.parents[0].organismo }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ form.values.child?.parents?.[0].occupation !== 'trabajador' }
 							>
 								<option className='text-center'> Organismo </option>
 								{ organismosToMap.map((organismo) => (
@@ -295,6 +298,7 @@ const Parent1Form = ({ form }) => {
 								value={ form.values.child.parents[0].jobTitle }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ form.values.child?.parents?.[0].occupation !== 'trabajador' }
 							/>
 							{ form.errors.child?.parents?.[0]?.jobTitle &&
 								form.touched.child?.parents?.[0]?.jobTitle && (
@@ -320,6 +324,7 @@ const Parent1Form = ({ form }) => {
 								value={ form.values.child.parents[0].workAddress }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ form.values.child?.parents?.[0].occupation !== 'trabajador' }
 							/>
 							{ form.errors.child?.parents?.[0]?.workAddress &&
 								form.touched.child?.parents?.[0]?.workAddress && (
@@ -377,6 +382,8 @@ const Parent1Form = ({ form }) => {
 								value={ form.values.child.parents[0].numberOfOtherChildrenInCi }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ !form.values.child?.parents?.[0].otherChildrenInCi }
+
 							/>
 							{ form.errors.child?.parents?.[0]?.numberOfOtherChildrenInCi &&
 								form.touched.child?.parents?.[0]?.numberOfOtherChildrenInCi && (
@@ -394,6 +401,8 @@ const Parent1Form = ({ form }) => {
 								value={ form.values.child.parents[0].otherChildrenCenter }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
+								disabled={ !form.values.child?.parents?.[0].otherChildrenInCi }
+
 							>
 								{ form.errors.child?.parents?.[0]?.otherChildrenCenter &&
 									form.touched.child?.parents?.[0]?.otherChildrenCenter && (
