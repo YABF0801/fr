@@ -213,10 +213,10 @@ function SubmisionWizardForm({ submision }) {
 
 						{/* PARENT1 DATA */ }
 
-						<Parent1Form from={ formik } />
+						<Parent1Form form={ formik } />
 
 						{/* PARENT2 DATA */ }
-						<Parent2Form from={ formik } />
+						<Parent2Form form={ formik } />
 
 						<article className=" m-4 d-flex w-100 justify-content-center align-items-center gap-5">
 
