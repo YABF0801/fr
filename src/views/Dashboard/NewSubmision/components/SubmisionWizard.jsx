@@ -170,7 +170,7 @@ function SubmisionWizardForm({ submision }) {
 			document.getElementById('submision').style.display = 'none';
 		},
 
-		validationSchema: SubmisionSchema,
+		// validationSchema: SubmisionSchema,
 	});
 
 
@@ -192,10 +192,11 @@ function SubmisionWizardForm({ submision }) {
 			className='show-form container list mt-3 col-12'
 			id='submision'
 		>
-			<div className=' p-5 '>
+			<div className=' p-5 '>x
 				<div className='card'>
 					<form
 						className='f-modal p-3 gap-3 justify-content-between '
+						// onSubmit={ formik.handleSubmit }
 						onSubmit={ formik.handleSubmit }
 					>
 						<h2 className='text-center mt-5 p-3'>Nueva Solicitud</h2>
@@ -216,15 +217,15 @@ function SubmisionWizardForm({ submision }) {
 						<Parent1Form form={ formik } />
 
 						{/* PARENT2 DATA */ }
-						<Parent2Form form={ formik } />
+						{ formik.values.child?.parents?.[0].uniqueParent || <Parent2Form form={ formik } /> }
 
-						<article className=" m-4 d-flex w-100 justify-content-center align-items-center gap-5">
+						<div className=" m-4 d-flex w-100 justify-content-center align-items-center gap-5">
 
 							<a href='#top' className="btn cancel-btn" onClickCapture={ formik.handleReset }> Cancelar</a>
 
-							<button type="submit" className="btn save-btn"> Guardar</button>
-
-						</article>
+							{/* <button type="submit" className="btn save-btn">Guardar</button> */ }
+							<button type="submit" className="btn save-btn">Guardar</button>
+						</div>
 
 					</form>
 				</div>

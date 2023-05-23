@@ -5,8 +5,6 @@ import { consecustiveApiGet } from '../../GeneralList/service/submision.services
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 
 
-
-
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);
 	const [circulosToMap, setCirculosToMap] = useState([]);
@@ -43,7 +41,7 @@ const SubmisionForm = ({ form, submision }) => {
 	}, []);
 
 	const now = new Date().getFullYear();
-	const numberLabel = submision ? submision.entryNumber : `${newEntryNumber}/${now}`;
+	const numberLabel = submision.entryNumber || `${newEntryNumber}/${now}`;
 
 	const handleOm = () => {
 		form.setFieldValue('finality', 'om');
@@ -76,11 +74,11 @@ const SubmisionForm = ({ form, submision }) => {
 								<div className='col-md-3 mb-3'>
 									<div className='om-os-group-buttons d-flex'>
 										<a
-											className='btn '
+											className='btn'
 											role='button'
 											id='os'
 											name='finality'
-											onClickCapture={ handleOs }
+											onClick={ handleOs }
 										>
 											OS
 										</a>
@@ -89,7 +87,7 @@ const SubmisionForm = ({ form, submision }) => {
 											role='button'
 											id='om'
 											name='finality'
-											onClickCapture={ handleOm }
+											onClick={ handleOm }
 										>
 											OM
 										</a>
