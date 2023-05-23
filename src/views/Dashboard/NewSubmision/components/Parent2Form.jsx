@@ -1,4 +1,5 @@
 import { PropTypes } from "prop-types"
+import InputSwitch from "./ui/imputSwitch"
 
 
 const Parent2Form = ({ form }) => {
@@ -6,7 +7,7 @@ const Parent2Form = ({ form }) => {
         <div id='parent2'>
             <div className='row d-flex justify-content-center'>
 
-                <h3 className='text-center text-secondary'>Datos de los padres o tutores</h3>
+                <h3 className='text-center text-secondary mt-5'>Datos de los padres o tutores</h3>
                 <h6 className='text-secondary mb-4'>
                     Continúe con los los datos del padre o tutor
                 </h6>
@@ -92,19 +93,17 @@ const Parent2Form = ({ form }) => {
 
                 <div className='form-group d-inline justify-content-evenly'>
                     <div className='row align-items-center mb-3'>
-                        <div className='col-md-2 form-check form-switch '>
-                            <input
-                                type='checkbox'
-                                className='form-check-input m-1'
-                                id='convivencia2'
-                                name='child.parents[1].convivencia'
-                                onChange={ form.handleChange }
-                                onBlur={ form.handleBlur }
-                                value={ form.values.child.parents[1].convivencia }
-                                defaultChecked
-                            />
-                            <label htmlFor='convivencia2'>Convive</label>
-                        </div>
+                       
+                            <InputSwitch 
+								className={'col-md-2 form-check form-switch'}
+								id={'convivencia2'} 
+								name={'child.parents[1].convivencia'} 
+								value={form.values.child.parents[1].convivencia} 
+								onChange={ form.handleChange }
+								onBlur={ form.handleBlur }
+								defaultChecked ={true}
+								label='Convive'
+							/>
 
                         <div className='col-md-10 '>
                             <input
@@ -113,9 +112,10 @@ const Parent2Form = ({ form }) => {
                                 id='parentAddress2'
                                 placeholder='Dirección...'
                                 name='child.parents[1].parentAddress'
-                                value={ form.values.child.parents[1].parentAddress }
+								value={ form.values.child?.parents?.[1].convivencia ? form.values.child.childAdress :  form.values.child.parents[1].parentAddress }
                                 onChange={ form.handleChange }
                                 onBlur={ form.handleBlur }
+                                disabled={ form.values.child?.parents?.[1].convivencia }
                             />
                             { form.errors.child?.parents?.[1]?.parentAddress &&
                                 form.touched.child?.parents?.[1]?.parentAddress && (
@@ -215,10 +215,11 @@ const Parent2Form = ({ form }) => {
                                 className='form-control'
                                 id='workName2'
                                 name='child.parents[1].workName'
-                                placeholder='Nombre del centro de trabajo...'
+                                placeholder={ form.values.child?.parents?.[1].occupation === 'estudiante' ? 'Nombre del centro de estudios...' : 'Nombre del centro de trabajo...' }
                                 value={ form.values.child.parents[1].workName }
                                 onChange={ form.handleChange }
                                 onBlur={ form.handleBlur }
+                                disabled={ form.values.child?.parents?.[1].occupation !== 'trabajador' && form.values.child?.parents?.[1].occupation !== 'estudiante' }
                             />
                             { form.errors.child?.parents?.[1]?.workName &&
                                 form.touched.child?.parents?.[1]?.workName && (
@@ -243,6 +244,7 @@ const Parent2Form = ({ form }) => {
                                 value={ form.values.child.parents[1].jobTitle }
                                 onChange={ form.handleChange }
                                 onBlur={ form.handleBlur }
+                                disabled={ form.values.child?.parents?.[1].occupation !== 'trabajador' }
                             />
                             { form.errors.child?.parents?.[1]?.jobTitle &&
                                 form.touched.child?.parents?.[1]?.jobTitle && (
@@ -268,6 +270,7 @@ const Parent2Form = ({ form }) => {
                                 value={ form.values.child.parents[1].workAddress }
                                 onChange={ form.handleChange }
                                 onBlur={ form.handleBlur }
+                                disabled={ form.values.child?.parents?.[1].occupation !== 'trabajador' }
                             />
                             { form.errors.child?.parents?.[1]?.workAddress &&
                                 form.touched.child?.parents?.[1]?.workAddress && (

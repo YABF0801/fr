@@ -3,6 +3,7 @@ import { PropTypes } from "prop-types"
 
 import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
+import InputSwitch from "./ui/imputSwitch";
 
 
 const SubmisionForm = ({ form, submision }) => {
@@ -59,7 +60,6 @@ const SubmisionForm = ({ form, submision }) => {
 			document.getElementById('om').style.background = 'radial-gradient(#0c3d4a, #0c3d4a)';
 		}
 	};
-
 
 	return (
 		<div id='sub'>
@@ -137,18 +137,14 @@ const SubmisionForm = ({ form, submision }) => {
 
 								{/*  ****************************************************** */ }
 
-								<div className='col-md-2 mb-4 form-check form-switch'>
-									<input
-										type='checkbox'
-										className='form-check-input'
-										id='socialCase'
-										name='socialCase'
-										onChange={ form.handleChange }
-										onBlur={ form.handleBlur }
-										value={ form.values.socialCase }
-									/>
-									<label htmlFor='socialCase'>Caso Social</label>
-								</div>
+								<InputSwitch 
+								id={'socialCase'} 
+								name={'socialCase'} 
+								value={form.values.socialCase } 
+								onChange={ form.handleChange }
+								onBlur={ form.handleBlur }
+								label='Caso Social'
+								/>
 
 								{/*  ****************************************************** */ }
 

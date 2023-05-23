@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
+import InputSwitch from "./ui/imputSwitch";
 
 const Parent1Form = ({ form }) => {
 
@@ -85,18 +86,14 @@ const Parent1Form = ({ form }) => {
 							</select>
 						</div>
 
-						<div className='col-md-2 form-check form-switch'>
-							<input
-								type='checkbox'
-								className='form-check-input'
-								id='uniqueParent1'
-								name='child.parents[0].uniqueParent'
+							<InputSwitch 
+								id={'uniqueParent1'} 
+								name={'child.parents[0].uniqueParent'} 
+								value={form.values.child?.parents[0].uniqueParent } 
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
-								value={ form.values.child?.parents[0].uniqueParent }
-							/>
-							<label htmlFor='uniqueParent1'>Monoparental</label>
-						</div>
+								label='Monoparental'
+								/>
 					</div>
 				</div>
 
@@ -104,19 +101,17 @@ const Parent1Form = ({ form }) => {
 
 				<div className='form-group d-inline justify-content-evenly'>
 					<div className='row align-items-center mb-3'>
-						<div className='col-md-2 form-check form-switch '>
-							<input
-								type='checkbox'
-								className='form-check-input m-1'
-								id='convivencia1'
-								name='child.parents[0].convivencia'
+
+							<InputSwitch 
+								className={'col-md-2 form-check form-switch'}
+								id={'convivencia1'} 
+								name={'child.parents[0].convivencia'} 
+								value={form.values.child.parents[0].convivencia} 
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
-								value={ form.values.child.parents[0].convivencia }
-								defaultChecked
+								defaultChecked ={true}
+								label='Convive'
 							/>
-							<label htmlFor='convivencia1'>Convive</label>
-						</div>
 
 						<div className='col-md-7 '>
 							<input
@@ -247,7 +242,7 @@ const Parent1Form = ({ form }) => {
 								className='form-control'
 								id='workName1'
 								name='child.parents[0].workName'
-								placeholder={ form.values.child?.parents?.[0].occupation === 'estudiante' ? 'Nombre del centro estudiantil...' : 'Nombre del centro de trabajo...' }
+								placeholder={ form.values.child?.parents?.[0].occupation === 'estudiante' ? 'Nombre del centro de estudios...' : 'Nombre del centro de trabajo...' }
 								value={ form.values.child.parents[0].workName }
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
@@ -358,20 +353,16 @@ const Parent1Form = ({ form }) => {
 
 				<div className='form-group d-inline justify-content-evenly'>
 					<div className='row align-items-center mb-3 m-1'>
-						<div className='col-md-3  form-check form-switch '>
-							<input
-								type='checkbox'
-								className='form-check-input '
-								id='otherChildrenInCi1'
-								name='child.parents[0].otherChildrenInCi'
+
+							<InputSwitch 
+								className={'col-md-3  form-check form-switch'}
+								id={'otherChildrenInCi1'} 
+								name={'child.parents[0].otherChildrenInCi'} 
+								value={form.values.child.parents[0].otherChildrenInCi } 
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
-								value={ form.values.child.parents[0].otherChildrenInCi }
+								label='Tiene otros niños en círculo?'
 							/>
-							<label htmlFor='otherChildrenInCi1'>
-								Tiene otros niños en círculo?
-							</label>
-						</div>
 
 						<div className='col-md-2 '>
 							<input
