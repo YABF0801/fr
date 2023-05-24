@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react";
-import { PropTypes } from "prop-types"
+import { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
-import InputSwitch from "./ui/imputSwitch";
-
+import InputSwitch from './ui/imputSwitch';
+import Select from './ui/select';
 
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);
 	const [circulosToMap, setCirculosToMap] = useState([]);
-
 
 	useEffect(() => {
 		async function fetchData() {
@@ -17,8 +16,8 @@ const SubmisionForm = ({ form, submision }) => {
 			setNewEntryNumber(consecutive + 1);
 		}
 
-		fetchData()
-	}, [])
+		fetchData();
+	}, []);
 
 	useEffect(() => {
 		if (newEntryNumber) {
@@ -31,7 +30,6 @@ const SubmisionForm = ({ form, submision }) => {
 			form.setValues(submision);
 		}
 	}, [submision]);
-
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -61,6 +59,7 @@ const SubmisionForm = ({ form, submision }) => {
 		}
 	};
 
+	console.log(form.values.ciPedido);
 	return (
 		<div id='sub'>
 			<h3 className='text-center text-secondary '>Datos generales de la planilla</h3>
@@ -73,27 +72,15 @@ const SubmisionForm = ({ form, submision }) => {
 							<div className='row align-items-center mt-3 mb-3'>
 								<div className='col-md-3 mb-3'>
 									<div className='om-os-group-buttons d-flex'>
-										<a
-											className='btn'
-											role='button'
-											id='os'
-											name='finality'
-											onClick={ handleOs }
-										>
+										<a className='btn' role='button' id='os' name='finality' onClick={handleOs}>
 											OS
 										</a>
-										<a
-											className='btn '
-											role='button'
-											id='om'
-											name='finality'
-											onClick={ handleOm }
-										>
+										<a className='btn ' role='button' id='om' name='finality' onClick={handleOm}>
 											OM
 										</a>
 									</div>
 								</div>
-								{/*  ****************************************************** */ }
+								{/*  ****************************************************** */}
 
 								<div className='col-md-4 mb-4 d-flex justify-content-evenly'>
 									<div className='form-check form-check-inline'>
@@ -104,13 +91,10 @@ const SubmisionForm = ({ form, submision }) => {
 											name='submisiontype'
 											value='new'
 											defaultChecked
-											onChange={ form.handleChange }
-											onBlur={ form.handleBlur }
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
-										<label
-											className='form-check-label'
-											htmlFor='new'
-										>
+										<label className='form-check-label' htmlFor='new'>
 											New
 										</label>
 									</div>
@@ -122,31 +106,28 @@ const SubmisionForm = ({ form, submision }) => {
 											id='traslado'
 											name='submisiontype'
 											value='traslado'
-											onChange={ form.handleChange }
-											onBlur={ form.handleBlur }
+											onChange={form.handleChange}
+											onBlur={form.handleBlur}
 										/>
 
-										<label
-											className='form-check-label'
-											htmlFor='traslado'
-										>
+										<label className='form-check-label' htmlFor='traslado'>
 											Traslado
 										</label>
 									</div>
 								</div>
 
-								{/*  ****************************************************** */ }
+								{/*  ****************************************************** */}
 
-								<InputSwitch 
-								id={'socialCase'} 
-								name={'socialCase'} 
-								value={form.values.socialCase } 
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
-								label='Caso Social'
+								<InputSwitch
+									id={'socialCase'}
+									name={'socialCase'}
+									value={form.values.socialCase}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
+									label='Caso Social'
 								/>
 
-								{/*  ****************************************************** */ }
+								{/*  ****************************************************** */}
 
 								<div className='col-md-3 mb-4 gap-1 d-inline-flex'>
 									<label className='m-md-2 d-inline-flex'>No. </label>
@@ -155,68 +136,55 @@ const SubmisionForm = ({ form, submision }) => {
 										type='text'
 										id='entryNumber'
 										name='entryNumber'
-										placeholder={ numberLabel }
+										placeholder={numberLabel}
 										disabled
 									/>
 								</div>
 
-								{/*  ****************************************************** */ }
+								{/*  ****************************************************** */}
 							</div>
 						</div>
 
-						{/*  ****************************************************** */ }
-						<div className='form-group col-md-12 mb-3 d-flex'>
-							<label
-								className='col-md-6 m-md-2 text-secondary'
-								htmlFor='ciPedido'
-							>
-								Si se solicita un circulo en particular como preferencia
-							</label>
-							<select
-								className='form-control'
-								id='ciPedido'
-								name='ciPedido'
-								value={ form.values.ciPedido }
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
-							>
-								<option className='text-center'>
-									------ Seleccione el círculo que solicita-------
-								</option>
-								{ circulosToMap.map((circulo) => (
-									<option
-										key={ circulo._id }
-										value={ circulo.name }
-									>
-										{ circulo.name }
-									</option>
-								)) }
-							</select>
-						</div>
+						{/*  ****************************************************** */}
 
-						{/*  ****************************************************** */ }
+						<Select
+							id={'ciPedido'}
+							name={'ciPedido'}
+							value={form.values.ciPedido}
+							label={'Si se solicita un circulo en particular como preferencia'}
+							optionText={'--- Seleccione el círculo que solicita ---'}
+							onChange={form.handleChange}
+							onBlur={form.handleBlur}
+							mapFunction={circulosToMap.map((circulo) => (
+								<option key={circulo._id} value={circulo.name}>
+									{circulo.name}
+								</option>
+							))}
+						/>
+
+						{/*  ****************************************************** */}
 
 						<div className='col-md-12 mb-3 mt-3'>
 							<textarea
 								className='form-control'
-								rows={ 2 }
+								rows={2}
 								id='motive'
 								name='motive'
 								placeholder='Escriba el motivo de la solicitud...'
-								value={ form.values.motive }
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
+								value={form.values.motive}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
 							></textarea>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
 SubmisionForm.propTypes = {
 	form: PropTypes.object.isRequired,
 	submision: PropTypes.object.isRequired,
-}
-export default SubmisionForm
+};
+export default SubmisionForm;

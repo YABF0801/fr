@@ -192,7 +192,7 @@ function SubmisionWizardForm({ submision }) {
 			className='show-form container list mt-3 col-12'
 			id='submision'
 		>
-			<div className=' p-5 '>x
+			<div className=' p-5 '>
 				<div className='card'>
 					<form
 						className='f-modal p-3 gap-3 justify-content-between '

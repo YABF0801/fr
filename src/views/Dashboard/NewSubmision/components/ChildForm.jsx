@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
-import { PropTypes } from "prop-types"
+import { useEffect, useState } from 'react';
+import { PropTypes } from 'prop-types';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import MapMarker from '../../../../common/MapMarker/MapMarker';
-
-
-
-
+import Select from './ui/select';
 
 const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 	const [consejosPopulares, setConsejosPopulares] = useState([]);
@@ -22,11 +19,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 	return (
 		<div id='child'>
 			<div className='row d-flex justify-content-center'>
-
 				<h3 className='text-center text-secondary'>Datos del menor</h3>
 				<h6 className='text-secondary mb-4'>
-					Llene la informmación personal del menor, proporcione la dirección particular y
-					ubicación geográfica
+					Llene la informmación personal del menor, proporcione la dirección particular y ubicación geográfica
 				</h6>
 
 				<div className='form-group '>
@@ -38,9 +33,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 								id='childName'
 								name='child.childName'
 								placeholder='Nombre(s)'
-								value={ form.values.child.childName }
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
+								value={form.values.child.childName}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
 							/>
 						</div>
 
@@ -51,9 +46,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 								id='childLastname'
 								name='child.childLastname'
 								placeholder='Apellidos'
-								value={ form.values.child.childLastname }
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
+								value={form.values.child.childLastname}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
 							/>
 						</div>
 
@@ -64,9 +59,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 								id='carnet'
 								name='child.carnet'
 								placeholder='CI'
-								value={ form.values.child.carnet }
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
+								value={form.values.child.carnet}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
 							/>
 						</div>
 
@@ -75,9 +70,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 								className='form-select d-inline'
 								id='year_of_life'
 								name='child.year_of_life'
-								value={ form.values.child.year_of_life }
-								onChange={ form.handleChange }
-								onBlur={ form.handleBlur }
+								value={form.values.child.year_of_life}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
 							>
 								<option>Año de vida</option>
 								<option value='2'>2</option>
@@ -90,7 +85,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 					</div>
 				</div>
 
-				{/*  ****************************************************** */ }
+				{/*  ****************************************************** */}
 
 				<div className='form-group '>
 					<div className='row align-items-center mb-3'>
@@ -98,14 +93,14 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 							<div className='mb-3'>
 								<textarea
 									type='text'
-									rows={ 2 }
+									rows={2}
 									className='form-control'
 									name='child.childAdress'
 									id='childAdress'
 									placeholder='Direccion...'
-									value={ form.values.child.childAdress }
-									onChange={ form.handleChange }
-									onBlur={ form.handleBlur }
+									value={form.values.child.childAdress}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
 								></textarea>
 							</div>
 
@@ -116,100 +111,85 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									placeholder='Localidad (Barrrio)'
 									id='neighborhood'
 									name='child.neighborhood'
-									value={ form.values.child.neighborhood }
-									onChange={ form.handleChange }
-									onBlur={ form.handleBlur }
+									value={form.values.child.neighborhood}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
 								/>
 							</div>
 
-							<div className='mb-3'>
-								<select
-									className='form-select'
-									id='cPopular'
-									name='child.cPopular'
-									value={ form.values.child.cPopular }
-									onChange={ form.handleChange }
-									onBlur={ form.handleBlur }
-								>
-									<option>Consejo Popular</option>
-									{ consejosPopulares.map((consejo) => (
-										<option
-											key={ consejo.nombre }
-											value={ consejo.nombre }
-										>
-											{ consejo.nombre }
-										</option>
-									)) }
-								</select>
-							</div>
+							<Select
+								className='mb-3'
+								id={'cPopular'}
+								name={'child.cPopular'}
+								value={form.values.child.cPopular}
+								optionText={'Consejo Popular'}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
+								mapFunction={consejosPopulares.map((consejo) => (
+									<option key={consejo.nombre} value={consejo.nombre}>
+										{consejo.nombre}
+									</option>
+								))}
+							/>
 
-							<div className='mb-3'>
-								<select
-									className='form-select'
-									id='municipality'
-									name='child.municipality'
-									value={ form.values.child.municipality }
-									onChange={ form.handleChange }
-									onBlur={ form.handleBlur }
-								>
-									<option>Municipio</option>
-									<option value='Isla de la Juventud'>Isla de la Juventud</option>
-								</select>
-							</div>
+							<Select
+								className='mb-3'
+								id={'municipality'}
+								name={'child.municipality'}
+								value={form.values.child.municipality}
+								optionText={'Municipio'}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
+								mapFunction={<option value='Isla de la Juventud'>Isla de la Juventud</option>}
+							/>
 
-							<div className='mb-3'>
-								<select
-									className='form-select'
-									id='province'
-									name='child.province'
-									value={ form.values.child.province }
-									onChange={ form.handleChange }
-									onBlur={ form.handleBlur }
-								>
-
-									<option>Provincia</option>
-									<option value='Isla de la Juventud'>Isla de la Juventud</option>
-								</select>
-							</div>
+							<Select
+								className='mb-3'
+								id={'province'}
+								name={'child.province'}
+								value={form.values.child.province}
+								optionText={'Provincia'}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
+								mapFunction={<option value='Isla de la Juventud'>Isla de la Juventud</option>}
+							/>
 						</div>
 
-						{/*  ****************************************************** */ }
+						{/*  ****************************************************** */}
 
 						<div className='col-md-7 p-3'>
-
-							<MapContainer className='map-container' style={ { width: '100%', height: '400px' } }
-								center={ [21.72761, -82.834167] } zoom={ 10 } setView={ [21.72761, -82.834167] } scrollWheelZoom={ true }
-								minZoom={ 9 } maxBounds={ [
-									[21.410303, -83.269720], // Suroeste
+							<MapContainer
+								className='map-container'
+								style={{ width: '100%', height: '400px' }}
+								center={[21.72761, -82.834167]}
+								zoom={10}
+								setView={[21.72761, -82.834167]}
+								scrollWheelZoom={true}
+								minZoom={9}
+								maxBounds={[
+									[21.410303, -83.26972], // Suroeste
 									[21.961168, -82.531547], // Noreste
-								] }>
-
+								]}
+							>
 								<TileLayer
 									attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 									url='/public/Tiles/{z}/{x}/{y}.png'
-								// https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png  
+									// https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 								/>
 
-								<MapMarker
-									icon={ markerIcon }
-									onPositionChange={ handleLatlngChange }
-								/>
+								<MapMarker icon={markerIcon} onPositionChange={handleLatlngChange} />
 							</MapContainer>
-
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
-	)
-}
-
-
+	);
+};
 
 ChildForm.propTypes = {
 	form: PropTypes.object.isRequired,
 	markerIcon: PropTypes.object.isRequired,
 	handleLatlngChange: PropTypes.func.isRequired,
-}
-export default ChildForm
+};
+export default ChildForm;
