@@ -1,5 +1,6 @@
 import { PropTypes } from "prop-types"
-import InputSwitch from "./ui/imputSwitch"
+import InputSwitch from "../../../../common/uiForms/imputSwitch"
+
 
 
 const Parent2Form = ({ form }) => {

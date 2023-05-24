@@ -1,10 +1,12 @@
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
+import InputSwitch from '../../../../common/uiForms/imputSwitch';
+import Select from '../../../../common/uiForms/select';
 
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
-import InputSwitch from './ui/imputSwitch';
-import Select from './ui/select';
+
+
 
 const Parent1Form = ({ form }) => {
 	const [organismosToMap, setOrganismosToMap] = useState([]);

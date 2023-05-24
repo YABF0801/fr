@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import MapMarker from '../../../../common/MapMarker/MapMarker';
-import Select from './ui/select';
+import Select from '../../../../common/uiForms/select';
 
 const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 	const [consejosPopulares, setConsejosPopulares] = useState([]);
