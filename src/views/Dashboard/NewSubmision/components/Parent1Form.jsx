@@ -6,8 +6,6 @@ import Select from '../../../../common/uiForms/select';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
 
-
-
 const Parent1Form = ({ form }) => {
 	const [organismosToMap, setOrganismosToMap] = useState([]);
 	const [circulosToMap, setCirculosToMap] = useState([]);
@@ -103,7 +101,7 @@ const Parent1Form = ({ form }) => {
 							value={form.values.child.parents[0].convivencia}
 							onChange={form.handleChange}
 							onBlur={form.handleBlur}
-							defaultChecked={true}
+							defaultChecked={form.values.child.parents[0].convivencia}
 							label='Convive'
 						/>
 
@@ -116,7 +114,7 @@ const Parent1Form = ({ form }) => {
 								name='child.parents[0].parentAddress'
 								value={
 									form.values.child?.parents?.[0].convivencia
-										? form.values.child.childAdress
+										? form.values.child.childAddress
 										: form.values.child.parents[0].parentAddress
 								}
 								onChange={form.handleChange}

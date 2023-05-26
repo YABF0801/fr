@@ -1,8 +1,6 @@
 import { PropTypes } from "prop-types"
 import InputSwitch from "../../../../common/uiForms/imputSwitch"
 
-
-
 const Parent2Form = ({ form }) => {
     return (
         <div id='parent2'>
@@ -102,7 +100,7 @@ const Parent2Form = ({ form }) => {
 								value={form.values.child.parents[1].convivencia} 
 								onChange={ form.handleChange }
 								onBlur={ form.handleBlur }
-								defaultChecked ={true}
+								defaultChecked ={form.values.child.parents[1].convivencia}
 								label='Convive'
 							/>
 
@@ -113,7 +111,7 @@ const Parent2Form = ({ form }) => {
                                 id='parentAddress2'
                                 placeholder='Dirección...'
                                 name='child.parents[1].parentAddress'
-								value={ form.values.child?.parents?.[1].convivencia ? form.values.child.childAdress :  form.values.child.parents[1].parentAddress }
+								value={ form.values.child?.parents?.[1].convivencia ? form.values.child.childAddress :  form.values.child.parents[1].parentAddress }
                                 onChange={ form.handleChange }
                                 onBlur={ form.handleBlur }
                                 disabled={ form.values.child?.parents?.[1].convivencia }

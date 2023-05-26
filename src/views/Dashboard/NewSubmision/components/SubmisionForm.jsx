@@ -131,7 +131,7 @@ const SubmisionForm = ({ form, submision }) => {
 								{/*  ****************************************************** */}
 
 								<div className='col-md-3 mb-4 gap-1 d-inline-flex'>
-									<label className='m-md-2 d-inline-flex'>No. </label>
+									<label className='m-md-2 d-inline-flex' htmlFor='entryNumber'>No. </label>
 									<input
 										className='form-control'
 										type='text'

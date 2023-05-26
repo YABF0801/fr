@@ -95,10 +95,10 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									type='text'
 									rows={2}
 									className='form-control'
-									name='child.childAdress'
-									id='childAdress'
+									name='child.childAddress'
+									id='childAddress'
 									placeholder='Direccion...'
-									value={form.values.child.childAdress}
+									value={form.values.child.childAddress}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								></textarea>

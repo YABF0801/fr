@@ -22,7 +22,7 @@ const PropuestasListTable = () => {
             Año_de_vida: item.child.year_of_life,
             Madre: item.child.parents[0].parentName,
             Centro_de_Trabajo: item.child.parents[0].workName || '',
-            Dirección: item.child.childAdress,
+            Dirección: item.child.childAddress,
             Consejo_Popular: item.child.cPopular,
             Caso_Social: item.socialCase ? 'X' : '',
             Circulo: item.child.circulo || ''
@@ -57,7 +57,7 @@ const PropuestasListTable = () => {
         setSearch(event.target.value);
         const elements = propuestasLocal.filter((item) => { 
           if (
-            item.child.childAdress.toLowerCase().includes(search.toLowerCase()) ||
+            item.child.childAddress.toLowerCase().includes(search.toLowerCase()) ||
             item.child.childName.toLowerCase().includes(search.toLowerCase()) ||
             String(item.child.carnet).includes(search) ||
             (item.child.parents.every(hasWorkName) && item.child.parents.some(parent => parent.workName.toLowerCase().includes(search.toLowerCase()))) ||

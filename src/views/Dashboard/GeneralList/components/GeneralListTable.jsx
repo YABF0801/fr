@@ -27,7 +27,7 @@ const GeneralListTable = () => {
 			Año_de_vida: item.child.year_of_life,
 			Madre: item.child.parents[0].parentName,
 			Centro_de_Trabajo: item.child.parents[0].workName || '',
-			Dirección: item.child.childAdress,
+			Dirección: item.child.childAddress,
 			Consejo_Popular: item.child.cPopular,
 			Caso_Social: item.socialCase ? 'X' : '',
 			Estado: item.status,
@@ -99,7 +99,7 @@ const GeneralListTable = () => {
 		setSearch(event.target.value);
 		const elements = submisionsLocal.filter((item) => {
 			if (
-				item.child.childAdress.toLowerCase().includes(search.toLowerCase()) ||
+				item.child.childAddress.toLowerCase().includes(search.toLowerCase()) ||
 				item.child.childName.toLowerCase().includes(search.toLowerCase()) ||
 				item.child.cPopular.toLowerCase().includes(search.toLowerCase()) ||
 				String(item.child.carnet).includes(search) ||
@@ -196,7 +196,7 @@ const GeneralListTable = () => {
 			},
 			{
 				name: 'Dirección',
-				selector: (row) => row.child.childAdress,
+				selector: (row) => row.child.childAddress,
 				grow: 4,
 				omit: hideAddress,
 			},

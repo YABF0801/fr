@@ -15,7 +15,7 @@ export const submisionsFullDataset = (data) => {
         Año_de_vida: item.child.year_of_life,
         Madre: item.child.parents[0].parentName,
         Centro_de_Trabajo: item.child.parents[0].workName || '',
-        Dirección: item.child.childAdress,
+        Dirección: item.child.childAddress,
         Consejo_Popular: item.child.cPopular,
         Caso_Social: item.socialCase ? 'X' : '',
         Estado: item.status,
