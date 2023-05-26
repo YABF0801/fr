@@ -8,7 +8,7 @@ export const submisionsApiGet = async () => {
 
 export const submisionsApiCreate = async (submision) => {
 	try {
-	const submisionCreated = await baseAxios.post('/submisions/', submision);
+	const submisionCreated = await baseAxios.post('/submisions', submision);
 	return submisionCreated.data;
 } catch (error) {
 	throw new Error(`Error al crear submision: ${error.message}`);
