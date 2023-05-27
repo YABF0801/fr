@@ -1,3 +1,4 @@
+import SmallSpinner from '../../../../common/Spinners/smallSpinner'
 import useTotalMatricula from '../hooks/useTotalMatricula'
 
 const TotalMatricula = () => {
@@ -11,13 +12,13 @@ const TotalMatricula = () => {
           <div className='card bg-c-yellow order-card'>
             <div className='card-block'>
               <h5 className='m-b-10'>Total de Matriculados</h5>
-              <h1 className='text-right display-1'>
+              <h1 className='text-center display-1'>
                 <span>
                   { !queryCapacityAndMatricula.isLoading ?
                     (
                       queryCapacityAndMatricula.data.Matricula
                     ) : (
-                      'Loading...'
+                      <SmallSpinner color={'white'}/>
                     )
                   }
                 </span>
@@ -30,14 +31,14 @@ const TotalMatricula = () => {
           <div className='card bg-c-pink order-card'>
             <div className='card-block'>
               <h5 className='m-b-10'>Total de Capacidades</h5>
-              <h1 className='text-right display-1'>
+              <h1 className='text-center display-1'>
                 <span>
 
                   { !queryCapacityAndMatricula.isLoading ?
                     (
                       queryCapacityAndMatricula.data.NormedCapacity
                     ) : (
-                      'Loading...'
+                      <SmallSpinner color={'white'}/>
                     )
                   }
                 </span>
@@ -50,11 +51,11 @@ const TotalMatricula = () => {
           <div className='card bg-c-green order-card'>
             <div className='card-block'>
               <h5 className='m-b-10'>Total de Niñas</h5>
-              <h1 className='text-right display-1'>
+              <h1 className='text-center display-1'>
                 <span>{
                   queryTotalBoysAndGirls.isLoading ?
                     (
-                      <p>Loading...</p>
+                      <SmallSpinner color={'white'}/>
                     ) :
                     (
                       queryTotalBoysAndGirls.data.totalGirls
@@ -69,11 +70,11 @@ const TotalMatricula = () => {
           <div className='card bg-c-blue order-card'>
             <div className='card-block'>
               <h5 className='m-b-10'>Total de Niños</h5>
-              <h1 className='text-right display-1'>
-                <span>{
+              <h1 className='text-center display-1'>
+                <span >{
                   queryTotalBoysAndGirls.isLoading ?
                     (
-                      <p>Loading...</p>
+                      <SmallSpinner color={'white'}/>
                     ) :
                     (
                       queryTotalBoysAndGirls.data.totalBoys
