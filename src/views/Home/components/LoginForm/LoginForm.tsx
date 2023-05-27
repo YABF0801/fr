@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import  * as Yup from 'yup'
 
 import { useLogin } from "../../hooks/useLogin";
@@ -11,6 +11,12 @@ const LoginForm = () => {
 	const { loginUser } = useLogin();
 	const navigate = useNavigate()
 	
+	const [showPassword, setShowPassword] = useState(false);
+
+	const handleShowPassword = () => {
+		setShowPassword(!showPassword);
+	};
+
 	const lastPath = localStorage.getItem('lastPath') || DASHBOARD
 
 	const LoginSchema = Yup.object().shape({
@@ -55,12 +61,12 @@ const LoginForm = () => {
 
 						<div className="input-group form-group">
 							<div className="input-group-login">
-								<span className="text-light gap-3 m-3">
-									<i className="bi bi-key-fill" />
+								<span className="text-light gap-3 m-3" onClick={handleShowPassword} >
+								{showPassword ? <i className="bi bi-eye"></i>  : <i className="bi bi-eye-slash"></i>}
 								</span>
 							</div>
 							<input
-								type="password"
+								type={showPassword ? 'text' : 'password'}
 								id="password"
 								name="password"
 								value={formik.values.password}
