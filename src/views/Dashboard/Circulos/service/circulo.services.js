@@ -1,4 +1,5 @@
 import { baseAxios } from '../../../../api/baseAxios';
+import ToastNotification from '../../../../common/Toasts/toasts';
 
 export const circulosApiGet = async () => {
 	const circulos = await baseAxios.get('/circulos/');
@@ -10,7 +11,7 @@ export const circulosApiCreate = async (circulo) => {
 	const circuloCreated = await baseAxios.post('/circulos', circulo);
 	return circuloCreated.data;
 } catch (error) {
-	throw new Error(`Error al crear circulo: ${error.message}`);
+	ToastNotification('error', `Error al crear circulo: ${error.message}`);  
   }
 };
 
@@ -18,7 +19,7 @@ export const circulosApiUpdate = async (circulo) => {
 	try {
 		await baseAxios.put(`/circulos/${circulo._id}`, circulo);
 	} catch (error) {
-	  throw new Error(`Error al actualizar circulo: ${error.message}`);
+	ToastNotification('error', `Error al actualizar circulo: ${error.message}`);  
 	}
   };
 
@@ -28,14 +29,18 @@ export const circulosApiFindById = async (id) => {
 };
 
 export const circulosApiDelete = async (id) => {
+	try {
 	await baseAxios.delete(`/circulos/${id}`);
+	} catch (error) {
+	ToastNotification('error', `Error al eliminar circulo: ${error.message}`);  
+	}
 };
 
 export const circulosApiStatus = async (id) => {
 	try {
 		await baseAxios.put(`/circulos/status/${id}`);
 	} catch (error) {
-	  throw new Error(`Error al cambiar estado del circulo : ${error.message}`);
+	ToastNotification('error', `Error al cambiar estado del circulo : ${error.message}`);  
 	}
   };
 
@@ -44,9 +49,8 @@ export const circulosApiStatus = async (id) => {
 		await baseAxios.get('/circulos/proyectar', );
 		const tools = await baseAxios.get('/submisions/get-tools')
 		return tools.data.proyeccionParaGP
-		
 	} catch (error) {
-		throw new Error(`Error ejecutar la proyeccion de matriculas: ${error.message}`);
+	ToastNotification('error', `Error ejecutar la proyeccion de matriculas: ${error.message}`);
  }
 };
 
@@ -59,6 +63,6 @@ export const cursoApiGet = async () => {
 	try {
 		await baseAxios.post('/circulos/nuevo-curso', );
 	} catch (error) {
-		throw new Error(`Error ejecutar el cambio de curso: ${error.message}`);
+	ToastNotification('error', `Error ejecutar el cambio de curso: ${error.message}`);
  }
  };
