@@ -21,6 +21,9 @@ const Parent1Form = ({ form }) => {
 		fetchData();
 	}, []);
 
+	console.log('org',form.values.child.parents[0].organismo)
+	console.log('uniqs',form.values.child.parents[0].uniqueParent)
+
 	return (
 		<div id='parent1'>
 			<hr className='text-secondary' />
@@ -84,11 +87,13 @@ const Parent1Form = ({ form }) => {
 
 							<div className='col-md-3 '>
 								<InputSwitch
+									className={'form-check form-switch'}
 									id={'uniqueParent1'}
 									name={'child.parents[0].uniqueParent'}
 									value={form.values.child?.parents[0].uniqueParent}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
+									defaultChecked={form.values.child?.parents[0].uniqueParent}
 									label='Monoparental'
 								/>
 							</div>
@@ -238,47 +243,38 @@ const Parent1Form = ({ form }) => {
 							</div>
 						</div>
 
-						{/* continuar aaqui */}
-						<div className='row justify-content-evenly mb-3'>
-							<div className='col-md-4'>
-								<div className='form-group mb-3'>
-									<select
-										className='form-select'
-										id='organismo1'
-										name='child.parents[0].organismo'
-										value={form.values.child.parents[0].organismo}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-										disabled={form.values.child?.parents?.[0].occupation !== 'trabajador'}
-									>
-										<option>Organismo</option>
-										{organismosToMap.map((organismo) => (
-											<option key={organismo._id} value={organismo}>
-												{organismo.name}
-											</option>
-										))}
-									</select>
-								</div>
-							</div>
+						<div className='row justify-content-evenly mb-4'>
+							<Select
+								className='col-md-4'
+								id={'organismo1'}
+								name={'child.parents[0].organismo.name'}
+								value={form.values.child.parents[0].organismo.name}
+								optionText={'Organismo'}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
+								mapFunction={organismosToMap.map((organismo) => (
+									<option key={organismo._id} value={organismo.name}>
+										{organismo.name}
+									</option>
+								))}
+							/>
 
-							<div className='col-md-8'>
-								<div className='form-group mb-3'>
-									<input
-										type='text'
-										className='form-control'
-										id='jobTitle1'
-										name='child.parents[0].jobTitle'
-										placeholder='Cargo...'
-										value={form.values.child.parents[0].jobTitle}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-										disabled={form.values.child?.parents?.[0].occupation !== 'trabajador'}
-									/>
-									{form.errors.child?.parents?.[0]?.jobTitle &&
-										form.touched.child?.parents?.[0]?.jobTitle && (
-											<p className='text-danger'>{form.errors.child.parents[0].jobTitle}</p>
-										)}
-								</div>
+							<div className='col-md-8 '>
+								<input
+									type='text'
+									className='form-control'
+									id='jobTitle1'
+									name='child.parents[0].jobTitle'
+									placeholder='Cargo...'
+									value={form.values.child.parents[0].jobTitle}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
+									disabled={form.values.child?.parents?.[0].occupation !== 'trabajador'}
+								/>
+								{form.errors.child?.parents?.[0]?.jobTitle &&
+									form.touched.child?.parents?.[0]?.jobTitle && (
+										<p className='text-danger'>{form.errors.child.parents[0].jobTitle}</p>
+									)}
 							</div>
 						</div>
 
@@ -334,22 +330,22 @@ const Parent1Form = ({ form }) => {
 							/>
 
 							<div className='col-md-1'>
-									<input
-										type='number'
-										className='form-control'
-										id='numberOfOtherChildrenInCi1'
-										name='child.parents[0].numberOfOtherChildrenInCi'
-										value={form.values.child.parents[0].numberOfOtherChildrenInCi}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-										disabled={!form.values.child?.parents?.[0].otherChildrenInCi}
-									/>
-									{form.errors.child?.parents?.[0]?.numberOfOtherChildrenInCi &&
-										form.touched.child?.parents?.[0]?.numberOfOtherChildrenInCi && (
-											<p className='text-danger'>
-												{form.errors.child.parents[0].numberOfOtherChildrenInCi}
-											</p>
-										)}
+								<input
+									type='number'
+									className='form-control'
+									id='numberOfOtherChildrenInCi1'
+									name='child.parents[0].numberOfOtherChildrenInCi'
+									value={form.values.child.parents[0].numberOfOtherChildrenInCi}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
+									disabled={!form.values.child?.parents?.[0].otherChildrenInCi}
+								/>
+								{form.errors.child?.parents?.[0]?.numberOfOtherChildrenInCi &&
+									form.touched.child?.parents?.[0]?.numberOfOtherChildrenInCi && (
+										<p className='text-danger'>
+											{form.errors.child.parents[0].numberOfOtherChildrenInCi}
+										</p>
+									)}
 							</div>
 
 							<Select
@@ -400,14 +396,11 @@ const Parent1Form = ({ form }) => {
 									</label>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		
 	);
 };
 
