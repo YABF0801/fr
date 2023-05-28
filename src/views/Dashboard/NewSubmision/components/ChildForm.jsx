@@ -158,7 +158,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 							</div>
 
 							<div className='col-md-8'>
-								<div className='row'>
+								
 									<div className='col-md-12 '>
 										<MapContainer
 											className='map-container'
@@ -181,7 +181,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 											<MapMarker icon={markerIcon} onPositionChange={handleLatlngChange} />
 										</MapContainer>
 									</div>
-								</div>
+								
 							</div>
 						</div>
 					</div>
