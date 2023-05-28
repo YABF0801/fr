@@ -11,6 +11,7 @@ import SubmisionForm from './SubmisionForm';
 import ChildForm from './ChildForm';
 import Parent1Form from './Parent1Form';
 import Parent2Form from './Parent2Form';
+import { useAuthContext } from '../../../../core/context/authContext';
 
 const req = 'campo requerido';
 
@@ -22,6 +23,7 @@ const SubmisionSchema = Yup.object().shape({
 	motive: Yup.string().optional(),
 	status: Yup.string(),
 	ciPedido: Yup.string().optional(),
+	createdBy: Yup.string(),
 
 	child: Yup.object().shape({
 		childName: Yup.string().min(2, 'minimo 2 caracteres').max(20, 'maximo 20 caracteres').required('Se requiere un nombre'),
@@ -70,7 +72,10 @@ const SubmisionSchema = Yup.object().shape({
 
 				organismo: Yup.object().optional().when('occupation', {
 					is: 'trabajador',
-					then: Yup.object().required('Se requiere un organismo'),
+					then: Yup.object().required('Se requiere un organismo').shape({
+						name: Yup.string(),
+						weight: Yup.number(),
+					}),
 				}),
 
 				salary: Yup.number(),
@@ -89,6 +94,8 @@ const SubmisionSchema = Yup.object().shape({
 function SubmisionWizardForm({ submision }) {
 	const { addSubmision, updateSubmision } = useSubmisionContext();
 	const navigate = useNavigate();
+	const { isAuthenticated } = useAuthContext();
+	const user = isAuthenticated.user?.nickname
 
 	const formik = useFormik({
 		initialValues: {
@@ -99,11 +106,12 @@ function SubmisionWizardForm({ submision }) {
 			motive: submision ? submision.motive : 'me da la gana',
 			status: submision ? submision.status : 'pendiente',
 			ciPedido: submision ? submision.ciPedido : '',
+			createdBy: submision ? submision.ciPedido : user,
 
 			child: {
 				childName: submision ? submision.child.childName : 'Perico',
 				childLastname: submision ? submision.child.childLastname : 'Perez',
-				carnet: submision ? submision.child.carnet : '19010824651',
+				carnet: submision ? submision.child.carnet : 19010824651,
 				year_of_life: submision ? submision.child.year_of_life : 2,
 				childAddress: submision ? submision.child.childAddress : 'mi casita',
 				neighborhood: submision ? submision.child.neighborhood : 'mi barrio',
@@ -111,7 +119,10 @@ function SubmisionWizardForm({ submision }) {
 				municipality: submision ? submision.child.municipality : 'Isla de la Juventud',
 				province: submision ? submision.child.province : 'Isla de la Juventud',
 
-		/**/	circulo: submision ? submision.child.circulo.name: '',
+		/**/	circulo: submision ? submision.child.circulo.name: {
+					_id: '',
+					name: ''
+					},
 
 				latlng: submision ? submision.child.latlng : null,
 
@@ -129,7 +140,10 @@ function SubmisionWizardForm({ submision }) {
 						workAddress: submision ? submision.child.parents[0].workAddress : 'donde queda la oficina',
 						jobTitle: submision ? submision.child.parents[0].jobTitle : 'jefa de todo',
 
-						organismo: submision ? submision.child.parents[0].organismo.name : 'ETECSA55',
+						organismo: submision ? submision.child.parents[0].organismo.name : {
+							name: '',
+							weight: 0
+						},
 						
 						salary: submision ? submision.child.parents[0].salary : 15000,
 						otherChildrenInCi: submision ? submision.child.parents[0].otherChildrenInCi : false,
@@ -291,7 +305,9 @@ function SubmisionWizardForm({ submision }) {
 							<a href='#top' className="btn cancel-btn" onClickCapture={ formik.handleReset }> Cancelar</a>
 
 							{/* <button type="submit" className="btn save-btn">Guardar</button> */ }
-							<button type="submit" className="btn save-btn" onClick={()=> addSubmision.mutate(formik.values)}>Guardar</button>
+							<button type="submit" className="btn save-btn" onClick={()=> console.log(formik.values)}>
+								{submision? 'Actualizar' : 'Guardar'}
+							</button>
 						</div>
 
 					</form>
