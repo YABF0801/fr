@@ -4,7 +4,7 @@ const InputSwitch = ({ className, id, name, value, label, onChange, onBlur, defa
   return (
     <div className={className || 'col-md-2 mb-4 form-check form-switch'}>
     <input
-      className='form-check-input'
+      className='form-check-input '
       type='checkbox'
       id= {id}
       name={name}
