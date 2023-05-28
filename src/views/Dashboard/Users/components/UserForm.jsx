@@ -46,6 +46,7 @@ function UserForm({ user }) {
 		  },
 		onReset: async ( )  => {
 			document.getElementById("user").style.display = "none";
+
 		},
 		validationSchema: UserSchema
 	});
@@ -185,7 +186,7 @@ function UserForm({ user }) {
 
 						<a href='#top' className="btn cancel-btn" onClickCapture={form.handleReset}> Cancelar</a>
 
-						<button type="submit" className="btn save-btn"> Guardar</button>
+						<button type="submit" className="btn save-btn"> {user? 'Actualizar' : 'Guardar'}</button>
 
 						</article>
 

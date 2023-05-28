@@ -111,7 +111,7 @@ function OrganismoForm ({ organismo }) {
 
               <a href='#top' className="btn cancel-btn" onClickCapture={form.handleReset}> Cancelar</a>
 
-              <button type="submit" className="btn save-btn"> Guardar</button>
+              <button type="submit" className="btn save-btn"> {organismo? 'Actualizar' : 'Guardar'}</button>
 
               </article>
 
