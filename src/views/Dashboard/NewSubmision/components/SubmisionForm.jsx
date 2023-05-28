@@ -59,7 +59,7 @@ const SubmisionForm = ({ form, submision }) => {
 		}
 	};
 
-	console.log(form.values.ciPedido);
+	console.log('social',form.values.socialCase);
 
 	return (
 		<div id='sub'>
@@ -90,7 +90,7 @@ const SubmisionForm = ({ form, submision }) => {
 										id='new'
 										name='submisiontype'
 										value='new'
-										defaultChecked
+										defaultChecked={form.values.submisiontype}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
@@ -106,6 +106,7 @@ const SubmisionForm = ({ form, submision }) => {
 										id='traslado'
 										name='submisiontype'
 										value='traslado'
+										defaultChecked={form.values.submisiontype}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
@@ -118,12 +119,14 @@ const SubmisionForm = ({ form, submision }) => {
 
 							<div className='col-md-3 '>
 								<InputSwitch
+									className={'form-check form-switch'}
 									id={'socialCase'}
 									name={'socialCase'}
 									value={form.values.socialCase}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 									label='Caso Social'
+									defaultChecked={form.values.socialCase}
 								/>
 							</div>
 
