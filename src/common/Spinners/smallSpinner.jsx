@@ -4,7 +4,6 @@ import FadeLoader from "react-spinners/FadeLoader";
 
 const SmallSpinner = ({color}) => {
     return (
-      <div className="m-3 p-3">
       <FadeLoader
       color={color}
       height={5}
@@ -13,7 +12,6 @@ const SmallSpinner = ({color}) => {
       speedMultiplier={1}
       
     />
-   </div>
 // "#34848f"
 )
 }
