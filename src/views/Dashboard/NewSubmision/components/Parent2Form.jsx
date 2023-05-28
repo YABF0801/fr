@@ -4,89 +4,66 @@ import InputSwitch from "../../../../common/uiForms/imputSwitch"
 const Parent2Form = ({ form }) => {
     return (
         <div id='parent2'>
-            <div className='row d-flex justify-content-center'>
+                <hr className='text-secondary' />
 
-                <h3 className='text-center text-secondary mt-5'>Datos de los padres o tutores</h3>
-                <h6 className='text-secondary mb-4'>
-                    Continúe con los los datos del padre o tutor
-                </h6>
+<h3 className='text-center text-secondary mt-4'>Datos de los padres o tutores</h3>
+<h6 className='text-secondary mb-4'>Continúe con los los datos del padre o tutor</h6>
 
-                <div className='form-group d-inline justify-content-evenly'>
-                    <div className='row align-items-center'>
-                        <div className='col-md-3 mb-3'>
-                            <input
-                                type='text'
-                                className='form-control'
-                                id='parentName2'
-                                placeholder='Nombre(s)'
-                                name='child.parents[1].parentName'
-                                value={ form.values.child.parents[1].parentName }
-                                onChange={ form.handleChange }
-                                onBlur={ form.handleBlur }
-                            />{ ' ' }
-                            { form.errors.child?.parents?.[1]?.parentName &&
-                                form.touched.child?.parents?.[1]?.parentName && (
-                                    <p className='text-danger'>
-                                        { form.errors.child.parents[1].parentName }
-                                    </p>
-                                ) }
-                        </div>
-
-                        <div className='col-md-4 mb-3'>
-                            <input
-                                type='text'
-                                className='form-control'
-                                id='parentLastname2'
-                                placeholder='Apellidos'
-                                name='child.parents[1].parentLastname'
-                                value={ form.values.child.parents[1].parentLastname }
-                                onChange={ form.handleChange }
-                                onBlur={ form.handleBlur }
-                            />{ ' ' }
-                            { form.errors.child?.parents?.[1]?.parentLastname &&
-                                form.touched.child?.parents?.[1]?.parentLastname && (
-                                    <p className='text-danger'>
-                                        { form.errors.child.parents[1].parentLastname }
-                                    </p>
-                                ) }
-                        </div>
-
-                        <div className='col-md-2 mb-3'>
-                            <select
-                                className='form-select d-inline'
-                                id='typeParent2'
-                                name='child.parents[1].typeParent'
-                                value={ form.values.child.parents[1].typeParent }
-                                onChange={ form.handleChange }
-                                onBlur={ form.handleBlur }
-                            >
-                                <option>Parentesco</option>
-                                <option value='padre'>Padre</option>
-                                <option value='madre'>Madre</option>
-                                <option value='tutor'>Tutor</option>
-                            </select>
-                        </div>
-
-                        <div className='col-md-3 mb-3'>
-                            <input
-                                type='text'
-                                className='form-control'
-                                id='phoneNumber2'
-                                placeholder='Teléfono'
-                                name='child.parents[1].phoneNumber'
-                                value={ form.values.child.parents[1].phoneNumber }
-                                onChange={ form.handleChange }
-                                onBlur={ form.handleBlur }
-                            />
-                            { form.errors.child?.parents?.[1]?.phoneNumber &&
-                                form.touched.child?.parents?.[1]?.phoneNumber && (
-                                    <p className='text-danger'>
-                                        { form.errors.child.parents[1].phoneNumber }
-                                    </p>
-                                ) }
-                        </div>
-                    </div>
+<div className='container '>
+    <div className='row justify-content-center'>
+        <div className='col-md-12 '>
+            <div className='row justify-content-evenly mb-4'>
+                <div className='col-md-4'>
+                    <input
+                        type='text'
+                        className='form-control'
+                        id='parentName1'
+                        placeholder='Nombre(s)'
+                        name='child.parents[1].parentName'
+                        value={form.values.child?.parents[1]?.parentName}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                    />
+                    {form.errors.child?.parents?.[0]?.parentName &&
+                        form.touched.child?.parents?.[0]?.parentName && (
+                            <p className='text-danger'>{form.errors.child?.parents[1].parentName}</p>
+                        )}
                 </div>
+
+                <div className='col-md-6'>
+                    <input
+                        type='text'
+                        className='form-control'
+                        id='parentLastname1'
+                        placeholder='Apellidos'
+                        name='child.parents[1].parentLastname'
+                        value={form.values.child?.parents[1].parentLastname}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                    />
+                    {form.errors.child?.parents?.[0]?.parentLastname &&
+                        form.touched.child?.parents?.[0]?.parentLastname && (
+                            <p className='text-danger'>{form.errors.child.parents[1].parentLastname}</p>
+                        )}
+                </div>
+
+                <div className='col-md-2'>
+                    <select
+                        className='form-select d-inline'
+                        id='typeParent1'
+                        name='child.parents[1].typeParent'
+                        value={form.values.child?.parents[1].typeParent}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                    >
+                        <option>Parentesco</option>
+                        <option value='madre'>Madre</option>
+                        <option value='padre'>Padre</option>
+                        <option value='tutor'>Tutor</option>
+                    </select>
+                </div>
+
+            </div>
 
                 {/* ************************************************************* */ }
 
@@ -302,6 +279,9 @@ const Parent2Form = ({ form }) => {
 
             </div>
         </div>
+        </div>
+        </div>
+        
     )
 }
 
