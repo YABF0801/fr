@@ -17,6 +17,17 @@ export const circulosApiCreate = async (circulo) => {
 		ToastNotification('error', `${ErrorMsg('create', 'circulo')} : ${error.message}`);
 	}
 };
+/* 
+
+export const circulosApiCreate = async (circulo) => {
+	try {
+		const circuloCreated = await baseAxios.post('/circulos', circulo);
+		ToastNotification('success', `${SuccessMsg('create', `circulo ${circulo.name}`)}`);
+		return circuloCreated.data;
+	} catch (error) {
+		ToastNotification('error', `${ErrorMsg('create', 'circulo')} : ${error.message}`);
+	}
+}; */
 
 export const circulosApiUpdate = async (circulo) => {
 	try {
