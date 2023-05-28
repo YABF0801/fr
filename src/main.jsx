@@ -17,6 +17,8 @@ import '../node_modules/@changey/react-leaflet-markercluster/dist/styles.min.css
 import 'react-tooltip/dist/react-tooltip.css';
 import 'chart.js/auto';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss'
 import 'xlsx/xlsx';
 import 'react-datepicker/dist/react-datepicker.css';
 
