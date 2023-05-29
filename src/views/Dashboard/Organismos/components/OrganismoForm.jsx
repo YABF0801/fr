@@ -1,11 +1,12 @@
 import { useFormik } from 'formik';
-import PropTypes from 'prop-types' 
+import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
-import { useNavigate } from "react-router-dom"
+import { organismoInitialValues } from '../../../../utils/organismoInitialValues';
 import { useOrganismoContext } from '../context/OrganismoContext';
 
-import {ORGANISMOS} from '../../../../core/config/routes/paths';
 import { useEffect } from "react";
+import { ORGANISMOS } from '../../../../core/config/routes/paths';
 
 const OrganismoSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es requerido'),
@@ -20,9 +21,7 @@ function OrganismoForm ({ organismo }) {
   
   const form = useFormik({
     initialValues: {
-      name: organismo ? organismo.name : '',
-      description: organismo ? organismo.description : '',
-      priorizado: organismo ? organismo.priorizado : false,
+      organismoInitialValues
     },
 
     onSubmit: async (values, { resetForm }) => {

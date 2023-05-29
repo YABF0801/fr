@@ -1,11 +1,12 @@
 import { useFormik } from 'formik';
-import PropTypes from 'prop-types'
-import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { userInitialValues } from '../../../../utils/userInitialValues';
 import { useUserContext } from '../context/UserContext';
 
-import {USERS} from '../../../../core/config/routes/paths';
 import { useEffect } from "react";
+import { USERS } from '../../../../core/config/routes/paths';
 
 const UserSchema = Yup.object().shape({
 	nickname: Yup.string().required('El usuario es requerido'),
@@ -22,14 +23,7 @@ function UserForm({ user }) {
 	const navigate = useNavigate();
 	  
 	const form = useFormik({
-		initialValues: {
-			nickname: user ? user.nickname: '',
-			name: user ? user.name: '',
-			lastname: user ? user.lastname: '',
-			password: user ? user.password: '',
-			position: user ? user.position: '',
-			role: user ? user.role: '',
-		},
+		initialValues: {userInitialValues},
 		
 		onSubmit: async (values, { resetForm }) => {
 			const formData = {

@@ -1,4 +1,3 @@
-
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
@@ -26,64 +25,102 @@ const SubmisionSchema = Yup.object().shape({
 	createdBy: Yup.string(),
 
 	child: Yup.object().shape({
-		childName: Yup.string().min(2, 'minimo 2 caracteres').max(20, 'maximo 20 caracteres').required('Se requiere un nombre'),
-		childLastname: Yup.string().min(2, 'minimo 2 caracteres').max(50, 'maximo 50 caracteres').required('Se requiere al menos un apellido'),
+		childName: Yup.string()
+			.min(2, 'minimo 2 caracteres')
+			.max(20, 'maximo 20 caracteres')
+			.required('Se requiere un nombre'),
+		childLastname: Yup.string()
+			.min(2, 'minimo 2 caracteres')
+			.max(50, 'maximo 50 caracteres')
+			.required('Se requiere al menos un apellido'),
 		carnet: Yup.number().required('Se requiere un número de identificación'),
 		year_of_life: Yup.number().required('Seleccione un año de vida'),
-		childAddress: Yup.string().min(2, 'minimo 2 caracteres').max(70, 'maximo 70 caracteres').required('Se requiere una dirección'),
+		childAddress: Yup.string()
+			.min(2, 'minimo 2 caracteres')
+			.max(70, 'maximo 70 caracteres')
+			.required('Se requiere una dirección'),
 		neighborhood: Yup.string().min(2, 'minimo 2 caracteres').max(30, 'maximo 30 caracteres'),
 		cPopular: Yup.string().required('Se requiere el cconsejo popular'),
 		municipality: Yup.string().required('Se requiere el municipio'),
 		province: Yup.string(),
 
 		circulo: Yup.object().optional().shape({
-				_id: Yup.string(),
-				name: Yup.string(),
-			}),
+			_id: Yup.string(),
+			name: Yup.string(),
+		}),
 
 		latlng: Yup.array().required('seleccione ubicacion en el mapa'),
 
 		parents: Yup.array().of(
 			Yup.object().shape({
-				parentName: Yup.string().min(2, 'minimo 2 caracteres').max(20, 'maximo 20 caracteres').required('Se requiere un nombre'),
-				parentLastname: Yup.string().min(2, 'minimo 2 caracteres').max(50, 'maximo 50 caracteres').required('Se requiere un apellido'),
+				parentName: Yup.string()
+					.min(2, 'minimo 2 caracteres')
+					.max(20, 'maximo 20 caracteres')
+					.required('Se requiere un nombre'),
+				parentLastname: Yup.string()
+					.min(2, 'minimo 2 caracteres')
+					.max(50, 'maximo 50 caracteres')
+					.required('Se requiere un apellido'),
 				uniqueParent: Yup.boolean().optional(),
 				typeParent: Yup.string(),
 				convivencia: Yup.boolean(),
 				parentAddress: Yup.string().when('convivencia', {
 					is: false,
-					then: Yup.string().min(2, 'minimo 2 caracteres').max(70, 'maximo 70 caracteres').required('Se requiere una  dirección'),
+					then: Yup.string()
+						.min(2, 'minimo 2 caracteres')
+						.max(70, 'maximo 70 caracteres')
+						.required('Se requiere una  dirección'),
 				}),
-				phoneNumber: Yup.string().min(8, 'minimo 8 caracteres').max(15, 'maximo 15 caracteres').required('Se requiere un número de teléfono'),
+				phoneNumber: Yup.string()
+					.min(8, 'minimo 8 caracteres')
+					.max(15, 'maximo 15 caracteres')
+					.required('Se requiere un número de teléfono'),
 				occupation: Yup.string(),
-				
-				workName: Yup.string().optional().when('occupation', {
-					is: 'trabajador' || 'estudiante',
-					then: Yup.string().min(2, 'minimo 2 caracteres').max(70, 'maximo 70 caracteres').required('Se requiere el nombre del centro'),
-				}),
-				workAddress: Yup.string().optional().when('occupation', {
-					is: 'trabajador',
-					then: Yup.string().min(2, 'minimo 2 caracteres').max(70, 'maximo 70 caracteres').required('Se requiere la dirección del centro de trabajo'),
-				}),
-				jobTitle: Yup.string().optional().when('occupation', {
-					is: 'trabajador',
-					then: Yup.string().min(4, 'minimo 4 caracteres').max(50, 'maximo 50 caracteres').required('Se requiere el cargo que ocupa'),
-				}),
 
-				organismo: Yup.object().optional().when('occupation', {
-					is: 'trabajador',
-					then: Yup.object().required('Se requiere un organismo').shape({
-						name: Yup.string(),
-						weight: Yup.number(),
+				workName: Yup.string()
+					.optional()
+					.when('occupation', {
+						is: 'trabajador' || 'estudiante',
+						then: Yup.string()
+							.min(2, 'minimo 2 caracteres')
+							.max(70, 'maximo 70 caracteres')
+							.required('Se requiere el nombre del centro'),
 					}),
-				}),
+				workAddress: Yup.string()
+					.optional()
+					.when('occupation', {
+						is: 'trabajador',
+						then: Yup.string()
+							.min(2, 'minimo 2 caracteres')
+							.max(70, 'maximo 70 caracteres')
+							.required('Se requiere la dirección del centro de trabajo'),
+					}),
+				jobTitle: Yup.string()
+					.optional()
+					.when('occupation', {
+						is: 'trabajador',
+						then: Yup.string()
+							.min(4, 'minimo 4 caracteres')
+							.max(50, 'maximo 50 caracteres')
+							.required('Se requiere el cargo que ocupa'),
+					}),
+
+				organismo: Yup.object()
+					.optional()
+					.when('occupation', {
+						is: 'trabajador',
+						then: Yup.object().required('Se requiere un organismo').shape({
+							name: Yup.string(),
+							weight: Yup.number(),
+						}),
+					}),
 
 				salary: Yup.number(),
 
 				otherChildrenInCi: Yup.boolean(),
 				numberOfOtherChildrenInCi: Yup.number().optional(),
 				otherChildrenCenter: Yup.string().optional(),
-			
+
 				pregnant: Yup.boolean(),
 				deaf: Yup.boolean(),
 			})
@@ -94,15 +131,16 @@ const SubmisionSchema = Yup.object().shape({
 function SubmisionWizardForm({ submision }) {
 	const { addSubmision, updateSubmision } = useSubmisionContext();
 	const navigate = useNavigate();
+
 	const { isAuthenticated } = useAuthContext();
-	const user = isAuthenticated.user?.nickname
+	const user = isAuthenticated.user?.nickname;
 
 	const formik = useFormik({
 		initialValues: {
 			finality: submision ? submision.finality : 'om',
 			submisiontype: submision ? submision.submisiontype : 'new',
 			entryNumber: submision ? submision.entryNumber : '',
-			socialCase: submision ? submision.socialCase : false,	
+			socialCase: submision ? submision.socialCase : false,
 			motive: submision ? submision.motive : 'me da la gana',
 			status: submision ? submision.status : 'pendiente',
 			ciPedido: submision ? submision.ciPedido : '',
@@ -119,10 +157,12 @@ function SubmisionWizardForm({ submision }) {
 				municipality: submision ? submision.child.municipality : 'Isla de la Juventud',
 				province: submision ? submision.child.province : 'Isla de la Juventud',
 
-		/**/	circulo: submision ? submision.child.circulo.name: {
-					_id: '',
-					name: ''
-					},
+				/**/ circulo: submision
+					? submision.child.circulo.name
+					: {
+							_id: '',
+							name: '',
+					  },
 
 				latlng: submision ? submision.child.latlng : null,
 
@@ -140,11 +180,13 @@ function SubmisionWizardForm({ submision }) {
 						workAddress: submision ? submision.child.parents[0].workAddress : 'donde queda la oficina',
 						jobTitle: submision ? submision.child.parents[0].jobTitle : 'jefa de todo',
 
-						organismo: submision ? submision.child.parents[0].organismo.name : {
-							name: '',
-							weight: 0
-						},
-						
+						organismo: submision
+							? submision.child.parents[0].organismo.name
+							: {
+									name: '',
+									weight: 0,
+							  },
+
 						salary: submision ? submision.child.parents[0].salary : 15000,
 						otherChildrenInCi: submision ? submision.child.parents[0].otherChildrenInCi : false,
 						numberOfOtherChildrenInCi: submision ? submision.child.parents[0].numberOfOtherChildrenInCi : 0,
@@ -169,7 +211,7 @@ function SubmisionWizardForm({ submision }) {
 			},
 		},
 
-/* 		real
+		/* 		real
 			initialValues: {
 			finality: submision ? submision.finality : 'om',
 			submisiontype: submision ? submision.submisiontype : 'new',
@@ -233,7 +275,7 @@ function SubmisionWizardForm({ submision }) {
 				],
 			},
 		}, */
-		
+
 		onSubmit: async (values, { resetForm }) => {
 			const formData = {
 				...values,
@@ -241,7 +283,7 @@ function SubmisionWizardForm({ submision }) {
 			if (submision) {
 				await updateSubmision.mutate({ ...values });
 			} else {
-				await addSubmision.mutate(formData); 
+				await addSubmision.mutate(formData);
 			}
 
 			resetForm();
@@ -253,8 +295,6 @@ function SubmisionWizardForm({ submision }) {
 
 		validationSchema: SubmisionSchema,
 	});
-
-
 
 	const markerIcon = L.icon({
 		iconUrl: '/public/markerBlue.png',
@@ -269,47 +309,43 @@ function SubmisionWizardForm({ submision }) {
 	};
 
 	return (
-		<div
-			className='show-form container list mt-3 col-12'
-			id='submision'
-		>
+		<div className='show-form container list mt-3 col-12' id='submision'>
 			<div className=' p-5 '>
+			<h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>
 				<div className='card'>
 					<form
 						className='f-modal p-3 gap-3 justify-content-between '
 						// onSubmit={ formik.handleSubmit }
-						onSubmit={ formik.handleSubmit }
+						onSubmit={formik.handleSubmit}
 					>
-						<h2 className='text-center mt-5 p-3'>Nueva Solicitud</h2>
+						
 
-						{/* SUBMISION DATA */ }
+						{/* SUBMISION DATA */}
 
-						<SubmisionForm form={ formik } submision={ submision || formik.initialValues } />
+						<SubmisionForm form={formik} submision={submision || formik.initialValues} />
 
-						{/* CHILD DATA */ }
+						{/* CHILD DATA */}
 
-						<ChildForm
-							markerIcon={ markerIcon }
-							handleLatlngChange={ handleLatlngChange } form={ formik }
-						/>
+						<ChildForm markerIcon={markerIcon} handleLatlngChange={handleLatlngChange} form={formik} />
 
-						{/* PARENT1 DATA */ }
+						{/* PARENT1 DATA */}
 
-						<Parent1Form form={ formik } />
+						<Parent1Form form={formik} />
 
-						{/* PARENT2 DATA */ }
-						{ formik.values.child?.parents?.[0].uniqueParent || <Parent2Form form={ formik } /> }
+						{/* PARENT2 DATA */}
+						{formik.values.child?.parents?.[0].uniqueParent || <Parent2Form form={formik} />}
 
-						<div className=" m-4 d-flex w-100 justify-content-center align-items-center gap-5">
+						<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
+							<a href='#top' className='btn cancel-btn' onClickCapture={formik.handleReset}>
+								{' '}
+								Cancelar
+							</a>
 
-							<a href='#top' className="btn cancel-btn" onClickCapture={ formik.handleReset }> Cancelar</a>
-
-							{/* <button type="submit" className="btn save-btn">Guardar</button> */ }
-							<button type="submit" className="btn save-btn" onClick={()=> console.log(formik.values)}>
-								{submision? 'Actualizar' : 'Guardar'}
+							{/* <button type="submit" className="btn save-btn">Guardar</button> */}
+							<button type='submit' className='btn save-btn' onClick={() => console.log(formik.values)}>
+								{submision ? 'Actualizar' : 'Guardar'}
 							</button>
 						</div>
-
 					</form>
 				</div>
 			</div>

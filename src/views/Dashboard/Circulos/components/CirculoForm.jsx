@@ -1,15 +1,15 @@
-import MapMarker from '../../../../common/MapMarker/MapMarker';
 import { useFormik } from 'formik';
-import PropTypes from 'prop-types';
-import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
-import { useCirculoContext } from '../context/CirculoContext';
 import L from 'leaflet';
-import { CIRCULOS } from '../../../../core/config/routes/paths';
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import MapMarker from '../../../../common/MapMarker/MapMarker';
 import InputSwitch from '../../../../common/uiForms/imputSwitch';
-
+import { CIRCULOS } from '../../../../core/config/routes/paths';
+import { circuloInitialValues } from '../../../../utils/circuloInitialValues';
+import { useCirculoContext } from '../context/CirculoContext';
 const CirculoSchema = Yup.object().shape({
 	number: Yup.number().required('Se requiere un numero'),
 	name: Yup.string().required('Se requiere un nombre'),
@@ -49,27 +49,10 @@ function CirculoForm({ circulo, showAttendance }) {
 	const { addCirculo, updateCirculo } = useCirculoContext();
 
 	const navigate = useNavigate();
-	const now = new Date().getFullYear();
+/* 	const now = new Date().getFullYear(); */
 
 	const form = useFormik({
-		initialValues: {
-			number: circulo ? circulo.number : '',
-			name: circulo ? circulo.name : '',
-			circulotype: circulo ? circulo.circulotype : 'urbano',
-			normed_capacity2: circulo ? circulo.normed_capacity2 : '',
-			normed_capacity3: circulo ? circulo.normed_capacity3 : '',
-			normed_capacity4: circulo ? circulo.normed_capacity4 : '',
-			normed_capacity5: circulo ? circulo.normed_capacity5 : '',
-			normed_capacity6: circulo ? circulo.normed_capacity6 : '',
-			attendance2: circulo ? circulo.attendance2 : 0,
-			attendance3: circulo ? circulo.attendance3 : 0,
-			attendance4: circulo ? circulo.attendance4 : 0,
-			attendance5: circulo ? circulo.attendance5 : 0,
-			attendance6: circulo ? circulo.attendance6 : 0,
-			latlng: circulo ? circulo.latlng : null,
-			isCiActive: circulo ? circulo.isCiActive : true,
-			curso: circulo ? circulo.curso : now,
-		},
+		initialValues: { circuloInitialValues},
 
 		onSubmit: async (values, { resetForm }) => {
 			const formData = {
@@ -91,9 +74,6 @@ function CirculoForm({ circulo, showAttendance }) {
 		validationSchema: CirculoSchema,
 	});
 
-	console.log(form.values.circulotype);
-	console.log(form.values.latlng)
-
 	useEffect(() => {
 		if (circulo) {
 			form.setValues(circulo);
@@ -113,16 +93,16 @@ function CirculoForm({ circulo, showAttendance }) {
 	};
 
 	return (
-		<div className='show-form container list mt-3 col-6' id='circulo'>
+		<div className='show-form container mt-3 col-6' id='circulo'>
 			<div className=' p-5 '>
-				<div className='card'>
-					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={form.handleSubmit}>
+				<div className='card '>
+
+					<form className='f-modal p-3 gap-3 justify-content-evenly ' 
+						onSubmit={form.handleSubmit}>
+
 						<h3 className='text-secondary'>Datos del círculo</h3>
 						<h6 className='text-secondary mb-3'>Escriba el número y nombre de la institución</h6>
-
-						<div className='container '>
-							<div className='row justify-content-center'>
-								<div className='col-md-12 '>
+			
 									<div className='row justify-content-evenly mb-4 '>
 										<div className='col-md-4 '>
 											<input
@@ -432,9 +412,6 @@ function CirculoForm({ circulo, showAttendance }) {
 											{circulo ? 'Actualizar' : 'Guardar'}
 										</button>
 									</article>
-								</div>
-							</div>
-						</div>
 					</form>
 				</div>
 			</div>
