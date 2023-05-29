@@ -1,56 +1,52 @@
-
-// import { FechaOmApiGet } from '../../../utils/utiles.sevices';
-// import { cursoApiGet } from '../Circulos/service/circulo.services';
-
 // import Charts from './components/Charts';
 // import Charts2 from './components/Charts2';
 // import MapComponent from './components/MapAndBarChart';
 
 import './Dashboard.scss';
-// import { ESTADISTICAS_CHILDREN } from '../../../../core/config/routes/api';
+
 import TotalMatricula from './components/TotalMatricula';
+import HeaderStats from './components/HeaderStats';
+import DataCiYearOfLife from './components/dataCiYearOfLife';
+import MapDashboard from './components/MapDashboard';
 
 const Dashboard = () => {
-	// const [curso, setCurso] = useState();
-	// const [date, setDate] = useState(false);
-	// const [existingDate, setExistingDate] = useState(false);
-
-
-
-	// const dateShow = existingDate ? new Date(date).toLocaleDateString() : '__ / __ / ____';
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const curso = await cursoApiGet();
-	// 		setCurso(curso);
-	// 	};
-	// 	fetchData();
-	// }, []);
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const omDate = await FechaOmApiGet();
-	// 		if (omDate) {
-	// 			setDate(omDate);
-	// 			setExistingDate(true);
-	// 		}
-	// 	};
-	// 	fetchData();
-	// }, []);
-
-
-
+	
 	return (
-		<section className='estadisticas'>
-			<div className='container-main mt-3 p-3'>
+		<>
+			<div className='row justify-content-evenly'>
+			<HeaderStats/>
+			</div>
 
-
+			<div className='row justify-content-evenly'>
 				<TotalMatricula />
+			</div>
+
+			<div className='row row-dash justify-content-evenly'>
+			<div className='card-dash col-md-6'>
+				<DataCiYearOfLife/>
+			</div>
+			<div className='col-md-5'>
+				<MapDashboard/>
+			</div>
+			</div>
+
+			<div className='row justify-content-evenly'>
+			<div className='card-dash col-md-3'>grafico 4</div>
+			<div className='card-dash col-md-3'>grafico 5</div>
+			<div className='card-dash col-md-3'>grafico 6</div>
+			</div>
+
+			<div className='row justify-content-evenly'>
+			<div className='card-dash col-md-3'>grafico 7</div>
+			<div className='card-dash col-md-3'>grafico 8</div>
+			<div className='card-dash col-md-3'>grafico 9</div>
+			</div>
+
 				{/* <MapComponent /> */ }
 				{/* <Charts /> */ }
 				{/* <Charts2 /> */ }
-			</div>
-		</section >
+		
+		</>
 	);
 };
 
