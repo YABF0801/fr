@@ -82,14 +82,14 @@ const UsersList = () => {
 
 	useEffect(() => {
 		setUsersLocal(users);
-		return function cleanUp() {};
+		return function cleanUp() { };
 	}, [users]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
 			setUsersLocal(users);
 		}
-		return function cleanUp() {};
+		return function cleanUp() { };
 	}, [search]);
 
 	const confirmFinalizarOms = () => {
@@ -99,7 +99,7 @@ const UsersList = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 				{ className: 'save-btn', label: 'Aceptar', onClick: () => handleFinalizar() },
 			],
@@ -130,7 +130,7 @@ const UsersList = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 
 				{ className: 'save-btn', label: 'Aceptar', onClick: () => handleCambioDeCurso() },
@@ -140,7 +140,7 @@ const UsersList = () => {
 	};
 
 	const handleResetConsecutivo = async () => {
-		// para cuando llegue la fecha del otorgamiento
+		// TODO: para cuando llegue la fecha del otorgamiento
 		await consecustiveApiReset();
 	};
 
@@ -163,7 +163,7 @@ const UsersList = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 				{ className: 'save-btn', label: 'Eliminar', onClick: () => deleteUsersById(row._id) },
 			],
@@ -203,7 +203,7 @@ const UsersList = () => {
 		{
 			name: 'Usuario',
 			id: 1,
-			selector: (row) => <h4 className='fw-bold'>{row.nickname}</h4>,
+			selector: (row) => <h4 className='fw-bold'>{ row.nickname }</h4>,
 			sortable: true,
 			center: true,
 		},
@@ -234,11 +234,11 @@ const UsersList = () => {
 			name: '', // action buttons
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
-					<a className='btn btn-sm' href='#user' onClickCapture={() => editUser(row._id)}>
+					<a className='btn btn-sm' href='#user' onClickCapture={ () => editUser(row._id) }>
 						<i className='action-btn bi bi-pencil-square'></i>
 					</a>
 
-					<button onClick={() => confirmDelete(row)} className='btn btn-sm'>
+					<button onClick={ () => confirmDelete(row) } className='btn btn-sm'>
 						<i className='action-btn bi bi-trash-fill'></i>
 					</button>
 				</div>
@@ -267,9 +267,9 @@ const UsersList = () => {
 								id='generar-btn'
 								className='btn prop-btn'
 								data-tooltip-id='tooltip'
-								onClick={handleGenerateProps}
+								onClick={ handleGenerateProps }
 								data-tooltip-content='Comenzar otorgamiento'
-								disabled={!botonComenzarHabilitado}
+								disabled={ !botonComenzarHabilitado }
 							>
 								Comenzar
 							</button>
@@ -277,11 +277,11 @@ const UsersList = () => {
 							<button
 								type='button'
 								id='cambio-btn'
-								onClick={confirmCambioDeCurso}
+								onClick={ confirmCambioDeCurso }
 								data-tooltip-id='tooltip'
 								className='btn prop-btn'
 								data-tooltip-content='Cambio de Curso'
-								disabled={!botonCambioDeCursoHabilitado}
+								disabled={ !botonCambioDeCursoHabilitado }
 							>
 								Cambio de Curso
 							</button>
@@ -291,9 +291,9 @@ const UsersList = () => {
 								id='generar-btn'
 								className='btn prop-btn'
 								data-tooltip-id='tooltip'
-								onClick={handleGenerateProps}
+								onClick={ handleGenerateProps }
 								data-tooltip-content='Generar nueva propuesta '
-								disabled={!botonGenerarPropuestaHabilitado}
+								disabled={ !botonGenerarPropuestaHabilitado }
 							>
 								Generar propuesta
 							</button>
@@ -303,9 +303,9 @@ const UsersList = () => {
 								id='finalizar-btn'
 								className='btn prop-btn'
 								data-tooltip-id='tooltip'
-								onClick={confirmFinalizarOms}
+								onClick={ confirmFinalizarOms }
 								data-tooltip-content='Finalizar otorgamiento'
-								disabled={!botonFinalizarHabilitado}
+								disabled={ !botonFinalizarHabilitado }
 							>
 								Finalizar
 							</button>
@@ -324,8 +324,8 @@ const UsersList = () => {
 									className='search_input '
 									id='search'
 									placeholder='Búsqueda...'
-									value={search}
-									onChange={handleSearch}
+									value={ search }
+									onChange={ handleSearch }
 								/>
 								<a className='search_icon'>
 									<i className='bi bi-search'></i>
@@ -333,17 +333,17 @@ const UsersList = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<a href='#user' onClickCapture={showForm} className='btn customize-btn'>
+								<a href='#user' onClickCapture={ showForm } className='btn customize-btn'>
 									<i className='bi bi-plus-lg'></i>
 								</a>
 							</div>
 						</div>
 
-						<DataTable columns={columns} data={usersLocal} />
+						<DataTable columns={ columns } data={ usersLocal } />
 					</div>
 				</div>
 
-				<UserForm user={selectedUser} />
+				<UserForm user={ selectedUser } />
 			</div>
 		</section>
 	);

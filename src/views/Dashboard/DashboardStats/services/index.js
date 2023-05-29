@@ -1,7 +1,7 @@
 export * from './dashboard.services';
 export { default as getAverageAttendance } from './getAverageAttendance';
 export * from './getCapacityAndMatricula';
-export * from './getCapacityCperYear';
+export * from './getCapacityCalculatedPerYear';
 export * from './getCapacityNperYear';
 export * from './getMatriculaPerYear';
 export * from './getMatriculaPorCpopular';

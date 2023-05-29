@@ -1,48 +1,41 @@
-import { useEffect, useState } from 'react';
 import 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
-import { getCapacityCperYear, getCapacityNperYear, getMatriculaPerYear } from '../services';
+import { useCapacityCalculatedPerYear } from '../hooks/useCapacityCalculatedPerYear';
+import { useMatriculaPerYear } from '../hooks/useMatriculaPeryear';
+import { useCapacityNperYear } from '../hooks/useCapacityNperYear';
+
 
 //
 // componente 1 separado de MapAndBarChart.jsxs
 //
 
 const DataCiByYearOfLife = () => {
-	const [matricula, setMatricula] = useState([]);
-	const [capacidad, setCapacidad] = useState([]);
-	const [capacidadCalc, setCapacidadCalc] = useState([]);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const matriculas = await getMatriculaPerYear();
-			const capacidades = await getCapacityNperYear();
-			const capacidadesCalculadas = await getCapacityCperYear();
+	const queryCapacityCalculatedPerYear = useCapacityCalculatedPerYear()
+	const queryMatriculaPerYear = useMatriculaPerYear()
+	const queryCapacityNperYear = useCapacityNperYear()
 
-			setMatricula(matriculas);
-			setCapacidad(capacidades);
-			setCapacidadCalc(capacidadesCalculadas);
-		};
-		fetchData();
-	}, []);
-	
+
+
+
 	const barChartData = {
 		labels: ['2do', '3ro', '4to', '5to', '6to'],
 		datasets: [
 			{
 				label: 'Matricula ',
-				data: matricula,
+				data: queryMatriculaPerYear.data,
 				fill: true,
 				backgroundColor: 'rgba(125, 192, 222, 0.5)', // blue
 			},
 			{
 				label: 'Capacidad normada ',
-				data: capacidad,
+				data: queryCapacityNperYear.data,
 				fill: true,
 				backgroundColor: 'rgba(225, 179, 104, 0.5)', // yellow
 			},
 			{
 				label: 'Capacidad calculada en base al % de asistencia',
-				data: capacidadCalc,
+				data: queryCapacityCalculatedPerYear.data,
 				fill: true,
 				backgroundColor: 'rgba(185, 149, 162, 0.5)', // redish
 			},
@@ -81,8 +74,8 @@ const DataCiByYearOfLife = () => {
 
 
 	return (
-			<Bar data={ barChartData } options={ barChartData.options } />
-			);
+		<Bar data={ barChartData } options={ barChartData.options } />
+	);
 };
 
 export default DataCiByYearOfLife;

@@ -13,8 +13,8 @@ import {
 const SubmisionContext = createContext();
 
 export const SubmisionProvider = ({ children }) => {
-	const { data: submisions = null  } = useQuery({ queryKey: ['submisions'], queryFn: submisionsApiGet });
-		
+	const queySubmision = useQuery({ queryKey: ['submisions'], queryFn: submisionsApiGet });
+
 	const queryClient = useQueryClient();
 
 	const addSubmision = useMutation({
@@ -47,19 +47,17 @@ export const SubmisionProvider = ({ children }) => {
 
 	const value = useMemo(
 		() => ({
-			submisions,
+			queySubmision,
 			addSubmision,
 			updateSubmision,
 			deleteSubmision,
 			bajaSubmision,
 		}),
-		[submisions]
+		[queySubmision]
 	);
 
-	if (submisions === null) {
-		return <div>Cargando planillas...</div>;
-	  }
-	return <SubmisionContext.Provider value={value}>{children}</SubmisionContext.Provider>;
+
+	return <SubmisionContext.Provider value={ value }>{ children }</SubmisionContext.Provider>;
 };
 
 SubmisionProvider.propTypes = {

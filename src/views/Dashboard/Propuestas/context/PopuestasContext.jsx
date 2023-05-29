@@ -2,18 +2,18 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useMemo } from 'react';
 
 import PropTypes from 'prop-types';
-import { 
-		propuestasApiGet, 
-		propuestaApiAceptar, 
-		propuestaApiGenerar, 
-		propuestaApiRechazar 
+import {
+	propuestasApiGet,
+	propuestaApiAceptar,
+	propuestaApiGenerar,
+	propuestaApiRechazar
 } from '../service/propuestas.services';
 
 const PropuestasContext = createContext();
 
 export const PropuestasProvider = ({ children }) => {
-	const { data: propuestas = null  } = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
-	
+	const { data: propuestas = null } = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
+
 	const queryClient = useQueryClient();
 
 	const generarPropuestas = useMutation({
@@ -47,11 +47,8 @@ export const PropuestasProvider = ({ children }) => {
 		[propuestas]
 	);
 
-	if (propuestas === null) {
-		return <div>Cargando propuestas...</div>;
-	  }
-	
-	return <PropuestasContext.Provider value={value}>{children}</PropuestasContext.Provider>;
+
+	return <PropuestasContext.Provider value={ value }>{ children }</PropuestasContext.Provider>;
 };
 
 PropuestasProvider.propTypes = {

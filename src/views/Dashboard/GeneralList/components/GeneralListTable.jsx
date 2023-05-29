@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../../core/context/authContext';
 
 
 const GeneralListTable = () => {
-	const { submisions, deleteSubmision, bajaSubmision } = useSubmisionContext();
+	const { queySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [hideSocialCase, setHideSocialCase] = useState(true);
@@ -37,20 +37,20 @@ const GeneralListTable = () => {
 		exportExcel(dataset, 'Planillas', 'Listado de Planillas');
 		confirmAlert({
 			message: `Planillas exportadas con éxito`,
-			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => {} }],
+			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => { } }],
 		});
 	};
 
 	useEffect(() => {
-		setSubmisionsLocal(submisions);
-		return function cleanUp() {};
-	}, [submisions]);
+		setSubmisionsLocal(queySubmision.data);
+		return function cleanUp() { };
+	}, [queySubmision.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
-			setSubmisionsLocal(submisions);
+			setSubmisionsLocal(queySubmision.data);
 		}
-		return function cleanUp() {};
+		return function cleanUp() { };
 	}, [search]);
 
 	const confirmDelete = (row) => {
@@ -60,7 +60,7 @@ const GeneralListTable = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 				{ className: 'save-btn', label: 'Eliminar', onClick: () => deleteSubmisionById(row._id) },
 			],
@@ -79,7 +79,7 @@ const GeneralListTable = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 				{ className: 'save-btn', label: 'Dar Baja', onClick: () => bajaSubmisionById(row._id) },
 			],
@@ -126,7 +126,7 @@ const GeneralListTable = () => {
 	};
 
 	const editSubmision = async (id) => {
-		const submision = submisions.find((item) => item._id === id);
+		const submision = queySubmision.data.find((item) => item._id === id);
 		if (submision) {
 			setSelectedSubmision(submision);
 			showForm();
@@ -180,7 +180,7 @@ const GeneralListTable = () => {
 				name: 'Nombre',
 				selector: (row) => (
 					<h4 className='fw-bold'>
-						{row.child.childName} {row.child.childLastname}
+						{ row.child.childName } { row.child.childLastname }
 					</h4>
 				),
 				sortable: true,
@@ -312,21 +312,21 @@ const GeneralListTable = () => {
 			isAuthenticated.user?.role === 'admin' && ({
 				name: '', // action buttons
 				cell: (row) => (
-					
-						<div className='action d-flex '>
-							<a className='btn btn-sm' href='#submision' onClickCapture={() => editSubmision(row._id)}>
-								<i className='action-btn bi bi-pencil-square'></i>
-							</a>
 
-							<button onClick={() => confirmDelete(row)} className='btn btn-sm'>
-								<i className='action-btn bi bi-trash-fill'></i>
-							</button>
+					<div className='action d-flex '>
+						<a className='btn btn-sm' href='#submision' onClickCapture={ () => editSubmision(row._id) }>
+							<i className='action-btn bi bi-pencil-square'></i>
+						</a>
 
-							<button onClick={() => confirmBaja(row)} className='btn btn-sm'>
-								<i className='action-btn bi bi-person-dash'></i>
-							</button>
-						</div>
-					
+						<button onClick={ () => confirmDelete(row) } className='btn btn-sm'>
+							<i className='action-btn bi bi-trash-fill'></i>
+						</button>
+
+						<button onClick={ () => confirmBaja(row) } className='btn btn-sm'>
+							<i className='action-btn bi bi-person-dash'></i>
+						</button>
+					</div>
+
 				),
 				allowOverflow: true,
 				button: true,
@@ -353,8 +353,8 @@ const GeneralListTable = () => {
 									className='search_input '
 									id='search'
 									placeholder='Búsqueda...'
-									value={search}
-									onChange={handleSearch}
+									value={ search }
+									onChange={ handleSearch }
 								/>
 								<a className='search_icon'>
 									<i className='bi bi-search'></i>
@@ -366,7 +366,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHideSocialCase}
+									onClick={ handleHideSocialCase }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Caso Social
@@ -375,7 +375,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHidePhone}
+									onClick={ handleHidePhone }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Teléfono
@@ -384,7 +384,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHideAddress}
+									onClick={ handleHideAddress }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Dirección
@@ -393,7 +393,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHidePadre}
+									onClick={ handleHidePadre }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Padre
@@ -401,17 +401,25 @@ const GeneralListTable = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-							{
-								isAuthenticated.user?.role === 'admin' && (<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
-									<i className='bi bi-plus-lg'></i>
-								</a>)}
+								{
+									isAuthenticated.user?.role === 'admin' && (<a href='#submision' onClickCapture={ showForm } className='btn customize-btn'>
+										<i className='bi bi-plus-lg'></i>
+									</a>) }
 
-								<button type='excel' onClick={handleExport} className='btn export-btn'>
+								<button type='excel' onClick={ handleExport } className='btn export-btn'>
 									Exportar
 								</button>
 							</div>
 						</div>
-						<DataTable columns={columns} data={submisionsLocal} autoWidth={true} />
+						{
+							queySubmision.isLoading ? (
+								<span>Loadng...</span>
+							) :
+								(
+									<DataTable columns={ columns } data={ submisionsLocal } autoWidth={ true } />
+								)
+						}
+
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 							<h4>Leyenda: </h4>
@@ -421,7 +429,7 @@ const GeneralListTable = () => {
 						</div>
 					</div>
 				</div>
-				<SubmisionForm submision={selectedSubmision} />
+				<SubmisionForm submision={ selectedSubmision } />
 			</div>
 		</section>
 	);
