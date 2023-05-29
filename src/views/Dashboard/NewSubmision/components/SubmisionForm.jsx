@@ -63,7 +63,6 @@ const SubmisionForm = ({ form, submision }) => {
 
 	return (
 		<div id='sub'>
-			<hr className='text-secondary'/>
 			<h3 className='text-center text-secondary'>Datos generales de la planilla</h3>
 			<h6 className='text-secondary mb-5'>Introduzca los datos de la planilla de solicitud</h6>
 

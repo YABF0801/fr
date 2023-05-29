@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function DashboardLayout() {
 	return (
 		<>
-			<Navbar />
+				<Navbar />
 			<div className='container-main'>
 				<Outlet />
 			</div>

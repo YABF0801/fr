@@ -342,8 +342,8 @@ const GeneralListTable = () => {
 
 	return (
 		<section className='list '>
-			<div className='container-main mt-3 p-2 pb-5'>
-				<h2 className='text-center mt-2 p-3'>Listado de Planillas</h2>
+			<div className=' mt-3 p-2 pb-5'>
+				<h2 className='text-center mt-2 p-3'>Listado de planillas</h2>
 
 				<div className='card '>
 					<div className='card-body '>

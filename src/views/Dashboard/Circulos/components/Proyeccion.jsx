@@ -18,15 +18,12 @@ const Proyeccion = () => {
 	};
 
 	return (
-		<div className='pb-3 mb-4  gap-3 d-flex justify-content-end '>
-			<div className='gap-3 form-check form-switch form-check-inline d-flex '>
-				<p className='text-secondary'>Proyección del próximo curso</p>
-
 				<a
 					href='#table'
 					onClickCapture={handleProyectar}
-					className='btn btn-sm'
+					className='btn btn-sm d-flex justify-content-end gap-3 mt-4'
 				>
+					<h4 className='text-secondary'>Proyección del próximo curso</h4>
 					<i
 						className='action-btn bi bi-arrow-bar-right'
 						data-tooltip-id='tooltip'
@@ -34,8 +31,6 @@ const Proyeccion = () => {
 					></i>
 
 				</a>
-			</div>
-		</div>
 	);
 };
 
@@ -219,7 +214,7 @@ export const ProyeccionTable = () => {
 	return (
 		<div
 			id='table'
-			className='container-main show-form mt-3 p-2 pb-5'
+			className=' show-form mt-3 p-2 pb-5'
 		>
 			<div className='row'><div className='col-md-2 '></div>
 				<div className='col-md-8 '>

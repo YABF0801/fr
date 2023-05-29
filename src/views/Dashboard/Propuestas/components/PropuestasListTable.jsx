@@ -219,7 +219,7 @@ const PropuestasListTable = () => {
 
     return (
     <section className='prop-list'>
-        <div className='container-main mt-3 p-2 pb-5'>
+        <div className=' mt-3 p-2 pb-5'>
             <h2 className='text-center mt-2 p-3'>Propuestas de matrícula</h2>
             <div className='card '>
                 <div className='card-body '>

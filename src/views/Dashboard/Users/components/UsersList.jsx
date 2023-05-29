@@ -3,7 +3,16 @@ import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import UserForm from './UserForm';
 import { confirmAlert } from 'react-confirm-alert';
-import { FechaOmApiGet, resetContadorGp, setContadorGp, resetFechaOm, resetToolsArrays, getContadorGp, setContadorCc, getContadorCc } from '../../../../utils/utiles.sevices';
+import {
+	FechaOmApiGet,
+	resetContadorGp,
+	setContadorGp,
+	resetFechaOm,
+	resetToolsArrays,
+	getContadorGp,
+	setContadorCc,
+	getContadorCc,
+} from '../../../../utils/utiles.sevices';
 import { useNavigate } from 'react-router-dom';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import DatePickerToOm from './datePicker';
@@ -27,29 +36,27 @@ const UsersList = () => {
 		const intervalId = setInterval(() => {
 			UsersList();
 		}, 1000);
-	
+
 		return () => {
-		  clearInterval(intervalId);
+			clearInterval(intervalId);
 		};
-	  }, []);
+	}, []);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const storedDate = await FechaOmApiGet();
 			const date = new Date(storedDate);
 			const fechaActual = new Date();
-		
+
 			const compare = date.getTime() <= fechaActual.getTime();
 			if (storedDate && compare) {
 				setBotonComenzarHabilitado(true);
-/* 				await consecustiveApiReset(); */
-			}  
-			
+				/* 				await consecustiveApiReset(); */
+			}
 		};
 		fetchData();
 	}, []);
 
-	
 	useEffect(() => {
 		const fetchData = async () => {
 			const contadorGP = await getContadorGp();
@@ -67,12 +74,12 @@ const UsersList = () => {
 			if (contadorCC !== 0) {
 				setBotonGenerarPropuestaHabilitado(true);
 				setBotonFinalizarHabilitado(true);
-				setBotonComenzarHabilitado(false)
+				setBotonComenzarHabilitado(false);
 			}
 		};
 		fetchData();
 	}, []);
-	
+
 	useEffect(() => {
 		setUsersLocal(users);
 		return function cleanUp() {};
@@ -132,15 +139,15 @@ const UsersList = () => {
 		});
 	};
 
-	const handleResetConsecutivo = async () => { // para cuando llegue la fecha del otorgamiento
+	const handleResetConsecutivo = async () => {
+		// para cuando llegue la fecha del otorgamiento
 		await consecustiveApiReset();
 	};
 
 	const handleCambioDeCurso = async () => {
-		await setContadorCc(1); 
-		setBotonComenzarHabilitado(false)
+		await setContadorCc(1);
+		setBotonComenzarHabilitado(false);
 		await nuevoCursoApiGet();
-
 	};
 
 	const handleFinalizar = async () => {
@@ -227,18 +234,11 @@ const UsersList = () => {
 			name: '', // action buttons
 			cell: (row) => (
 				<div className='d-flex gap-1 justify-content-center'>
-					<a
-						className='btn btn-sm'
-						href='#user'
-						onClickCapture={() => editUser(row._id)}
-					>
+					<a className='btn btn-sm' href='#user' onClickCapture={() => editUser(row._id)}>
 						<i className='action-btn bi bi-pencil-square'></i>
 					</a>
 
-					<button
-						onClick={() => confirmDelete(row)}
-						className='btn btn-sm'
-					>
+					<button onClick={() => confirmDelete(row)} className='btn btn-sm'>
 						<i className='action-btn bi bi-trash-fill'></i>
 					</button>
 				</div>
@@ -255,13 +255,11 @@ const UsersList = () => {
 
 	return (
 		<section className='list '>
-			<div className='container-main mt-3 p-2 pb-5'>
-			<div className='card '>
+			<div className=' mt-3 p-2 pb-4'>
+				<h2 className='text-center mt-2 p-3'>Otorgamiento masivo</h2>
+				<div className='card '>
 					<div className='card-body '>
-				<h2 className='text-center mt-2 p-3'>Otorgamiento Masivo</h2>
-				<div className='gap-3 mt-5 form-check d-flex justify-content-between'>
-	
-
+						<div className='gap-3 mt-5 form-check d-flex justify-content-between'>
 							<DatePickerToOm />
 
 							<button
@@ -275,7 +273,6 @@ const UsersList = () => {
 							>
 								Comenzar
 							</button>
-
 
 							<button
 								type='button'
@@ -298,7 +295,7 @@ const UsersList = () => {
 								data-tooltip-content='Generar nueva propuesta '
 								disabled={!botonGenerarPropuestaHabilitado}
 							>
-								Generar propuesta  
+								Generar propuesta
 							</button>
 
 							<button
@@ -312,13 +309,16 @@ const UsersList = () => {
 							>
 								Finalizar
 							</button>
-
+						</div>
+					</div>
 				</div>
+			</div>
 
-<hr></hr>
-				<h2 className='text-center mt-5 p-3'>Administración de usuarios</h2>
-				
-						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between'>
+			<div className=' mt-3 p-2 pb-5'>
+				<h2 className='text-center p-3'>Administración de usuarios</h2>
+				<div className='card '>
+					<div className='card-body '>
+						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
 							<div className='searchbar'>
 								<input
 									className='search_input '
@@ -333,22 +333,16 @@ const UsersList = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<a
-									href='#user'
-									onClickCapture={showForm}
-									className='btn customize-btn'
-								>
+								<a href='#user' onClickCapture={showForm} className='btn customize-btn'>
 									<i className='bi bi-plus-lg'></i>
 								</a>
 							</div>
 						</div>
 
-						<DataTable
-							columns={columns}
-							data={usersLocal}
-						/>
+						<DataTable columns={columns} data={usersLocal} />
 					</div>
 				</div>
+
 				<UserForm user={selectedUser} />
 			</div>
 		</section>

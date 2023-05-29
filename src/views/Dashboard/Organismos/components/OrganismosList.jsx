@@ -113,8 +113,8 @@ const OrganismosList = () => {
 	
 	return (
 		<section className='list '>
-			<div id='top'  className='container-main mt-3 p-2 pb-5'>
-				<h2 className='text-center mt-2 p-3'>Listado de Organismos</h2>
+			<div id='top'  className=' mt-3 p-2 pb-5'>
+				<h2 className='text-center mt-2 p-3'>Listado de organismos</h2>
 				<div className='card '>
 					<div className='card-body '>
 

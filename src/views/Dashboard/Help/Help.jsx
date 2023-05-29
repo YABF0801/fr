@@ -3,7 +3,7 @@ import './styles/Help.scss';
 const Help = () => {
 	return (
 		<section className='help'>
-			<div className='container-main mt-3 p-3'>
+			<div className='container-main mt-3 p-2 pb-5'>
 				<div className='row justify-content-center text-center'>
 					<div className='col-lg-12'>
 						<h2 className='text-center text-secondary mt-5'>Ayuda rápida</h2>
