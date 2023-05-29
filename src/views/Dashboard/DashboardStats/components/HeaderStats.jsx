@@ -31,20 +31,20 @@ const HeaderStats = () => {
 	}, []);
 
 	return (
-		<div className='row mt-3 justify-content-between'>
+		<div className='row mt-4 justify-content-evenly'>
 			<div className='col-md-5'>
 			
 				{dateShow ? (
-					<h5 className='text-secondary'>Fecha de nuevo otorgamiento masivo {dateShow}</h5>
+					<h5 className='text-start text-secondary'>Fecha de nuevo otorgamiento masivo {dateShow}</h5>
 				) : isAuthenticated.user?.role === 'admin' ? (
-					<h5 className='text-secondary'>Establezca fecha de nuevo otorgamiento masivo</h5>
+					<h5 className='text-start text-secondary'>Establezca fecha de nuevo otorgamiento masivo</h5>
 				) : (
 					null
 				)}
 			</div>
 
-			<div className='col-md-2'>
-				<h2 className='text-center '>Curso {curso}</h2>
+			<div className='col-md-6'>
+				<h2 className='text-end '>Curso {curso}</h2>
 			</div>
 		</div>
 	);
