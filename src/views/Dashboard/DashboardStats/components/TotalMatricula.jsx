@@ -6,78 +6,77 @@ import { Card, Metric, Text } from '@tremor/react';
 const TotalMatricula = () => {
 	const { queryCapacityAndMatricula, queryTotalBoysAndGirls } = useTotalMatricula();
 
-	const porcientoGirls = queryTotalBoysAndGirls.data && Math.round(
-		(queryTotalBoysAndGirls.data.totalGirls / queryCapacityAndMatricula.data.Matricula) * 100
-	);
-
-	const porcientoBoys = queryTotalBoysAndGirls.data && Math.round(
-		(queryTotalBoysAndGirls.data.totalBoys / queryCapacityAndMatricula.data.Matricula) * 100
-	);
-
-	const porcientoMatricula = queryCapacityAndMatricula.data && Math.round(
-		(queryCapacityAndMatricula.data.Matricula / queryCapacityAndMatricula.data.NormedCapacity) * 100
-	);
+	const porcientoGirls =
+		queryTotalBoysAndGirls.data &&
+		Math.round((queryTotalBoysAndGirls.data.totalGirls / queryCapacityAndMatricula.data.Matricula) * 100);
+	const porcientoBoys =
+		queryTotalBoysAndGirls.data &&
+		Math.round((queryTotalBoysAndGirls.data.totalBoys / queryCapacityAndMatricula.data.Matricula) * 100);
+	const porcientoMatricula =
+		queryCapacityAndMatricula.data &&
+		Math.round((queryCapacityAndMatricula.data.Matricula / queryCapacityAndMatricula.data.NormedCapacity) * 100);
 
 	return (
-		<div className='row '>
+		<div className='row dash-padding'>
 			<div className='col-md-3'>
 				<Card className='card order-card bg-c-yellow max-w-xs mx-auto'>
-					<h3 className='text-center '>Total de Capacidades</h3>
-					<Metric className='text-center display-1'>
+					<h4 className='text-center '>Total de Capacidades</h4>
+					<Metric className='text-center mb-1 display-2'>
 						{!queryCapacityAndMatricula.isLoading ? (
 							queryCapacityAndMatricula.data.NormedCapacity
 						) : (
-							<SmallSpinner color={'#34848f'} />
+							<SmallSpinner color={'white'} />
 						)}
 					</Metric>
-					<Text>Capacidades normadas</Text>
+					<Text className ='text-secondary'>Capacidades normadas</Text>
 				</Card>
 			</div>
 
 			<div className='col-md-3'>
 				<Card className='card order-card bg-c-pink max-w-xs mx-auto'>
-					<h3 className='text-center '>Total de Matriculados</h3>
-					<Metric className='text-center display-1'>
+					<h4 className='text-center '>Total de Matriculados</h4>
+					<Metric className='text-center mb-1 display-2'>
 						{!queryCapacityAndMatricula.isLoading ? (
 							queryCapacityAndMatricula.data.Matricula
 						) : (
-							<SmallSpinner color={'#34848f'} />
+							<SmallSpinner color={'white'} />
 						)}
 					</Metric>
-					<Text >{porcientoMatricula}% de la capacidad total</Text>
-{/* 
+
+					{/* 
 					{porcientoMatricula && (
 				<ProgressBar placeholder='llll' percentageValue={porcientoMatricula} className="mt-2" />)}
  */}
+				<Text className ='text-secondary'>{porcientoMatricula}% de la capacidad total</Text>
 				</Card>
 			</div>
 
 			<div className='col-md-3'>
 				<Card className='card order-card bg-c-green max-w-xs mx-auto'>
-					<h3 className='text-center '>Total de Niñas</h3>
-					<Metric className='text-center display-1'>
+					<h4 className='text-center '>Total de Niñas</h4>
+					<Metric className='text-center mb-1 display-2'>
 						{queryTotalBoysAndGirls.isLoading ? (
-							<SmallSpinner color={'#34848f'} />
+							<SmallSpinner color={'white'} />
 						) : (
 							queryTotalBoysAndGirls.data.totalGirls
 						)}
 					</Metric>
-					<Text>{porcientoGirls}% de la matrícula total</Text>
+				<Text className ='text-secondary'>{porcientoGirls}% de la matrícula total</Text>
 
 				</Card>
 			</div>
 
 			<div className='col-md-3'>
 				<Card className='card order-card bg-c-blue max-w-xs mx-auto'>
-					<h3 className='text-center '>Total de Niños</h3>
-					<Metric className='text-center display-1'>
+					<h4 className='text-center '>Total de Niños</h4>
+					<Metric className='text-center mb-1 display-2'>
 						{queryTotalBoysAndGirls.isLoading ? (
-							<SmallSpinner color={'#34848f'} />
+							<SmallSpinner color={'white'} />
 						) : (
 							queryTotalBoysAndGirls.data.totalBoys
 						)}
 					</Metric>
-					<Text>{porcientoBoys}% de la matrícula total</Text>
+					<Text className ='text-secondary'>{porcientoBoys}% de la matrícula total</Text>
 				</Card>
 			</div>
 		</div>
