@@ -3,7 +3,6 @@ import {
   getCapacityCalculatedPerYear
 } from '../services'
 
-
 export const useCapacityCalculatedPerYear = () => {
 
   const queryCapacityCalculatedPerYear = useQuery({

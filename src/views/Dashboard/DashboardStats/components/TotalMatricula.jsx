@@ -66,6 +66,8 @@ const TotalMatricula = () => {
 				</Card>
 			</div>
 
+
+
 			<div className='col-md-3'>
 				<Card className='card order-card bg-c-blue max-w-xs mx-auto'>
 					<h4 className='text-center '>Total de Niños</h4>

@@ -4,19 +4,10 @@ import { useCapacityCalculatedPerYear } from '../hooks/useCapacityCalculatedPerY
 import { useMatriculaPerYear } from '../hooks/useMatriculaPeryear';
 import { useCapacityNperYear } from '../hooks/useCapacityNperYear';
 
-
-//
-// componente 1 separado de MapAndBarChart.jsxs
-//
-
 const DataCiByYearOfLife = () => {
-
-	const queryCapacityCalculatedPerYear = useCapacityCalculatedPerYear()
-	const queryMatriculaPerYear = useMatriculaPerYear()
-	const queryCapacityNperYear = useCapacityNperYear()
-
-
-
+	const queryCapacityCalculatedPerYear = useCapacityCalculatedPerYear();
+	const queryMatriculaPerYear = useMatriculaPerYear();
+	const queryCapacityNperYear = useCapacityNperYear();
 
 	const barChartData = {
 		labels: ['2do', '3ro', '4to', '5to', '6to'],
@@ -72,10 +63,7 @@ const DataCiByYearOfLife = () => {
 		},
 	};
 
-
-	return (
-		<Bar data={ barChartData } options={ barChartData.options } />
-	);
+	return <Bar data={barChartData} options={barChartData.options} />;
 };
 
 export default DataCiByYearOfLife;
