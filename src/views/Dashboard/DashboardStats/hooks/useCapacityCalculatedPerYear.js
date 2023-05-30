@@ -1,13 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import {
-  getCapacityCalculatedPerYear
-} from '../services'
+import {getCapacityCperYear} from '../services/getCapacityCalculatedPerYear'
 
 export const useCapacityCalculatedPerYear = () => {
 
   const queryCapacityCalculatedPerYear = useQuery({
-    queryKey: 'capictyCalculatedPerYear',
-    queryFn: getCapacityCalculatedPerYear
+    queryKey: ['capictyCalculatedPerYear'],
+    queryFn: getCapacityCperYear
   })
 
 

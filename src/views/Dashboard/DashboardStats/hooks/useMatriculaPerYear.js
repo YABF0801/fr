@@ -4,7 +4,7 @@ import { getMatriculaPerYear } from '../services'
 export const useMatriculaPerYear = () => {
 
   const queryMatriculaPerYear = useQuery({
-    queryKey: 'matriculaPerYear',
+    queryKey: ['matriculaPerYear'],
     queryFn: getMatriculaPerYear
   })
 

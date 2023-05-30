@@ -4,17 +4,17 @@ import { getSubmisionAprovedByYear, getSubmisionCountByDate, getSubmisionsByUser
 export const useSubmisionTotals = () => {
 
   const querySubmisionAprovedByYear = useQuery({
-    queryKey: 'SubmisionAprovedByYear',
+    queryKey: ['SubmisionAprovedByYear'],
     queryFn: getSubmisionAprovedByYear
   })
 
   const querySubmisionCountByDate = useQuery({
-    queryKey: 'SubmisionCountByDate',
+    queryKey: ['SubmisionCountByDate'],
     queryFn: getSubmisionCountByDate
   })
 
   const querySubmisionsByUser = useQuery({
-    queryKey: 'SubmisionsByUser',
+    queryKey: ['SubmisionsByUser'],
     queryFn: getSubmisionsByUser
   })
 

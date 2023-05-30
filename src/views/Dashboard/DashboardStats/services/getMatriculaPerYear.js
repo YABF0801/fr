@@ -5,11 +5,11 @@ export const getMatriculaPerYear = async () => {
 	const result = await baseAxios.get('/estadisticas/matricula');
 	const matriculaYear = result.data[0];
 	const data = [
-		matriculaYear.totalMatricula2 || 0,
-		matriculaYear.totalMatricula3 || 0,
-		matriculaYear.totalMatricula4 || 0,
-		matriculaYear.totalMatricula5 || 0,
-		matriculaYear.totalMatricula6 || 0,
+		matriculaYear.totalMatricula2 ,
+		matriculaYear.totalMatricula3 ,
+		matriculaYear.totalMatricula4 ,
+		matriculaYear.totalMatricula5 ,
+		matriculaYear.totalMatricula6 ,
 	];
 	return data;
 };

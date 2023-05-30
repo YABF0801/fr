@@ -1,10 +1,9 @@
 // mapa para mostrar los circulos y niños
 
 import { useEffect, useState } from 'react';
-import { circulosPositionGet } from '../services/mapCirculosPosition';
-import { submisionsPositionGet } from '../services/mapSubmisionsPosition';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
+import { getCirculosPosition, getSubmisionsPosition } from '../services';
 
 const MapDashboard = () => {
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
@@ -12,8 +11,8 @@ const MapDashboard = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const submisions = await submisionsPositionGet();
-			const circulos = await circulosPositionGet();
+			const submisions = await getSubmisionsPosition();
+			const circulos = await getCirculosPosition();
 			setSubmisionsLocal(submisions);
 			setCirculosLocal(circulos);
 		};

@@ -5,7 +5,7 @@ import { getMatriculaPorCp } from '../services'
 export const useMatriculaPorCpopular = () => {
 
   const queryMatriculaPorCpopular = useQuery({
-    queryKey: 'MatriculaPorCpopular',
+    queryKey: ['MatriculaPorCpopular'],
     queryFn: getMatriculaPorCp
   })
 

@@ -4,7 +4,7 @@ import { getOtherChildrenInCi } from '../services'
 export const useOtherChildrenInCi = () => {
 
   const queryOtherChildrenInCi = useQuery({
-    queryKey: 'OtherChildrenInCi',
+    queryKey: ['OtherChildrenInCi'],
     queryFn: getOtherChildrenInCi
   })
 

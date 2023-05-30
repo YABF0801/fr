@@ -4,7 +4,7 @@ import { getSocialCase } from '../services'
 export const useSocialCase = () => {
 
   const querySocialCase = useQuery({
-    queryKey: 'SocialCase',
+    queryKey: ['SocialCase'],
     queryFn: getSocialCase
   })
 

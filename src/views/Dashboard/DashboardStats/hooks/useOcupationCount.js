@@ -4,7 +4,7 @@ import { getOcupationCount } from '../services'
 export const useOcupationCount = () => {
 
   const queryOcupationCount = useQuery({
-    queryKey: 'OcupationCount',
+    queryKey: ['OcupationCount'],
     queryFn: getOcupationCount
   })
 

@@ -4,13 +4,13 @@ import { getCirculosPosition, getSubmisionsPosition } from '../services'
 export const useAverageAttendance = () => {
 
   const queryCirculosPosition = useQuery({
-    queryKey: 'CirculosPosition',
+    queryKey: ['CirculosPosition'],
     queryFn: getCirculosPosition
   })
 
   
   const querySubmisionsPosition = useQuery({
-    queryKey: 'SubmisionsPosition',
+    queryKey: ['SubmisionsPosition'],
     queryFn: getSubmisionsPosition
   })
 

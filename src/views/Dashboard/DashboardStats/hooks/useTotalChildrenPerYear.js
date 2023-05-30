@@ -4,14 +4,14 @@ import { getTotalBoysPerYear, getTotalGirlsPerYear } from '../services'
 export const useTotalChildrenPerYear = () => {
 
   const queryTotalBoysPerYear = useQuery({
-    queryKey: 'TotalBoysPerYear',
+    queryKey: ['TotalBoysPerYear'],
     queryFn: getTotalBoysPerYear
   })
 
-  const queryotalGirlsPerYear = useQuery({
-    queryKey: 'otalGirlsPerYear',
+  const queryTotalGirlsPerYear = useQuery({
+    queryKey: ['TotalGirlsPerYear'],
     queryFn: getTotalGirlsPerYear
   })
 
-  return {queryTotalBoysPerYear , queryotalGirlsPerYear}
+  return {queryTotalBoysPerYear , queryTotalGirlsPerYear}
 }

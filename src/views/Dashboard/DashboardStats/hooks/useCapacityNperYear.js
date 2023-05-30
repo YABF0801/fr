@@ -4,7 +4,7 @@ import { getCapacityNperYear } from '../services'
 export const useCapacityNperYear = () => {
 
   const queryCapacityNperYear = useQuery({
-    queryKey: 'capacityNperYear',
+    queryKey: ['capacityNperYear'],
     queryFn: getCapacityNperYear
   })
 

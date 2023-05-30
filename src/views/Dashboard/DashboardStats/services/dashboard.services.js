@@ -1,13 +1,13 @@
 /* import { baseAxios } from '../../../../api/baseAxios';
  */
 /* 
-export const submisionsPositionGet = async () => {
+export const getSubmisionsPosition = async () => {
 	const allSubmisions = await baseAxios.get('/submisions');
 	const submisions = allSubmisions.data.filter((submision) => submision.status === 'matricula');
 	return submisions;
 };
 
-export const circulosPositionGet = async () => {
+export const getCirculosPosition = async () => {
 	const circulos = await baseAxios.get('/circulos/');
 	return circulos.data;
 }; */

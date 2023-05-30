@@ -4,7 +4,7 @@ import { getAverageAttendance } from '../services'
 export const useAverageAttendance = () => {
 
   const queryAverageAttendance = useQuery({
-    queryKey: 'AverageAttendance',
+    queryKey: ['AverageAttendance'],
     queryFn: getAverageAttendance
   })
 
