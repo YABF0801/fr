@@ -1,15 +1,17 @@
-// import Charts from './components/Charts';
+//  import Charts from './components/Charts';
 // import Charts2 from './components/Charts2';
 // import MapComponent from './components/MapAndBarChart';
 
 import './Dashboard.scss';
 
-import TotalMatricula from './components/TotalMatricula';
+import TotalMatricula from './components/CardsTotalMatricula';
 import HeaderStats from './components/HeaderStats';
 
 import MapDashboard from './components/MapDashboard';
 import AverageAttendance from './components/AvgAttendance.PolarAreaChart';
 import DataCiByYearOfLife from './components/DataCiByYearOfLife.BarChart';
+import TotalChildrenByYear from './components/TotalChildrenByYear.RadarChart';
+import TotalChildrenPerAge from './components/TotalChildrenPerAge.LineChart';
 
 const Dashboard = () => {
 	return (
@@ -28,9 +30,9 @@ const Dashboard = () => {
 				<div className='col-md-4'>	<MapDashboard />  </div>
 			</div>
 
-			<div className='row justify-content-evenly'>
-				<div className='card-dash col-md-3'>grafico 4</div>
-				<div className='card-dash col-md-3'>grafico 5</div>
+			<div className='row justify-content-evenly m-2 mt-4'>
+				<div className='col-md-3'><TotalChildrenByYear/></div>
+				<div className='col-md-6'><TotalChildrenPerAge/></div>
 				<div className='card-dash col-md-3'>grafico 6</div>
 			</div>
 
