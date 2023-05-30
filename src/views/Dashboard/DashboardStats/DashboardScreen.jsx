@@ -6,9 +6,10 @@ import './Dashboard.scss';
 
 import TotalMatricula from './components/TotalMatricula';
 import HeaderStats from './components/HeaderStats';
-import DataCiYearOfLife from './components/dataCiYearOfLife';
+
 import MapDashboard from './components/MapDashboard';
 import AverageAttendance from './components/AvgAttendance.PolarAreaChart';
+import DataCiByYearOfLife from './components/DataCiByYearOfLife.BarChart';
 
 const Dashboard = () => {
 	return (
@@ -22,7 +23,7 @@ const Dashboard = () => {
 			</div>
 
 			<div className='row row-dash justify-content-evenly m-2'>
-				<div className='col-md-5'>	<DataCiYearOfLife />  </div>
+				<div className='col-md-5'>	<DataCiByYearOfLife />  </div>
 				<div className=' col-md-3'>	 <AverageAttendance />	</div>
 				<div className='col-md-4'>	<MapDashboard />  </div>
 			</div>
