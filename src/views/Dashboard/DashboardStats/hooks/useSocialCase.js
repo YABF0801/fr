@@ -7,6 +7,5 @@ export const useSocialCase = () => {
     queryKey: ['SocialCase'],
     queryFn: getSocialCase
   })
-
   return querySocialCase
 }

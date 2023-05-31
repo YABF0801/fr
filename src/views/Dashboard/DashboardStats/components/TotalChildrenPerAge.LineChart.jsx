@@ -40,7 +40,7 @@ const TotalChildrenPerAge = () => {
 					text: 'Cantidad de niños por edades',
 				},
 			},
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			scales: {
 				y: {
 					min: 0,

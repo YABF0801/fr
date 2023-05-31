@@ -82,7 +82,7 @@ const Charts2 = () => {
 					text: 'Solicitudes recibidas y aprobadas por año',
 				},
 			},
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			scales: {
 				y: {
 					min: 0,
