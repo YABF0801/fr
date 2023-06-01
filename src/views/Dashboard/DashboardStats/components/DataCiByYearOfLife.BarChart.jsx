@@ -69,7 +69,10 @@ const DataCiByYearOfLife = () => {
 		!queryCapacityCalculatedPerYear.isLoading && !queryMatriculaPerYear.isLoading && !queryCapacityNperYear.isLoading ? (
 			<Bar data={barChartData} options={barChartData.options} />
 		) : (
+			<>
+			<p>Datos de los cículos por año de vida</p>
 			<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+			</>
 		)
 		);
 						

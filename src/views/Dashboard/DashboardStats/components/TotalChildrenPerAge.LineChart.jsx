@@ -48,7 +48,10 @@ const TotalChildrenPerAge = () => {
 	!queryTotalChildrenPerAge.isLoading ? (
 		<Line data={lineChartData} options={lineChartData.options} />
 	) : (
+		<>
+		<p>Cantidad de niños por edades</p>
 		<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+		</>
 	)
 	);
 					

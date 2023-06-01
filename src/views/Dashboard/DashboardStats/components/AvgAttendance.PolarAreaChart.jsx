@@ -49,7 +49,10 @@ const AverageAttendance = () => {
 		!queryAverageAttendance.isLoading ? (
 			<PolarArea data={polarChartData} options={polarChartData.options} />
 		) : (
+			<>
+			<p>Porciento de asistencia por año de vida</p>
 			<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+			</>
 		)
 		);
 						

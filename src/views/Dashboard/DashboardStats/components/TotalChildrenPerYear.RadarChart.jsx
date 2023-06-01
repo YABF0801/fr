@@ -3,6 +3,7 @@ import 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
 import { useTotalChildrenPerYear } from '../hooks/useTotalChildrenPerYear';
 import { useMatriculaPerYear } from '../hooks/useMatriculaPerYear';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 
 const TotalChildrenPerYear = () => {
 	const {queryTotalBoysPerYear, queryTotalGirlsPerYear} = useTotalChildrenPerYear();
@@ -62,7 +63,17 @@ const TotalChildrenPerYear = () => {
 		},
 	};
 
-	return <Radar data={radarChartData} options={radarChartData.options} />;
-};
+	return (
+		!queryTotalBoysPerYear.isLoading && !queryTotalGirlsPerYear.isLoading && !queryMatriculaPerYear.isLoading ? (
+			<Radar data={radarChartData} options={radarChartData.options} />
+		) : (
+			<>
+			<p>Datos de los niños por año de vida</p>
+			<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+			</>
+		)
+		);
+						
+	};
 
-export default TotalChildrenPerYear;
+	export default TotalChildrenPerYear;
