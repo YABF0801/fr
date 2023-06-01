@@ -10,6 +10,8 @@ const FamilySituation = () => {
 	const socialCases = querySocialCase.data ? querySocialCase.data : 0;
 	const OtherChildren = queryOtherChildrenInCi.data ? queryOtherChildrenInCi.data : 0;
 
+	console.log(OtherChildren)
+
 	return (
 		<>
 			<div className='row dash-padding mt-2'>

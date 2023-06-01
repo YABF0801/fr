@@ -6,6 +6,11 @@ import { Card, Metric, Text } from '@tremor/react';
 const TotalMatricula = () => {
 	const { queryCapacityAndMatricula, queryTotalBoysAndGirls } = useTotalMatricula();
 
+	const NormedCapacity = queryCapacityAndMatricula.data ? queryCapacityAndMatricula.data.NormedCapacity : 0;
+	const Matricula = queryCapacityAndMatricula.data ? queryCapacityAndMatricula.data.Matricula : 0;
+	const totalGirls = queryTotalBoysAndGirls.data ? queryTotalBoysAndGirls.data.totalGirls : 0;
+	const totalBoys = queryTotalBoysAndGirls.data ? queryTotalBoysAndGirls.data.totalBoys : 0;
+
 	const porcientoGirls =
 		queryTotalBoysAndGirls.data &&
 		Math.round((queryTotalBoysAndGirls.data.totalGirls / queryCapacityAndMatricula.data.Matricula) * 100);
@@ -24,7 +29,7 @@ const TotalMatricula = () => {
 					{!queryCapacityAndMatricula.isLoading ? (
 						<>
 							<Metric className='text-center mb-1 display-2'>
-								{queryCapacityAndMatricula.data.NormedCapacity}
+								{NormedCapacity}
 							</Metric>
 							<Text className='text-secondary'>Capacidades normadas</Text>
 						</>
@@ -40,7 +45,7 @@ const TotalMatricula = () => {
 					{!queryCapacityAndMatricula.isLoading ? (
 						<>
 							<Metric className='text-center mb-1 display-2'>
-								{queryCapacityAndMatricula.data.Matricula}
+								{Matricula}
 							</Metric>
 							<Text className='text-secondary'>{porcientoMatricula}% de la capacidad total</Text>
 						</>
@@ -56,7 +61,7 @@ const TotalMatricula = () => {
 					{!queryTotalBoysAndGirls.isLoading ? (
 						<>
 							<Metric className='text-center mb-1 display-2'>
-								{queryTotalBoysAndGirls.data.totalGirls}
+								{totalGirls}
 							</Metric>
 							<Text className='text-secondary'>{porcientoGirls}% de la matrícula total</Text>
 						</>
@@ -74,7 +79,7 @@ const TotalMatricula = () => {
 					{!queryTotalBoysAndGirls.isLoading ? (
 						<>
 							<Metric className='text-center mb-1 display-2'>
-								{queryTotalBoysAndGirls.data.totalBoys}
+								{totalBoys}
 							</Metric>
 							<Text className='text-secondary'>{porcientoBoys}% de la matrícula total</Text>
 						</>

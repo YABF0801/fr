@@ -5,11 +5,11 @@ const getAverageAttendance = async () => {
 	const result = await baseAxios.get('/estadisticas/asistencia');
 	const attendanceData = result.data[0];
 	const data = [
-		attendanceData.totalAttendance2 || 50, // remove numbers
-		attendanceData.totalAttendance3 || 25,
-		attendanceData.totalAttendance4 || 80,
-		attendanceData.totalAttendance5 || 10,
-		attendanceData.totalAttendance6 || 100,
+		attendanceData.totalAttendance2,
+		attendanceData.totalAttendance3,
+		attendanceData.totalAttendance4,
+		attendanceData.totalAttendance5,
+		attendanceData.totalAttendance6,
 	];
 	return data;
 };

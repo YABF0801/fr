@@ -14,7 +14,7 @@ const TotalChildrenPerYear = () => {
 		datasets: [
 			{
 				label: 'Totales',
-				data: queryMatriculaPerYear.data,
+				data: queryMatriculaPerYear.data ? queryMatriculaPerYear.data : [],
 				fill: true,
 				backgroundColor: 'rgba(225, 179, 104, 0.2)',
 				borderColor: 'rgba(225, 179, 104, 0.8)',
@@ -23,7 +23,7 @@ const TotalChildrenPerYear = () => {
 			},
 			{
 				label: 'Niñas ',
-				data: queryTotalGirlsPerYear.data,
+				data: queryTotalGirlsPerYear.data ? queryTotalGirlsPerYear.data : [],
 				fill: true,
 				backgroundColor: 'rgba(225, 129, 124, 0.2)',
 				borderColor: 'rgba(225, 129, 124, 0.8)',
@@ -32,7 +32,7 @@ const TotalChildrenPerYear = () => {
 			},
 			{
 				label: 'Niños',
-				data: queryTotalBoysPerYear.data,
+				data: queryTotalBoysPerYear.data ? queryTotalBoysPerYear.data : [],
 				fill: true,
 				backgroundColor: 'rgba(125, 192, 202, 0.2)',
 				borderColor: 'rgba(125, 192, 202, 0.8)',

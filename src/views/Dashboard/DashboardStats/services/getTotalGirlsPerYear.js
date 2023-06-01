@@ -5,11 +5,11 @@ export const getTotalGirlsPerYear = async () => {
 	const result = await baseAxios.get('/estadisticas/girls');
 	const totalGirlsYear = result.data[0];
 	const data = [
-		totalGirlsYear.totalGirls2 || 0,
-		totalGirlsYear.totalGirls3 || 0,
-		totalGirlsYear.totalGirls4 || 0,
-		totalGirlsYear.totalGirls5 || 0,
-		totalGirlsYear.totalGirls6 || 0,
+		totalGirlsYear.totalGirls2,
+		totalGirlsYear.totalGirls3,
+		totalGirlsYear.totalGirls4,
+		totalGirlsYear.totalGirls5,
+		totalGirlsYear.totalGirls6,
 	];
 	return data;
 };
