@@ -1,31 +1,19 @@
-import { useEffect, useState } from 'react';
+
 import 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
-import { getMatriculaPerYear, getTotalBoysPerYear, getTotalGirlsPerYear } from '../services';
+import { useTotalChildrenPerYear } from '../hooks/useTotalChildrenPerYear';
+import { useMatriculaPerYear } from '../hooks/useMatriculaPerYear';
 
-const TotalChildrenByYear = () => {
-	const [totalChildrenByYear, setTotalChildrenByYear] = useState([]);
-	const [girlsByYear, setGirlsByYear] = useState([]);
-	const [boysByYear, setBoysByYear] = useState([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const totalchildren = await getMatriculaPerYear();
-			const girls = await getTotalGirlsPerYear();
-			const boys = await getTotalBoysPerYear();
-			setTotalChildrenByYear(totalchildren);
-			setGirlsByYear(girls);
-			setBoysByYear(boys);
-		};
-		fetchData();
-	}, []);
+const TotalChildrenPerYear = () => {
+	const {queryTotalBoysPerYear, queryTotalGirlsPerYear} = useTotalChildrenPerYear();
+	const queryMatriculaPerYear = useMatriculaPerYear();
 
 	const radarChartData = {
 		labels: ['2do', '3ro', '4to', '5to', '6to'],
 		datasets: [
 			{
 				label: 'Totales',
-				data: totalChildrenByYear,
+				data: queryMatriculaPerYear.data,
 				fill: true,
 				backgroundColor: 'rgba(225, 179, 104, 0.2)',
 				borderColor: 'rgba(225, 179, 104, 0.8)',
@@ -34,7 +22,7 @@ const TotalChildrenByYear = () => {
 			},
 			{
 				label: 'Niñas ',
-				data: girlsByYear,
+				data: queryTotalGirlsPerYear.data,
 				fill: true,
 				backgroundColor: 'rgba(225, 129, 124, 0.2)',
 				borderColor: 'rgba(225, 129, 124, 0.8)',
@@ -43,7 +31,7 @@ const TotalChildrenByYear = () => {
 			},
 			{
 				label: 'Niños',
-				data: boysByYear,
+				data: queryTotalBoysPerYear.data,
 				fill: true,
 				backgroundColor: 'rgba(125, 192, 202, 0.2)',
 				borderColor: 'rgba(125, 192, 202, 0.8)',
@@ -77,4 +65,4 @@ const TotalChildrenByYear = () => {
 	return <Radar data={radarChartData} options={radarChartData.options} />;
 };
 
-export default TotalChildrenByYear;
+export default TotalChildrenPerYear;

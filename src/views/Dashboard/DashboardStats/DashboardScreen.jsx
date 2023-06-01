@@ -10,9 +10,10 @@ import HeaderStats from './components/HeaderStats';
 import MapDashboard from './components/MapDashboard';
 import AverageAttendance from './components/AvgAttendance.PolarAreaChart';
 import DataCiByYearOfLife from './components/DataCiByYearOfLife.BarChart';
-import TotalChildrenByYear from './components/TotalChildrenByYear.RadarChart';
+
 import TotalChildrenPerAge from './components/TotalChildrenPerAge.LineChart';
 import FamilySituation from './components/FamilySituationCards';
+import TotalChildrenPerYear from './components/TotalChildrenPerYear.RadarChart';
 
 const Dashboard = () => {
 	return (
@@ -32,7 +33,7 @@ const Dashboard = () => {
 			</div>
 
 			<div className='row row-dash justify-content-evenly m-2'>
-				<div className='col-md-4'><TotalChildrenByYear/></div>
+				<div className='col-md-4'><TotalChildrenPerYear/></div>
 				<div className='col-md-5'>	<DataCiByYearOfLife />  </div>
 				<div className=' col-md-3'>	 <AverageAttendance />	</div>
 			</div>
