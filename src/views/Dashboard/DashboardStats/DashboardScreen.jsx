@@ -1,6 +1,4 @@
 //  import Charts from './components/Charts';
-// import Charts2 from './components/Charts2';
-// import MapComponent from './components/MapAndBarChart';
 
 import './Dashboard.scss';
 
@@ -14,6 +12,8 @@ import DataCiByYearOfLife from './components/DataCiByYearOfLife.BarChart';
 import TotalChildrenPerAge from './components/TotalChildrenPerAge.LineChart';
 import FamilySituation from './components/FamilySituationCards';
 import TotalChildrenPerYear from './components/TotalChildrenPerYear.RadarChart';
+import SubmisionsRecievedAproved from './components/SubmisionsRecievedAproved.LineChart';
+import MatriculaPorCP from './components/MatriculaPerCPopular.DoughnutChart';
 
 const Dashboard = () => {
 	return (
@@ -22,31 +22,31 @@ const Dashboard = () => {
 				<HeaderStats />
 			</div>
 
-			<div className='row justify-content-evenly'>
+			<div className='row row-dash justify-content-evenly mb-2'>
 				<TotalMatricula />
 			</div>
 
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
 				<div className='col-md-5'><TotalChildrenPerAge/></div>
-				{/* <div className='col-md-4'>	<MapDashboard />  </div> */}
+				<div className='col-md-4'>	<MapDashboard />  </div>
 				<div className='col-md-3'><FamilySituation/></div>
 			</div>
 
-			<div className='row row-dash justify-content-evenly m-2'>
+			<div className='row row-dash justify-content-evenly m-2 mb-4'>
 				<div className='col-md-4'><TotalChildrenPerYear/></div>
 				<div className='col-md-5'>	<DataCiByYearOfLife />  </div>
 				<div className=' col-md-3'>	 <AverageAttendance />	</div>
 			</div>
 
-			<div className='row justify-content-evenly'>
-				<div className='card-dash col-md-3'>grafico 7</div>
-				<div className='card-dash col-md-3'>grafico 8</div>
+			<div className='row row-dash justify-content-evenly m-2 mb-4'>
+				<div className='col-md-5'><SubmisionsRecievedAproved /></div>
+				<div className='col-md-3'><MatriculaPorCP /></div>
 				<div className='card-dash col-md-3'>grafico 9</div>
 			</div>
 
-			{/* <MapComponent /> */}
-			{/* <Charts /> */}
-			{/* <Charts2 /> */}
+
+			
+			
 		</>
 	);
 };
