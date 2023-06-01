@@ -10,6 +10,5 @@ export const getMatriculaPorCp = async () => {
 		labels,
 		cant,
 	};
-	console.log(data);
 	return data;
 };
