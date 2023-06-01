@@ -1,16 +1,16 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
-import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { childIcon } from '../../../../common/MapMarker/MarkerIcons';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
+import { useAuthContext } from '../../../../core/context/authContext';
 import { useSubmisionContext } from '../../GeneralList/context/SumisionContext';
-import './SumisionForm.scss';
-import SubmisionForm from './SubmisionForm';
 import ChildForm from './ChildForm';
 import Parent1Form from './Parent1Form';
 import Parent2Form from './Parent2Form';
-import { useAuthContext } from '../../../../core/context/authContext';
+import SubmisionForm from './SubmisionForm';
+import './SumisionForm.scss';
 
 const req = 'campo requerido';
 
@@ -296,14 +296,6 @@ function SubmisionWizardForm({ submision }) {
 		validationSchema: SubmisionSchema,
 	});
 
-	const markerIcon = L.icon({
-		iconUrl: '/public/markerBlue.png',
-		iconSize: [32, 32],
-		iconAnchor: [16, 32],
-		popupAnchor: [0, -32],
-		shadowAnchor: [4, 62],
-	});
-
 	const handleLatlngChange = (value) => {
 		formik.setFieldValue('child.latlng', value);
 	};
@@ -326,7 +318,7 @@ function SubmisionWizardForm({ submision }) {
 
 						{/* CHILD DATA */}
 
-						<ChildForm markerIcon={markerIcon} handleLatlngChange={handleLatlngChange} form={formik} />
+						<ChildForm markerIcon={childIcon} handleLatlngChange={handleLatlngChange} form={formik} />
 
 						{/* PARENT1 DATA */}
 

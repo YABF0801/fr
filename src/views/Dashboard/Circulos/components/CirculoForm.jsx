@@ -1,15 +1,16 @@
 import { useFormik } from 'formik';
-import L from 'leaflet';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import MapMarker from '../../../../common/MapMarker/MapMarker';
+import { ciIcon } from '../../../../common/MapMarker/MarkerIcons';
 import InputSwitch from '../../../../common/uiForms/imputSwitch';
 import { CIRCULOS } from '../../../../core/config/routes/paths';
 import { circuloInitialValues } from '../../../../utils/circuloInitialValues';
 import { useCirculoContext } from '../context/CirculoContext';
+
 const CirculoSchema = Yup.object().shape({
 	number: Yup.number().required('Se requiere un numero'),
 	name: Yup.string().required('Se requiere un nombre'),
@@ -80,13 +81,6 @@ function CirculoForm({ circulo, showAttendance }) {
 		}
 	}, [circulo]);
 
-	const markerIcon = L.icon({
-		iconUrl: '/public/marker.png',
-		iconSize: [32, 32],
-		iconAnchor: [16, 32],
-		popupAnchor: [0, -32],
-		shadowAnchor: [4, 62],
-	});
 
 	const handleLatlngChange = (value) => {
 		form.setFieldValue('latlng', value);
@@ -390,7 +384,7 @@ function CirculoForm({ circulo, showAttendance }) {
 												
 													<MapMarker
 														position={circulo ? circulo.latlng : null}
-														icon={markerIcon}
+														icon={ciIcon}
 														onPositionChange={handleLatlngChange}
 													/>
 												
