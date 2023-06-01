@@ -1,4 +1,4 @@
-import { Card, Metric, Text } from '@tremor/react';
+import { Card, Metric } from '@tremor/react';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useOtherChildrenInCi } from '../hooks/useOtherChildrenInCi';
 import { useSocialCase } from '../hooks/useSocialCase';

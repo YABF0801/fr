@@ -1,5 +1,6 @@
 import 'chart.js/auto';
 import { PolarArea } from 'react-chartjs-2';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useAverageAttendance } from '../hooks/useAverageAttendance';
 
 const AverageAttendance = () => {
@@ -11,7 +12,7 @@ const AverageAttendance = () => {
 		datasets: [
 			{
 				label: 'Porciento de asistencia por año de vida',
-				data: queryAverageAttendance.data,
+				data: queryAverageAttendance.data ? queryAverageAttendance.data : [],
 				fill: true,
 				backgroundColor: [
 					'rgba(255, 159, 64, 0.3)',
@@ -44,7 +45,14 @@ const AverageAttendance = () => {
 		},
 	};
 
-	return <PolarArea data={polarChartData} options={polarChartData.options} />
-};
-
+	return (
+		!queryAverageAttendance.isLoading ? (
+			<PolarArea data={polarChartData} options={polarChartData.options} />
+		) : (
+			<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+		)
+		);
+						
+	};
+	
 export default AverageAttendance;

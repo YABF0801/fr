@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { useCapacityCalculatedPerYear } from '../hooks/useCapacityCalculatedPerYear';
 import { useMatriculaPerYear } from '../hooks/useMatriculaPeryear';
 import { useCapacityNperYear } from '../hooks/useCapacityNperYear';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 
 const DataCiByYearOfLife = () => {
 	const queryCapacityCalculatedPerYear = useCapacityCalculatedPerYear();
@@ -14,19 +15,19 @@ const DataCiByYearOfLife = () => {
 		datasets: [
 			{
 				label: 'Matricula ',
-				data: queryMatriculaPerYear.data,
+				data: queryMatriculaPerYear.data ? queryMatriculaPerYear.data : [],
 				fill: true,
 				backgroundColor: 'rgba(125, 192, 222, 0.5)', // blue
 			},
 			{
 				label: 'Capacidad normada ',
-				data: queryCapacityNperYear.data,
+				data: queryCapacityNperYear.data ? queryCapacityNperYear.data : [],
 				fill: true,
 				backgroundColor: 'rgba(225, 179, 104, 0.5)', // yellow
 			},
 			{
 				label: 'Capacidad calculada en base al % de asistencia',
-				data: queryCapacityCalculatedPerYear.data,
+				data: queryCapacityCalculatedPerYear.data ? queryCapacityCalculatedPerYear.data : [],
 				fill: true,
 				backgroundColor: 'rgba(185, 149, 162, 0.5)', // redish
 			},
@@ -63,7 +64,16 @@ const DataCiByYearOfLife = () => {
 		},
 	};
 
-	return <Bar data={barChartData} options={barChartData.options} />;
-};
+	
+	return (
+		!queryCapacityCalculatedPerYear.isLoading && !queryMatriculaPerYear.isLoading && !queryCapacityNperYear.isLoading ? (
+			<Bar data={barChartData} options={barChartData.options} />
+		) : (
+			<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+		)
+		);
+						
+	};
+
 
 export default DataCiByYearOfLife;

@@ -1,27 +1,18 @@
-import { useEffect, useState } from 'react';
 import 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
-import { getTotalChildrenPerAge  } from '../services';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import { useTotalChildrenPerAge } from '../hooks/useTotalChildrenPerAge';
 
 
 const TotalChildrenPerAge = () => {
-	const [childrenPerAge, setChildrenPerAge] = useState([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const childrenAge = await getTotalChildrenPerAge();
-			setChildrenPerAge(childrenAge);
-		};
-		fetchData();
-	}, []);
-
+	const queryTotalChildrenPerAge = useTotalChildrenPerAge();
 
 	const lineChartData = {
 		labels: ['0-1 año', '1-2 años', '2-3 años', '3-4 años', '4-5 años', '5-6 años'],
 		datasets: [
 			{
 				label: '',
-				data: childrenPerAge,
+				data: queryTotalChildrenPerAge.data ? queryTotalChildrenPerAge.data : [],
 				fill: true,
 				backgroundColor: 'rgba(75, 162, 180, 0.3)',
 				borderColor: 'rgba(75, 162, 180, 1)',
@@ -53,8 +44,14 @@ const TotalChildrenPerAge = () => {
 		},
 	};
 
-	return <Line data={ lineChartData } options={ lineChartData.options } />
-						
+	return (
+	!queryTotalChildrenPerAge.isLoading ? (
+		<Line data={lineChartData} options={lineChartData.options} />
+	) : (
+		<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+	)
+	);
+					
 };
 
 export default TotalChildrenPerAge;
