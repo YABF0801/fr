@@ -7,6 +7,7 @@ const MapDashboard = () => {
 	const { queryCirculosPosition, querySubmisionsPosition } = useAllPositions();
 	
 	const submisions = querySubmisionsPosition.data ? querySubmisionsPosition.data : [];
+	console.log(submisions)
 	const circulos = queryCirculosPosition.data ? queryCirculosPosition.data : [];
 
 	return (
@@ -28,7 +29,8 @@ const MapDashboard = () => {
 				// url='/public/Tiles/{z}/{x}/{y}.png'
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			/>
-			{submisions.map((submision) => (
+			{!querySubmisionsPosition.isLoading &&
+				submisions.map((submision) => (
 					<Marker key={submision._id} position={submision.child.latlng} icon={childIcon}>
 						<Popup>
 							<span className='popup'>
@@ -42,7 +44,8 @@ const MapDashboard = () => {
 					</Marker>
 				))}
 				
-			{circulos.map((circulo) => (
+			{!queryCirculosPosition.isLoading &&
+				circulos.map((circulo) => (
 					<Marker key={circulo._id} position={circulo.latlng} icon={ciIcon}>
 						<Popup>
 							<div>
@@ -64,6 +67,7 @@ const MapDashboard = () => {
 						</Popup>
 					</Marker>
 				))}
+				
 				
 		</MapContainer>
 	);

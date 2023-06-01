@@ -25,14 +25,12 @@ const Dashboard = () => {
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
 				<div className='col-md-3'><FamilySituation/></div>
 				<div className='col-md-5'><TotalChildrenPerAge/></div>
-				<div className='col-md-4'>	<MapDashboard />  </div>
+				<div className='col-md-4'><MapDashboard /> </div>
 			</div>
 
-
-
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
-				<div className='col-md-5'>	<DataCiByYearOfLife />  </div>
-				<div className=' col-md-3'>	 <AverageAttendance />	</div>
+				<div className='col-md-5'><DataCiByYearOfLife /></div>
+				<div className=' col-md-3'><AverageAttendance /></div>
 				<div className='col-md-4'><TotalChildrenPerYear/></div>
 			</div>
 
