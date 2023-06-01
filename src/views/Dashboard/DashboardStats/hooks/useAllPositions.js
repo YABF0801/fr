@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getCirculosPosition, getSubmisionsPosition } from '../services'
 
-export const useAverageAttendance = () => {
+export const useAllPositions = () => {
 
   const queryCirculosPosition = useQuery({
     queryKey: ['CirculosPosition'],
@@ -13,7 +13,6 @@ export const useAverageAttendance = () => {
     queryKey: ['SubmisionsPosition'],
     queryFn: getSubmisionsPosition
   })
-
 
   return {queryCirculosPosition, querySubmisionsPosition}
 }

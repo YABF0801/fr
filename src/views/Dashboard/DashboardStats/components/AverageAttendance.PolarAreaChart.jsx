@@ -1,18 +1,29 @@
+import { useEffect, useState } from 'react';
 import 'chart.js/auto';
 import { PolarArea } from 'react-chartjs-2';
-import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-import { useAverageAttendance } from '../hooks/useAverageAttendance';
+import { getAverageAttendance } from '../services';
+
+//
+// componente 2 separado de MapAndBarChart.jsxs
+//
 
 const AverageAttendance = () => {
+	const [asistencia, setAttendance] = useState([]);
 
-	const queryAverageAttendance = useAverageAttendance()
+	useEffect(() => {
+		const fetchData = async () => {
+			const attendances = await getAverageAttendance();
+			setAttendance(attendances);
+		};
+		fetchData();
+	}, []);
 
 	const polarChartData = {
 		labels: ['2do', '3ro', '4to', '5to', '6to'],
 		datasets: [
 			{
 				label: 'Porciento de asistencia por año de vida',
-				data: queryAverageAttendance.data ? queryAverageAttendance.data : [],
+				data: asistencia,
 				fill: true,
 				backgroundColor: [
 					'rgba(255, 159, 64, 0.3)',
@@ -31,10 +42,10 @@ const AverageAttendance = () => {
 				},
 				title: {
 					display: true,
-					text: 'Porcientos de asistencia por año de vida',
+					text: 'Porcientos de asistencia',
 				},
 			},
-			maintainAspectRatio: true,
+			maintainAspectRatio: false,
 		},
 		scales: {
 			r: {
@@ -46,13 +57,8 @@ const AverageAttendance = () => {
 	};
 
 	return (
-		!queryAverageAttendance.isLoading ? (
-			<PolarArea data={polarChartData} options={polarChartData.options} />
-		) : (
-			<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
-		)
-		);
-						
-	};
-	
+		<PolarArea data={ polarChartData } options={ polarChartData.options } />
+	);
+};
+
 export default AverageAttendance;

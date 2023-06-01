@@ -1,50 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../../../core/context/authContext';
-import { FechaOmApiGet } from '../../../../utils/utiles.sevices';
-import { cursoApiGet } from '../../Circulos/service/circulo.services';
+import { useHeaderData } from '../hooks/useHeaderData';
 
 const HeaderStats = () => {
-	const [curso, setCurso] = useState();
-	const [date, setDate] = useState(false);
+	const { queryCurso, queryFechaOm } = useHeaderData();
+
 	const [existingDate, setExistingDate] = useState(false);
 	const { isAuthenticated } = useAuthContext();
 
-	const dateShow = existingDate && new Date(date).toLocaleDateString();
+	const dateShow = existingDate && new Date(queryFechaOm.data).toLocaleDateString();
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const curso = await cursoApiGet();
-			setCurso(curso);
-		};
-		fetchData();
-	}, []);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const omDate = await FechaOmApiGet();
-			if (omDate) {
-				setDate(omDate);
-				setExistingDate(true);
-			}
-		};
-		fetchData();
+		if (queryFechaOm.data) {
+			setExistingDate(true);
+		}
 	}, []);
 
 	return (
 		<div className='row mt-4 justify-content-evenly'>
 			<div className='col-md-5'>
-			
 				{dateShow ? (
 					<h5 className='text-start text-secondary'>Fecha de nuevo otorgamiento masivo {dateShow}</h5>
 				) : isAuthenticated.user?.role === 'admin' ? (
 					<h5 className='text-start text-secondary'>Establezca fecha de nuevo otorgamiento masivo</h5>
-				) : (
-					null
-				)}
+				) : null}
 			</div>
 
 			<div className='col-md-6'>
-				<h2 className='text-end '>Curso {curso}</h2>
+				{queryCurso.data && <h2 className='text-end '>Curso {queryCurso.data}</h2>}
 			</div>
 		</div>
 	);
