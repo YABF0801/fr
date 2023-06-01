@@ -34,7 +34,7 @@ const AverageAttendance = () => {
 					text: 'Porcientos de asistencia por año de vida',
 				},
 			},
-			maintainAspectRatio: true,
+			maintainAspectRatio: false,
 		},
 		scales: {
 			r: {

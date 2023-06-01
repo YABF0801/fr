@@ -31,7 +31,7 @@ const MatriculaPorCP = () => {
 					text: 'Matrículas por Consejo Popular',
 				},
 			},
-			maintainAspectRatio: true,
+			maintainAspectRatio: false,
 		},
 	};
 

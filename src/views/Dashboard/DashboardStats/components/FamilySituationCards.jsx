@@ -7,15 +7,18 @@ const FamilySituation = () => {
 	const querySocialCase = useSocialCase();
 	const queryOtherChildrenInCi = useOtherChildrenInCi();
 
+	const socialCases = querySocialCase.data ? querySocialCase.data : 0;
+	const OtherChildren = queryOtherChildrenInCi.data ? queryOtherChildrenInCi.data : 0;
+
 	return (
 		<>
-			<div className='row dash-padding'>
+			<div className='row dash-padding mt-2'>
 	
 					<Card className='card order-card bg-c-blue max-w-xs mx-auto'>
 						<h4 className='text-center '>Casos Sociales</h4>
 						{!querySocialCase.isLoading ? (
 							<>
-								<Metric className='text-center mb-1 display-2'>{querySocialCase.data}</Metric>
+								<Metric className='text-center m-3 display-2'>{socialCases}</Metric>
 							</>
 						) : (
 							<SmallSpinner className='m-4 mx-auto' />
@@ -31,7 +34,7 @@ const FamilySituation = () => {
 						<h4 className='text-center '>Familias con más de un niño en el CI</h4>
 						{!queryOtherChildrenInCi.isLoading ? (
 							<>
-								<Metric className='text-center mb-1 display-2'>{queryOtherChildrenInCi.data}</Metric>
+								<Metric className='text-center m-3 display-2'>{OtherChildren}</Metric>
 							</>
 						) : (
 							<SmallSpinner className='m-4 mx-auto' />
