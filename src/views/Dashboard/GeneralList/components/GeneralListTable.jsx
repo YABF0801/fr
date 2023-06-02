@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../../core/context/authContext';
 
 
 const GeneralListTable = () => {
-	const { queySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
+	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [hideSocialCase, setHideSocialCase] = useState(true);
@@ -42,13 +42,13 @@ const GeneralListTable = () => {
 	};
 
 	useEffect(() => {
-		setSubmisionsLocal(queySubmision.data);
+		setSubmisionsLocal(querySubmision.data);
 		return function cleanUp() { };
-	}, [queySubmision.data]);
+	}, [querySubmision.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
-			setSubmisionsLocal(queySubmision.data);
+			setSubmisionsLocal(querySubmision.data);
 		}
 		return function cleanUp() { };
 	}, [search]);
@@ -126,7 +126,7 @@ const GeneralListTable = () => {
 	};
 
 	const editSubmision = async (id) => {
-		const submision = queySubmision.data.find((item) => item._id === id);
+		const submision = querySubmision.data.find((item) => item._id === id);
 		if (submision) {
 			setSelectedSubmision(submision);
 			showForm();
@@ -412,7 +412,7 @@ const GeneralListTable = () => {
 							</div>
 						</div>
 						{
-							queySubmision.isLoading ? (
+							querySubmision.isLoading ? (
 								<span>Loadng...</span>
 							) :
 								(
