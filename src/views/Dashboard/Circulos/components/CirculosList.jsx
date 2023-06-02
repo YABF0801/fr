@@ -8,7 +8,7 @@ import Proyeccion, { ProyeccionTable } from './Proyeccion';
 import { useAuthContext } from '../../../../core/context/authContext';
 
 const CirculosList = () => {
-	const { circulos, deleteCirculo /* changeStatusCirculo */ } = useCirculoContext();
+	const { queryCirculos, deleteCirculo /* changeStatusCirculo */ } = useCirculoContext();
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [hideMatricula, setHideMatricula] = useState(true);
@@ -34,13 +34,13 @@ const CirculosList = () => {
 	};
 
 	useEffect(() => {
-		setCirculosLocal(circulos);
+		setCirculosLocal(queryCirculos.data);
 		return function cleanUp() {};
-	}, [circulos]);
+	}, [queryCirculos.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
-			setCirculosLocal(circulos);
+			setCirculosLocal(queryCirculos.data);
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -98,7 +98,7 @@ const CirculosList = () => {
 	};
 
 	const editCirculo = async (id) => {
-		const circulo = circulos.find((item) => item._id === id);
+		const circulo = queryCirculos.data.find((item) => item._id === id);
 		if (circulo) {
 			setShowAttendance(true);
 			setSelectedCirculo(circulo);
@@ -379,8 +379,11 @@ const CirculosList = () => {
 								</button>
 							</div>
 						</div>
-
-						<DataTable columns={columns} data={circulosLocal} />
+						{queryCirculos.isLoading ? (
+							<span>Loading...</span>
+						) : (
+							<DataTable columns={columns} data={circulosLocal} />
+						)}
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 							<h4>Leyenda: </h4>

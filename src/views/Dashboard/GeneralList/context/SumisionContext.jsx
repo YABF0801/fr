@@ -13,7 +13,7 @@ import {
 const SubmisionContext = createContext();
 
 export const SubmisionProvider = ({ children }) => {
-	const queySubmision = useQuery({ queryKey: ['submisions'], queryFn: submisionsApiGet });
+	const querySubmision = useQuery({ queryKey: ['submisions'], queryFn: submisionsApiGet });
 
 	const queryClient = useQueryClient();
 
@@ -47,13 +47,13 @@ export const SubmisionProvider = ({ children }) => {
 
 	const value = useMemo(
 		() => ({
-			queySubmision,
+			querySubmision,
 			addSubmision,
 			updateSubmision,
 			deleteSubmision,
 			bajaSubmision,
 		}),
-		[queySubmision]
+		[querySubmision]
 	);
 
 

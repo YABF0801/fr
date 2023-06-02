@@ -18,7 +18,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 
 	return (
 		<div id='child'>
-			<hr className='text-secondary'/>
+			<hr className='text-secondary' />
 			<h3 className='text-center text-secondary mt-4'>Datos del menor</h3>
 			<h6 className='text-secondary mb-5'>
 				Llene la informmación personal del menor, proporcione la dirección particular y ubicación geográfica
@@ -158,37 +158,38 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 							</div>
 
 							<div className='col-md-8'>
-								
-									<div className='col-md-12 '>
-										<MapContainer
-											className='map-container'
-											style={{ width: '100%', height: '400px' }}
-											center={[21.72761, -82.834167]}
-											zoom={10}
-											setView={[21.72761, -82.834167]}
-											scrollWheelZoom={true}
-											minZoom={9}
-											maxBounds={[
-												[21.410303, -83.26972], // Suroeste
-												[21.961168, -82.531547], // Noreste
-											]}
-										>
-											<TileLayer
-												attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-												url='/public/Tiles/{z}/{x}/{y}.png'
-											/>
+								<div className='col-md-12 '>
+									<MapContainer
+										className='map-container'
+										style={{ width: '100%', height: '400px' }}
+										center={[21.72761, -82.834167]}
+										zoom={10}
+										setView={[21.72761, -82.834167]}
+										scrollWheelZoom={true}
+										minZoom={9}
+										maxBounds={[
+											[21.410303, -83.26972], // Suroeste
+											[21.961168, -82.531547], // Noreste
+										]}
+									>
+										<TileLayer
+											attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+											url='/public/Tiles/{z}/{x}/{y}.png'
+										/>
 
-											<MapMarker icon={markerIcon} onPositionChange={handleLatlngChange} />
-										</MapContainer>
-									</div>
-								
+										<MapMarker 
+											position= {form.values.child && form.values.child.latlng}
+											icon={markerIcon} 
+											onPositionChange={handleLatlngChange} 
+											/>
+									</MapContainer>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	);
 };
 

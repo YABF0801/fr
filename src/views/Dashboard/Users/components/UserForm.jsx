@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { userInitialValues } from '../../../../utils/userInitialValues';
+import { userInitialValues } from '../../../../utils/initialValues/userInitialValues';
 import { useUserContext } from '../context/UserContext';
 
 import { useEffect } from "react";
@@ -23,7 +23,7 @@ function UserForm({ user }) {
 	const navigate = useNavigate();
 	  
 	const form = useFormik({
-		initialValues: {userInitialValues},
+		initialValues: userInitialValues(user),
 		
 		onSubmit: async (values, { resetForm }) => {
 			const formData = {

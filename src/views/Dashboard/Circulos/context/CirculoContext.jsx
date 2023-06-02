@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const CirculoContext = createContext();
 
 export const CirculoProvider = ({ children }) => {
-	const { data: circulos = null } = useQuery({ queryKey: ['circulos'], queryFn: circulosApiGet,  });
+	const queryCirculos = useQuery({ queryKey: ['circulos'], queryFn: circulosApiGet,  });
 	
 	const queryClient = useQueryClient();
 
@@ -41,20 +41,16 @@ export const CirculoProvider = ({ children }) => {
 	const value = useMemo(
 		() => (
 			{
-			circulos,
+			queryCirculos,
 			addCirculo,
 			updateCirculo,
 			deleteCirculo,
 			changeStatusCirculo,	
 		}),
-		[circulos]
+		[queryCirculos]
 	);
 	
-	if (circulos === null) {
-		return <div>Cargando circulos...</div>;
-	  }
-	
-	return <CirculoContext.Provider value={value}>{children}</CirculoContext.Provider>;
+		return <CirculoContext.Provider value={value}>{children}</CirculoContext.Provider>;
 };
 
 CirculoProvider.propTypes = {

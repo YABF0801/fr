@@ -6,8 +6,6 @@ export const baseAxios = axios.create({
 });
 
 
-
-
 baseAxios.interceptors.request.use(config => {
 	const auth = localStorage.getItem('MY_AUTH_APP_1');
 
