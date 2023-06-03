@@ -1,45 +1,35 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
+import { ORGANISMOS } from '../../../../core/config/routes/paths';
 import { organismoInitialValues } from '../../../../utils/initialValues/organismoInitialValues';
+import { OrganismoSchema } from '../../../../utils/yupValidations/organismoYupValidations';
 import { useOrganismoContext } from '../context/OrganismoContext';
 
-import { useEffect } from 'react';
-import { ORGANISMOS } from '../../../../core/config/routes/paths';
-
-const OrganismoSchema = Yup.object().shape({
-	name: Yup.string().required('El nombre es requerido'),
-	description: Yup.string().required('La descripción es requerida'),
-	priorizado: Yup.boolean(),
-});
-
 function OrganismoForm({ organismo }) {
-  
 	const { addOrganismo, updateOrganismo } = useOrganismoContext();
 	const navigate = useNavigate();
 
 	const form = useFormik({
 		initialValues: organismoInitialValues(organismo),
 
-    onSubmit: async (values, { resetForm }) => {
-      const formData = {
-        ...values
-      };
-
+		onSubmit: async (values, { resetForm }) => {
+			const formData = {
+				...values,
+			};
 			if (organismo) {
 				await updateOrganismo.mutate({ ...values });
 			} else {
 				await addOrganismo.mutate(formData);
 			}
-
 			resetForm();
 			navigate(ORGANISMOS);
 		},
 
-    onReset: async () => {
-      document.getElementById('organismo').style.display = 'none';
-    },
+		onReset: async () => {
+			document.getElementById('organismo').style.display = 'none';
+		},
 
 		validationSchema: OrganismoSchema,
 	});
@@ -66,7 +56,7 @@ function OrganismoForm({ organismo }) {
 										className='form-control'
 										id='name'
 										name='name'
-										placeholder='Nombre'
+										placeholder='Nombre *'
 										value={form.values.name}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
@@ -100,7 +90,7 @@ function OrganismoForm({ organismo }) {
 									rows={2}
 									name='description'
 									id='description'
-									placeholder='Escriba una breve descripción'
+									placeholder='Escriba una breve descripción *'
 									value={form.values.description}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
