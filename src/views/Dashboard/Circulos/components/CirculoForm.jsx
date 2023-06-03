@@ -131,7 +131,7 @@ function CirculoForm({ circulo, showAttendance }) {
 									type='text'
 									className='form-control'
 									id='name'
-									placeholder='Nombre del círculo'
+									placeholder='Nombre del círculo *'
 									value={form.values.name}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}

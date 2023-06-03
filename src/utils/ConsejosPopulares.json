@@ -1,45 +1,59 @@
 {
     "consejosPopulares": [
       {
+        "_id": "1",
         "nombre": "Micro 70"
       },
       {
+        "_id": "2",
         "nombre": "Abel Santamaría"
       },
       {
+        "_id": "3",
         "nombre": "Centro Histórico Nueva Gerona"
       },
       {
+        "_id": "4",
         "nombre": "Pueblo Nuevo"
       },
       {
+        "_id": "5",
         "nombre": "26 de Julio"
       },
       {
+        "_id": "6",
         "nombre": "Sierra Caballos"
       },
       {
+        "_id": "7",
         "nombre": "Delio Chacón"
       },
       {
+        "_id": "8",
         "nombre": "Patria"
       },
       {
+        "_id": "9",
         "nombre": "Centro Histórico Santa Fé"
       },
       {
+         "_id": "10",
          "nombre": "Los Paneles (Santa Fe)"
       },
       {
+         "_id": "11",
          "nombre": "Julio Antonio Mella (Santa Fe)"
       },
       {
+         "_id": "12",
          "nombre": "Consejo Popular La Demajagua"
       },
       {
+         "_id": "13",
          "nombre": "La Reforma"
       },
       {
+        "_id": "14",
          "nombre": "Argelia-Victoria"
       }
     ]

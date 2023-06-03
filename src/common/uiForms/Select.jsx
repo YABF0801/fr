@@ -1,5 +1,4 @@
-const Select = ({ className, id, name, value, label, optionText, onChange, onBlur, disabled, mapFunction }) => {
-
+const Select = ({  className, id, name, value, label, optionText, onChange, onBlur, disabled, mapFunction}) => {
 	return (
 		<div className={ className || 'form-group col-md-12 mb-3 d-flex' }>
 			{ label && (
@@ -17,7 +16,7 @@ const Select = ({ className, id, name, value, label, optionText, onChange, onBlu
 				onBlur={ onBlur }
 				disabled={ disabled || false }
 			>
-				<option className='text-center'>{ optionText }</option>
+				<option className='text-center' value='0'>{ optionText }</option>
 				{ mapFunction }
 			</select>
 		</div>
@@ -25,3 +24,5 @@ const Select = ({ className, id, name, value, label, optionText, onChange, onBlu
 };
 
 export default Select;
+  
+  

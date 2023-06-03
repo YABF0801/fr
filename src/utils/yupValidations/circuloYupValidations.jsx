@@ -38,9 +38,9 @@ export const CirculoSchema = Yup.object().shape({
 		.required('La capacidad es requerida')
 
 		.test('attendance', 'El número debe ser mayor que 0', (value) => naturalNumber(value)),
+		
 	normed_capacity6: Yup.number()
 		.required('La capacidad es requerida')
-
 		.test('attendance', 'El número debe ser mayor que 0', (value) => naturalNumber(value)),
 
 	attendance2: Yup.number()

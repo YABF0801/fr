@@ -36,25 +36,40 @@ export const validateAttendance = (value) => {
 	return !isNaN(parsedValue) && parsedValue > 0;
   }
   
+  export const validateSubmisionType = (value) => {
+    if (value === undefined) return false;
+      return /^(new|traslado)$/.test(value);
+  };
 
-  // export const validateInputPhone = (value) => {
-// 	if (value === undefined) return false;
-// 	return /\(\d{2}\) (\d{4,5})-\d{4}/.test(value);
-// };
+  export const validateSubmisionFinality = (value) => {
+    if (value === undefined) return false;
+      return /^(om|os)$/.test(value);
+  };
 
-// export const validateNumber = (value) => {
-// 	if (value === undefined) return false;
+  export const validateSubmisionStatus = (value) => {
+    if (value === undefined) return false;
+      return /^(pendiente|matricula|baja|propuesta)$/.test(value);
+  };
+
+  export const validateCarnet = (value) => {
+	if (value === undefined) return false;
+	return /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{5}$/.test(value);
+  };
+
+  export const validateYearOfLife = (value) => {
+	if (value === undefined ) return false;
+	const parsedValue = parseInt(value, 10);
+	return !isNaN(parsedValue) && parsedValue >= 2 && parsedValue <= 6;
+  };
+
+  export const validateParentType = (value) => {
+    if (value === undefined) return false;
+      return /^(madre|padre|tutor)$/.test(value);
+  };
+
+  export const validateParentOcupation = (value) => {
+    if (value === undefined) return false;
+      return /^(trabajador|jubilado|asistenciado|estudiante)$/.test(value);
+  };
+
   
-// 	// lógica de validación para el número
-
-// 	// número debe ser mayor que 10
-// 	return parseInt(value, 10) > 10;
-//   }
-
-
-// {form.errors.description && form.touched.description ? (
-// 	<p className='text-danger'>{form.errors.description}</p>
-// ) : null}
-
-// {form.errors.name && form.touched.name ? <p className='text-danger'>{form.errors.name}</p> : null}
-								
