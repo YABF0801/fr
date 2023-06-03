@@ -3,51 +3,15 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
 import MapMarker from '../../../../common/MapMarker/MapMarker';
 import { ciIcon } from '../../../../common/MapMarker/MarkerIcons';
 import InputSwitch from '../../../../common/uiForms/imputSwitch';
 import { CIRCULOS } from '../../../../core/config/routes/paths';
 import { circuloInitialValues } from '../../../../utils/initialValues/circuloInitialValues';
+import { CirculoSchema } from '../../../../utils/yupValidations/circuloYupValidations';
 import { useCirculoContext } from '../context/CirculoContext';
 
-const CirculoSchema = Yup.object().shape({
-	number: Yup.number().required('Se requiere un numero'),
-	name: Yup.string().required('Se requiere un nombre'),
-	circulotype: Yup.string(),
-
-	normed_capacity2: Yup.number().required('Se requiere la capacidad'),
-	normed_capacity3: Yup.number().required('Se requiere la capacidad'),
-	normed_capacity4: Yup.number().required('Se requiere la capacidad'),
-	normed_capacity5: Yup.number().required('Se requiere la capacidad'),
-	normed_capacity6: Yup.number().required('Se requiere la capacidad'),
-	attendance2: Yup.number().when('showAttendance', {
-		is: true,
-		then: Yup.number().required('Se requiere asistencia'),
-	}),
-	attendance3: Yup.number().when('showAttendance', {
-		is: true,
-		then: Yup.number().required('Se requiere asistencia'),
-	}),
-	attendance4: Yup.number().when('showAttendance', {
-		is: true,
-		then: Yup.number().required('Se requiere asistencia'),
-	}),
-	attendance5: Yup.number().when('showAttendance', {
-		is: true,
-		then: Yup.number().required('Se requiere asistencia'),
-	}),
-	attendance6: Yup.number().when('showAttendance', {
-		is: true,
-		then: Yup.number().required('Se requiere asistencia'),
-	}),
-	latlng: Yup.array(),
-	isCiActive: Yup.boolean(),
-	curso: Yup.number(),
-});
-
 function CirculoForm({ circulo, showAttendance }) {
-
 	const { addCirculo, updateCirculo } = useCirculoContext();
 	const navigate = useNavigate();
 	const [marker, setMarker] = useState(true);
@@ -283,9 +247,9 @@ function CirculoForm({ circulo, showAttendance }) {
 											onChange={form.handleChange}
 											onBlur={form.handleBlur}
 										/>
-										{form.touched.attendance2 && form.errors.attendance2 ? (
-											<p className='text-danger'>{form.errors.attendance2}</p>
-										) : null}
+										{form.errors.attendance2 && form.touched.attendance2 ? (
+										<p className='text-danger'>{form.errors.attendance2}</p>
+									) : null}
 									</div>
 
 									<div>
@@ -299,9 +263,9 @@ function CirculoForm({ circulo, showAttendance }) {
 											onChange={form.handleChange}
 											onBlur={form.handleBlur}
 										/>
-										{form.touched.attendance3 && form.errors.attendance3 ? (
-											<p className='text-danger'>{form.errors.attendance3}</p>
-										) : null}
+											{form.errors.attendance3 && form.touched.attendance3 ? (
+										<p className='text-danger'>{form.errors.attendance3}</p>
+									) : null}
 									</div>
 
 									<div>
@@ -315,9 +279,9 @@ function CirculoForm({ circulo, showAttendance }) {
 											onChange={form.handleChange}
 											onBlur={form.handleBlur}
 										/>
-										{form.touched.attendance4 && form.errors.attendance4 ? (
-											<p className='text-danger'>{form.errors.attendance4}</p>
-										) : null}
+											{form.errors.attendance4 && form.touched.attendance4 ? (
+										<p className='text-danger'>{form.errors.attendance4}</p>
+									) : null}
 									</div>
 
 									<div>
@@ -331,9 +295,9 @@ function CirculoForm({ circulo, showAttendance }) {
 											onChange={form.handleChange}
 											onBlur={form.handleBlur}
 										/>
-										{form.touched.attendance5 && form.errors.attendance5 ? (
-											<p className='text-danger'>{form.errors.attendance5}</p>
-										) : null}
+											{form.errors.attendance5 && form.touched.attendance5 ? (
+										<p className='text-danger'>{form.errors.attendance5}</p>
+									) : null}
 									</div>
 
 									<div>
@@ -347,9 +311,9 @@ function CirculoForm({ circulo, showAttendance }) {
 											onChange={form.handleChange}
 											onBlur={form.handleBlur}
 										/>
-										{form.touched.attendance6 && form.errors.attendance6 ? (
-											<p className='text-danger'>{form.errors.attendance6}</p>
-										) : null}
+											{form.errors.attendance6 && form.touched.attendance6 ? (
+										<p className='text-danger'>{form.errors.attendance6}</p>
+									) : null}
 									</div>
 								</div>
 							</div>
@@ -377,13 +341,13 @@ function CirculoForm({ circulo, showAttendance }) {
 										url /* '/public/Tiles/{z}/{x}/{y}.png' */='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 									/>
 
-								{marker && (<MapMarker
-											position= {circulo && circulo.latlng}
+									{marker && (
+										<MapMarker
+											position={circulo && circulo.latlng}
 											icon={ciIcon}
 											onPositionChange={handleLatlngChange}
 										/>
 									)}
-									
 								</MapContainer>
 							</div>
 						</div>
