@@ -6,6 +6,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
 import { useAuthContext } from '../../../../core/context/authContext';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 
 const CirculosList = () => {
 	const { queryCirculos, deleteCirculo /* changeStatusCirculo */ } = useCirculoContext();
@@ -380,7 +381,9 @@ const CirculosList = () => {
 							</div>
 						</div>
 						{queryCirculos.isLoading ? (
-							<span>Loading...</span>
+							<div className='row m-5'>
+							<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+							</div>
 						) : (
 							<DataTable columns={columns} data={circulosLocal} />
 						)}
