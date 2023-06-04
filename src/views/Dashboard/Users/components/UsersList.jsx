@@ -19,6 +19,7 @@ import DatePickerToOm from './datePicker';
 import { propuestaApiGenerar } from '../../Propuestas/service/propuestas.services';
 import { nuevoCursoApiGet } from '../../Circulos/service/circulo.services';
 import { consecustiveApiReset } from '../../GeneralList/service/submision.services';
+import Progress from '../../../../common/Progress/ProgressBar';
 
 const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
@@ -29,6 +30,7 @@ const UsersList = () => {
 	const [botonCambioDeCursoHabilitado, setBotonCambioDeCursoHabilitado] = useState(false);
 	const [botonGenerarPropuestaHabilitado, setBotonGenerarPropuestaHabilitado] = useState(false);
 	const [botonFinalizarHabilitado, setBotonFinalizarHabilitado] = useState(false);
+	const [showProgressBar, setShowProgressBar] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -98,11 +100,24 @@ const UsersList = () => {
 	};
 
 	const handleGenerateProps = async () => {
+		setShowProgressBar(true); // Mostrar la barra de progreso
+	
 		await propuestaApiGenerar();
-		await setContadorGp(1); // Actualizar contador en la base de datos
-		navigate(PROPUESTAS_LIST);
-		document.getElementById('props').style.display = 'block';
-	};
+		await setContadorGp(1);
+
+		setTimeout(() => {
+			setShowProgressBar(false); 
+			navigate(PROPUESTAS_LIST);
+			document.getElementById('props').style.display = 'block';
+		}, 3000);
+	  };
+
+	// const handleGenerateProps = async () => {
+	// 	await propuestaApiGenerar();
+	// 	await setContadorGp(1); // Actualizar contador en la base de datos
+	// 	navigate(PROPUESTAS_LIST);
+	// 	document.getElementById('props').style.display = 'block';
+	// };
 
 	const confirmCambioDeCurso = () => {
 		confirmAlert({
@@ -304,6 +319,8 @@ const UsersList = () => {
 				</div>
 			</div>
 
+			{showProgressBar && <Progress id={'progress-bar'} label={'Generando propuestas'} />}
+	
 			<div className=' mt-3 p-2 pb-5'>
 				<h2 className='text-center p-3'>Administración de usuarios</h2>
 				<div className='card '>
