@@ -2,7 +2,6 @@ import * as Yup from "yup";
 import {
   validateStringMin2,
   validatePassword,
-  validateRole,
 } from "../yupValidations/validateInputFunctions";
 
 export const UserSchema = Yup.object().shape({
@@ -31,10 +30,7 @@ export const UserSchema = Yup.object().shape({
       validateStringMin2(value)
     ),
 
-    role: Yup.string()
-    .test('role tipo', "El tipo de role no es válido", (value) =>
-      validateRole(value)
-    ),
+    role: Yup.string(),
     
     password: Yup.string()
     .min(8, "La contraseña debe contener al menos 8 caracteres")

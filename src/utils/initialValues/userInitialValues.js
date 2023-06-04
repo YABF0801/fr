@@ -8,7 +8,7 @@ export const userInitialValues = (user) => {
         lastname: user ? user.lastname: '',
         password: user ? user.password: '',
         position: user ? user.position: '',
-        role: user ? user.role: '',
+        role: user ? user.role: 'guest',
         };
         return initialValues;
     };

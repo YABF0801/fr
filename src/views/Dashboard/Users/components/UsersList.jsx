@@ -33,16 +33,6 @@ const UsersList = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const intervalId = setInterval(() => {
-			UsersList();
-		}, 1000);
-
-		return () => {
-			clearInterval(intervalId);
-		};
-	}, []);
-
-	useEffect(() => {
 		const fetchData = async () => {
 			const storedDate = await FechaOmApiGet();
 			const date = new Date(storedDate);
@@ -51,7 +41,7 @@ const UsersList = () => {
 			const compare = date.getTime() <= fechaActual.getTime();
 			if (storedDate && compare) {
 				setBotonComenzarHabilitado(true);
-				/* 				await consecustiveApiReset(); */
+				/* 	await consecustiveApiReset(); */
 			}
 		};
 		fetchData();
