@@ -20,6 +20,19 @@ const Parent1Form = ({ form }) => {
 		fetchData();
 	}, []);
 
+	const handleOrganismo = (selectedOrganismo) => {
+		const organismo = organismosToMap.find((org) => org.name === selectedOrganismo);
+		form.setFieldValue('child.parents[0].organismo.name', organismo.name);
+		form.setFieldValue('child.parents[0].organismo.weight', organismo.weight);
+	  };
+	  
+	//   const handleCirculo = (selectedCirculo) => {
+	// 	const circulo = circulosToMap.find((circ) => circ.name === selectedCirculo);
+	// 	console.log(circulo)
+	// 	form.setFieldValue('child.parents[0].circulo.name', circulo.name);
+	// 	form.setFieldValue('child.parents[0].circulo._id', circulo._id);
+	//   };
+
 	return (
 		<div id='parent1'>
 			<hr className='text-secondary' />
@@ -246,7 +259,7 @@ const Parent1Form = ({ form }) => {
 									name={'child.parents[0].organismo.name'}
 									value={form.values.child.parents[0].organismo.name}
 									optionText={'Organismo'}
-									onChange={form.handleChange}
+									onChange={(e) => handleOrganismo(e.target.value)}
 									onBlur={form.handleBlur}
 									mapFunction={organismosToMap.map((organismo) => (
 										<option key={organismo._id} value={organismo.name}>

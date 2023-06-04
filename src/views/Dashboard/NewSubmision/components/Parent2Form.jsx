@@ -50,7 +50,7 @@ const Parent2Form = ({ form }) => {
 							<div className='col-md-2'>
 								<select
 									className='form-select d-inline'
-									id='typeParent1'
+									id='typeParent2'
 									name='child.parents[1].typeParent'
 									value={form.values.child?.parents[1].typeParent}
 									onChange={form.handleChange}
@@ -68,8 +68,8 @@ const Parent2Form = ({ form }) => {
 
 						<div className='form-group d-inline justify-content-evenly'>
 							<div className='row align-items-center mb-3'>
-								<InputSwitch
-									className={'col-md-2 form-check form-switch'}
+							<InputSwitch
+									className={'form-check form-switch'}
 									id={'convivencia2'}
 									name={'child.parents[1].convivencia'}
 									value={form.values.child.parents[1].convivencia}

@@ -33,6 +33,14 @@ function UserForm({ user }) {
 		validationSchema: UserSchema,
 	});
 
+
+	useEffect(() => {
+		if (user) {
+			form.setValues(user);
+		}
+	}, [user]);
+
+	
 	const handleChange = (event) => {
 		const isChecked = event.target.checked;
 		if (isChecked) form.values.role = 'admin';
@@ -40,12 +48,6 @@ function UserForm({ user }) {
 			form.values.role = 'guest';
 		}
 	};
-
-	useEffect(() => {
-		if (user) {
-			form.setValues(user);
-		}
-	}, [user]);
 
 	return (
 		<div className='show-form container list mt-3 col-6' id='user'>
@@ -152,7 +154,9 @@ function UserForm({ user }) {
 										onClickCapture={handleChange}
 										value={form.values.role}
 									/>
-									<label className='custom-control-label text-secondary'>Administrador</label>
+									<label className='custom-control-label text-secondary' htmlFor='role'>
+										Administrador
+									</label>
 								</div>
 							</div>
 						</div>
