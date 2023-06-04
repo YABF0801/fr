@@ -4,6 +4,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { confirmAlert } from 'react-confirm-alert';
 import OrganismoForm from './OrganismoForm';
 import { useAuthContext } from '../../../../core/context/authContext';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 
 const OrganismosList = () => {
 	const { queryOrganismos, deleteOrganismo } = useOrganismoContext();
@@ -141,10 +142,13 @@ const OrganismosList = () => {
 						</div>
 
 						{queryOrganismos.isLoading ? (
-							<span>Loading...</span>
+							<div className='row m-5'>
+							<SmallSpinner className='m-4 mx-auto' data={'organismos'} color={'#36616c'}/>
+							</div>
 						) : (
 							<DataTable columns={columns} data={organismosLocal} />
 						)}
+
 					</div>
 				</div>
 				<OrganismoForm organismo={selectedOrganismo} />

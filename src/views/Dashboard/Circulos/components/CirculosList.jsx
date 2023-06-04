@@ -382,7 +382,7 @@ const CirculosList = () => {
 						</div>
 						{queryCirculos.isLoading ? (
 							<div className='row m-5'>
-							<SmallSpinner className='m-4 mx-auto' color={'#36616c'}/>
+							<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'}/>
 							</div>
 						) : (
 							<DataTable columns={columns} data={circulosLocal} />

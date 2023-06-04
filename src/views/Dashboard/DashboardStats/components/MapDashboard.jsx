@@ -6,7 +6,7 @@ import { childIcon, ciIcon } from '../../../../common/MapMarker/MarkerIcons';
 const MapDashboard = () => {
 	const { queryCirculosPosition, querySubmisionsPosition } = useAllPositions();
 	
-	const submisions = querySubmisionsPosition.data ? querySubmisionsPosition.data : [];
+	// const submisions = querySubmisionsPosition.data ? querySubmisionsPosition.data : [];
 	const circulos = queryCirculosPosition.data ? queryCirculosPosition.data : [];
 
 	return (
@@ -28,7 +28,7 @@ const MapDashboard = () => {
 				// url='/public/Tiles/{z}/{x}/{y}.png'
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			/>
-			{!querySubmisionsPosition.isLoading &&
+			{/* {!querySubmisionsPosition.isLoading &&
 				submisions.map((submision) => (
 					<Marker key={submision._id} position={submision.child.latlng} icon={childIcon}>
 						<Popup>
@@ -41,7 +41,7 @@ const MapDashboard = () => {
 							</span>
 						</Popup>
 					</Marker>
-				))}
+				))} */}
 				
 			{!queryCirculosPosition.isLoading &&
 				circulos.map((circulo) => (

@@ -5,6 +5,7 @@ import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
 import { useAuthContext } from '../../../../core/context/authContext';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 
 
 const GeneralListTable = () => {
@@ -411,15 +412,13 @@ const GeneralListTable = () => {
 								</button>
 							</div>
 						</div>
-						{
-							querySubmision.isLoading ? (
-								<span>Loadng...</span>
-							) :
-								(
-									<DataTable columns={ columns } data={ submisionsLocal } autoWidth={ true } />
-								)
-						}
-
+						{querySubmision.isLoading ? (
+							<div className='row m-5'>
+							<SmallSpinner className='m-4 mx-auto' data={'planillas'} color={'#36616c'}/>
+							</div>
+						) : (
+							<DataTable columns={ columns } data={ submisionsLocal } autoWidth={ true } />
+						)}
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 							<h4>Leyenda: </h4>

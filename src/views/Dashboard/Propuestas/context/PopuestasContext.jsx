@@ -12,7 +12,7 @@ import {
 const PropuestasContext = createContext();
 
 export const PropuestasProvider = ({ children }) => {
-	const { data: propuestas = null } = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
+	const queryPropuestas = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
 
 	const queryClient = useQueryClient();
 
@@ -39,12 +39,12 @@ export const PropuestasProvider = ({ children }) => {
 
 	const value = useMemo(
 		() => ({
-			propuestas,
+			queryPropuestas,
 			generarPropuestas,
 			aceptarPropuestas,
 			rechazarPropuestas,
 		}),
-		[propuestas]
+		[queryPropuestas]
 	);
 
 
