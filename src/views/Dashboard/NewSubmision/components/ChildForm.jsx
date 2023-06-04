@@ -61,7 +61,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 
 							<div className='col-md-3'>
 								<input
-									type='text'
+									type='number'
 									className='form-control'
 									id='carnet'
 									name='child.carnet'

@@ -21,7 +21,7 @@ export const submisionsApiCreate = async (submision) => {
 
 export const submisionsApiUpdate = async (submision) => {
 	try {
-		await baseAxios.put(`/submisions/${submision.id}`, submision);
+		await baseAxios.put(`/submisions/${submision._id}`, submision);
 		ToastNotification('success', `${SuccessMsg('update', `planilla ${submision.entryNumber}`)}`);
 	} catch (error) {
 		ToastNotification('error', `${ErrorMsg('update', 'planilla')} : ${error.message}`);

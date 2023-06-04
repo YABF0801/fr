@@ -56,6 +56,7 @@ export const validateAttendance = (value) => {
 	return /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{5}$/.test(value);
   };
 
+ 
   export const validateYearOfLife = (value) => {
 	if (value === undefined ) return false;
 	const parsedValue = parseInt(value, 10);

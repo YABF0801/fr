@@ -2,24 +2,16 @@ import * as Yup from 'yup';
 import {
     naturalNumber,
 	validateCarnet,
-	validateParentOcupation,
-	validateParentType,
 	validateStringMin2,
 	validateStringMin5,
-	validateSubmisionFinality,
-	validateSubmisionStatus,
-	validateSubmisionType,
 	validateYearOfLife,
 } from '../yupValidations/validateInputFunctions';
 
 export const SubmisionSchema = Yup.object().shape({
-	finality: Yup.string().test('submision finality', 'El tipo de finalidad no es válido', (value) =>
-		validateSubmisionFinality(value)
-	),
+	
+	finality: Yup.string(),
 
-	submisiontype: Yup.string().test('submision tipo', 'El tipo de planilla no es válido', (value) =>
-		validateSubmisionType(value)
-	),
+	submisiontype: Yup.string(),
 
 	socialCase: Yup.boolean(),
 
@@ -29,7 +21,7 @@ export const SubmisionSchema = Yup.object().shape({
 
 	motive: Yup.string().optional(),
 
-	status: Yup.string().test('valid-status', 'Estado de planilla no válido', validateSubmisionStatus),
+	status: Yup.string(),
 
 	createdBy: Yup.string(),
 
@@ -75,9 +67,10 @@ export const SubmisionSchema = Yup.object().shape({
 			name: Yup.string(),
 		}),
 
-		latlng: Yup.array().required('seleccione ubicacion en el mapa'),
+		latlng: Yup.array(),
 
 		parents: Yup.array().of(
+
 			Yup.object().shape({
 				parentName: Yup.string()
 					.required('El nombre es requerido')
@@ -93,9 +86,7 @@ export const SubmisionSchema = Yup.object().shape({
 
 				uniqueParent: Yup.boolean(),
 
-				typeParent: Yup.string().test('parent tipo', 'El tipo no es válido', (value) =>
-					validateParentType(value)
-				),
+				typeParent: Yup.string(),
 
 				convivencia: Yup.boolean(),
 
@@ -113,9 +104,7 @@ export const SubmisionSchema = Yup.object().shape({
 					.min(8, 'El número de teléfono debe tener al menos 8 caracteres')
 					.max(15, 'El número de teléfono debe tener como máximo 15 caracteres'),
 
-				occupation: Yup.string().test('occupation', 'El dato no es válido', (value) =>
-					validateParentOcupation(value)
-				),
+				occupation: Yup.string(),
 
 				workName: Yup.string()
 					.optional()
@@ -149,11 +138,10 @@ export const SubmisionSchema = Yup.object().shape({
 					.when('occupation', {
 						is: 'trabajador',
 						then: Yup.object()
-						.required('Se requiere un organismo')
 						.shape({
 							name: Yup.string(),
 							weight: Yup.number()
-						})
+						}).required('Se requiere un organismo')
 					}),
 
                 salary: Yup.number()
@@ -171,8 +159,7 @@ export const SubmisionSchema = Yup.object().shape({
 				otherChildrenCenter: Yup.string().optional()
                 .when('otherChildrenInCi', {
                     is: true,
-                    then: Yup.string()
-                    .required('Seleccione un circulo'),
+                    then: Yup.string().required('Seleccione un circulo'),
                 }),
 
 				pregnant: Yup.boolean(),
