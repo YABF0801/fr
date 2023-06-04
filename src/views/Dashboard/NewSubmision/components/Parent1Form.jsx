@@ -2,7 +2,6 @@ import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 import InputSwitch from '../../../../common/uiForms/imputSwitch';
 import Select from '../../../../common/uiForms/select';
-
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
 
