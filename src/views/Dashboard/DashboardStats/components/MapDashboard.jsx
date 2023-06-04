@@ -7,7 +7,6 @@ const MapDashboard = () => {
 	const { queryCirculosPosition, querySubmisionsPosition } = useAllPositions();
 	
 	const submisions = querySubmisionsPosition.data ? querySubmisionsPosition.data : [];
-	console.log(submisions)
 	const circulos = queryCirculosPosition.data ? queryCirculosPosition.data : [];
 
 	return (

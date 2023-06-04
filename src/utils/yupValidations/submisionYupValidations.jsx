@@ -148,10 +148,12 @@ export const SubmisionSchema = Yup.object().shape({
 					.optional()
 					.when('occupation', {
 						is: 'trabajador',
-						then: Yup.object().required('Se requiere un organismo').shape({
+						then: Yup.object()
+						.required('Se requiere un organismo')
+						.shape({
 							name: Yup.string(),
-							weight: Yup.number(),
-						}),
+							weight: Yup.number()
+						})
 					}),
 
                 salary: Yup.number()

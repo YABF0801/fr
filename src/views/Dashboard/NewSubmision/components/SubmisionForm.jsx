@@ -59,8 +59,6 @@ const SubmisionForm = ({ form, submision }) => {
 		}
 	};
 
-	console.log('social',form.values.socialCase);
-
 	return (
 		<div id='sub'>
 			<h3 className='text-center text-secondary'>Datos generales de la planilla</h3>

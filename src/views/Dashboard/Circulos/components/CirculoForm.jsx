@@ -26,7 +26,6 @@ function CirculoForm({ circulo, showAttendance }) {
 			if (circulo) {
 				await updateCirculo.mutate({ ...values });
 			} else {
-				console.log(formData);
 				await addCirculo.mutate(formData);
 			}
 			resetForm();
