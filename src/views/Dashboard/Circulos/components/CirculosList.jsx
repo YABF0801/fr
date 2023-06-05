@@ -1,5 +1,5 @@
 import { useCirculoContext } from '../context/CirculoContext';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
@@ -7,9 +7,10 @@ import { circulosFullDataset, exportExcel } from '../../../../common/Export';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
 import { useAuthContext } from '../../../../core/context/authContext';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import CirculoColumns from './CirculoTableColumns';
 
 const CirculosList = () => {
-	const { queryCirculos, deleteCirculo /* changeStatusCirculo */ } = useCirculoContext();
+	const { queryCirculos, deleteCirculo } = useCirculoContext();
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [hideMatricula, setHideMatricula] = useState(true);
@@ -57,28 +58,6 @@ const CirculosList = () => {
 		setCirculosLocal(elements);
 	};
 
-	/* 	const confirmStatusChange = (row) => {
-		confirmAlert({ 
-		  message: `Va a descativar el circulo ${row.name}, ¿está seguro de desactivarlo?`, 
-		  buttons: [ 
-			{
-				className: 'cancel-btn ',
-			  label: 'Cancelar',
-			  onClick: () => {},
-			},
-			{ className: 'save-btn',
-			  label: 'Cambiar',
-			  onClick: () => statusChangeCirculoById(row._id),
-			},
-		  ],
-		  className: 'button-group d-flex justify-content-evenly'
-		});
-	  }; */
-
-	/* 	  const statusChangeCirculoById = async (id) => {
-		await changeStatusCirculo.mutate(id);
-	}; */
-
 	const confirmDelete = (row) => {
 		confirmAlert({
 			message: `Va a eliminar el circulo ${row.name}, ¿está seguro de eliminarlo?`,
@@ -115,204 +94,7 @@ const CirculosList = () => {
 		setHideActive(!hideActive);
 	};
 
-	const columns = useMemo(
-		() => [
-			{
-				name: 'Numero',
-				id: 1,
-				selector: (row) => row.number,
-				sortable: true,
-				center: true,
-				width: '8rem',
-			},
-
-			{
-				name: 'Nombre',
-				selector: (row) => <h4 className='fw-bold'>{row.name}</h4>,
-				sortable: true,
-				center: true,
-				grow: 2,
-			},
-			{
-				name: 'C 2',
-				selector: (row) => row.normed_capacity2,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M 2',
-				selector: (row) => <h4 className='text-info'>{row.matricula2}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls2}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula2 - row.girls2}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 3',
-				selector: (row) => row.normed_capacity3,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M 3',
-				selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls3}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula3 - row.girls3}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 4',
-				selector: (row) => row.normed_capacity4,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M 4',
-				selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls4}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula4 - row.girls4}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 5',
-				selector: (row) => row.normed_capacity5,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M 5',
-				selector: (row) => <h4 className='text-info'>{row.matricula5}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls5}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula5 - row.girls5}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 6',
-				selector: (row) => row.normed_capacity6,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M 6',
-				selector: (row) => <h4 className='text-info'>{row.matricula6}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls6}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula6 - row.girls6}</h4>,
-				center: true,
-				omit: hideMatricula,
-				width: '5rem',
-			},
-
-			{
-				name: ' ',
-				cell: (row) =>
-					row.isCiActive ? (
-						<h4 className='text-active'>Activo</h4>
-					) : (
-						<p className='text-inactive'>Inactivo</p>
-					),
-				sortable: true,
-				omit: hideActive,
-			},
-			isAuthenticated.user?.role === 'admin' && {
-				name: '', // action buttons
-				cell: (row) => (
-					<div className='d-flex gap-1 justify-content-center'>
-						<a className='btn btn-sm' href='#circulo' onClickCapture={() => editCirculo(row._id)}>
-							<i className='action-btn bi bi-pencil-square'></i>
-						</a>
-
-						<button onClick={() => confirmDelete(row)} className='btn btn-sm'>
-							<i className='action-btn bi bi-trash-fill'></i>
-						</button>
-						{/* 
-					<button
-						onClick={() => confirmStatusChange(row)}
-						className='btn btn-sm'
-					><i className="action-btn bi bi-house-dash"></i>
-					</button>
-
-					 */}
-					</div>
-				),
-
-				allowOverflow: true,
-				button: true,
-				width: '100px',
-			},
-		],
-		[hideMatricula, hideActive]
-	);
+	const columns = CirculoColumns({isAuthenticated, hideMatricula, hideActive, editCirculo, confirmDelete});
 
 	function showForm() {
 		document.getElementById('circulo').style.display = 'block';
@@ -382,7 +164,7 @@ const CirculosList = () => {
 						</div>
 						{queryCirculos.isLoading ? (
 							<div className='row m-5'>
-							<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'}/>
+								<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'} />
 							</div>
 						) : (
 							<DataTable columns={columns} data={circulosLocal} />

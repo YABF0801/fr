@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import UserForm from './UserForm';
 import { confirmAlert } from 'react-confirm-alert';
+import UserColumns from './UserTableColumns';
 
 const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
@@ -65,55 +66,7 @@ const UsersList = () => {
 		setUsersLocal(elements);
 	};
 
-	const columns = [
-		{
-			name: 'Usuario',
-			id: 1,
-			selector: (row) => <h4 className='fw-bold'>{row.nickname}</h4>,
-			sortable: true,
-			center: true,
-		},
-		{
-			name: 'Nombre',
-			selector: (row) => row.name + ' ' + row.lastname,
-			sortable: true,
-		},
-		{
-			name: 'Cargo',
-			selector: (row) => row.position,
-			sortable: true,
-			grow: 2,
-			/*             left:true */
-		},
-		{
-			name: '',
-			cell: (row) =>
-				row.role === 'admin' ? (
-					<h4 className='text-active'>Admin</h4>
-				) : (
-					<p className='text-inactive'>Invitado</p>
-				),
-			sortable: true,
-			center: true,
-		},
-		{
-			name: '', // action buttons
-			cell: (row) => (
-				<div className='d-flex gap-1 justify-content-center'>
-					<a className='btn btn-sm' href='#user' onClickCapture={() => editUser(row._id)}>
-						<i className='action-btn bi bi-pencil-square'></i>
-					</a>
-
-					<button onClick={() => confirmDelete(row)} className='btn btn-sm'>
-						<i className='action-btn bi bi-trash-fill'></i>
-					</button>
-				</div>
-			),
-			allowOverflow: true,
-			button: true,
-			width: '100px',
-		},
-	];
+	const columns = UserColumns({ editUser, confirmDelete })
 
 	function showForm() {
 		document.getElementById('user').style.display = 'block';

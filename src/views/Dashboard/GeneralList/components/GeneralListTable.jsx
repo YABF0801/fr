@@ -1,12 +1,12 @@
 import { useSubmisionContext } from '../context/SumisionContext';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
 import { useAuthContext } from '../../../../core/context/authContext';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-
+import GeneralListColumns from './GeneralListColumns';
 
 const GeneralListTable = () => {
 	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
@@ -38,20 +38,20 @@ const GeneralListTable = () => {
 		exportExcel(dataset, 'Planillas', 'Listado de Planillas');
 		confirmAlert({
 			message: `Planillas exportadas con éxito`,
-			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => { } }],
+			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => {} }],
 		});
 	};
 
 	useEffect(() => {
 		setSubmisionsLocal(querySubmision.data);
-		return function cleanUp() { };
+		return function cleanUp() {};
 	}, [querySubmision.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
 			setSubmisionsLocal(querySubmision.data);
 		}
-		return function cleanUp() { };
+		return function cleanUp() {};
 	}, [search]);
 
 	const confirmDelete = (row) => {
@@ -61,7 +61,7 @@ const GeneralListTable = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => { },
+					onClick: () => {},
 				},
 				{ className: 'save-btn', label: 'Eliminar', onClick: () => deleteSubmisionById(row._id) },
 			],
@@ -80,7 +80,7 @@ const GeneralListTable = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => { },
+					onClick: () => {},
 				},
 				{ className: 'save-btn', label: 'Dar Baja', onClick: () => bajaSubmisionById(row._id) },
 			],
@@ -150,192 +150,16 @@ const GeneralListTable = () => {
 		setHideAddress(!hideAddress);
 	};
 
-	const columns = useMemo(
-		() => [
-			{
-				name: 'No.',
-				id: 1,
-				selector: (row) => row.entryNumber + ' / ' + new Date(row.createdAt).getFullYear(),
-				sortable: true,
-				center: true,
-				width: '6rem',
-			},
-			{
-				name: ' ',
-				cell: (row) =>
-					row.finality === 'om' ? <h4 className='text-info'>OM</h4> : <h4 className='text-warning'>OS</h4>,
-				sortable: true,
-				center: true,
-				width: '3.5rem',
-			},
-			{
-				name: 'CS',
-				selector: (row) => row.socialCase,
-				cell: (row) => (row.socialCase ? <i className='fs-5 listcheck bi bi-check-lg'></i> : ''),
-				sortable: true,
-				center: true,
-				omit: hideSocialCase,
-				width: '4rem',
-			},
-			{
-				name: 'Nombre',
-				selector: (row) => (
-					<h4 className='fw-bold'>
-						{ row.child.childName } { row.child.childLastname }
-					</h4>
-				),
-				sortable: true,
-				grow: 2,
-				width: '11rem',
-			},
-			{
-				name: 'Carnet',
-				selector: (row) => row.child.carnet,
-				sortable: true,
-				center: true,
-				width: '7rem',
-			},
-			{
-				name: 'Dirección',
-				selector: (row) => row.child.childAddress,
-				grow: 4,
-				omit: hideAddress,
-			},
-			{
-				name: 'Sexo',
-				cell: (row) => {
-					if (row.child.sex === 'masculino') {
-						return <h4 className='text-info '>M</h4>;
-					}
-					if (row.child.sex === 'femenino') {
-						return <h4 className='text-danger '>F</h4>;
-					}
-				},
-
-				sortable: true,
-				center: true,
-				width: '6rem',
-			},
-			{
-				name: 'Edad',
-				cell: (row) => {
-					if (row.child.age < 1) {
-						return row.child.age / 0.01 + 'm';
-					}
-					return row.child.age;
-				},
-				sortable: true,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'Año',
-				selector: (row) => row.child.year_of_life,
-				sortable: true,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'Madre',
-				selector: (row) => row.child.parents[0].parentName + ' ' + row.child.parents[0].parentLastname,
-				sortable: true,
-				grow: 2,
-				width: '10rem',
-			},
-			{
-				name: 'Teléfono',
-				selector: (row) => row.child.parents[0].phoneNumber,
-				grow: 2,
-				omit: hidePhone,
-				width: '6rem',
-			},
-			{
-				name: 'Centro de Trabajo',
-				cell: (row) => {
-					if (row.child.parents[0].workName) {
-						return row.child.parents[0].workName;
-					} else if (!row.child.parents[0].workName && row.child.parents[0].occupation === 'jubilado') {
-						return <p>Jubilado</p>;
-					} else if (!row.child.parents[0].workName && row.child.parents[0].occupation === 'asistenciado') {
-						return <p className='text-secondary'>Asistenciado</p>;
-					}
-				},
-				sortable: true,
-				grow: 2,
-				width: '9rem',
-			},
-			{
-				name: 'Padre',
-				cell: (row) =>
-					row.child.parents[1]
-						? row.child.parents[1].parentName + ' ' + row.child.parents[1].parentLastname
-						: '',
-				sortable: true,
-				grow: 2,
-				omit: hidePadre,
-				width: '10rem',
-			},
-			{
-				name: 'C.Popular',
-				selector: (row) => row.child.cPopular,
-				sortable: true,
-				grow: 2,
-				width: '8rem',
-			},
-			{
-				name: ' ',
-				cell: (row) => {
-					if (row.status === 'matricula') {
-						return <h4 className='text-success '>Matrícula</h4>;
-					} else if (row.status === 'pendiente') {
-						return <h4 className='text-secondary '>Pendiente</h4>;
-					} else if (row.status === 'baja') {
-						return <h4 className='text-danger '>Baja</h4>;
-					}
-				},
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'Ciculo',
-				cell: (row) => {
-					if (row.child.circulo) {
-						return row.child.circulo.name;
-					} else {
-						return '';
-					}
-				},
-				sortable: true,
-				grow: 2,
-				width: '8rem',
-				center: true,
-			},
-			isAuthenticated.user?.role === 'admin' && ({
-				name: '', // action buttons
-				cell: (row) => (
-
-					<div className='action d-flex '>
-						<a className='btn btn-sm' href='#submision' onClickCapture={ () => editSubmision(row._id) }>
-							<i className='action-btn bi bi-pencil-square'></i>
-						</a>
-
-						<button onClick={ () => confirmDelete(row) } className='btn btn-sm'>
-							<i className='action-btn bi bi-trash-fill'></i>
-						</button>
-
-						<button onClick={ () => confirmBaja(row) } className='btn btn-sm'>
-							<i className='action-btn bi bi-person-dash'></i>
-						</button>
-					</div>
-
-				),
-				allowOverflow: true,
-				button: true,
-				width: '9rem',
-			}),
-		],
-		[hideSocialCase, hideAddress, hidePhone, hidePadre]
-	);
+	const columns = GeneralListColumns({
+		isAuthenticated,
+		hideSocialCase,
+		hideAddress,
+		hidePhone,
+		hidePadre,
+		editSubmision,
+		confirmDelete,
+		confirmBaja,
+	});
 
 	function showForm() {
 		document.getElementById('submision').style.display = 'block';
@@ -354,8 +178,8 @@ const GeneralListTable = () => {
 									className='search_input '
 									id='search'
 									placeholder='Búsqueda...'
-									value={ search }
-									onChange={ handleSearch }
+									value={search}
+									onChange={handleSearch}
 								/>
 								<a className='search_icon'>
 									<i className='bi bi-search'></i>
@@ -367,7 +191,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={ handleHideSocialCase }
+									onClick={handleHideSocialCase}
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Caso Social
@@ -376,7 +200,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={ handleHidePhone }
+									onClick={handleHidePhone}
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Teléfono
@@ -385,7 +209,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={ handleHideAddress }
+									onClick={handleHideAddress}
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Dirección
@@ -394,7 +218,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={ handleHidePadre }
+									onClick={handleHidePadre}
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Padre
@@ -402,22 +226,23 @@ const GeneralListTable = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								{
-									isAuthenticated.user?.role === 'admin' && (<a href='#submision' onClickCapture={ showForm } className='btn customize-btn'>
+								{isAuthenticated.user?.role === 'admin' && (
+									<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
 										<i className='bi bi-plus-lg'></i>
-									</a>) }
+									</a>
+								)}
 
-								<button type='excel' onClick={ handleExport } className='btn export-btn'>
+								<button type='excel' onClick={handleExport} className='btn export-btn'>
 									Exportar
 								</button>
 							</div>
 						</div>
 						{querySubmision.isLoading ? (
 							<div className='row m-5'>
-							<SmallSpinner className='m-4 mx-auto' data={'planillas'} color={'#36616c'}/>
+								<SmallSpinner className='m-4 mx-auto' data={'planillas'} color={'#36616c'} />
 							</div>
 						) : (
-							<DataTable columns={ columns } data={ submisionsLocal } autoWidth={ true } />
+							<DataTable columns={columns} data={submisionsLocal} autoWidth={true} />
 						)}
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
@@ -428,7 +253,7 @@ const GeneralListTable = () => {
 						</div>
 					</div>
 				</div>
-				<SubmisionForm submision={ selectedSubmision } />
+				<SubmisionForm submision={selectedSubmision} />
 			</div>
 		</section>
 	);
