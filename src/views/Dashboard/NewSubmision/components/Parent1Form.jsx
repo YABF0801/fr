@@ -87,7 +87,7 @@ const Parent1Form = ({ form }) => {
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								>
-									<option>Parentesco</option>
+									<option value='0'>Parentesco</option>
 									<option value='madre'>Madre</option>
 									<option value='padre'>Padre</option>
 									<option value='tutor'>Tutor</option>

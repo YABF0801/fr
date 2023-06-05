@@ -56,7 +56,7 @@ const Parent2Form = ({ form }) => {
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								>
-									<option>Parentesco</option>
+									<option value='0'>Parentesco</option>
 									<option value='madre'>Madre</option>
 									<option value='padre'>Padre</option>
 									<option value='tutor'>Tutor</option>
@@ -68,6 +68,7 @@ const Parent2Form = ({ form }) => {
 
 						<div className='form-group d-inline justify-content-evenly'>
 							<div className='row align-items-center mb-3'>
+							<div className='col-md-2'>
 							<InputSwitch
 									className={'form-check form-switch'}
 									id={'convivencia2'}
@@ -78,6 +79,7 @@ const Parent2Form = ({ form }) => {
 									defaultChecked={form.values.child.parents[1].convivencia}
 									label='Convive'
 								/>
+								</div>
 
 								<div className='col-md-10 '>
 									<input

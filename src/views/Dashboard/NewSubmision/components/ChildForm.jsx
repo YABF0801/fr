@@ -16,6 +16,8 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 		fetchData();
 	}, []);
 
+	console.log(form.values.child.cPopular)
+
 	return (
 		<div id='child'>
 			<hr className='text-secondary' />
