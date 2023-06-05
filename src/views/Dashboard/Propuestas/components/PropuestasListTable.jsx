@@ -1,5 +1,5 @@
 import { usePropuestasContext } from '../context/PopuestasContext';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { useNavigate } from 'react-router-dom';
