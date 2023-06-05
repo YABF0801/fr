@@ -1,25 +1,21 @@
 // FIX THIS NAVBAR AND TRY TO FIX TOGGLE TOO
-import { Tooltip } from 'react-tooltip';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-// import { useState } from 'react';
-
+import { Tooltip } from 'react-tooltip';
 import {
-	DASHBOARD,
-	CIRCULOS,
-	GENERAL_LIST,
-	NEW_SUBMISISON,
+	CIRCULOS, DASHBOARD, GENERAL_LIST, HELP, NEW_SUBMISISON,
 	ORGANISMOS,
 	PROPUESTAS_LIST,
-	USERS,
-	HELP,
+	USERS
 } from '../../core/config/routes/paths';
 
-import './Navbar.scss';
+import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useAuthContext } from '../../core/context/authContext';
-import { useEffect, useState } from 'react';
+import './Navbar.scss';
+import Pill from './PillBadge'; 	
 
 const Navbar = () => {
+
 	const navigate = useNavigate();
 	const { logout } = useAuthContext();
 	const { isAuthenticated } = useAuthContext();
@@ -74,6 +70,9 @@ const Navbar = () => {
 									data-tooltip-id='tooltip'
 									data-tooltip-content='Listado de Propuestas'
 								/>
+								
+							<Pill id={'props-badge'} />
+        
 							</NavLink>
 						</li>
 
