@@ -55,10 +55,12 @@ export const SubmisionSchema = Yup.object().shape({
 		neighborhood: Yup.string().optional(),
 
 		cPopular: Yup.string()
-			.required('Se requiere el Consejo Popular'),
+			.required('Se requiere el Consejo Popular')
+			.test('valid select', 'Seleccione un elemento valido', (value) => value !== 0 && value !== '0'),
 
 		municipality: Yup.string()
-			.required('Se requiere el municipio'),
+			.required('Se requiere el municipio')
+			.test('valid select', 'Seleccione un elemento valido', (value) => value !== 0 && value !== '0'),
 
 		province: Yup.string(),
 

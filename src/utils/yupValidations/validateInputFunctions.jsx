@@ -73,4 +73,3 @@ export const validateAttendance = (value) => {
       return /^(trabajador|jubilado|asistenciado|estudiante)$/.test(value);
   };
 
-  
