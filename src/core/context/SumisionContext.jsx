@@ -8,7 +8,7 @@ import {
 	submisionsApiDelete,
 	submisionsApiGet,
 	submisionsApiUpdate,
-} from '../service/submision.services';
+} from '../../views/Dashboard/GeneralList/service/submision.services';
 
 const SubmisionContext = createContext();
 
