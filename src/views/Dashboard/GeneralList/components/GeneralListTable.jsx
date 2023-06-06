@@ -1,5 +1,5 @@
 import { useSubmisionContext } from '../context/SumisionContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
@@ -9,8 +9,9 @@ import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import GeneralListColumns from './GeneralListColumns';
 
 const GeneralListTable = () => {
+
 	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
-	const [submisionsLocal, setSubmisionsLocal] = useState([]);
+
 	const [search, setSearch] = useState('');
 	const [hideSocialCase, setHideSocialCase] = useState(true);
 	const [hidePadre, setHidePadre] = useState(true);
@@ -38,21 +39,10 @@ const GeneralListTable = () => {
 		exportExcel(dataset, 'Planillas', 'Listado de Planillas');
 		confirmAlert({
 			message: `Planillas exportadas con éxito`,
-			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => {} }],
+			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => { } }],
 		});
 	};
 
-	useEffect(() => {
-		setSubmisionsLocal(querySubmision.data);
-		return function cleanUp() {};
-	}, [querySubmision.data]);
-
-	useEffect(() => {
-		if (search.trim() === '') {
-			setSubmisionsLocal(querySubmision.data);
-		}
-		return function cleanUp() {};
-	}, [search]);
 
 	const confirmDelete = (row) => {
 		confirmAlert({
@@ -61,7 +51,7 @@ const GeneralListTable = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 				{ className: 'save-btn', label: 'Eliminar', onClick: () => deleteSubmisionById(row._id) },
 			],
@@ -80,7 +70,7 @@ const GeneralListTable = () => {
 				{
 					className: 'cancel-btn ',
 					label: 'Cancelar',
-					onClick: () => {},
+					onClick: () => { },
 				},
 				{ className: 'save-btn', label: 'Dar Baja', onClick: () => bajaSubmisionById(row._id) },
 			],
@@ -98,12 +88,13 @@ const GeneralListTable = () => {
 		const hasParentLastname = (item) => item.parentLastname !== undefined && item.parentLastname !== '';
 		const hasPhone = (item) => item.phoneNumber !== undefined;
 		setSearch(event.target.value);
+
 		const elements = submisionsLocal.filter((item) => {
 			if (
 				item.child.childAddress.toLowerCase().includes(search.toLowerCase()) ||
 				item.child.childName.toLowerCase().includes(search.toLowerCase()) ||
 				item.child.cPopular.toLowerCase().includes(search.toLowerCase()) ||
-				String(item.child.carnet).includes(search) ||
+				item.child.carnet.toString().includes(search) ||
 				(item.child.parents.every(hasWorkName) &&
 					item.child.parents.some((parent) =>
 						parent.workName.toLowerCase().includes(search.toLowerCase())
@@ -121,12 +112,12 @@ const GeneralListTable = () => {
 			) {
 				return item;
 			}
-			return undefined;
+			return null;
 		});
 		setSubmisionsLocal(elements);
 	};
 
-	const editSubmision = async (id) => {
+	const editSubmision = (id) => {
 		const submision = querySubmision.data.find((item) => item._id === id);
 		if (submision) {
 			setSelectedSubmision(submision);
@@ -150,7 +141,7 @@ const GeneralListTable = () => {
 		setHideAddress(!hideAddress);
 	};
 
-	const columns = GeneralListColumns({
+	const { columns } = GeneralListColumns({
 		isAuthenticated,
 		hideSocialCase,
 		hideAddress,
@@ -178,8 +169,8 @@ const GeneralListTable = () => {
 									className='search_input '
 									id='search'
 									placeholder='Búsqueda...'
-									value={search}
-									onChange={handleSearch}
+									value={ search }
+									onChange={ handleSearch }
 								/>
 								<a className='search_icon'>
 									<i className='bi bi-search'></i>
@@ -191,7 +182,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHideSocialCase}
+									onClick={ handleHideSocialCase }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Caso Social
@@ -200,7 +191,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHidePhone}
+									onClick={ handleHidePhone }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Teléfono
@@ -209,7 +200,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHideAddress}
+									onClick={ handleHideAddress }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Dirección
@@ -218,7 +209,7 @@ const GeneralListTable = () => {
 									type='checkbox'
 									className='form-check-input m-md-1'
 									id='show_matricula'
-									onClick={handleHidePadre}
+									onClick={ handleHidePadre }
 								/>
 								<label className='custom-control-label ' htmlFor='show_matricula'>
 									Padre
@@ -226,24 +217,24 @@ const GeneralListTable = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								{isAuthenticated.user?.role === 'admin' && (
-									<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
+								{ isAuthenticated.user?.role === 'admin' && (
+									<a href='#submision' onClickCapture={ showForm } className='btn customize-btn'>
 										<i className='bi bi-plus-lg'></i>
 									</a>
-								)}
+								) }
 
-								<button type='excel' onClick={handleExport} className='btn export-btn'>
+								<button type='excel' onClick={ handleExport } className='btn export-btn'>
 									Exportar
 								</button>
 							</div>
 						</div>
-						{querySubmision.isLoading ? (
+						{ querySubmision.isLoading ? (
 							<div className='row m-5'>
-								<SmallSpinner className='m-4 mx-auto' data={'planillas'} color={'#36616c'} />
+								<SmallSpinner className='m-4 mx-auto' data={ 'planillas' } color={ '#36616c' } />
 							</div>
 						) : (
-							<DataTable columns={columns} data={submisionsLocal} autoWidth={true} />
-						)}
+							<DataTable columns={ columns } data={ querySubmision.data } autoWidth={ true } />
+						) }
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 							<h4>Leyenda: </h4>
@@ -253,7 +244,7 @@ const GeneralListTable = () => {
 						</div>
 					</div>
 				</div>
-				<SubmisionForm submision={selectedSubmision} />
+				<SubmisionForm submision={ selectedSubmision } />
 			</div>
 		</section>
 	);

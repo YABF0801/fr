@@ -13,6 +13,7 @@ import {
 const SubmisionContext = createContext();
 
 export const SubmisionProvider = ({ children }) => {
+
 	const querySubmision = useQuery({ queryKey: ['submisions'], queryFn: submisionsApiGet });
 
 	const queryClient = useQueryClient();
