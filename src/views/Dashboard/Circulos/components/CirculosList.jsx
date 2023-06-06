@@ -1,22 +1,23 @@
-import { useCirculoContext } from '../context/CirculoContext';
 import { useEffect, useState } from 'react';
-import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import CirculoForm from './CirculoForm';
 import { confirmAlert } from 'react-confirm-alert';
+import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
-import Proyeccion, { ProyeccionTable } from './Proyeccion';
-import { useAuthContext } from '../../../../core/context/authContext';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import { useAuthContext } from '../../../../core/context/authContext';
+import { useCirculoContext } from '../context/CirculoContext';
+import CirculoForm from './CirculoForm';
 import CirculoColumns from './CirculoTableColumns';
+import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
 const CirculosList = () => {
 	const { queryCirculos, deleteCirculo } = useCirculoContext();
-	const [circulosLocal, setCirculosLocal] = useState([]);
+
 	const [search, setSearch] = useState('');
 	const [hideMatricula, setHideMatricula] = useState(true);
 	const [hideActive, setHideActive] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
+	const [circulosLocal, setCirculosLocal] = useState([]);
 
 	const { isAuthenticated } = useAuthContext();
 
@@ -94,7 +95,13 @@ const CirculosList = () => {
 		setHideActive(!hideActive);
 	};
 
-	const columns = CirculoColumns({isAuthenticated, hideMatricula, hideActive, editCirculo, confirmDelete});
+	const {columns} = CirculoColumns({ 
+		isAuthenticated, 
+		hideMatricula, 
+		hideActive, 
+		editCirculo, 
+		confirmDelete 
+	});
 
 	function showForm() {
 		document.getElementById('circulo').style.display = 'block';
