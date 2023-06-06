@@ -35,11 +35,16 @@ import LandingPage from './views/Home/LandingPage';
 import DashboardLayout from './views/dashboard/layout/DashboardLayout';
 import { AdminRoute } from './core/guard';
 import { ToastContainer } from 'react-toastify';
+import { PropuestasProvider } from './core/context/PopuestasContext';
+import { SubmisionProvider } from './views/Dashboard/GeneralList/context/SumisionContext';
+
 
 function App() {
 	return (
 		<BrowserRouter>
 			<AuthContextProvider>
+			<SubmisionProvider>
+			<PropuestasProvider>
 				<>
 					<Routes>
 						<Route path={ HOME } element={ <PublicRoute /> }>
@@ -66,6 +71,8 @@ function App() {
 					</Routes>
 					<ToastContainer />
 				</>
+				</PropuestasProvider>
+				</SubmisionProvider>
 			</AuthContextProvider>
 		</BrowserRouter>
 	);

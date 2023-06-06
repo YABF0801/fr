@@ -1,5 +1,5 @@
 import { useSubmisionContext } from '../context/SumisionContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { confirmAlert } from 'react-confirm-alert';
@@ -18,8 +18,13 @@ const GeneralListTable = () => {
 	const [hidePhone, setHidePhone] = useState(true);
 	const [hideAddress, setHideAddress] = useState(true);
 	const [selectedSubmision, setSelectedSubmision] = useState(null);
-
+	const [submisionsLocal, setSubmisionsLocal] = useState([]);
 	const { isAuthenticated } = useAuthContext();
+
+	useEffect(() => {
+		setSubmisionsLocal(querySubmision.data);
+		return function cleanUp() {};
+	}, [querySubmision.data]);
 
 	const handleExport = () => {
 		const dataset = submisionsLocal.map((item) => ({
@@ -82,6 +87,13 @@ const GeneralListTable = () => {
 		await bajaSubmision.mutate(id);
 	};
 
+	useEffect(() => {
+		if (search.trim() === '') {
+			setSubmisionsLocal(querySubmision.data);
+		}
+		return function cleanUp() {};
+	}, [search]);
+
 	const handleSearch = (event) => {
 		const hasWorkName = (item) => item.workName !== undefined && item.workName !== '';
 		const hasParentName = (item) => item.parentName !== undefined && item.parentName !== '';
@@ -114,11 +126,11 @@ const GeneralListTable = () => {
 			}
 			return null;
 		});
-		setSubmisionsLocal(elements);
+		setSubmisionsLocal(elements) ;
 	};
 
 	const editSubmision = (id) => {
-		const submision = querySubmision.data.find((item) => item._id === id);
+		const submision = submisionsLocal.find((item) => item._id === id);
 		if (submision) {
 			setSelectedSubmision(submision);
 			showForm();
@@ -233,7 +245,7 @@ const GeneralListTable = () => {
 								<SmallSpinner className='m-4 mx-auto' data={ 'planillas' } color={ '#36616c' } />
 							</div>
 						) : (
-							<DataTable columns={ columns } data={ querySubmision.data } autoWidth={ true } />
+							<DataTable columns={ columns } data={ submisionsLocal } autoWidth={ true } />
 						) }
 
 						<div className='text-secondary d-flex justify-conten-evenly gap-3'>

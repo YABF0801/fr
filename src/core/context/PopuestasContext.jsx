@@ -3,11 +3,11 @@ import { createContext, useContext, useMemo } from 'react';
 
 import PropTypes from 'prop-types';
 import {
-	propuestasApiGet,
 	propuestaApiAceptar,
 	propuestaApiGenerar,
-	propuestaApiRechazar
-} from '../service/propuestas.services';
+	propuestaApiRechazar,
+	propuestasApiGet,
+} from '../services/propuestas.services';
 
 const PropuestasContext = createContext();
 
@@ -19,23 +19,25 @@ export const PropuestasProvider = ({ children }) => {
 	const generarPropuestas = useMutation({
 		mutationFn: propuestaApiGenerar,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
 		},
 	});
 
 	const aceptarPropuestas = useMutation({
 		mutationFn: propuestaApiAceptar,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
 		},
 	});
 
 	const rechazarPropuestas = useMutation({
 		mutationFn: propuestaApiRechazar,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['submision'] });
+			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
 		},
 	});
+
+	console.log('context', queryPropuestas);
 
 	const value = useMemo(
 		() => ({
@@ -47,8 +49,7 @@ export const PropuestasProvider = ({ children }) => {
 		[queryPropuestas]
 	);
 
-
-	return <PropuestasContext.Provider value={ value }>{ children }</PropuestasContext.Provider>;
+	return <PropuestasContext.Provider value={value}>{children}</PropuestasContext.Provider>;
 };
 
 PropuestasProvider.propTypes = {

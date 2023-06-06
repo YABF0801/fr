@@ -1,11 +1,12 @@
-import { baseAxios } from '../../../../api/baseAxios';
-import ErrorMsg from '../../../../common/Toasts/ErrorMsg';
-import SuccessMsg from '../../../../common/Toasts/SuccessMsg';
-import ToastNotification from '../../../../common/Toasts/toasts';
+import { baseAxios } from '../../api/baseAxios';
+import ErrorMsg from '../../common/Toasts/ErrorMsg';
+import SuccessMsg from '../../common/Toasts/SuccessMsg';
+import ToastNotification from '../../common/Toasts/toasts';
 
 export const propuestasApiGet = async () => {
 	const allPropuestas = await baseAxios.get('/submisions');
 	const propuestas = allPropuestas.data.filter((submision) => submision.status === 'propuesta');
+	console.log('service', propuestas)
 	return propuestas;
 };
 

@@ -1,9 +1,7 @@
-import { useMemo } from "react";
 
 const PropuestasListColumns = () => {
 
-		const columns = useMemo(
-			() => [
+		const columns = [
 				{
 					name: 'No.',
 					id: 1,
@@ -133,10 +131,9 @@ const PropuestasListColumns = () => {
 					width: '8rem',
 					center: true,
 				},
-			],
-			[]
-		);
-return columns
+			];
+		
+return {columns}
 
 };
 

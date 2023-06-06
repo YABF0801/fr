@@ -13,11 +13,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import DatePickerToOm from './datePicker';
-import { propuestaApiGenerar } from '../../Propuestas/service/propuestas.services';
 import { nuevoCursoApiGet } from '../../Circulos/service/circulo.services';
 import { consecustiveApiReset } from '../../GeneralList/service/submision.services';
 import Progress from '../../../../common/Progress/ProgressBar';
 import ModalBase from '../../../../common/Modal/Modal';
+import { propuestaApiGenerar } from '../../../../core/services/propuestas.services';
 
 const OmAdministration = () => {
 	const [botonComenzarHabilitado, setBotonComenzarHabilitado] = useState(false);

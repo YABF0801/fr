@@ -1,4 +1,3 @@
-import { usePropuestasContext } from '../context/PopuestasContext';
 import { useEffect, useState } from 'react';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
@@ -7,12 +6,19 @@ import { confirmAlert } from 'react-confirm-alert';
 import { exportExcel } from '../../../../common/Export';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import PropuestasListColumns from './PropuestasListColumns';
+import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
+
 
 const PropuestasListTable = () => {
 	const { queryPropuestas, aceptarPropuestas, rechazarPropuestas } = usePropuestasContext();
-	const [propuestasLocal, setPropuestasLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [rowsSelected, setRowsSelected] = useState([]);
+	const [propuestasLocal, setPropuestasLocal] = useState([]);
+
+	useEffect(() => {
+		setPropuestasLocal(queryPropuestas.data);
+		return function cleanUp() {};
+	}, [queryPropuestas.data]);
 
 	const navigate = useNavigate();
 
@@ -36,11 +42,6 @@ const PropuestasListTable = () => {
 			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => {} }],
 		});
 	};
-
-	useEffect(() => {
-		setPropuestasLocal(queryPropuestas.data);
-		return function cleanUp() {};
-	}, [queryPropuestas.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
@@ -79,7 +80,7 @@ const PropuestasListTable = () => {
 			}
 			return undefined;
 		});
-		setPropuestasLocal(elements);
+		setPropuestasLocal(elements) ;
 	};
 
 	const confirmAceptar = () => {
@@ -139,7 +140,7 @@ const PropuestasListTable = () => {
 		}
 	};
 
-	const columns = PropuestasListColumns()
+	const {columns} = PropuestasListColumns()
 
 	return (
 		<section className='prop-list'>
