@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getCirculosPosition, getSubmisionsPosition,  } from '../services'
+import { getCirculosPosition, getSubmisionsPosition } from '../services'
 
 export const useAllPositions = () => {
 
@@ -9,9 +9,10 @@ export const useAllPositions = () => {
   })
 
   const querySubmisionsPosition = useQuery({
-    queryKey: ['SubmisionsPosition'],
+    queryKey: ['SubmisionsPositionAPi'],
     queryFn: getSubmisionsPosition
   })
 
-  return {queryCirculosPosition, querySubmisionsPosition}
+
+  return { queryCirculosPosition, querySubmisionsPosition }
 }

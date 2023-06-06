@@ -22,12 +22,13 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './styles/main.scss';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<QueryClientProvider client={ new QueryClient() }>
 			<App />
-			{/* <ReactQueryDevtools /> */}
+			<ReactQueryDevtools />
 		</QueryClientProvider>
 	</React.StrictMode>
 );
