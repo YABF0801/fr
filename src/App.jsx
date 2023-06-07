@@ -37,6 +37,7 @@ import { AdminRoute } from './core/guard';
 import { ToastContainer } from 'react-toastify';
 import { PropuestasProvider } from './core/context/PopuestasContext';
 import { SubmisionProvider } from './core/context/SumisionContext';
+import { OtorgamientoProvider } from './core/context/OtorgamientoContext';
 
 
 
@@ -45,6 +46,7 @@ function App() {
 		<BrowserRouter>
 			<AuthContextProvider>
 			<SubmisionProvider>
+				<OtorgamientoProvider>
 			<PropuestasProvider>
 				<>
 					<Routes>
@@ -73,6 +75,7 @@ function App() {
 					<ToastContainer />
 				</>
 				</PropuestasProvider>
+				</OtorgamientoProvider>
 				</SubmisionProvider>
 			</AuthContextProvider>
 		</BrowserRouter>

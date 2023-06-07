@@ -4,6 +4,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import UserForm from './UserForm';
 import { confirmAlert } from 'react-confirm-alert';
 import UserColumns from './UserTableColumns';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 
 const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
@@ -99,10 +100,13 @@ const UsersList = () => {
 							</div>
 						</div>
 						{queryUsers.isLoading ? (
-							<span>Loading...</span>
+							<div className='row m-5'>
+							<SmallSpinner className='m-4 mx-auto' data={'usuarios'} color={'#36616c'} />
+						</div>
 						) : (
 							<DataTable columns={columns} data={usersLocal} />
 						)}
+
 					</div>
 				</div>
 

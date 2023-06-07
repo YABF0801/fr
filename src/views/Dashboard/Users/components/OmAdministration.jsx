@@ -1,23 +1,12 @@
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import {
-	FechaOmApiGet,
-	resetContadorGp,
-	setContadorGp,
-	resetFechaOm,
-	resetToolsArrays,
-	getContadorGp,
-	setContadorCc,
-	getContadorCc,
-} from '../../../../utils/utiles.sevices';
 import { useNavigate } from 'react-router-dom';
-import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
-import DatePickerToOm from './datePicker';
-import { nuevoCursoApiGet } from '../../Circulos/service/circulo.services';
-import { consecustiveApiReset } from '../../GeneralList/service/submision.services';
-import Progress from '../../../../common/Progress/ProgressBar';
 import ModalBase from '../../../../common/Modal/Modal';
-import { propuestaApiGenerar } from '../../../../core/services/propuestas.services';
+import Progress from '../../../../common/Progress/ProgressBar';
+import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
+import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
+import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
+import DatePickerToOm from './datePicker';
 
 const OmAdministration = () => {
 	const [botonComenzarHabilitado, setBotonComenzarHabilitado] = useState(false);
@@ -26,46 +15,44 @@ const OmAdministration = () => {
 	const [botonFinalizarHabilitado, setBotonFinalizarHabilitado] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	
+	const { generarPropuestas } = usePropuestasContext();
+	const { 
+		queryFechaOm, 
+		queryContadorCambioCurso, 
+		queryContadorPropGeneradas, 
+		setContadorProp,
+		setContadorCambioCurso, 
+		nuevoCurso,
+		resetearFecha,
+		resetContadorProp,
+		resetArrays,
+		resetearConsecutivo
+	} = useOtorgamientoContext();
 
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const storedDate = await FechaOmApiGet();
-			const date = new Date(storedDate);
-			const fechaActual = new Date();
+	const date = new Date(queryFechaOm.data);
+	const fechaActual = new Date();
 
+	useEffect(() => {
+		const compareDates = () => {
 			const compare = date.getTime() <= fechaActual.getTime();
-			if (storedDate && compare) {
-				setBotonComenzarHabilitado(true);
-				/* 	await consecustiveApiReset(); */
-			}
-		};
-		fetchData();
-	}, []);
+			setBotonComenzarHabilitado(queryFechaOm.data && compare)};
+		compareDates();
+	}, [queryFechaOm.data, fechaActual]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const contadorGP = await getContadorGp();
-
-			if (contadorGP !== 0) {
-				setBotonCambioDeCursoHabilitado(true);
-			}
-		};
-		fetchData();
-	}, []);
+		queryContadorPropGeneradas.data !== 0 && 
+		setBotonCambioDeCursoHabilitado(true);
+	  }, [queryContadorPropGeneradas.data]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const contadorCC = await getContadorCc();
-			if (contadorCC !== 0) {
-				setBotonGenerarPropuestaHabilitado(true);
-				setBotonFinalizarHabilitado(true);
-				setBotonComenzarHabilitado(false);
-			}
-		};
-		fetchData();
-	}, []);
+		queryContadorCambioCurso.data !== 0 && 
+		setBotonGenerarPropuestaHabilitado(true);
+		setBotonFinalizarHabilitado(true);
+		setBotonComenzarHabilitado(false);
+	}, [queryContadorCambioCurso.data]);
 
 	const confirmFinalizarOms = () => {
 		confirmAlert({
@@ -83,17 +70,21 @@ const OmAdministration = () => {
 	};
 
 	const handleGenerateProps = async () => {
-		setIsModalOpen(true);
-		setShowProgressBar(true); // Mostrar la barra de progreso
+		try {
+			setIsModalOpen(true);
+			setShowProgressBar(true); 
 
-		await propuestaApiGenerar();
-		await setContadorGp(1);
+			await generarPropuestas.mutate();
+			await setContadorProp.mutate(1);
 
-		setTimeout(() => {
-			setShowProgressBar(false);
-			navigate(PROPUESTAS_LIST);
-			document.getElementById('props').style.display = 'block';
-		}, 3000);
+			setTimeout(() => {
+				setShowProgressBar(false);
+				navigate(PROPUESTAS_LIST);
+				document.getElementById('props').style.display = 'block';
+			}, 3000);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const confirmCambioDeCurso = () => {
@@ -123,19 +114,20 @@ const OmAdministration = () => {
 
 	const handleResetConsecutivo = async () => {
 		// TODO: para cuando llegue la fecha del otorgamiento
-		await consecustiveApiReset();
+		await resetearConsecutivo.mutate();
 	};
 
 	const handleCambioDeCurso = async () => {
-		await setContadorCc(1);
-		setBotonComenzarHabilitado(false);
-		await nuevoCursoApiGet();
+		await setContadorCambioCurso.mutate(1);
+		setBotonCambioDeCursoHabilitado(false);
+		await nuevoCurso.mutate();
 	};
 
 	const handleFinalizar = async () => {
-		await resetContadorGp();
-		await resetFechaOm();
-		await resetToolsArrays();
+		await resetContadorProp.mutate();
+		await resetearFecha.mutate();
+		await resetArrays.mutate();
+		document.getElementById('props').style.display = 'none';
 	};
 
 	return (

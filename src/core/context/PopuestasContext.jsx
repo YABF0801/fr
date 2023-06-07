@@ -37,8 +37,6 @@ export const PropuestasProvider = ({ children }) => {
 		},
 	});
 
-	console.log('context', queryPropuestas);
-
 	const value = useMemo(
 		() => ({
 			queryPropuestas,

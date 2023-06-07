@@ -66,7 +66,7 @@ export const cursoApiGet = async () => {
 	return tools.data.curso;
 };
 
-export const nuevoCursoApiGet = async () => {
+export const nuevoCursoApi = async () => {
 	try {
 		await baseAxios.post('/circulos/nuevo-curso');
 		ToastNotification('success', `${SuccessMsg('custom', `nuevo curso`, 'establecido')}`);

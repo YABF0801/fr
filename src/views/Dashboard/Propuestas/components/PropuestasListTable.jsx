@@ -123,7 +123,6 @@ const PropuestasListTable = () => {
 			await aceptarPropuestas.mutate(rowsSelected);
 			await rechazarPropuestas.mutate(notSelectedRows);
 			navigate(GENERAL_LIST);
-			document.getElementById('props').style.display = 'none';
 		} catch (error) {
 			console.error(error);
 		}
@@ -134,7 +133,6 @@ const PropuestasListTable = () => {
 		try {
 			await aceptarPropuestas.mutate(rowsSelected);
 			navigate(GENERAL_LIST);
-			document.getElementById('props').style.display = 'none';
 		} catch (error) {
 			console.error(error);
 		}
@@ -175,7 +173,7 @@ const PropuestasListTable = () => {
 
 						{queryPropuestas.isLoading ? (
 							<div className='row m-5'>
-								<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'} />
+								<SmallSpinner className='m-4 mx-auto' data={'propuestas'} color={'#36616c'} />
 							</div>
 						) : (
 							<DataTable

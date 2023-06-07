@@ -49,12 +49,12 @@ export const resetToolsArrays = async () => {
 
 export const getContadorGp = async () => {
 	const tools = await baseAxios.get(`/submisions/get-tools`);
-	return tools.data.contadorGp;
-};
-
+    return tools.data.contadorGP;
+  };
+  
 export const getContadorCc = async () => {
 	const tools = await baseAxios.get(`/submisions/get-tools`);
-	return tools.data.contadorCC;
+    return tools.data.contadorCC;
 };
 
    
