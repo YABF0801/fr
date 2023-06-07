@@ -6,7 +6,6 @@ import ToastNotification from '../../common/Toasts/toasts';
 export const propuestasApiGet = async () => {
 	const allPropuestas = await baseAxios.get('/submisions');
 	const propuestas = allPropuestas.data.filter((submision) => submision.status === 'propuesta');
-	console.log('service', propuestas)
 	return propuestas;
 };
 

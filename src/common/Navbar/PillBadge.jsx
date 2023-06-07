@@ -8,8 +8,6 @@ function Pill({ id }) {
 
 	const { queryPropuestas } = usePropuestasContext();
 
-console.log(queryPropuestas.data)
-
   const count = queryPropuestas.data ? queryPropuestas.data.length : 0
 
   return (

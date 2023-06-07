@@ -8,20 +8,15 @@ import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoCon
 const DatePickerToOm = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [existingDate, setExistingDate] = useState(null);
-  const [loading, setLoading] = useState(true);
-
+ 
   const {queryFechaOm, guardarFecha, resetearFecha} = useOtorgamientoContext();
 
   useEffect(() => {
-      const omDate = new Date(queryFechaOm.data);
-      if (omDate) {
-        setExistingDate(omDate);
-      }
-      setLoading(false);
+		queryFechaOm.data !== null && queryFechaOm.data !== undefined  && 
+		setExistingDate(queryFechaOm.data);;
+	  }, []);
 
-  }, [existingDate, selectedDate]);
-
-  const handleDateChange = (date) => {
+    const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
@@ -54,12 +49,7 @@ const DatePickerToOm = () => {
     setExistingDate(null);
   };
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
-
   const date = existingDate ? new Date(existingDate).toLocaleDateString() : null;
-
 
   return (
     <div className='pb-3 mb-4 gap-3 d-flex justify-content-end '>
