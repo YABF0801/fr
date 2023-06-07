@@ -25,7 +25,7 @@ const OmAdministration = () => {
 		setContadorCambioCurso, 
 		nuevoCurso,
 		resetearFecha,
-		resetContadorProp,
+		resetContadoresPropyCc,
 		resetArrays,
 		resetearConsecutivo
 	} = useOtorgamientoContext();
@@ -47,12 +47,6 @@ const OmAdministration = () => {
 		setBotonCambioDeCursoHabilitado(true);
 	  }, [queryContadorPropGeneradas.data]);
 
-	useEffect(() => {
-		queryContadorCambioCurso.data !== 0 && 
-		setBotonGenerarPropuestaHabilitado(true);
-		setBotonFinalizarHabilitado(true);
-		setBotonComenzarHabilitado(false);
-	}, [queryContadorCambioCurso.data]);
 
 	const confirmFinalizarOms = () => {
 		confirmAlert({
@@ -112,19 +106,27 @@ const OmAdministration = () => {
 		});
 	};
 
-	const handleResetConsecutivo = async () => {
-		// TODO: para cuando llegue la fecha del otorgamiento
-		await resetearConsecutivo.mutate();
-	};
-
 	const handleCambioDeCurso = async () => {
 		await setContadorCambioCurso.mutate(1);
 		setBotonCambioDeCursoHabilitado(false);
 		await nuevoCurso.mutate();
 	};
 
+	useEffect(() => {
+		queryContadorCambioCurso.data !== 0 && 
+		setBotonGenerarPropuestaHabilitado(true);
+		setBotonFinalizarHabilitado(true);
+		setBotonComenzarHabilitado(false);
+	}, [queryContadorCambioCurso.data]);
+
+	const handleResetConsecutivo = async () => {
+		// TODO: para cuando llegue la fecha del otorgamiento
+		await resetearConsecutivo.mutate();
+	};
+
+
 	const handleFinalizar = async () => {
-		await resetContadorProp.mutate();
+		await resetContadoresPropyCc.mutate();
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
 		document.getElementById('props').style.display = 'none';
