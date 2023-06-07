@@ -18,4 +18,5 @@ export * from './getTotalGirlsAndBoys';
 export * from './getTotalGirlsPerYear';
 export * from './mapCirculosPosition';
 export * from './mapSubmisionsPosition';
+export * from './getCirculosType'
 export * from './index';
