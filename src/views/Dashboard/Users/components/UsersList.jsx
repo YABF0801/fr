@@ -5,12 +5,16 @@ import UserForm from './UserForm';
 import { confirmAlert } from 'react-confirm-alert';
 import UserColumns from './UserTableColumns';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 
 const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
+	const { querySubmision } = useSubmisionContext();
 	const [usersLocal, setUsersLocal] = useState([]);
 	const [search, setSearch] = useState('');
 	const [selectedUser, setSelectedUser] = useState(null);
+
+	const submisions = querySubmision.data ? querySubmision.data : [];
 
 	useEffect(() => {
 		setUsersLocal(queryUsers.data);
@@ -67,11 +71,31 @@ const UsersList = () => {
 		setUsersLocal(elements);
 	};
 
-	const columns = UserColumns({ editUser, confirmDelete })
+	const countSubmisionsByUser = (submisions) => {
+		const countByUser = submisions.reduce((count, submision) => {
+			const { createdBy } = submision;
+			count[createdBy] = (count[createdBy] || 0) + 1;
+			return count;
+		}, {});
+
+		return countByUser;
+	};
+
+	const countByUser = countSubmisionsByUser(submisions);
+
+	const columns = UserColumns({ editUser, confirmDelete });
 
 	function showForm() {
 		document.getElementById('user').style.display = 'block';
 	}
+
+	const userColors = [
+		'rgba(54, 162, 205, 0.4)',
+		'rgba(255, 159, 104, 0.4)',
+		'rgba(185, 149, 162, 0.4)',
+		'rgba(123, 122, 225, 0.4)',
+		'rgba(75, 192, 192, 0.4)',
+	];
 
 	return (
 		<section className='list '>
@@ -99,17 +123,38 @@ const UsersList = () => {
 								</a>
 							</div>
 						</div>
+
 						{queryUsers.isLoading ? (
 							<div className='row m-5'>
-							<SmallSpinner className='m-4 mx-auto' data={'usuarios'} color={'#36616c'} />
-						</div>
+								<SmallSpinner className='m-4 mx-auto' data={'usuarios'} color={'#36616c'} />
+							</div>
 						) : (
 							<DataTable columns={columns} data={usersLocal} />
 						)}
 
+						
 					</div>
 				</div>
 
+				<div className='m-5'>
+				<p className='text-start text-secondary t mt-2'>Cantidad de planillas creadas por usuarios</p>
+						<div className='legend-bar-container'>
+							{Object.entries(countByUser).map(([user, count], index) => (
+								<div
+									key={user}
+									className='legend-bar'
+									style={{
+										width: `${(count / submisions.length) * 100}%`,
+										backgroundColor: userColors[index % userColors.length],
+									}}
+								>
+									<p className='legend-text text-secondary'>
+										{user}: {count}
+									</p>
+								</div>
+							))}
+						</div>
+						</div>
 				<UserForm user={selectedUser} />
 			</div>
 		</section>

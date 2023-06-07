@@ -22,13 +22,6 @@ return [
 
 		},
 		{
-			name: 'Solicitudes recibidas',
-			selector: (row) => row.submisions,
-			sortable: true,
-			grow: 2,
-			center: true,
-		},
-		{
 			name: '',
 			cell: (row) =>
 				row.role === 'admin' ? (

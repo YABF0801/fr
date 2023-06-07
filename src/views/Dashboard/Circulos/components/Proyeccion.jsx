@@ -36,8 +36,6 @@ const Proyeccion = () => {
 
 export default Proyeccion;
 
-// cerrar esto como?
-
 export const ProyeccionTable = () => {
 	const [proyeccion, setProyeccion] = useState([]);
 	const [circulosProyectados, setCirculosProyectados] = useState([]);

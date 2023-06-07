@@ -51,7 +51,7 @@ export const OtorgamientoProvider = ({ children }) => {
 		},
 	});
 
-	const resetContadorProp = useMutation({
+	const resetContadoresPropyCc = useMutation({
 		mutationFn: resetContadorGp,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
@@ -94,7 +94,7 @@ export const OtorgamientoProvider = ({ children }) => {
 			guardarFecha,
 			resetearFecha,
 			setContadorProp,
-			resetContadorProp,
+			resetContadoresPropyCc,
 			setContadorCambioCurso,
 			nuevoCurso,
 			resetArrays,
