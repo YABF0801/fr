@@ -1,4 +1,6 @@
 // FIX THIS NAVBAR AND TRY TO FIX TOGGLE TOO
+import { useEffect, useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import {
@@ -7,20 +9,22 @@ import {
 	PROPUESTAS_LIST,
 	USERS
 } from '../../core/config/routes/paths';
-
-import { useEffect, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
 import { useAuthContext } from '../../core/context/authContext';
 import './Navbar.scss';
-import Pill from './PillBadge'; 	
+import Pill from './PillBadge';
 
 const Navbar = () => {
 
 	const navigate = useNavigate();
 	const { logout } = useAuthContext();
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { isAuthenticated } = useAuthContext();
 
 	const [user, setUser] = useState();
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	  };
 
 	useEffect(() => {
 		const user = isAuthenticated.user?.nickname
@@ -54,14 +58,27 @@ const Navbar = () => {
 			<Tooltip id='tooltip' effect='solid' className='diff-arrow' />
 			<div className='container-fluid'>
 				<div className='navbar-brand'>
-					<h1 className='d-inline-block m-3 '>
+					<h1 className='d-inline-block '>
 						<Link to={DASHBOARD} className='ociIcon'>
 							<img src='/favicon_io/favicon.ico' alt='Icono de OCI' /> OCI
 						</Link>
 					</h1>
 				</div>
 
-				<div className='navbar navbar-expand-sm justify-content-end' id='navbarNav'>
+				<button
+          className={`navbar-toggler ${isMenuOpen ? 'collapsed' : ''}`}
+          type='button'
+          data-toggle='collapse'
+          data-target='#navbarNav'
+          aria-controls='navbarNav'
+          aria-expanded={isMenuOpen ? 'true' : 'false'}
+          aria-label='Toggle navigation'
+          onClick={toggleMenu}
+        >
+          <span className='navbar-toggler-icon'></span>
+        </button>
+
+		<div className={`navbar-collapse ${isMenuOpen ? 'collapse show' : 'collapse navbar-expand-sm justify-content-end'}`} id='navbarNav'>
 					<ul className='navbar-nav align-center gap-2'>
 						<li className='nav-item props' id='props'>
 							<NavLink className='nav-link link text-dark ' to={PROPUESTAS_LIST}>
