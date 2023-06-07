@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import DatePicker from 'react-datepicker';
-import { FechaOmApiGet, resetFechaOm, saveFechaOm } from '../../../../utils/utiles.sevices';
 import { Tooltip } from 'react-tooltip';
+import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 <Tooltip id="tooltip" effect='solid' className="diff-arrow" />
 
 const DatePickerToOm = () => {
@@ -10,15 +10,15 @@ const DatePickerToOm = () => {
   const [existingDate, setExistingDate] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const {queryFechaOm, guardarFecha, resetearFecha} = useOtorgamientoContext();
+
   useEffect(() => {
-    const fetchData = async () => {
-      const omDate = await FechaOmApiGet();
+      const omDate = new Date(queryFechaOm.data);
       if (omDate) {
         setExistingDate(omDate);
       }
       setLoading(false);
-    };
-    fetchData();
+
   }, [existingDate, selectedDate]);
 
   const handleDateChange = (date) => {
@@ -26,7 +26,7 @@ const DatePickerToOm = () => {
   };
 
   const handleSave = async () => {
-    await saveFechaOm(selectedDate);
+    await guardarFecha.mutate(selectedDate);
     setExistingDate(selectedDate);
   };
 
@@ -50,7 +50,7 @@ const DatePickerToOm = () => {
   };
 
   const handleDelete = async () => {
-    await resetFechaOm();
+    await resetearFecha.mutate();
     setExistingDate(null);
   };
 
