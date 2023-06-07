@@ -50,6 +50,8 @@ function CirculoForm({ circulo, showAttendance }) {
 		form.setFieldValue('latlng', value);
 	};
 
+	console.log(form.values)
+	
 	return (
 		<div className='show-form container mt-3 col-6' id='circulo'>
 			<div className=' p-5 '>
@@ -352,15 +354,17 @@ function CirculoForm({ circulo, showAttendance }) {
 						</div>
 
 						<article className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
-							<a href='#topCirculos' className='btn cancel-btn' onClickCapture={form.handleReset}>
+							<a href='#topCirculos' className='btn cancel-btn' onClick={form.handleReset}>
 								{' '}
 								Cancelar
 							</a>
 
 							<button type='submit' className='btn save-btn'>
+								{' '}
 								{circulo ? 'Actualizar' : 'Guardar'}
 							</button>
 						</article>
+
 					</form>
 				</div>
 			</div>

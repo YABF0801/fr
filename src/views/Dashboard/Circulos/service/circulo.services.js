@@ -18,7 +18,6 @@ export const circulosApiCreate = async (circulo) => {
 	}
 };
 
-
 export const circulosApiUpdate = async (circulo) => {
 	try {
 		await baseAxios.put(`/circulos/${circulo._id}`, circulo);
