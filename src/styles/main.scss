@@ -375,6 +375,16 @@ p {
   }
 
   
+i.md-icon {
+	height: 80px;
+	width: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #589aac;
+	font-size: 3rem;
+}
+
 .custom-progress .progress-bar {
 	background-color: #36616c; /* Cambia esto con tu color personalizado */
   }
