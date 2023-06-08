@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-
-import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
-import { circulosApiGet } from '../../Circulos/service/circulo.services';
+import { useEffect, useState } from 'react';
 import InputSwitch from '../../../../common/uiForms/imputSwitch';
 import Select from '../../../../common/uiForms/select';
+import { circulosApiGet } from '../../Circulos/service/circulo.services';
+import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
 
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);

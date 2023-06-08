@@ -8,6 +8,7 @@ import { organismosApiGet } from '../../Organismos/service/organismo.services';
 const Parent1Form = ({ form }) => {
 	const [organismosToMap, setOrganismosToMap] = useState([]);
 	const [circulosToMap, setCirculosToMap] = useState([]);
+	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -26,12 +27,6 @@ const Parent1Form = ({ form }) => {
 		form.setFieldValue('child.parents[0].organismo.weight', organismo.weight);
 	  };
 	  
-	//   const handleCirculo = (selectedCirculo) => {
-	// 	const circulo = circulosToMap.find((circ) => circ.name === selectedCirculo);
-	// 	console.log(circulo)
-	// 	form.setFieldValue('child.parents[0].circulo.name', circulo.name);
-	// 	form.setFieldValue('child.parents[0].circulo._id', circulo._id);
-	//   };
 
 	return (
 		<div id='parent1'>
