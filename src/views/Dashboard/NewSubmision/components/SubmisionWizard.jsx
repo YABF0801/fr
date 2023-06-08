@@ -35,7 +35,7 @@ function SubmisionWizardForm({ submision }) {
 			if (submision) {
 				await updateSubmision.mutate({ ...values });
 			} else {
-				console.log(formik.values.finality)
+				console.log(formik.values.finality);
 				await addSubmision.mutate(formData);
 			}
 
@@ -52,7 +52,7 @@ function SubmisionWizardForm({ submision }) {
 	useEffect(() => {
 		const fetchData = async () => {
 			const circulos = await circulosApiGet();
-			console.log('ci array', circulos)
+			console.log('ci array', circulos);
 			setCirculosToMap(circulos);
 		};
 		fetchData();
@@ -69,26 +69,21 @@ function SubmisionWizardForm({ submision }) {
 			console.error(error);
 		}
 	};
-	
+
 	const handleModalCancel = () => {
 		formik.setFieldValue('finality', formik.initialValues.finality);
 		formik.setFieldValue('finality', formik.initialValues.child.circulo);
 		setIsOs(false);
-		setSelectedCirculoOs(null)
+		setSelectedCirculoOs(null);
 		setIsModalOpen(false);
-	  };
+	};
 
-	  	const handleCirculo = (selectedCirculo) => {
+	const handleCirculo = (selectedCirculo) => {
 		const circulo = circulosToMap.find((circ) => circ.name === selectedCirculo);
-		setSelectedCirculoOs(selectedCirculo)
+		setSelectedCirculoOs(selectedCirculo);
 		formik.setFieldValue('child.circulo.name', circulo.name);
 		formik.setFieldValue('child.circulo._id', circulo._id);
-	  };
-
-	console.log('fin |', formik.values.finality)
-	console.log('ci q pasa |', formik.values.child.circulo)
-	console.log('isOS |', isOs)
-	console.log(formik.values)
+	};
 
 	const handleLatlngChange = (value) => {
 		formik.setFieldValue('child.latlng', value);
@@ -121,48 +116,67 @@ function SubmisionWizardForm({ submision }) {
 								Cancelar
 							</a>
 
- 							{!isOs ? (
-							<button className="btn save-btn" type="submit" >
-								{submision ? 'Actualizar' : 'Guardar'}
-							</button>
+							{!isOs ? (
+								<button className='btn save-btn' type='submit'>
+									{submision ? 'Actualizar' : 'Guardar'}
+								</button>
 							) : (
-							<button  className="btn save-btn" onClick={handleMatManual}>
-								{submision ? 'Actualizar' : 'Guardar'}
-							</button>
-							)} 
+								<button className='btn save-btn' onClick={handleMatManual}>
+									{submision ? 'Actualizar' : 'Guardar'}
+								</button>
+							)}
 						</div>
 
 						<ModalBase
-								show={isModalOpen}
-								ModalBody={
-									<div className="modal-content-centered">
-										<h2>Ha seleccionado otorgamiento sistemático</h2>
-										<p>Por favor seleccione el círculo en el que se matriculará</p>
-										<h6>Una vez guardada la planilla, el niño/a pasará a ser matrícula de ese circulo</h6>
-										<div className='col-md-12 mt-3'>
-											<Select
-												id={'circulo'}
-												name={'child.circulo'}
-												value={selectedCirculoOs}
-												optionText={'--- Seleccione  ---'}
-												onChange={(e) => handleCirculo(e.target.value)}
-												onBlur={formik.handleBlur}
-												mapFunction={circulosToMap.map((circulo) => (
-													<option key={circulo._id} value={circulo.name}>
-														{circulo.name}
-													</option>
-												))}
-											/>
-							</div>
-							<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
-										<button className='btn save-btn' onClick={handleModalCancel}>Cancelar</button>
-										<button className='btn save-btn' onClick={() => setIsModalOpen(false)}>Establecer</button>
-										</div>
-									</div>
-								}
-								onHide={() => setIsModalOpen(false)}
-							/>
+							show={isModalOpen}
+							ModalBody={
+								<div className='modal-content-centered'>
+									<h2>Ha seleccionado otorgamiento sistemático</h2>
+									<i className="text-info bi bi-info-circle-fill"></i>
+									<p>Nota: Al guardar esta planilla para otorgamiento sistemático 
+										no será tomada en cuenta para generar las propuestas en el
+										otorgamiento masivo </p>
+									<p>Si desea matricular ahora haga click en el boton matricular</p>
+									<button className='btn export-btn' style={{width: '10em'}}>
+											Matricular ahora
+										</button>
 
+									{/* ********************** */}
+									<div id='matricular' className='modal-content-centered mt-3'>
+									<p>Por favor seleccione el círculo en el que se matriculará</p>
+									<h6>
+										Una vez guardada la planilla, el niño/a pasará a ser matrícula de ese circulo
+									</h6>
+									<div className='col-md-12 mt-3'>
+										<Select
+											id={'circulo'}
+											name={'child.circulo'}
+											value={selectedCirculoOs}
+											optionText={'--- Seleccione  ---'}
+											onChange={(e) => handleCirculo(e.target.value)}
+											onBlur={formik.handleBlur}
+											mapFunction={circulosToMap.map((circulo) => (
+												<option key={circulo._id} value={circulo.name}>
+													{circulo.name}
+												</option>
+											))}
+										/>
+									</div>
+									<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
+										<button className='btn save-btn' onClick={handleModalCancel}>
+											Cancelar
+										</button>
+										<button className='btn save-btn' onClick={() => setIsModalOpen(false)}>
+											Establecer
+										</button>
+									</div>
+									</div>
+									{/* ********************** */}
+
+								</div>
+							}
+							onHide={() => setIsModalOpen(false)}
+						/>
 					</form>
 				</div>
 			</div>
