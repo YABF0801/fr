@@ -49,8 +49,6 @@ function CirculoForm({ circulo, showAttendance }) {
 	const handleLatlngChange = (value) => {
 		form.setFieldValue('latlng', value);
 	};
-
-	console.log(form.values)
 	
 	return (
 		<div className='show-form container mt-3 col-6' id='circulo'>

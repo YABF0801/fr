@@ -11,7 +11,6 @@ const ToastNotification = (type, message) => {
       draggable: true,
       progress: undefined,
       theme: 'light',
-      style: {backgroundColor: 'rgba(220, 250, 255, 0.715'}, 
       transition: Zoom,
     });
   };

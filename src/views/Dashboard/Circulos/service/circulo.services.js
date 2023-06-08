@@ -1,7 +1,7 @@
 import { baseAxios } from '../../../../api/baseAxios';
-import ErrorMsg from '../../../../common/Toasts/ErrorMsg';
 import SuccessMsg from '../../../../common/Toasts/SuccessMsg';
 import ToastNotification from '../../../../common/Toasts/toasts';
+import { handleToastyError } from '../../../../utils/handleError';
 
 export const circulosApiGet = async () => {
 	const circulos = await baseAxios.get('/circulos/');
@@ -14,7 +14,7 @@ export const circulosApiCreate = async (circulo) => {
 		ToastNotification('success', `${SuccessMsg('create', `circulo ${circulo.name}`)}`);
 		return circuloCreated.data;
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('create', 'circulo')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -23,13 +23,17 @@ export const circulosApiUpdate = async (circulo) => {
 		await baseAxios.put(`/circulos/${circulo._id}`, circulo);
 		ToastNotification('success', `${SuccessMsg('update', `circulo ${circulo.name}`)}`);
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('update', 'circulo')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
 export const circulosApiFindById = async (id) => {
-	const circuloFind = await baseAxios.get(`/circulos/${id}`);
-	return circuloFind.data;
+	try {
+		const circuloFind = await baseAxios.get(`/circulos/${id}`);
+		return circuloFind.data;
+	} catch (error) {
+		handleToastyError(error)
+	}
 };
 
 export const circulosApiDelete = async (id) => {
@@ -37,7 +41,7 @@ export const circulosApiDelete = async (id) => {
 		await baseAxios.delete(`/circulos/${id}`);
 		ToastNotification('success', `${SuccessMsg('delete', `circulo`)}`);
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('delete', 'circulo')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -46,7 +50,7 @@ export const circulosApiStatus = async (id) => {
 		await baseAxios.put(`/circulos/status/${id}`);
 		ToastNotification('success', `${SuccessMsg('custom', `estado`, 'actualizado')}`);
 	} catch (error) {
-		ToastNotification('error',  `${ErrorMsg("custom", "circulo", 'cambiar estado del')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -56,7 +60,7 @@ export const proyeccionApiGet = async () => {
 		const tools = await baseAxios.get('/submisions/get-tools');
 		return tools.data.proyeccionParaGP;
 	} catch (error) {
-		ToastNotification('error',  `${ErrorMsg("custom", "proyección", 'ejecutar')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -70,6 +74,6 @@ export const nuevoCursoApi = async () => {
 		await baseAxios.post('/circulos/nuevo-curso');
 		ToastNotification('success', `${SuccessMsg('custom', `nuevo curso`, 'establecido')}`);
 	} catch (error) {
-		ToastNotification('error',  `${ErrorMsg("custom", "cambio de curso", 'ejecutar')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };

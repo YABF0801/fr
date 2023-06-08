@@ -1,6 +1,5 @@
-import  ToastNotification  from '../../../common/Toasts/toasts';
-
 import { useAuthContext } from '../../../core/context/authContext';
+import { handleToastyError } from '../../../utils/handleError';
 import { userApiLogin } from '../service/home.services';
 
 export const useLogin = () => {
@@ -11,7 +10,7 @@ export const useLogin = () => {
 			const { user, token } = await userApiLogin(userData);
 			login(user, token);
 		} catch (error) {
-			ToastNotification('error', 'Credenciales incorrectas');  
+			handleToastyError(error);
 		}
 	};
 

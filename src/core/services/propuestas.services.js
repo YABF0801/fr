@@ -1,7 +1,7 @@
 import { baseAxios } from '../../api/baseAxios';
-import ErrorMsg from '../../common/Toasts/ErrorMsg';
 import SuccessMsg from '../../common/Toasts/SuccessMsg';
 import ToastNotification from '../../common/Toasts/toasts';
+import { handleToastyError } from '../../utils/handleError';
 
 export const propuestasApiGet = async () => {
 	const allPropuestas = await baseAxios.get('/submisions');
@@ -13,7 +13,7 @@ export const propuestaApiGenerar = async () => {
 	try {
 		await baseAxios.post(`/propuestas/generar`);
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('custom', 'propuestas', 'generar')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -24,7 +24,7 @@ export const propuestaApiAceptar = async (submisions) => {
 		ToastNotification('success', `${SuccessMsg('custom', `propuestas seleccionadas`, 'aceptadas')}`);
 		return propuestas.data;
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('custom', 'propuestas', 'aceptar')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -35,6 +35,6 @@ export const propuestaApiRechazar = async (submisions) => {
 		ToastNotification('info', 'Las propuestas no seleccionadas fueron rechazadas');
 		return propuestas.data;
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('custom', 'propuestas', 'rechazar')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };

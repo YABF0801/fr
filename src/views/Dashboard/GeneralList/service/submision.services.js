@@ -1,7 +1,7 @@
 import { baseAxios } from '../../../../api/baseAxios';
-import ErrorMsg from '../../../../common/Toasts/ErrorMsg';
 import SuccessMsg from '../../../../common/Toasts/SuccessMsg';
 import ToastNotification from '../../../../common/Toasts/toasts';
+import { handleToastyError } from '../../../../utils/handleError';
 
 export const submisionsApiGet = async () => {
 	const allSubmisions = await baseAxios.get('/submisions');
@@ -15,7 +15,7 @@ export const submisionsApiCreate = async (submision) => {
 		ToastNotification('success', `${SuccessMsg('create', `planilla ${submision.child.childName}`)}`);
 		return submisionCreated.data;
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('create', 'planilla')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -24,7 +24,7 @@ export const submisionsApiUpdate = async (submision) => {
 		await baseAxios.put(`/submisions/${submision._id}`, submision);
 		ToastNotification('success', `${SuccessMsg('update', `planilla ${submision.entryNumber}`)}`);
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('update', 'planilla')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -33,13 +33,17 @@ export const submisionsApiDelete = async (id) => {
 		await baseAxios.delete(`/submisions/${id}`);
 		ToastNotification('success', `${SuccessMsg('delete', `planilla`)}`);
 	} catch (error) {
-		ToastNotification('error', `${ErrorMsg('delete', 'planilla')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
 export const submisionsApiFindById = async (id) => {
+	try {
 	const submision = await baseAxios.get(`/submisions/${id}`);
 	return submision.data;
+	} catch (error) {
+		handleToastyError(error)
+	}
 };
 
 export const consecustiveApiGet = async () => {
@@ -52,7 +56,7 @@ export const consecustiveApiReset = async () => {
 		await baseAxios.put(`/submisions/reset-consecutive`);
 		ToastNotification('success', `${SuccessMsg('custom', `número consecutivo`, 'reseteado')}`);
 	} catch (error) {
-		ToastNotification('error',  `${ErrorMsg("custom", "número consecutivo", 'resetear')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
 
@@ -61,6 +65,6 @@ export const submisionsApiBaja = async (id) => {
 		await baseAxios.put(`/submisions/baja/${id}`);
 		ToastNotification('success', `${SuccessMsg('custom', `baja`, 'realizada')}`);
 	} catch (error) {
-		ToastNotification('error',  `${ErrorMsg("custom", "baja", 'ejecutar')} : ${error.message}`);
+		handleToastyError(error)
 	}
 };
