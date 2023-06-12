@@ -147,9 +147,9 @@ const Navbar = () => {
 								isAuthenticated.user?.role === 'admin' && (<li className='nav-item'>
 							<NavLink className='nav-link link text-success text-primary' to={USERS}>
 								<i
-									className='inav bi bi-gear-fill'
+									className='inav bi bi-person'
 									data-tooltip-id='tooltip'
-									data-tooltip-content='Administración'
+									data-tooltip-content='Administración de usuarios'
 								/>
 							</NavLink>
 						</li>)}

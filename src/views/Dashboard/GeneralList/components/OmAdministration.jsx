@@ -138,8 +138,7 @@ const OmAdministration = () => {
 				{/* <h2 className='text-center mt-2 p-3'>Otorgamiento masivo</h2> */}
 				<div className='d-flex flex-column justify-content-center align-items-center gap-5 form-check'>
 						<DatePickerToOm />
-							{/* <hr/> */}
-							
+														
 							<button
 								type='button'
 								id='generar-btn'
@@ -151,8 +150,7 @@ const OmAdministration = () => {
 							>
 								Comenzar
 							</button>
-							{/* <hr/> */}
-
+							
 							<button
 								type='button'
 								id='cambio-btn'
@@ -164,8 +162,7 @@ const OmAdministration = () => {
 							>
 								Cambio de Curso
 							</button>
-							{/* <hr/> */}
-							
+														
 							<button
 								type='button'
 								id='generar-btn'
@@ -177,8 +174,7 @@ const OmAdministration = () => {
 							>
 								Generar propuesta
 							</button>
-							{/* <hr/> */}
-
+							
 							<button
 								type='button'
 								id='finalizar-btn'
