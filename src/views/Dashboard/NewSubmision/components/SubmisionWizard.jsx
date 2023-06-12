@@ -37,7 +37,6 @@ function SubmisionWizardForm({ submision }) {
 			if (submision) {
 				await updateSubmision.mutate({ ...values });
 			} else {
-				console.log(formik.values.finality);
 				await addSubmision.mutate(formData);
 			}
 
@@ -54,7 +53,6 @@ function SubmisionWizardForm({ submision }) {
 	useEffect(() => {
 		const fetchData = async () => {
 			const circulos = await circulosApiGet();
-			console.log('ci array', circulos);
 			setCirculosToMap(circulos);
 		};
 		fetchData();

@@ -6,6 +6,7 @@ import Progress from '../../../../common/Progress/ProgressBar';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
+
 import DatePickerToOm from './datePicker';
 
 const OmAdministration = () => {
@@ -133,14 +134,12 @@ const OmAdministration = () => {
 	};
 
 	return (
-		<section className='list '>
-			<div className=' mt-3 p-2 pb-4'>
-				<h2 className='text-center mt-2 p-3'>Otorgamiento masivo</h2>
-				<div className='card '>
-					<div className='card-body '>
-						<div className='gap-3 mt-5 form-check d-flex justify-content-between'>
-							<DatePickerToOm />
-
+		<>
+				{/* <h2 className='text-center mt-2 p-3'>Otorgamiento masivo</h2> */}
+				<div className='d-flex flex-column justify-content-center align-items-center gap-5 form-check'>
+						<DatePickerToOm />
+							{/* <hr/> */}
+							
 							<button
 								type='button'
 								id='generar-btn'
@@ -152,6 +151,7 @@ const OmAdministration = () => {
 							>
 								Comenzar
 							</button>
+							{/* <hr/> */}
 
 							<button
 								type='button'
@@ -164,7 +164,8 @@ const OmAdministration = () => {
 							>
 								Cambio de Curso
 							</button>
-
+							{/* <hr/> */}
+							
 							<button
 								type='button'
 								id='generar-btn'
@@ -176,6 +177,7 @@ const OmAdministration = () => {
 							>
 								Generar propuesta
 							</button>
+							{/* <hr/> */}
 
 							<button
 								type='button'
@@ -189,9 +191,6 @@ const OmAdministration = () => {
 								Finalizar
 							</button>
 						</div>
-					</div>
-				</div>
-			</div>
 
 			<ModalBase
 				show={isModalOpen}
@@ -200,7 +199,7 @@ const OmAdministration = () => {
 				}
 				onHide={() => setIsModalOpen(false)}
 			/>
-		</section>
+		</>
 	);
 };
 

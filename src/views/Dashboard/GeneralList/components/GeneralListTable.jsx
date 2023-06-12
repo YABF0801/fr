@@ -7,6 +7,7 @@ import { useAuthContext } from '../../../../core/context/authContext';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import GeneralListColumns from './GeneralListColumns';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
+import OfCanvasToOm from './OfCanvasToOm';
 
 const GeneralListTable = () => {
 
@@ -238,6 +239,9 @@ const GeneralListTable = () => {
 								<button type='excel' onClick={ handleExport } className='btn export-btn'>
 									Exportar
 								</button>
+
+								<OfCanvasToOm/>
+
 							</div>
 						</div>
 						{ querySubmision.isLoading ? (

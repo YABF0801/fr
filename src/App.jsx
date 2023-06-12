@@ -45,8 +45,9 @@ function App() {
 	return (
 		<BrowserRouter>
 			<AuthContextProvider>
+			<OtorgamientoProvider>
 			<SubmisionProvider>
-				<OtorgamientoProvider>
+
 			<PropuestasProvider>
 				<>
 					<Routes>
@@ -75,8 +76,9 @@ function App() {
 					<ToastContainer />
 				</>
 				</PropuestasProvider>
-				</OtorgamientoProvider>
+
 				</SubmisionProvider>
+				</OtorgamientoProvider>
 			</AuthContextProvider>
 		</BrowserRouter>
 	);
