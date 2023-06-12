@@ -7,7 +7,7 @@ export const submisionInitialValues = (submision) => {
 
 	const initialValues = {
 		finality: submision ? submision.finality : 'om',
-			submisiontype: submision ? submision.submisiontype : 'new',
+			submisiontype: submision ? submision.submisiontype : 'nueva',
 			entryNumber: submision ? submision.entryNumber : '',
 			socialCase: submision ? submision.socialCase : false,	
 			motive: submision ? submision.motive : 'me da la gana',
@@ -85,7 +85,7 @@ export const submisionInitialValues = (submision) => {
 		/* 		real
 			initialValues: {
 			finality: submision ? submision.finality : 'om',
-			submisiontype: submision ? submision.submisiontype : 'new',
+			submisiontype: submision ? submision.submisiontype : 'nueva',
 			entryNumber: submision ? submision.entryNumber : '',
 			socialCase: submision ? submision.socialCase : false,	
 			motive: submision ? submision.motive : '',

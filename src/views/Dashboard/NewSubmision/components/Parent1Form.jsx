@@ -5,7 +5,7 @@ import Select from '../../../../common/uiForms/select';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
 import { getParentsOcupations, getTypeParent } from '../services/SubmisionForm.services';
-import { renderSelectableRadios } from './Utils';
+import { renderOccupationRadios } from './Utils';
 
 const Parent1Form = ({ form }) => {
 	const [organismosToMap, setOrganismosToMap] = useState([]);
@@ -167,7 +167,7 @@ const Parent1Form = ({ form }) => {
 							<div className='row align-items-center mb-3'>
 
 								<div className='col-md-6 d-flex justify-content-evenly'>
-									{renderSelectableRadios(occupations, 'occupation', form, 0)}
+									{renderOccupationRadios(occupations, 'occupation', form, 0)}
 								</div>
 
 								<div className='col-md-6'>

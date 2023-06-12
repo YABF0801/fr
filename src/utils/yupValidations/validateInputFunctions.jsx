@@ -38,7 +38,7 @@ export const validateAttendance = (value) => {
   
   export const validateSubmisionType = (value) => {
     if (value === undefined) return false;
-      return /^(new|traslado)$/.test(value);
+      return /^(nueva|traslado)$/.test(value);
   };
 
   export const validateSubmisionFinality = (value) => {

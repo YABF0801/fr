@@ -4,10 +4,21 @@ import InputSwitch from '../../../../common/uiForms/imputSwitch';
 import Select from '../../../../common/uiForms/select';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
+import { getSubmisiontype } from '../services/SubmisionForm.services';
+import { renderTypeRadios } from './Utils';
 
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);
 	const [circulosToMap, setCirculosToMap] = useState([]);
+	const [type, setType] = useState([]);
+
+	useEffect(() => {
+		const getParentsEnums = async () => {
+			const typesEnum = await getSubmisiontype();
+			setType(typesEnum);
+		};
+		getParentsEnums();
+	}, []);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -78,44 +89,15 @@ const SubmisionForm = ({ form, submision }) => {
 								</div>
 							</div>
 
-							<div className='col-md-3 mb-5 d-flex align-items-center'>
-								<div className='form-check form-check-inline'>
-									<input
-										className='form-check-input'
-										type='radio'
-										id='new'
-										name='submisiontype'
-										value='new'
-										defaultChecked={form.values.submisiontype}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-									/>
-									<label className='form-check-label' htmlFor='new'>
-										New
-									</label>
-								</div>
+							<div className='col-md-3 mb-5 gap-3 d-flex align-items-center'>
 
-								<div className='form-check form-check-inline'>
-									<input
-										className='form-check-input'
-										type='radio'
-										id='traslado'
-										name='submisiontype'
-										value='traslado'
-										defaultChecked={form.values.submisiontype}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-									/>
+							{renderTypeRadios(type, 'submisiontype', form)}
 
-									<label className='form-check-label' htmlFor='traslado'>
-										Traslado
-									</label>
-								</div>
 							</div>
 
 							<div className='col-md-3 '>
 								<InputSwitch
-									className={'form-check form-switch'}
+									className={' col-md-8 form-check form-switch'}
 									id={'socialCase'}
 									name={'socialCase'}
 									value={form.values.socialCase}
