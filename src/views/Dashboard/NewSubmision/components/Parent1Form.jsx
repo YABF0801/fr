@@ -4,11 +4,24 @@ import InputSwitch from '../../../../common/uiForms/imputSwitch';
 import Select from '../../../../common/uiForms/select';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
+import { getParentsOcupations, getTypeParent } from '../services/SubmisionForm.services';
+import { renderSelectableRadios } from './Utils';
 
 const Parent1Form = ({ form }) => {
 	const [organismosToMap, setOrganismosToMap] = useState([]);
 	const [circulosToMap, setCirculosToMap] = useState([]);
-	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
+	const [typeParents, setTypeParents] = useState([]);
+	const [occupations, setOccupations] = useState([]);
+
+	useEffect(() => {
+		const getParentsEnums = async () => {
+			const occupationsEnum = await getParentsOcupations();
+			const typeParentsEnum = await getTypeParent();
+			setOccupations(occupationsEnum);
+			setTypeParents(typeParentsEnum);
+		};
+		getParentsEnums();
+	}, []);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -25,8 +38,7 @@ const Parent1Form = ({ form }) => {
 		const organismo = organismosToMap.find((org) => org.name === selectedOrganismo);
 		form.setFieldValue('child.parents[0].organismo.name', organismo.name);
 		form.setFieldValue('child.parents[0].organismo.weight', organismo.weight);
-	  };
-	  
+	};
 
 	return (
 		<div id='parent1'>
@@ -73,21 +85,20 @@ const Parent1Form = ({ form }) => {
 									)}
 							</div>
 
-							<div className='col-md-2'>
-								<select
-									className='form-select d-inline'
-									id='typeParent1'
-									name='child.parents[0].typeParent'
-									value={form.values.child?.parents[0].typeParent}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-								>
-									<option value='0'>Parentesco</option>
-									<option value='madre'>Madre</option>
-									<option value='padre'>Padre</option>
-									<option value='tutor'>Tutor</option>
-								</select>
-							</div>
+							<Select
+								className='col-md-2'
+								id={'typeParent1'}
+								name={'child.parents[0].typeParent'}
+								value={form.values.child?.parents[0].typeParent}
+								optionText={'Parentesco'}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
+								mapFunction={typeParents.map((type) => (
+									<option key={type} value={type}>
+										{type.charAt(0).toUpperCase() + type.slice(1)}
+									</option>
+								))}
+							/>
 
 							<div className='col-md-3 '>
 								<InputSwitch
@@ -154,70 +165,9 @@ const Parent1Form = ({ form }) => {
 
 						<div className='form-group justify-content-evenly mb-4'>
 							<div className='row align-items-center mb-3'>
+
 								<div className='col-md-6 d-flex justify-content-evenly'>
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='trabajador1'
-											name='child.parents[0].occupation'
-											value='trabajador'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-											defaultChecked
-										/>
-										<label className='form-check-label' htmlFor='trabajador1'>
-											Trabajador
-										</label>
-									</div>
-
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='jubilado1'
-											name='child.parents[0].occupation'
-											value='jubilado'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-										/>
-
-										<label className='form-check-label' htmlFor='jubilado1'>
-											Jubilado
-										</label>
-									</div>
-
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='asistenciado1'
-											name='child.parents[0].occupation'
-											value='asistenciado'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-										/>
-
-										<label className='form-check-label' htmlFor='asistenciado1'>
-											Asistenciado
-										</label>
-									</div>
-
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='estudiante1'
-											name='child.parents[0].occupation'
-											value='estudiante'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-										/>
-
-										<label className='form-check-label' htmlFor='estudiante1'>
-											Estudiante
-										</label>
-									</div>
+									{renderSelectableRadios(occupations, 'occupation', form, 0)}
 								</div>
 
 								<div className='col-md-6'>
@@ -248,20 +198,20 @@ const Parent1Form = ({ form }) => {
 						</div>
 
 						<div className='row justify-content-evenly mb-4'>
-								<Select
-									className='col-md-4'
-									id={'organismo1'}
-									name={'child.parents[0].organismo.name'}
-									value={form.values.child.parents[0].organismo.name}
-									optionText={'Organismo'}
-									onChange={(e) => handleOrganismo(e.target.value)}
-									onBlur={form.handleBlur}
-									mapFunction={organismosToMap.map((organismo) => (
-										<option key={organismo._id} value={organismo.name}>
-											{organismo.name}
-										</option>
-									))}
-								/>
+							<Select
+								className='col-md-4'
+								id={'organismo1'}
+								name={'child.parents[0].organismo.name'}
+								value={form.values.child.parents[0].organismo.name}
+								optionText={'Organismo'}
+								onChange={(e) => handleOrganismo(e.target.value)}
+								onBlur={form.handleBlur}
+								mapFunction={organismosToMap.map((organismo) => (
+									<option key={organismo._id} value={organismo.name}>
+										{organismo.name}
+									</option>
+								))}
+							/>
 
 							<div className='col-md-8 '>
 								<input
