@@ -54,6 +54,11 @@ export const circulosApiStatus = async (id) => {
 	}
 };
 
+export const pastCirculosApiGet = async () => {
+	const pastCirculos = await baseAxios.get('/circulos/historic');
+	return pastCirculos.data;
+};
+
 export const proyeccionApiGet = async () => {
 	try {
 		await baseAxios.get('/circulos/proyectar');

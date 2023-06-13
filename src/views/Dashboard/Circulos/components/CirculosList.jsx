@@ -7,6 +7,7 @@ import { useAuthContext } from '../../../../core/context/authContext';
 import { useCirculoContext } from '../context/CirculoContext';
 import CirculoForm from './CirculoForm';
 import CirculoColumns from './CirculoTableColumns';
+import YearMenu from './Historic';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
 const CirculosList = () => {
@@ -137,6 +138,7 @@ const CirculosList = () => {
 							</div>
 
 							<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
+								
 								<input
 									type='checkbox'
 									className='form-check-input m-md-1'
@@ -158,6 +160,12 @@ const CirculosList = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
+
+								<YearMenu/>
+							{/* <button type='excel' onClick={()=>alert('historico')} className='btn export-btn'>
+									Histórico
+								</button> */}
+
 								{isAuthenticated.user?.role === 'admin' && (
 									<a href='#circulo' onClickCapture={showForm} className='btn customize-btn'>
 										<i className='bi bi-plus-lg'></i>

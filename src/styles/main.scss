@@ -195,7 +195,7 @@ body {
 }
 
 .export-btn,
-.prop-btn {
+.prop-btn{
 	width: 6rem;
 	height: 2.5rem;
 	display: flex;
@@ -439,8 +439,51 @@ i.md-icon {
 	text-align: center; 
 	
   }
- 
- 
+  
+  .dropdown-menu {
+	border-radius: 10px;
+	border: none;
+	box-shadow: 0 0.25rem 0.35rem rgba(14, 21, 24, 0.075);
+  }
+  
+  .dropdown-toggle{
+	width: 6rem;
+	height: 2.5rem;
+	display: flex;
+	border: none;
+	color: #f3f3f3;
+	background-color: #0c3d4a;
+	transition: 0.2s all;
+
+	&:focus {
+		color: #f3f3f3;
+		border: none;
+		border-radius: 5px;
+		background: radial-gradient(#a09570d2, #a08a41ea);
+		transition: 0.2s all;
+		box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+	}
+
+	&:hover {
+		color: #f3f3f3;
+		border: none;
+		border-radius: 5px;
+		background: radial-gradient(#a09570d2, #a08a41ea);
+		transition: 0.2s all;
+		box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+	}
+  }
+
+  .year-btn {
+	border: none;
+	border-radius: 30px;
+	&:hover {
+		color: #a08a41ea;
+		font-weight: bold;
+		font-size: 1.1em;
+		transition: 0.2s all;
+
+}}
   
 // .marker-cluster-small {
 // 	background-color: rgba(181, 226, 140, 0.6);
