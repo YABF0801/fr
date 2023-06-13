@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import InputSwitch from '../../../../common/uiForms/imputSwitch';
+import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 
 const Parent2Form = ({ form }) => {
 	return (
@@ -69,16 +69,9 @@ const Parent2Form = ({ form }) => {
 						<div className='form-group d-inline justify-content-evenly'>
 							<div className='row align-items-center mb-3'>
 							<div className='col-md-2'>
-							<InputSwitch
-									className={'form-check form-switch'}
-									id={'convivencia2'}
-									name={'child.parents[1].convivencia'}
-									value={form.values.child.parents[1].convivencia}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-									defaultChecked={form.values.child.parents[1].convivencia}
-									label='Convive'
-								/>
+								{renderSwitchSelect('child.parents[1].convivencia', 'Convive', form,
+								form.values.child?.parents?.[1].convivencia)} 
+
 								</div>
 
 								<div className='col-md-10 '>

@@ -27,7 +27,8 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 			<div className='container '>
 				<div className='row justify-content-center'>
 					<div className='col-md-12 '>
-						<div className='row mb-4 justify-content-evenly'>
+
+						<div className='row mb-5 justify-content-evenly'>
 							<div className='col-md-3'>
 								<input
 									type='text'
@@ -95,13 +96,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 							</div>
 						</div>
 
-						<div className='row mb-3 justify-content-evenly'>
-							<div className='col-md-12'></div>
-						</div>
-
-						<div className='row mb-3 justify-content-evenly'>
-							<div className='col-md-4'>
-								<div className='mb-5'>
+							<div className='row mb-3 justify-content-evenly'>
+							<div className='col-md-4 d-flex flex-column gap-4 '>
+								<div className='mb-3'>
 									<textarea
 										type='text'
 										rows={ 2 }
@@ -189,8 +186,8 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									>
 										<TileLayer
 											attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-											url='/public/Tiles/{z}/{x}/{y}.png'
-										/>
+											url /* '/public/Tiles/{z}/{x}/{y}.png' */='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+									/>
 
 										<MapMarker
 											position={ form.values.child && form.values.child.latlng }

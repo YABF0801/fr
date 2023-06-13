@@ -1,11 +1,11 @@
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
-import InputSwitch from '../../../../common/uiForms/imputSwitch';
+import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 import Select from '../../../../common/uiForms/select';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
 import { getSubmisiontype } from '../services/SubmisionForm.services';
-import { renderTypeRadios } from './Utils';
+import {  renderTypeRadios } from './Utils';
 
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);
@@ -96,16 +96,9 @@ const SubmisionForm = ({ form, submision }) => {
 							</div>
 
 							<div className='col-md-3 '>
-								<InputSwitch
-									className={' col-md-8 form-check form-switch'}
-									id={'socialCase'}
-									name={'socialCase'}
-									value={form.values.socialCase}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-									label='Caso Social'
-									defaultChecked={form.values.socialCase}
-								/>
+
+							{renderSwitchSelect('socialCase', 'Caso Social', form, form.values.socialCase)}
+
 							</div>
 
 							<div className='col-md-3 mb-5 gap-1 d-inline-flex'>

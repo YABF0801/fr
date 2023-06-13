@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
-import InputSwitch from '../../../../common/uiForms/imputSwitch';
+import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 import Select from '../../../../common/uiForms/select';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { organismosApiGet } from '../../Organismos/service/organismo.services';
@@ -101,31 +101,23 @@ const Parent1Form = ({ form }) => {
 							/>
 
 							<div className='col-md-3 '>
-								<InputSwitch
-									className={'form-check form-switch'}
-									id={'uniqueParent1'}
-									name={'child.parents[0].uniqueParent'}
-									value={form.values.child?.parents[0].uniqueParent}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-									defaultChecked={form.values.child?.parents[0].uniqueParent}
-									label='Monoparental'
-								/>
+									{renderSwitchSelect(
+										'child.parents[0].uniqueParent', 
+										'Monoparental', 
+										form, 
+										form.values.child?.parents?.[0].uniqueParent)}
+
 							</div>
 						</div>
 
 						<div className='row justify-content-evenly mb-4'>
 							<div className='col-md-2'>
-								<InputSwitch
-									className={'form-check form-switch'}
-									id={'convivencia1'}
-									name={'child.parents[0].convivencia'}
-									value={form.values.child.parents[0].convivencia}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-									defaultChecked={form.values.child.parents[0].convivencia}
-									label='Convive'
-								/>
+
+								{renderSwitchSelect(
+									'child.parents[0].convivencia', 'Convive', form, 
+									form.values.child?.parents?.[0].convivencia)}
+
+								
 							</div>
 
 							<div className='col-md-7'>
@@ -165,9 +157,8 @@ const Parent1Form = ({ form }) => {
 
 						<div className='form-group justify-content-evenly mb-4'>
 							<div className='row align-items-center mb-3'>
-
 								<div className='col-md-6 d-flex justify-content-evenly'>
-									{renderOccupationRadios(occupations, 'occupation', form, 0)}
+									{renderOccupationRadios(occupations, 'occupation', form)}
 								</div>
 
 								<div className='col-md-6'>
@@ -273,15 +264,14 @@ const Parent1Form = ({ form }) => {
 						</div>
 
 						<div className='row justify-content-evenly mb-3'>
-							<InputSwitch
-								className={'col-md-3  form-check form-switch'}
-								id='otherChildrenInCi1'
-								name='child.parents[0].otherChildrenInCi'
-								value={form.values.child.parents[0].otherChildrenInCi}
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-								label='Tiene otros niños en círculo?'
-							/>
+							<div className='col-md-3'>
+								{renderSwitchSelect(
+									'child.parents[0].otherChildrenInCi',
+									'Tiene otros niños en círculo?',
+									form,
+									form.values.child?.parents?.[0].otherChildrenInCi
+								)}
+							</div>
 
 							<div className='col-md-1'>
 								<input

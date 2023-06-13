@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 import { ORGANISMOS } from '../../../../core/config/routes/paths';
 import { organismoInitialValues } from '../../../../utils/initialValues/organismoInitialValues';
 import { OrganismoSchema } from '../../../../utils/yupValidations/organismoYupValidations';
@@ -68,17 +69,8 @@ function OrganismoForm({ organismo }) {
 								</div>
 
 								<div className='col-md-3 mb-3 form-check form-switch'>
-									<input
-										type='checkbox'
-										className='form-check-input m-md-1'
-										name='priorizado'
-										id='priorizado'
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-									/>
-									<label className='custom-control-label text-secondary' htmlFor='priorizado'>
-										Priorizado
-									</label>
+								{renderSwitchSelect('priorizado', 'Priorizado', form, form.values.priorizado)}
+
 								</div>
 							</div>
 						</div>

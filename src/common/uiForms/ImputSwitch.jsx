@@ -1,28 +1,21 @@
 
-
-const InputSwitch = ({ className, id, name, value, label, onChange, onBlur, defaultChecked}) => {
+export const renderSwitchSelect = (name, label, form, check, func) => {
   return (
-    <div className={className || 'col-md-2 mb-4 form-check form-switch'}>
-    <input
-      className='form-check-input '
-      type='checkbox'
-      id= {id}
-      name={name}
-      value={value}
-      onChange={ onChange }
-      onBlur={onBlur }
-      defaultChecked ={defaultChecked || false}
-    />
-
-    <label
-      htmlFor={id}
-    >
-      {label}
-    </label>
-
-</div>
-
-  )
-}
-
-export default InputSwitch
+    <div className="form-check form-switch">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id={name}
+        name={name}
+        value={form.values[name]}
+        onChange={form.handleChange}
+        onClickCapture={func}
+        onBlur={form.handleBlur}
+        checked={check === true} // form.values[name]
+      />
+      <label className="form-check-label" htmlFor={name}>
+        {label}
+      </label>
+    </div>
+  );
+};

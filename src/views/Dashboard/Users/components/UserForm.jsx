@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 import { USERS } from '../../../../core/config/routes/paths';
 import { userInitialValues } from '../../../../utils/initialValues/userInitialValues';
 import { UserSchema } from '../../../../utils/yupValidations/userYupValidations';
@@ -18,7 +19,6 @@ function UserForm({ user }) {
 			const formData = {
 				...values,
 			};
-
 			if (user) {
 				await updateUser.mutate({ ...values });
 			} else {
@@ -40,12 +40,12 @@ function UserForm({ user }) {
 		}
 	}, [user]);
 
-	
+	   
 	const handleChange = (event) => {
 		const isChecked = event.target.checked;
-		if (isChecked) form.values.role = 'admin';
+		if (isChecked) form.setFieldValue('role', 'admin');
 		if (!isChecked) {
-			form.values.role = 'guest';
+			form.setFieldValue('role', 'guest');
 		}
 	};
 
@@ -146,9 +146,13 @@ function UserForm({ user }) {
 								</div>
 
 								<div className='col-md-4 mb-3 form-check form-switch '>
+
+								{/* {renderSwitchSelect('role', 'Administrador', form, 
+								form.values.role === 'admin', handleChange)} */}
+
 									<input
 										type='checkbox'
-										className='form-check-input m-md-1'
+										className='form-check-input m-md-1' 
 										id='role'
 										name='role'
 										onClickCapture={handleChange}
@@ -157,17 +161,18 @@ function UserForm({ user }) {
 									<label className='custom-control-label text-secondary' htmlFor='role'>
 										Administrador
 									</label>
+
 								</div>
 							</div>
 						</div>
 
 						<article className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
-							<a href='#top' className='btn cancel-btn' onClickCapture={form.handleReset}>
+							<a href='#top' className='btn cancel-btn' onClick={form.handleReset}>
 								{' '}
 								Cancelar
 							</a>
 
-							<button type='submit' className='btn save-btn'>
+							<button type='submit' className='btn save-btn' onClick={console.log(form.values)}>
 								{' '}
 								{user ? 'Actualizar' : 'Guardar'}
 							</button>

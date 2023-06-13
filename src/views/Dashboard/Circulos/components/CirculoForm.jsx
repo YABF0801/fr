@@ -5,7 +5,8 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import MapMarker from '../../../../common/MapMarker/MapMarker';
 import { ciIcon } from '../../../../common/MapMarker/MarkerIcons';
-import InputSwitch from '../../../../common/uiForms/imputSwitch';
+import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
+
 import { CIRCULOS } from '../../../../core/config/routes/paths';
 import { circuloInitialValues } from '../../../../utils/initialValues/circuloInitialValues';
 import { CirculoSchema } from '../../../../utils/yupValidations/circuloYupValidations';
@@ -111,16 +112,8 @@ function CirculoForm({ circulo, showAttendance }) {
 							</div>
 
 							<div className='col-md-4 '>
-								<InputSwitch
-									className={'form-check form-switch'}
-									id={'isCiActive'}
-									name={'isCiActive'}
-									value={form.values.isCiActive}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-									label='Activo'
-									defaultChecked={form.values.isCiActive}
-								/>
+							{renderSwitchSelect('isCiActive', 'Activo', form, form.values.isCiActive)}
+
 							</div>
 						</div>
 
