@@ -1,12 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useMemo } from 'react';
-import { circulosApiGet, circulosApiCreate, circulosApiUpdate, circulosApiDelete, circulosApiStatus } from '../service/circulo.services';
+import { circulosApiGet, circulosApiCreate, circulosApiUpdate, circulosApiDelete, circulosApiStatus, pastCirculosApiGet } from '../service/circulo.services';
 import PropTypes from 'prop-types';
 
 const CirculoContext = createContext();
 
 export const CirculoProvider = ({ children }) => {
 	const queryCirculos = useQuery({ queryKey: ['circulos'], queryFn: circulosApiGet,  });
+
+	const queryPastCirculos = useQuery({ queryKey: ['pastCirculos'], queryFn: pastCirculosApiGet,  });
 	
 	const queryClient = useQueryClient();
 
@@ -42,12 +44,13 @@ export const CirculoProvider = ({ children }) => {
 		() => (
 			{
 			queryCirculos,
+			queryPastCirculos,
 			addCirculo,
 			updateCirculo,
 			deleteCirculo,
 			changeStatusCirculo,	
 		}),
-		[queryCirculos]
+		[queryCirculos, queryPastCirculos]
 	);
 	
 		return <CirculoContext.Provider value={value}>{children}</CirculoContext.Provider>;
