@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
+import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 import { USERS } from '../../../../core/config/routes/paths';
 import { userInitialValues } from '../../../../utils/initialValues/userInitialValues';
 import { UserSchema } from '../../../../utils/yupValidations/userYupValidations';
@@ -147,10 +147,10 @@ function UserForm({ user }) {
 
 								<div className='col-md-4 mb-3 form-check form-switch '>
 
-								{/* {renderSwitchSelect('role', 'Administrador', form, 
-								form.values.role === 'admin', handleChange)} */}
+								{renderSwitchSelect('role', 'Administrador', form, 
+								form.values.role === 'admin', handleChange)}
 
-									<input
+									{/* <input
 										type='checkbox'
 										className='form-check-input m-md-1' 
 										id='role'
@@ -160,7 +160,7 @@ function UserForm({ user }) {
 									/>
 									<label className='custom-control-label text-secondary' htmlFor='role'>
 										Administrador
-									</label>
+									</label> */}
 
 								</div>
 							</div>
@@ -172,9 +172,10 @@ function UserForm({ user }) {
 								Cancelar
 							</a>
 
-							<button type='submit' className='btn save-btn' onClick={console.log(form.values)}>
+							<button type='submit' className='btn save-btn' >
 								{' '}
 								{user ? 'Actualizar' : 'Guardar'}
+								
 							</button>
 						</article>
 					</form>

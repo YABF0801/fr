@@ -24,6 +24,7 @@ export const UserProvider = ({ children }) => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 		},
 	});
+
 	const deleteUser = useMutation({
 		mutationFn: usersApiDelete,
 		onSuccess: () => {

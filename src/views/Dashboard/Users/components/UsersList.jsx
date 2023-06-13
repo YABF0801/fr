@@ -1,11 +1,12 @@
-import { useUserContext } from '../context/UserContext';
 import { useEffect, useState } from 'react';
-import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import UserForm from './UserForm';
 import { confirmAlert } from 'react-confirm-alert';
-import UserColumns from './UserTableColumns';
+import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
+import { useUserContext } from '../context/UserContext';
+import UserForm from './UserForm';
+import UserColumns from './UserTableColumns';
+
 
 const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
@@ -84,6 +85,7 @@ const UsersList = () => {
 	const countByUser = countSubmisionsByUser(submisions);
 
 	const columns = UserColumns({ editUser, confirmDelete });
+
 
 	function showForm() {
 		document.getElementById('user').style.display = 'block';
