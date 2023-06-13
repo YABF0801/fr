@@ -158,7 +158,9 @@ const Parent1Form = ({ form }) => {
 						<div className='form-group justify-content-evenly mb-4'>
 							<div className='row align-items-center mb-3'>
 								<div className='col-md-6 d-flex justify-content-evenly'>
-									{renderOccupationRadios(occupations, 'occupation', form)}
+
+									{renderOccupationRadios(occupations, 'occupation', form, '1', 0)}
+
 								</div>
 
 								<div className='col-md-6'>

@@ -1,7 +1,24 @@
 import { PropTypes } from 'prop-types';
+import { useEffect, useState } from 'react';
 import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
+import Select from '../../../../common/uiForms/select';
+import { getParentsOcupations, getTypeParent } from '../services/SubmisionForm.services';
+import { renderOccupationRadios } from './Utils';
 
 const Parent2Form = ({ form }) => {
+	const [typeParents, setTypeParents] = useState([]);
+	const [occupations, setOccupations] = useState([]);
+
+	useEffect(() => {
+		const getParentsEnums = async () => {
+			const occupationsEnum = await getParentsOcupations();
+			const typeParentsEnum = await getTypeParent();
+			setOccupations(occupationsEnum);
+			setTypeParents(typeParentsEnum);
+		};
+		getParentsEnums();
+	}, []);
+
 	return (
 		<div id='parent2'>
 			<hr className='text-secondary' />
@@ -47,21 +64,22 @@ const Parent2Form = ({ form }) => {
 									)}
 							</div>
 
-							<div className='col-md-2'>
-								<select
-									className='form-select d-inline'
-									id='typeParent2'
-									name='child.parents[1].typeParent'
-									value={form.values.child?.parents[1].typeParent}
-									onChange={form.handleChange}
-									onBlur={form.handleBlur}
-								>
-									<option value='0'>Parentesco</option>
-									<option value='madre'>Madre</option>
-									<option value='padre'>Padre</option>
-									<option value='tutor'>Tutor</option>
-								</select>
-							</div>
+							
+							<Select
+								className='col-md-2'
+								id={'typeParent2'}
+								name={'child.parents[1].typeParent'}
+								value={form.values.child?.parents[1].typeParent}
+								optionText={'Parentesco'}
+								onChange={form.handleChange}
+								onBlur={form.handleBlur}
+								mapFunction={typeParents.map((type) => (
+									<option key={type} value={type}>
+										{type.charAt(0).toUpperCase() + type.slice(1)}
+									</option>
+								))}
+							/>
+						
 						</div>
 
 						{/* ************************************************************* */}
@@ -69,6 +87,7 @@ const Parent2Form = ({ form }) => {
 						<div className='form-group d-inline justify-content-evenly'>
 							<div className='row align-items-center mb-3'>
 							<div className='col-md-2'>
+								
 								{renderSwitchSelect('child.parents[1].convivencia', 'Convive', form,
 								form.values.child?.parents?.[1].convivencia)} 
 
@@ -100,72 +119,12 @@ const Parent2Form = ({ form }) => {
 
 						{/* ******************************************************** */}
 
+						
+
 						<div className='form-group d-inline justify-content-evenly'>
 							<div className='row align-items-center '>
 								<div className='col-md-6 mb-3 d-flex justify-content-evenly '>
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='trabajador2'
-											name='child.parents[1].occupation'
-											value='trabajador'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-											defaultChecked
-										/>
-										<label className='form-check-label' htmlFor='trabajador'>
-											Trabajador
-										</label>
-									</div>
-
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='jubilado2'
-											name='child.parents[1].occupation'
-											value='jubilado'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-										/>
-
-										<label className='form-check-label' htmlFor='jubilado'>
-											Jubilado
-										</label>
-									</div>
-
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='asistenciado2'
-											name='child.parents[1].occupation'
-											value='asistenciado'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-										/>
-
-										<label className='form-check-label' htmlFor='asistenciado'>
-											Asistenciado
-										</label>
-									</div>
-
-									<div className='form-check form-check-inline'>
-										<input
-											className='form-check-input'
-											type='radio'
-											id='estudiante2'
-											name='child.parents[1].occupation'
-											value='estudiante'
-											onChange={form.handleChange}
-											onBlur={form.handleBlur}
-										/>
-
-										<label className='form-check-label' htmlFor='estudiante'>
-											Estudiante
-										</label>
-									</div>
+								{renderOccupationRadios(occupations, 'occupation', form, '2', 1)}
 								</div>
 
 								<div className='col-md-6 mb-3'>

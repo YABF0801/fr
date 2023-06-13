@@ -25,22 +25,25 @@ export const renderTypeRadios = (data, name, form) => {
 // data es array 
 // name es atributo del esquema
 // parentNumber = 0, 1
-export const renderOccupationRadios = (data, name, form) => {
+export const renderOccupationRadios = (data, name, form, idNum, parentNum) => {
     return data.map((item, index) => (
       <div className='form-check form-check-inline' key={index}>
         <input
           className='form-check-input'
           type='radio'
-          id={`${item}1`}
-          name={`child.parents[0].${name}`}
+          id={`${item}${idNum}`}
+          name={`child.parents[${parentNum}].${name}`}
           value={item}
           onChange={form.handleChange}
           onBlur={form.handleBlur}
-          checked={form.values.child?.parents?.[0][name] === item}
+          checked={form.values.child?.parents?.[parentNum][name] === item}
         />
-        <label className='form-check-label' htmlFor={`${item}1`}>
+        <label className='form-check-label' htmlFor={`${item}${idNum}`}>
           {item.charAt(0).toUpperCase() + item.slice(1)}
         </label>
       </div>
     ));
   };
+
+
+      
