@@ -14,6 +14,7 @@ const Proyeccion = () => {
 	const handleProyectar = async () => {
 		document.getElementById('table').style.display = 'block';
 		document.getElementById("circulo").style.display = "none";
+		document.getElementById('historic').style.display = 'none';
 		return function cleanUp() {};
 	};
 
@@ -35,6 +36,8 @@ const Proyeccion = () => {
 };
 
 export default Proyeccion;
+
+
 
 export const ProyeccionTable = () => {
 	const [proyeccion, setProyeccion] = useState([]);
@@ -207,6 +210,7 @@ export const ProyeccionTable = () => {
 	const cerrarProyeccion = async () => {
 		document.getElementById('table').style.display = 'none';
 		document.getElementById("circulo").style.display = "none";
+		document.getElementById('historic').style.display = 'none';
 		return function cleanUp() {};
 	};
 	return (

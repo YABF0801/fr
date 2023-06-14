@@ -7,7 +7,7 @@ import { useAuthContext } from '../../../../core/context/authContext';
 import { useCirculoContext } from '../context/CirculoContext';
 import CirculoForm from './CirculoForm';
 import CirculoColumns from './CirculoTableColumns';
-import YearMenu from './Historic';
+import YearMenu, { HistoricTable } from './Historic';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
 const CirculosList = () => {
@@ -19,6 +19,7 @@ const CirculosList = () => {
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
 	const [circulosLocal, setCirculosLocal] = useState([]);
+	const [selectedYear, setSelectedYear] = useState(null);
 
 	const { isAuthenticated } = useAuthContext();
 
@@ -96,12 +97,12 @@ const CirculosList = () => {
 		setHideActive(!hideActive);
 	};
 
-	const {columns} = CirculoColumns({ 
-		isAuthenticated, 
-		hideMatricula, 
-		hideActive, 
-		editCirculo, 
-		confirmDelete 
+	const { columns } = CirculoColumns({
+		isAuthenticated,
+		hideMatricula,
+		hideActive,
+		editCirculo,
+		confirmDelete,
 	});
 
 	function showForm() {
@@ -138,7 +139,6 @@ const CirculosList = () => {
 							</div>
 
 							<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
-								
 								<input
 									type='checkbox'
 									className='form-check-input m-md-1'
@@ -160,11 +160,7 @@ const CirculosList = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-
-								<YearMenu/>
-							{/* <button type='excel' onClick={()=>alert('historico')} className='btn export-btn'>
-									Histórico
-								</button> */}
+								<YearMenu onSelectYear={setSelectedYear} />
 
 								{isAuthenticated.user?.role === 'admin' && (
 									<a href='#circulo' onClickCapture={showForm} className='btn customize-btn'>
@@ -196,6 +192,8 @@ const CirculosList = () => {
 				</div>
 				<CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} />
 				<ProyeccionTable />
+				<HistoricTable year={selectedYear} />
+			
 			</div>
 		</section>
 	);

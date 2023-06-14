@@ -56,8 +56,19 @@ export const circulosApiStatus = async (id) => {
 
 export const pastCirculosApiGet = async () => {
 	const pastCirculos = await baseAxios.get('/circulos/historic');
+	console.log('orig',pastCirculos)
 	return pastCirculos.data;
-};
+}; 
+
+export const pastCirculosSetArray = async (year) => {
+	if (!year) {
+	  return []; 
+	}
+  	const pastCirculos = await baseAxios.get('/circulos/historic');
+	const selectedCourse = pastCirculos.data.filter((pastCirculo) => pastCirculo.year === year);
+	const circulos = selectedCourse[0].circulos;
+	return circulos;
+  };
 
 export const proyeccionApiGet = async () => {
 	try {
