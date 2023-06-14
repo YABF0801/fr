@@ -56,7 +56,6 @@ export const circulosApiStatus = async (id) => {
 
 export const pastCirculosApiGet = async () => {
 	const pastCirculos = await baseAxios.get('/circulos/historic');
-	console.log('orig',pastCirculos)
 	return pastCirculos.data;
 }; 
 

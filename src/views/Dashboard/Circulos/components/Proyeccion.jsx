@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 /* import { confirmAlert } from 'react-confirm-alert'; */
 import { Tooltip } from 'react-tooltip';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
@@ -19,19 +19,17 @@ const Proyeccion = () => {
 	};
 
 	return (
-				<a
-					href='#table'
-					onClickCapture={handleProyectar}
-					className='btn btn-sm d-flex justify-content-end gap-3 mt-4'
-				>
-					<h4 className='text-secondary'>Proyección del próximo curso</h4>
-					<i
-						className='action-btn bi bi-arrow-bar-right'
-						data-tooltip-id='tooltip'
-						data-tooltip-content='Ver proyección'
-					></i>
 
-				</a>
+					<a
+						href='#table'
+						type='button'
+						className='btn export-btn'
+						onClickCapture={handleProyectar}
+						data-tooltip-id='tooltip'
+						data-tooltip-content='Proyección del próximo curso'
+					>
+						Proyección
+					</a>
 	);
 };
 

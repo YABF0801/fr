@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import { DropdownButton } from 'react-bootstrap';
-import { useCirculoContext } from '../context/CirculoContext';
+import { Tooltip } from 'react-tooltip';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import { useCirculoContext } from '../context/CirculoContext';
 import { pastCirculosSetArray } from '../service/circulo.services';
+<Tooltip
+	id='tooltip'
+	effect='solid'
+	className='diff-arrow'
+/>;
 
 const YearMenu = ({ onSelectYear }) => {
 	const { queryPastCirculos } = useCirculoContext();
@@ -31,7 +37,8 @@ const YearMenu = ({ onSelectYear }) => {
 	};
 
 	return (
-		<DropdownButton title='Histórico' id='year-historic'>
+		<DropdownButton title='Histórico' id='year-historic' data-tooltip-id='tooltip'
+		data-tooltip-content='Datos de años anteriores'>
 			{years.length > 0 ? (
 				years.map((year) => (
 					<a
@@ -40,6 +47,7 @@ const YearMenu = ({ onSelectYear }) => {
 						key={year}
 						className='btn mx-1 my-1 year-btn'
 						onClick={() => handleYearSelection(year)}
+						
 					>
 						{year}
 					</a>
@@ -55,7 +63,6 @@ export default YearMenu;
 
 export const HistoricTable = ({ year }) => {
 	const [courseArray, setCourseArray] = useState([]);
-  console.log('year',year)
 
   useEffect(() => {
     const setArray = async () => {

@@ -113,13 +113,7 @@ const CirculosList = () => {
 		<section className='list '>
 			<div className=' mt-3 p-2 pb-5'>
 				<div className='row'>
-					<div className='col-md-4 '></div>
-					<div className='col-md-4 '>
 						<h2 className='text-center mt-2 p-3'>Listado de círculos</h2>
-					</div>
-					<div className='col-md-4'>
-						<Proyeccion />
-					</div>
 				</div>
 
 				<div className='card '>
@@ -160,6 +154,8 @@ const CirculosList = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
+						<Proyeccion />
+								
 								<YearMenu onSelectYear={setSelectedYear} />
 
 								{isAuthenticated.user?.role === 'admin' && (
