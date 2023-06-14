@@ -13,9 +13,9 @@ const TotalChildrenPerAge = () => {
 			{
 				label: '',
 				data: queryTotalChildrenPerAge.data ? queryTotalChildrenPerAge.data : [],
-				fill: true,
 				backgroundColor: 'rgba(75, 162, 180, 0.3)',
 				borderColor: 'rgba(75, 162, 180, 1)',
+				fill: true,
 				tension: 0.3,
 				pointBorderWidth: 3,
 			},

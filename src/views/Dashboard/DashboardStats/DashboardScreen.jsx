@@ -3,6 +3,7 @@ import CirculosType from './components/CirculosTypeBar';
 import DataCiByYearOfLife from './components/DataCiByYearOfLife.BarChart';
 import FamilySituation from './components/FamilySituationCards';
 import HeaderStats from './components/HeaderStats';
+import HistoricTotalsCirculos from './components/HistoricTotalsCirculos.LineChart';
 import MapDashboard from './components/MapDashboard';
 import MatriculaPorCP from './components/MatriculaPerCPopular.DoughnutChart';
 import SubmisionsRecievedAproved from './components/SubmisionsRecievedAproved.LineChart';
@@ -45,8 +46,11 @@ const Dashboard = () => {
 				<div className='col-md-3'><MatriculaPorCP /></div>
 			</div>
 
+			<div className='row row-dash justify-content-evenly m-2 mb-4'>
+			{/* <div className='col-md-6'><SubmisionsRecievedAproved /></div> */}
+			<div className='col-md-12'><HistoricTotalsCirculos/></div>
 			
-			
+			</div>
 			
 		</>
 	);
