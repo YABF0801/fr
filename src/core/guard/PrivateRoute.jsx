@@ -6,12 +6,11 @@ const PrivateRoute = () => {
 	const { isAuthenticated } = useAuthContext();
 	const location = useLocation()
 
-
-
 	localStorage.setItem('lastPath', location.pathname)
 
 
-	return isAuthenticated.user?._id ? <Outlet /> : <Navigate to={ HOME } />;
+	return isAuthenticated.user?._id ? <Outlet /> : <Navigate to={localStorage.getItem('lastPath') || HOME}  />;
 };
 
 export default PrivateRoute;
+
