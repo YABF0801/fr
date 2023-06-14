@@ -1,7 +1,7 @@
 // FIX THIS NAVBAR AND TRY TO FIX TOGGLE TOO
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import {
 	CIRCULOS, DASHBOARD, GENERAL_LIST, HELP, NEW_SUBMISISON,
@@ -15,7 +15,6 @@ import Pill from './PillBadge';
 
 const Navbar = () => {
 
-	const navigate = useNavigate();
 	const { logout } = useAuthContext();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { isAuthenticated } = useAuthContext();
@@ -45,7 +44,6 @@ const Navbar = () => {
 					label: 'Salir',
 					onClick: () => {
 						logout();
-						navigate('/');
 					},
 				},
 			],
