@@ -23,12 +23,14 @@ import './styles/main.scss';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import BajaAlert from './common/BajaAlert';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<QueryClientProvider client={ new QueryClient() }>
 			<App />
 			<ReactQueryDevtools />
+			<BajaAlert/>
 		</QueryClientProvider>
 	</React.StrictMode>
 );
