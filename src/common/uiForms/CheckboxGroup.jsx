@@ -2,7 +2,7 @@
 
 export const renderCheckboxGroup = (data, name, onSelect) => {
     return data.map((item, index) => (
-      <div className='form-check form-check-inline' key={index}>
+      <div className='form-check form-check-inline m-md-1' key={index}>
         <input
           className='form-check-input'
           type='checkbox'

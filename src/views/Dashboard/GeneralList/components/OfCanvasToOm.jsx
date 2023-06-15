@@ -30,9 +30,9 @@ const OfCanvasToOm = () => {
       </button>
       ) }
 
-      <Offcanvas show={show} onHide={handleClose} placement={'end'}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title><h3>Otorgamiento masivo</h3> <hr/></Offcanvas.Title>
+      <Offcanvas show={show} onHide={handleClose} placement={'end'} >
+        <Offcanvas.Header>
+          <Offcanvas.Title ><p className='mt-3 om'>Otorgamiento masivo</p> <hr className='mt-4'/></Offcanvas.Title>
         </Offcanvas.Header>
 
         <Offcanvas.Body>

@@ -172,117 +172,124 @@ const GeneralListTable = () => {
 	}
 
 	function showFilters() {
-		const filtersElement = document.getElementById("filters");
+		const filtersElement = document.getElementById('filters');
 		if (filtersElement.style.display === 'none') {
-		  filtersElement.style.display = 'block';
+			filtersElement.style.display = 'block';
 		} else {
-		  filtersElement.style.display = 'none';
+			filtersElement.style.display = 'none';
 		}
-	  }
-	  
+	}
 
 	return (
 		<section className='list '>
 			<div className=' mt-3 p-2 pb-5'>
 				<h2 className='text-center mt-2 p-3'>Listado de planillas</h2>
 
-				<div className='card '>
-					<div className='card-body '>
-						<div className='pb-3 mb-2 gap-3 d-flex justify-content-between '>
-							<div className='searchbar'>
-								<input
-									className='search_input '
-									id='search'
-									placeholder='Búsqueda...'
-									value={search}
-									onChange={handleSearch}
-								/>
-								<a className='search_icon'>
-									<i className='bi bi-search'></i>
-								</a>
-							</div>
-
-							<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
-								<input
-									type='checkbox'
-									className='form-check-input m-md-1'
-									id='show_matricula'
-									onClick={handleHideSocialCase}
-								/>
-								<label className='custom-control-label ' htmlFor='show_matricula'>
-									Caso Social
-								</label>
-								<input
-									type='checkbox'
-									className='form-check-input m-md-1'
-									id='show_matricula'
-									onClick={handleHidePhone}
-								/>
-								<label className='custom-control-label ' htmlFor='show_matricula'>
-									Teléfono
-								</label>
-								<input
-									type='checkbox'
-									className='form-check-input m-md-1'
-									id='show_matricula'
-									onClick={handleHideAddress}
-								/>
-								<label className='custom-control-label ' htmlFor='show_matricula'>
-									Dirección
-								</label>
-								<input
-									type='checkbox'
-									className='form-check-input m-md-1'
-									id='show_matricula'
-									onClick={handleHidePadre}
-								/>
-								<label className='custom-control-label ' htmlFor='show_matricula'>
-									Padre
-								</label>
-							</div>
-
-							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<div className='gap-1  justify-content-end'>
-									<a className='btn btn-sm' onClick={showFilters}>
-										<i
-											className='bi action-btn bi-funnel-fill'
-											data-tooltip-id='tooltip'
-											data-tooltip-content='Filtrar'
-										></i>
+				<div className='card-t'>
+					<div className='card-top '>
+						<div className='card-body '>
+							<div className='pb-3 mb-2 gap-3 d-flex justify-content-between '>
+								<div className='searchbar'>
+									<input
+										className='search_input '
+										id='search'
+										placeholder='Búsqueda...'
+										value={search}
+										onChange={handleSearch}
+									/>
+									<a className='search_icon'>
+										<i className='bi bi-search'></i>
 									</a>
 								</div>
 
-								{isAuthenticated.user?.role === 'admin' && (
-									<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
-										<i className='bi bi-plus-lg'></i>
-									</a>
-								)}
+								<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_matricula'
+										onClick={handleHideSocialCase}
+									/>
+									<label className='custom-control-label ' htmlFor='show_matricula'>
+										Caso Social
+									</label>
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_matricula'
+										onClick={handleHidePhone}
+									/>
+									<label className='custom-control-label ' htmlFor='show_matricula'>
+										Teléfono
+									</label>
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_matricula'
+										onClick={handleHideAddress}
+									/>
+									<label className='custom-control-label ' htmlFor='show_matricula'>
+										Dirección
+									</label>
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_matricula'
+										onClick={handleHidePadre}
+									/>
+									<label className='custom-control-label ' htmlFor='show_matricula'>
+										Padre
+									</label>
+								</div>
 
-								<ExportBtn handleExport={handleExport} />
+								<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
+									<div className='gap-1  justify-content-end'>
+										<a className='btn btn-sm' onClick={showFilters}>
+											<i
+												className='bi action-btn bi-funnel-fill'
+												data-tooltip-id='tooltip'
+												data-tooltip-content='Filtrar'
+											></i>
+										</a>
+									</div>
 
-								{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
+									{isAuthenticated.user?.role === 'admin' && (
+										<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
+											<i className='bi bi-plus-lg'></i>
+										</a>
+									)}
+
+									<ExportBtn handleExport={handleExport} />
+
+									{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
+								</div>
 							</div>
-						</div>
-
-						<FiltersRow/>
-
-						{querySubmision.isLoading ? (
-							<div className='row m-5'>
-								<SmallSpinner className='m-4 mx-auto' data={'planillas'} color={'#36616c'} />
-							</div>
-						) : (
-							<DataTable columns={columns} data={submisionsLocal} autoWidth={true} />
-						)}
-
-						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
-							<h4>Leyenda: </h4>
-							<h6>OM: Otorgamiento masivo |</h6>
-							<h6>OS: Otorgamiento sistemático | </h6>
-							<h6>CS: Caso social </h6>
 						</div>
 					</div>
+
+					<div className='snow-glass '>
+						<FiltersRow />
+					</div>
+
+					<div className='card-bottom '>
+						<div className='card-body '>
+							{querySubmision.isLoading ? (
+								<div className='row m-5'>
+									<SmallSpinner className='m-4 mx-auto' data={'planillas'} color={'#36616c'} />
+								</div>
+							) : (
+								<DataTable columns={columns} data={submisionsLocal} autoWidth={true} />
+							)}
+
+							<div className='text-secondary d-flex justify-conten-evenly gap-3'>
+								<h4>Leyenda: </h4>
+								<h6>OM: Otorgamiento masivo |</h6>
+								<h6>OS: Otorgamiento sistemático | </h6>
+								<h6>CS: Caso social </h6>
+							</div>
+						</div>
+					</div>
+					<SubmisionForm submision={selectedSubmision} />
 				</div>
-				<SubmisionForm submision={selectedSubmision} />
 			</div>
 		</section>
 	);

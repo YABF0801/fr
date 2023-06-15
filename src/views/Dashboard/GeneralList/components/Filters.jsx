@@ -4,7 +4,7 @@ import { renderCheckboxGroup } from '../../../../common/uiForms/CheckboxGroup';
 // import { DateRangePicker } from "@tremor/react";
 
 export function FiltersRow() {
-	const filterOptions = ['matrículas', 'bajas', 'pendientes', 'niños', 'niñas'];
+	const filterOptions = ['matrículas', 'bajas', 'pendientes', 'caso social', 'niños', 'niñas'];
 
 	const DateRangePicker = () => {
 		const [startDate, setStartDate] = useState(null);
@@ -26,23 +26,21 @@ export function FiltersRow() {
 					endDate={endDate}
 					dateFormat='dd/MM/yyyy'
 					className='form-control'
-					placeholderText='Seleccione fecha '
+					placeholderText='Seleccione fecha de inicio o rango de fechas'
 					selectsRange
 				/>
 			</div>
 		);
 	};
 
+	return (
+		<div id='filters'  >
+			<div className='gap-3 justify-content-end d-flex'>
+				<DateRangePicker />
+				{/* <DateRangePicker className="max-w-sm mx-auto" /> */}
 
-return (
-<div id='filters'>
-	<div className='gap-3 pb-3 mb-4 justify-content-end d-flex'>
-        <DateRangePicker />
-{/* <DateRangePicker className="max-w-sm mx-auto" /> */}
-		
-        {renderCheckboxGroup(filterOptions, 'filter-options')}
-	</div>
-      </div>
-  );
-};
-
+				{renderCheckboxGroup(filterOptions, 'filter-options')}
+			</div>
+		</div>
+	);
+}

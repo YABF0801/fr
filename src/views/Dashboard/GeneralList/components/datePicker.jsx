@@ -55,9 +55,9 @@ const DatePickerToOm = () => {
 			<div className='form-check form-switch form-check-inline d-flex flex-column align-items-center'>
 				{existingDate ? (
 					<>
-						<p className='text-secondary'>Fecha para el otorgamiento masivo</p>
+						<p className='text-secondary'>Próximo otorgamiento masivo</p>
 						<div className='d-flex d-flex-inline'>
-							<h3 className='text-secondary'>{date}</h3>
+							<h3 >{date}</h3>
 
 							<button onClick={confirmDelete} className='btn btn-sm '>
 								<i
