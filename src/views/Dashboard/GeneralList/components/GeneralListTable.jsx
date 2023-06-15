@@ -186,9 +186,9 @@ const GeneralListTable = () => {
 				<h2 className='text-center mt-2 p-3'>Listado de planillas</h2>
 
 				<div className='card-t'>
-					<div className='card-top '>
+					<div className='card-top'>
 						<div className='card-body '>
-							<div className='pb-3 mb-2 gap-3 d-flex justify-content-between '>
+							<div className='pb-3 mt-2 p-2 mb-2 gap-3 d-flex justify-content-between '>
 								<div className='searchbar'>
 									<input
 										className='search_input '
