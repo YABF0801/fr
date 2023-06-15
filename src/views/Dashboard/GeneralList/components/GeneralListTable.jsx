@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
-import { confirmAlert } from 'react-confirm-alert';
-import { exportExcel } from '../../../../common/Export';
-import { useAuthContext } from '../../../../core/context/authContext';
-import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-import GeneralListColumns from './GeneralListColumns';
-import { useSubmisionContext } from '../../../../core/context/SumisionContext';
-import OfCanvasToOm from './OfCanvasToOm';
 import { Tooltip } from 'leaflet';
+import { useEffect, useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import DataTable from '../../../../common/DataTableBase/DataTableBase';
+import { exportExcel } from '../../../../common/Export';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { renderCheckboxGroup } from '../../../../common/uiForms/CheckboxGroup';
+import { useAuthContext } from '../../../../core/context/authContext';
+import { useSubmisionContext } from '../../../../core/context/SumisionContext';
+import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
+import ExportBtn from './ExportBtn';
+import GeneralListColumns from './GeneralListColumns';
+import OfCanvasToOm from './OfCanvasToOm';
 
 <Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
-import ExportBtn from './ExportBtn';
 
 const GeneralListTable = () => {
 	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
