@@ -2,7 +2,13 @@
 import { renderCheckboxGroup } from "../../../../common/uiForms/CheckboxGroup";
 
 export function FiltersRow() {
-	const filterOptions = ['urbano', 'rural', 'activo'];
+
+	const filterOptions = [
+		{ label: 'Urbano', value: 'urbano' },
+		{ label: 'Rural', value: 'rural' },
+		{ label: 'Activo', value: 'isCiActive' },
+	  ];
+
 	return (
 		<div id='filters'  >
 			<div className='gap-3 justify-content-end d-flex'>

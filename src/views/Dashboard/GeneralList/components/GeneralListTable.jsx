@@ -24,21 +24,63 @@ const GeneralListTable = () => {
 	const [selectedSubmision, setSelectedSubmision] = useState(null);
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
 	const { isAuthenticated } = useAuthContext();
+	const [selectedFilters, setSelectedFilters] = useState([]);
+	const [filterOption, setFilterOption] = useState('includes');
 
 	useEffect(() => {
 		setSubmisionsLocal(querySubmision.data);
 		return function cleanUp() {};
 	}, [querySubmision.data]);
 	
-	const handleFilter = (search, selected) => {
-		if (submisionsLocal.length > 0) {
-			const filter = submisionsLocal.filter(
-			  (submision) => submision[search] === selected
-			);
-			setSubmisionsLocal(filter);
+	const handleFilter = (filter, isChecked) => {
+		setSelectedFilters((prevSelectedFilters) => {
+		  if (isChecked) {
+			return [...prevSelectedFilters, filter];
+		  } else {
+			return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
 		  }
-	};
+		});
+	  };
 
+	  useEffect(() => {
+		if (selectedFilters.length > 0) {
+		  console.log('rec', selectedFilters);
+		  const filteredSubmissions = querySubmision.data.filter((submision) =>
+			filterOption === 'includes'
+			  ? selectedFilters.includes(submision.status) ||
+				selectedFilters.includes(submision.child.sex) ||
+				(selectedFilters.includes('socialCase') && submision.socialCase === true)
+			  : selectedFilters.every((filter) =>
+				  filter === submision.status ||
+				  filter === submision.child.sex ||
+				  (filter === 'socialCase' && submision.socialCase === true)
+				)
+		  );
+		  setSubmisionsLocal(filteredSubmissions);
+		} else {
+		  setSubmisionsLocal(querySubmision.data);
+		}
+	  }, [selectedFilters, querySubmision.data, filterOption]);
+	  
+	//   useEffect(() => {
+	// 	if (selectedFilters.length > 0) {
+	// 		console.log('rec', selectedFilters)
+	// 	  const filteredSubmissions = querySubmision.data.filter((submision) =>
+	// 		selectedFilters.includes(submision.status) ||
+	// 		selectedFilters.includes(submision.child.sex) ||
+	// 		(selectedFilters.includes('socialCase') && submision.socialCase === true)
+			
+	// 	  );
+	// 	  setSubmisionsLocal(filteredSubmissions);
+	// 	} else {
+	// 	  setSubmisionsLocal(querySubmision.data);
+	// 	}
+	//   }, [selectedFilters, querySubmision.data]);
+	
+	const handleToggleFilterOption = () => {
+		setFilterOption((prevOption) => (prevOption === 'includes' ? 'every' : 'includes'));
+	  };
+	
 	const handleExport = () => {
 		const dataset = submisionsLocal.map((item) => ({
 			No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
@@ -278,7 +320,7 @@ const GeneralListTable = () => {
 					</div>
 
 					<div className='snow-glass '>
-						<FiltersRow />
+					<FiltersRow onFilterChange={handleFilter} handleChange={handleToggleFilterOption}/>
 					</div>
 
 					<div className='card-bottom '>
