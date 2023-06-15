@@ -29,6 +29,15 @@ const GeneralListTable = () => {
 		setSubmisionsLocal(querySubmision.data);
 		return function cleanUp() {};
 	}, [querySubmision.data]);
+	
+	const handleFilter = (search, selected) => {
+		if (submisionsLocal.length > 0) {
+			const filter = submisionsLocal.filter(
+			  (submision) => submision[search] === selected
+			);
+			setSubmisionsLocal(filter);
+		  }
+	};
 
 	const handleExport = () => {
 		const dataset = submisionsLocal.map((item) => ({
@@ -182,8 +191,10 @@ const GeneralListTable = () => {
 
 	return (
 		<section className='list '>
-			<div className=' mt-3 p-2 pb-5'>
-				<h2 className='text-center mt-2 p-3'>Listado de planillas</h2>
+			<div className='  p-2 pb-5'>
+				<h2 className='text-center mt-3'>Listado de planillas</h2>
+
+<button onClick={() => handleFilter('status','baja')}>DSKJBFDKJSBV</button>
 
 				<div className='card-t'>
 					<div className='card-top'>

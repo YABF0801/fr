@@ -101,8 +101,8 @@ const UsersList = () => {
 
 	return (
 		<section className='list '>
-			<div className=' mt-3 p-2 pb-5'>
-				<h2 className='text-center p-3'>Administración de usuarios</h2>
+			<div className=' p-2 pb-5'>
+				<h2 className='text-center mt-3'>Administración de usuarios</h2>
 				<div className='card '>
 					<div className='card-body '>
 						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>

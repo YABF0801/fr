@@ -76,8 +76,8 @@ const OrganismosList = () => {
 
 	return (
 		<section className='list '>
-			<div id='top' className=' mt-3 p-2 pb-5'>
-				<h2 className='text-center mt-2 p-3'>Listado de organismos</h2>
+			<div id='top' className=' p-2 pb-5'>
+				<h2 className='text-center mt-3'>Listado de organismos</h2>
 				<div className='card '>
 					<div className='card-body '>
 						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between'>
