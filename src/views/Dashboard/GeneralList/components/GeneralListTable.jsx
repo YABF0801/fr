@@ -4,11 +4,11 @@ import { confirmAlert } from 'react-confirm-alert';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { exportExcel } from '../../../../common/Export';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-import { renderCheckboxGroup } from '../../../../common/uiForms/CheckboxGroup';
 import { useAuthContext } from '../../../../core/context/authContext';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import ExportBtn from './ExportBtn';
+import { FiltersRow } from './Filters';
 import GeneralListColumns from './GeneralListColumns';
 import OfCanvasToOm from './OfCanvasToOm';
 
@@ -171,7 +171,15 @@ const GeneralListTable = () => {
 		document.getElementById('submision').style.display = 'block';
 	}
 
-	const filterOptions = ['matrículas', 'bajas', 'pendientes', 'niños', 'niñas'];
+	function showFilters() {
+		const filtersElement = document.getElementById("filters");
+		if (filtersElement.style.display === 'none') {
+		  filtersElement.style.display = 'block';
+		} else {
+		  filtersElement.style.display = 'none';
+		}
+	  }
+	  
 
 	return (
 		<section className='list '>
@@ -234,12 +242,14 @@ const GeneralListTable = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<div className='gap-1 m-md-2 justify-content-end'>
-									<i
-										className='bi action-btn bi-funnel-fill'
-										data-tooltip-id='tooltip'
-										data-tooltip-content='Filtrar'
-									></i>
+								<div className='gap-1  justify-content-end'>
+									<a className='btn btn-sm' onClick={showFilters}>
+										<i
+											className='bi action-btn bi-funnel-fill'
+											data-tooltip-id='tooltip'
+											data-tooltip-content='Filtrar'
+										></i>
+									</a>
 								</div>
 
 								{isAuthenticated.user?.role === 'admin' && (
@@ -248,15 +258,13 @@ const GeneralListTable = () => {
 									</a>
 								)}
 
-								<ExportBtn handleExport={handleExport}/>
+								<ExportBtn handleExport={handleExport} />
 
 								{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
 							</div>
 						</div>
 
-						<div className='pb-3 mb-4 gap-3 d-flex justify-content-end '>
-							{renderCheckboxGroup(filterOptions, 'filter-options')}
-						</div>
+						<FiltersRow/>
 
 						{querySubmision.isLoading ? (
 							<div className='row m-5'>

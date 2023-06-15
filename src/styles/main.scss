@@ -485,6 +485,11 @@ i.md-icon {
 
 }}
   
+#filters{
+	width: 100%;
+	display: none;
+	transition: height .4s;
+}
 // .marker-cluster-small {
 // 	background-color: rgba(181, 226, 140, 0.6);
 //   }
