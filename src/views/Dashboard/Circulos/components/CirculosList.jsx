@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { circulosFullDataset, exportExcel } from '../../../../common/Export';
+import ExportBtn from '../../../../common/ExportBtn';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useAuthContext } from '../../../../core/context/authContext';
 import { useCirculoContext } from '../context/CirculoContext';
 import CirculoForm from './CirculoForm';
 import CirculoColumns from './CirculoTableColumns';
+import { FiltersRow } from './Filters';
 import YearMenu, { HistoricTable } from './Historic';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
@@ -109,16 +111,28 @@ const CirculosList = () => {
 		document.getElementById('circulo').style.display = 'block';
 	}
 
+	function showFilters() {
+		const filtersElement = document.getElementById('filters');
+		if (filtersElement.style.display === 'none') {
+			filtersElement.style.display = 'block';
+		} else {
+			filtersElement.style.display = 'none';
+		}
+	}
+
 	return (
 		<section className='list '>
 			<div className=' mt-3 p-2 pb-5'>
 				<div className='row'>
-						<h2 className='text-center mt-2 p-3'>Listado de círculos</h2>
+					<h2 className='text-center mt-2 p-3'>Listado de círculos</h2>
 				</div>
 
-				<div className='card '>
+				<div className='card-t'>
+
+				<div className='card-top'>
 					<div className='card-body '>
-						<div className='pb-3 mb-4 gap-3 d-flex justify-content-center h-100'>
+						
+					<div className='pb-3 mt-2 p-2 gap-3 d-flex justify-content-between '>
 							<div className='searchbar'>
 								<input
 									className='search_input '
@@ -154,9 +168,15 @@ const CirculosList = () => {
 							</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-						<Proyeccion />
-								
-								<YearMenu onSelectYear={setSelectedYear} />
+							<div className='gap-1  justify-content-end'>
+										<a className='btn btn-sm' onClick={showFilters}>
+											<i
+												className='bi action-btn bi-funnel-fill'
+												data-tooltip-id='tooltip'
+												data-tooltip-content='Filtrar'
+											></i>
+										</a>
+									</div>
 
 								{isAuthenticated.user?.role === 'admin' && (
 									<a href='#circulo' onClickCapture={showForm} className='btn customize-btn'>
@@ -164,11 +184,22 @@ const CirculosList = () => {
 									</a>
 								)}
 
-								<button type='excel' onClick={handleExport} className='btn export-btn'>
-									Exportar
-								</button>
+								<ExportBtn handleExport={handleExport} />
+
+								<Proyeccion />
+
+								<YearMenu onSelectYear={setSelectedYear} />
 							</div>
 						</div>
+						</div>
+						</div>
+
+						<div className='snow-glass '>
+						<FiltersRow />
+						</div>
+
+						<div className='card-bottom '>
+						<div className='card-body '>
 						{queryCirculos.isLoading ? (
 							<div className='row m-5'>
 								<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'} />
@@ -184,12 +215,13 @@ const CirculosList = () => {
 							<h6>H: Cantidad de niñas por año | </h6>
 							<h6>V: Cantidad de niños por año </h6>
 						</div>
+						</div>
+						
 					</div>
 				</div>
 				<CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} />
 				<ProyeccionTable />
 				<HistoricTable year={selectedYear} />
-			
 			</div>
 		</section>
 	);

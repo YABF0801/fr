@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { exportExcel } from '../../../../common/Export';
+import ExportBtn from '../../../../common/ExportBtn';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useAuthContext } from '../../../../core/context/authContext';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
-import ExportBtn from './ExportBtn';
 import { FiltersRow } from './Filters';
 import GeneralListColumns from './GeneralListColumns';
 import OfCanvasToOm from './OfCanvasToOm';
@@ -188,7 +188,7 @@ const GeneralListTable = () => {
 				<div className='card-t'>
 					<div className='card-top'>
 						<div className='card-body '>
-							<div className='pb-3 mt-2 p-2 mb-2 gap-3 d-flex justify-content-between '>
+							<div className='pb-3 mt-2 p-2 gap-3 d-flex justify-content-between '>
 								<div className='searchbar'>
 									<input
 										className='search_input '
