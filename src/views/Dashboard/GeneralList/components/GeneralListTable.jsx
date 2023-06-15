@@ -12,6 +12,7 @@ import { Tooltip } from 'leaflet';
 import { renderCheckboxGroup } from '../../../../common/uiForms/CheckboxGroup';
 
 <Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
+import ExportBtn from './ExportBtn';
 
 const GeneralListTable = () => {
 	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
@@ -247,9 +248,7 @@ const GeneralListTable = () => {
 									</a>
 								)}
 
-								<button type='excel' onClick={handleExport} className='btn export-btn'>
-									Exportar
-								</button>
+								<ExportBtn handleExport={handleExport}/>
 
 								{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
 							</div>

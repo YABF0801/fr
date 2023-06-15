@@ -3,97 +3,96 @@ import { confirmAlert } from 'react-confirm-alert';
 import DatePicker from 'react-datepicker';
 import { Tooltip } from 'react-tooltip';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
-<Tooltip id="tooltip" effect='solid' className="diff-arrow" />
+<Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
 
 const DatePickerToOm = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [existingDate, setExistingDate] = useState(null);
- 
-  const {queryFechaOm, guardarFecha, resetearFecha} = useOtorgamientoContext();
+	const [selectedDate, setSelectedDate] = useState(null);
+	const [existingDate, setExistingDate] = useState(null);
 
-  useEffect(() => {
-		queryFechaOm.data !== null && queryFechaOm.data !== undefined  && 
-		setExistingDate(queryFechaOm.data);;
-	  }, []);
+	const { queryFechaOm, guardarFecha, resetearFecha } = useOtorgamientoContext();
 
-    const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+	useEffect(() => {
+		queryFechaOm.data !== null && queryFechaOm.data !== undefined && setExistingDate(queryFechaOm.data);
+	}, []);
 
-  const handleSave = async () => {
-    await guardarFecha.mutate(selectedDate);
-    setExistingDate(selectedDate);
-  };
+	const handleDateChange = (date) => {
+		setSelectedDate(date);
+	};
 
-  const confirmDelete = () => {
-    confirmAlert({
-      message: `Está seguro de eliminar la fecha límite para el otorgamiento`,
-      buttons: [
-        {
-          className: 'cancel-btn ',
-          label: 'Cancelar',
-          onClick: () => { },
-        },
-        {
-          className: 'save-btn',
-          label: 'Eliminar',
-          onClick: () => handleDelete(),
-        },
-      ],
-      className: 'button-group d-flex justify-content-evenly'
-    });
-  };
+	const handleSave = async () => {
+		await guardarFecha.mutate(selectedDate);
+		setExistingDate(selectedDate);
+	};
 
-  const handleDelete = async () => {
-    await resetearFecha.mutate();
-    setExistingDate(null);
-  };
+	const confirmDelete = () => {
+		confirmAlert({
+			message: `Está seguro de eliminar la fecha límite para el otorgamiento`,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				{
+					className: 'save-btn',
+					label: 'Eliminar',
+					onClick: () => handleDelete(),
+				},
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
+	};
 
-  const date = existingDate ? new Date(existingDate).toLocaleDateString() : null;
+	const handleDelete = async () => {
+		await resetearFecha.mutate();
+		setExistingDate(null);
+	};
 
-  return (
-    <div className='d-flex justify-content-end '>
-      <div className='form-check form-switch form-check-inline d-flex '>
-        { existingDate ? (
-          <>
-            <p className='text-secondary'>Fecha para el otorgamiento masivo</p>
-            <h3 className='text-secondary'>{ date }</h3>
+	const date = existingDate ? new Date(existingDate).toLocaleDateString() : null;
 
-            <button onClick={ confirmDelete }
-              className='btn btn-sm'
-            ><i className='action-btn bi bi-trash-fill'
-              data-tooltip-id="tooltip"
-              data-tooltip-content="Eliminar fecha"></i>
-            </button>
+	return (
+		<div className='d-flex justify-content-end '>
+			<div className='form-check form-switch form-check-inline d-flex flex-column align-items-center'>
+				{existingDate ? (
+					<>
+						<p className='text-secondary'>Fecha para el otorgamiento masivo</p>
+						<div className='d-flex d-flex-inline'>
+							<h3 className='text-secondary'>{date}</h3>
 
-          </>
-        ) : (
-          <>
+							<button onClick={confirmDelete} className='btn btn-sm '>
+								<i
+									className='action-btn bi bi-trash-fill '
+									data-tooltip-id='tooltip'
+									data-tooltip-content='Eliminar fecha'
+								></i>
+							</button>
+						</div>
+					</>
+				) : (
+					<>
+						<div className='d-flex d-flex-inline'>
+							<DatePicker
+								id='datePicker'
+								selected={selectedDate}
+								onChange={handleDateChange}
+								dateFormat='dd/MM/yyyy'
+								className='form-control '
+								placeholderText='Nueva Fecha de otorgamimento'
+							/>
 
-            <DatePicker
-              id='datePicker'
-              selected={ selectedDate }
-              onChange={ handleDateChange }
-              dateFormat='dd/MM/yyyy'
-              className='form-control '
-              placeholderText='Nueva Fecha de otorgamimento'
-
-            />
-
-            <button id='icon' onClick={ () => handleSave() }
-              className='btn btn-sm '
-            ><i className='action-btn bi bi-check2-square'
-              data-tooltip-id="tooltip"
-              data-tooltip-content="Guardar fecha"></i>
-            </button>
-
-
-
-          </>
-        ) }
-      </div>
-    </div>
-  );
+							<button id='icon' onClick={() => handleSave()} className='btn btn-sm '>
+								<i
+									className='action-btn bi bi-check2-square'
+									data-tooltip-id='tooltip'
+									data-tooltip-content='Guardar fecha'
+								></i>
+							</button>
+						</div>
+					</>
+				)}
+			</div>
+		</div>
+	);
 };
 
 export default DatePickerToOm;

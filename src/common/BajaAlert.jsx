@@ -12,7 +12,7 @@ const BajaAlert = () => {
 
         setShowAlert(hasNullYearOfLife);
 
-      }, 6000); // 900000 ms = 15 minutos
+      }, 900000); // 900000 ms = 15 minutos
   
       return () => clearInterval(interval);
     }, []);
