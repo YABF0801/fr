@@ -8,6 +8,7 @@ import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import GeneralListColumns from './GeneralListColumns';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import OfCanvasToOm from './OfCanvasToOm';
+import ExportBtn from './ExportBtn';
 
 const GeneralListTable = () => {
 
@@ -236,9 +237,7 @@ const GeneralListTable = () => {
 									</a>
 								) }
 
-								<button type='excel' onClick={ handleExport } className='btn export-btn'>
-									Exportar
-								</button>
+								<ExportBtn handleExport={handleExport}/>
 
 								<OfCanvasToOm/>
 
