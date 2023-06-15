@@ -46,22 +46,24 @@ export function FiltersRow({ onFilterChange, handleChange }) {
 		);
 	};
 
-	return (
-		<div id='filters'>
-			<div className='gap-3 m-md-2 form-check form-switch d-flex justify-content-end'>
-			<input type='checkbox' className='form-check-input m-md-1' id='show_matricula' onClick={handleChange} />
-			<label className='custom-control-label ' htmlFor='show_matricula'>
-			Coincidencia completa
-			</label>
-			</div>
+ 	return (
+ 		<div id='filters'>
+			<div className='gap-3 m-md-2 d-flex align-items-center justify-content-end'>
+ 			<div className='form-check form-switch'>
+ 			<input type='checkbox' className='form-check-input m-md-1' id='show_matricula' onClick={handleChange} />
+ 			<label className='custom-control-label ' htmlFor='show_matricula'>
+ 			Coincidencia completa
+ 			</label>
+ 			</div>
 			
 
-			<div className='gap-3 justify-content-end d-flex'>
-				<DateRangePicker />
-				{/* <DateRangePicker className="max-w-sm mx-auto" /> */}
+ 			<div className='gap-3 justify-content-end d-flex'>
+ 				<DateRangePicker />
+ 				{/* <DateRangePicker className="max-w-sm mx-auto" /> */}
 
-				{renderCheckboxGroup(filterOptions, 'filter-options', handleCheckboxChange)}
-			</div>
-		</div>
-	);
-}
+ 				{renderCheckboxGroup(filterOptions, 'filter-options', handleCheckboxChange)}
+ 			</div>
+			 </div>
+ 		</div>
+ 	);
+ }
