@@ -138,12 +138,7 @@ const OmAdministration = () => {
 		await setContadorCambioCurso.mutate(1);
 		await nuevoCurso.mutate();
 	};
-
-	// const handleResetConsecutivo = async () => {
-	// 	// TODO: para cuando llegue la fecha del otorgamiento
-	// 	await resetearConsecutivo.mutate();
-	// };
-
+	
 	const handleRechazarTodo = async () => {
 		const props = await propuestasApiGet();		
 		await rechazarPropuestas.mutate(props);
