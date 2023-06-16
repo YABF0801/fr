@@ -3,7 +3,7 @@ import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import { exportExcel } from '../../../../common/Export';
+import { exportExcel } from '../../../../utils/Export';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import PropuestasListColumns from './PropuestasListColumns';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
@@ -14,9 +14,11 @@ const PropuestasListTable = () => {
 	const [search, setSearch] = useState('');
 	const [rowsSelected, setRowsSelected] = useState([]);
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
+	const [searchData, setSearchData] = useState([]);
 
 	useEffect(() => {
 		setPropuestasLocal(queryPropuestas.data);
+		setSearchData(queryPropuestas.data)
 		return function cleanUp() {};
 	}, [queryPropuestas.data]);
 
@@ -46,6 +48,7 @@ const PropuestasListTable = () => {
 	useEffect(() => {
 		if (search.trim() === '') {
 			setPropuestasLocal(queryPropuestas.data);
+			setSearchData(queryPropuestas.data)
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -56,7 +59,7 @@ const PropuestasListTable = () => {
 		const hasParentLastname = (item) => item.parentLastname !== undefined && item.parentLastname !== '';
 		const hasPhone = (item) => item.phoneNumber !== undefined;
 		setSearch(event.target.value);
-		const elements = propuestasLocal.filter((item) => {
+		const elements = searchData.filter((item) => {
 			if (
 				item.child.childAddress.toLowerCase().includes(search.toLowerCase()) ||
 				item.child.childName.toLowerCase().includes(search.toLowerCase()) ||

@@ -2,7 +2,7 @@ import { Tooltip } from 'leaflet';
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import { exportExcel } from '../../../../common/Export';
+import { exportExcel } from '../../../../utils/Export';
 import ExportBtn from '../../../../common/ExportBtn';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useAuthContext } from '../../../../core/context/authContext';
@@ -23,14 +23,25 @@ const GeneralListTable = () => {
 	const [hideAddress, setHideAddress] = useState(true);
 	const [selectedSubmision, setSelectedSubmision] = useState(null);
 	const [submisionsLocal, setSubmisionsLocal] = useState([]);
+	const [searchData, setSearchData] = useState([]);
 	const { isAuthenticated } = useAuthContext();
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filterOption, setFilterOption] = useState('includes');
+	const [selectedDate, setSelectedDate] = useState(null);
 
 	useEffect(() => {
 		setSubmisionsLocal(querySubmision.data);
+		setSearchData(querySubmision.data);
 		return function cleanUp() {};
 	}, [querySubmision.data]);
+
+	const handleDateChange = (date) => {
+		setSelectedDate(date);
+	};
+
+	const handleCancelDate = (date) => {
+		setSelectedDate(null);
+	};
 
 	const handleFilter = (filter, isChecked) => {
 		setSelectedFilters((prevSelectedFilters) => {
@@ -43,15 +54,18 @@ const GeneralListTable = () => {
 	};
 
 	useEffect(() => {
-		if (selectedFilters.length > 0) {
+		if (selectedFilters.length > 0 || selectedDate) {
 			console.log('rec', selectedFilters);
+			console.log('date', selectedDate);
+
 			const filteredSubmissions = querySubmision.data.filter((submision) =>
 				filterOption === 'includes'
-					? selectedFilters.includes(submision.status) ||
+					? new Date(submision.createdAt) >= selectedDate ||
+					  selectedFilters.includes(submision.status) ||
 					  selectedFilters.includes(submision.child.sex) ||
 					  (selectedFilters.includes('socialCase') && submision.socialCase === true)
-					: selectedFilters.every(
-							(filter) =>
+					: new Date(submision.createdAt) >= selectedDate &&
+					  selectedFilters.every((filter) =>
 								filter === submision.status ||
 								filter === submision.child.sex ||
 								(filter === 'socialCase' && submision.socialCase === true)
@@ -61,7 +75,7 @@ const GeneralListTable = () => {
 		} else {
 			setSubmisionsLocal(querySubmision.data);
 		}
-	}, [selectedFilters, querySubmision.data, filterOption]);
+	}, [selectedFilters, querySubmision.data, filterOption, selectedDate]);
 
 	const handleToggleFilterOption = () => {
 		setFilterOption((prevOption) => (prevOption === 'includes' ? 'every' : 'includes'));
@@ -130,6 +144,7 @@ const GeneralListTable = () => {
 	useEffect(() => {
 		if (search.trim() === '') {
 			setSubmisionsLocal(querySubmision.data);
+			setSearchData(querySubmision.data);
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -141,7 +156,7 @@ const GeneralListTable = () => {
 		const hasPhone = (item) => item.phoneNumber !== undefined;
 		setSearch(event.target.value);
 
-		const elements = submisionsLocal.filter((item) => {
+		const elements = searchData.filter((item) => {
 			if (
 				item.child.childAddress.toLowerCase().includes(search.toLowerCase()) ||
 				item.child.childName.toLowerCase().includes(search.toLowerCase()) ||
@@ -303,7 +318,13 @@ const GeneralListTable = () => {
 					</div>
 
 					<div className='snow-glass '>
-						<FiltersRow onFilterChange={handleFilter} handleChange={handleToggleFilterOption} />
+						<FiltersRow
+							onFilterChange={handleFilter}
+							handleToogleChange={handleToggleFilterOption}
+							handleDateChange={handleDateChange}
+							handleCancelDate={handleCancelDate}
+							selectedDate={selectedDate}
+						/>
 					</div>
 
 					<div className='card-bottom '>
@@ -332,3 +353,4 @@ const GeneralListTable = () => {
 };
 
 export default GeneralListTable;
+

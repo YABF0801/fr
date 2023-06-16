@@ -10,6 +10,7 @@ import OrganismoColumns from './OrganismoTableColumns';
 const OrganismosList = () => {
 	const { queryOrganismos, deleteOrganismo } = useOrganismoContext();
 	const [organismosLocal, setOrganismosLocal] = useState([]);
+	const [searchData, setSearchData] = useState([]);
 	const [search, setSearch] = useState('');
 	const [selectedOrganismo, setSelectedOrganismo] = useState(null);
 
@@ -17,12 +18,14 @@ const OrganismosList = () => {
 
 	useEffect(() => {
 		setOrganismosLocal(queryOrganismos.data);
+		setSearchData(queryOrganismos.data)
 		return function cleanUp() {};
 	}, [queryOrganismos.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
 			setOrganismosLocal(queryOrganismos.data);
+			setSearchData(queryOrganismos.data)
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -56,7 +59,7 @@ const OrganismosList = () => {
 
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
-		const elements = organismosLocal.filter((item) => {
+		const elements = searchData.filter((item) => {
 			if (
 				item.name.toLowerCase().includes(search.toLowerCase()) ||
 				item.description.toLowerCase().includes(search.toLowerCase())

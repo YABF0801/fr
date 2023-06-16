@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { renderCheckboxGroup } from '../../../../common/uiForms/CheckboxGroup';
 // import { DateRangePicker } from "@tremor/react";
 
-export function FiltersRow({ onFilterChange, handleChange }) {
+export function FiltersRow({ onFilterChange, handleToogleChange, selectedDate, handleDateChange,handleCancelDate }) {
 	const filterOptions = [
 		{ label: 'Matrícula', value: 'matricula' },
 		{ label: 'Baja', value: 'baja' },
@@ -20,50 +19,48 @@ export function FiltersRow({ onFilterChange, handleChange }) {
 	};
 
 	const DateRangePicker = () => {
-		const [startDate, setStartDate] = useState(null);
-		const [endDate, setEndDate] = useState(null);
-
-		const handleDateChange = (dates) => {
-			const [start, end] = dates;
-			setStartDate(start);
-			setEndDate(end);
-		};
-
 		return (
-			<div className='date-range-picker col-3'>
+			<div className='date-range-picker'>
 				<DatePicker
 					id='datePicker-export'
-					selected={startDate}
+					selected={selectedDate}
 					onChange={handleDateChange}
-					startDate={startDate}
-					endDate={endDate}
 					dateFormat='dd/MM/yyyy'
 					className='form-control'
 					placeholderText='Seleccione fecha de inicio o rango de fechas'
-					selectsRange
 				/>
 			</div>
 		);
 	};
 
- 	return (
- 		<div id='filters'>
+	return (
+		<div id='filters' >
 			<div className='gap-3 m-md-2 d-flex align-items-center justify-content-end'>
- 			<div className='form-check form-switch'>
- 			<input type='checkbox' className='form-check-input m-md-1' id='show_matricula' onClick={handleChange} />
- 			<label className='custom-control-label ' htmlFor='show_matricula'>
- 			Coincidencia completa
- 			</label>
- 			</div>
-			
+				<div className='form-check form-switch'>
+					<input
+						type='checkbox'
+						className='form-check-input m-md-1'
+						id='show_matricula'
+						onClick={handleToogleChange}
+					/>
+					<label className='custom-control-label ' htmlFor='show_matricula'>
+						Coincidencia completa
+					</label>
+				</div>
 
- 			<div className='gap-3 justify-content-end d-flex'>
- 				<DateRangePicker />
- 				{/* <DateRangePicker className="max-w-sm mx-auto" /> */}
+				<div className='gap-3 justify-content-end d-flex'>
+				<div className='date-picker-container d-flex'>
+					<DateRangePicker />
+				{selectedDate && (
+					<a onClick={handleCancelDate} className='btn btn-sm '>
+						<i className='action-btn bi bi-x'></i>
+					</a>
+				)}
+				</div>
+				{renderCheckboxGroup(filterOptions, 'filter-options', handleCheckboxChange)}
+			</div>
 
- 				{renderCheckboxGroup(filterOptions, 'filter-options', handleCheckboxChange)}
- 			</div>
-			 </div>
- 		</div>
- 	);
- }
+			</div>
+		</div>
+	);
+}

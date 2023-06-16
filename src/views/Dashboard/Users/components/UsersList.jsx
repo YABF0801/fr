@@ -12,6 +12,7 @@ const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
 	const { querySubmision } = useSubmisionContext();
 	const [usersLocal, setUsersLocal] = useState([]);
+	const [searchData, setSearchData] = useState([]);
 	const [search, setSearch] = useState('');
 	const [selectedUser, setSelectedUser] = useState(null);
 
@@ -19,12 +20,14 @@ const UsersList = () => {
 
 	useEffect(() => {
 		setUsersLocal(queryUsers.data);
+		setSearchData(queryUsers.data)
 		return function cleanUp() {};
 	}, [queryUsers.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
 			setUsersLocal(queryUsers.data);
+			setSearchData(queryUsers.data)
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -58,7 +61,7 @@ const UsersList = () => {
 
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
-		const elements = usersLocal.filter((item) => {
+		const elements = searchData.filter((item) => {
 			if (
 				item.nickname.toLowerCase().includes(search.toLowerCase()) ||
 				item.name.toLowerCase().includes(search.toLowerCase()) ||

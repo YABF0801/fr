@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import { circulosFullDataset, exportExcel } from '../../../../common/Export';
+import { circulosFullDataset, exportExcel } from '../../../../utils/Export';
 import ExportBtn from '../../../../common/ExportBtn';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useAuthContext } from '../../../../core/context/authContext';
@@ -20,6 +20,7 @@ const CirculosList = () => {
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
 	const [circulosLocal, setCirculosLocal] = useState([]);
+	const [searchData, setSearchData] = useState([]);
 	const [selectedYear, setSelectedYear] = useState(null);
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filterOption, setFilterOption] = useState('includes');
@@ -28,6 +29,7 @@ const CirculosList = () => {
 
 	useEffect(() => {
 		setCirculosLocal(queryCirculos.data);
+		setSearchData(queryCirculos.data)
 		return function cleanUp() {};
 	}, [queryCirculos.data]);
 
@@ -82,13 +84,14 @@ const CirculosList = () => {
 	useEffect(() => {
 		if (search.trim() === '') {
 			setCirculosLocal(queryCirculos.data);
+			setSearchData(queryCirculos.data)
 		}
 		return function cleanUp() {};
 	}, [search]);
 
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
-		const elements = circulosLocal.filter((item) => {
+		const elements = searchData.filter((item) => {
 			if (item.name.toLowerCase().includes(search.toLowerCase())) {
 				return item;
 			}
