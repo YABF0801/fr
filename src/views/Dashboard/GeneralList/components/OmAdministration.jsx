@@ -6,11 +6,12 @@ import Progress from '../../../../common/Progress/ProgressBar';
 import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
+import { propuestasApiGet } from '../../../../core/services/propuestas.services';
 
 import DatePickerToOm from './datePicker';
 
 const OmAdministration = () => {
-	const { generarPropuestas } = usePropuestasContext();
+	const { generarPropuestas, rechazarPropuestas } = usePropuestasContext();
 	const { 
 		queryFechaOm, 
 		queryContadorCambioCurso, 
@@ -24,6 +25,7 @@ const OmAdministration = () => {
 		resetArrays,
 		resetearConsecutivo
 	} = useOtorgamientoContext();
+
 	const navigate = useNavigate();
 
 	const [botonComenzar, setBotonComenzar] = useState(false);
@@ -142,10 +144,16 @@ const OmAdministration = () => {
 	// 	await resetearConsecutivo.mutate();
 	// };
 
+	const handleRechazarTodo = async () => {
+		const props = await propuestasApiGet();		
+		await rechazarPropuestas.mutate(props);
+	};
+
 	const handleFinalizar = async () => {
 		await resetAllContadores.mutate();
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
+		handleRechazarTodo();
 		document.getElementById('props').style.display = 'none';
 	};
 
