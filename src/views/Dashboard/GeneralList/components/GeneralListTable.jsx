@@ -11,11 +11,13 @@ import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { FiltersRow } from './Filters';
 import GeneralListColumns from './GeneralListColumns';
 import OfCanvasToOm from './OfCanvasToOm';
+import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 
 <Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
 
 const GeneralListTable = () => {
 	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
+	const {resetearConsecutivo} = useOtorgamientoContext();
 	const [search, setSearch] = useState('');
 	const [hideSocialCase, setHideSocialCase] = useState(true);
 	const [hidePadre, setHidePadre] = useState(true);
@@ -58,14 +60,14 @@ const GeneralListTable = () => {
 			console.log('rec', selectedFilters);
 			console.log('date', selectedDate);
 
-			const filteredSubmissions = querySubmision.data.filter((submision) => 
+			const filteredSubmissions = querySubmision.data.filter((submision) =>
 				filterOption === 'includes'
-					? new Date(submision.createdAt) >= selectedDate &&
-					  selectedFilters.includes(submision.status) ||
+					? (new Date(submision.createdAt) >= selectedDate && selectedFilters.includes(submision.status)) ||
 					  selectedFilters.includes(submision.child.sex) ||
-					  (selectedFilters.includes('socialCase') && submision.socialCase === true) 
+					  (selectedFilters.includes('socialCase') && submision.socialCase === true)
 					: new Date(submision.createdAt) >= selectedDate &&
-					  selectedFilters.every((filter) =>
+					  selectedFilters.every(
+							(filter) =>
 								filter === submision.status ||
 								filter === submision.child.sex ||
 								(filter === 'socialCase' && submision.socialCase === true)
@@ -209,6 +211,26 @@ const GeneralListTable = () => {
 		setHideAddress(!hideAddress);
 	};
 
+	const confirmResetConsecutivo = (row) => {
+		confirmAlert({
+			message: `Va a resetear el número de entrada consecutivo de las planillas 
+			a 0, ¿está seguro?`,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				{ className: 'save-btn', label: 'Resetear', onClick: () => handleResetConsecutivo() },
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
+	};
+
+	const handleResetConsecutivo = async () => {
+	await resetearConsecutivo.mutate();
+	};
+
 	const { columns } = GeneralListColumns({
 		isAuthenticated,
 		hideSocialCase,
@@ -313,6 +335,14 @@ const GeneralListTable = () => {
 									<ExportBtn handleExport={handleExport} />
 
 									{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
+
+									<button className='btn btn-sm action-btn m-md-1' 
+									onClick={confirmResetConsecutivo}
+									style={{ fontSize: '1.2em' }}
+									data-tooltip-id='tooltip'
+									data-tooltip-content='Resetear consecutivo'>
+										RC
+									</button>
 								</div>
 							</div>
 						</div>
@@ -354,4 +384,3 @@ const GeneralListTable = () => {
 };
 
 export default GeneralListTable;
-
