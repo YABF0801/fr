@@ -1,4 +1,4 @@
-// FIX THIS NAVBAR AND TRY TO FIX TOGGLE TOO
+// FIX TOGGLE 
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { Link, NavLink } from 'react-router-dom';
@@ -10,11 +10,12 @@ import {
 	USERS
 } from '../../core/config/routes/paths';
 import { useAuthContext } from '../../core/context/authContext';
+import { propuestasApiGet } from '../../core/services/propuestas.services';
 import './Navbar.scss';
 import Pill from './PillBadge';
 
 const Navbar = () => {
-
+	
 	const { logout } = useAuthContext();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { isAuthenticated } = useAuthContext();
@@ -24,6 +25,16 @@ const Navbar = () => {
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	  };
+
+	  useEffect(() => {
+		const fetchData = async () => {
+			const props = await propuestasApiGet();
+			if (props.length > 0) {
+			document.getElementById('props').style.display = 'block';
+			}
+		};
+		fetchData();
+	}, []);
 
 	useEffect(() => {
 		const user = isAuthenticated.user?.nickname
