@@ -42,7 +42,7 @@ const TotalChildrenPerYear = () => {
 		],
 		options: {
 			responsive: true,
-			maintainAspectRatio: true,
+			maintainAspectRatio: false,
 			scales: {
 				r: {
 					ticks: {

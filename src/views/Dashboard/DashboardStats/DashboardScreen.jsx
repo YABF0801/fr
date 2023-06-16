@@ -31,9 +31,9 @@ const Dashboard = () => {
 			</div>
 
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
-				<div className='col-md-5'><DataCiByYearOfLife /></div>
+				<div className='col-md-9'><DataCiByYearOfLife /></div>
 				<div className=' col-md-3'><AverageAttendance /></div>
-				<div className='col-md-4'><TotalChildrenPerYear/></div>
+	
 			</div>
 
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
@@ -42,14 +42,13 @@ const Dashboard = () => {
 
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
 				<div className='col-md-3'><SubmisionStatusCount/></div>
-				<div className='col-md-6'><SubmisionsRecievedAproved /></div>
-				<div className='col-md-3'><MatriculaPorCP /></div>
+				<div className='col-md-4'><TotalChildrenPerYear/></div>
+				<div className='col-md-4'><MatriculaPorCP /></div>
 			</div>
 
 			<div className='row row-dash justify-content-evenly m-2 mb-4'>
-			{/* <div className='col-md-6'><SubmisionsRecievedAproved /></div> */}
-			<div className='col-md-12'><HistoricTotalsCirculos/></div>
-			
+			<div className='col-md-6'><SubmisionsRecievedAproved /></div>
+			<div className='col-md-6'><HistoricTotalsCirculos/></div>
 			</div>
 			
 		</>
