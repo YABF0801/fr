@@ -14,7 +14,6 @@ import Proyeccion, { ProyeccionTable } from './Proyeccion';
 
 const CirculosList = () => {
 	const { queryCirculos, deleteCirculo } = useCirculoContext();
-
 	const [search, setSearch] = useState('');
 	const [hideMatricula, setHideMatricula] = useState(true);
 	const [hideActive, setHideActive] = useState(true);
@@ -22,8 +21,48 @@ const CirculosList = () => {
 	const [showAttendance, setShowAttendance] = useState(false);
 	const [circulosLocal, setCirculosLocal] = useState([]);
 	const [selectedYear, setSelectedYear] = useState(null);
+	const [selectedFilters, setSelectedFilters] = useState([]);
+	const [filterOption, setFilterOption] = useState('includes');
 
 	const { isAuthenticated } = useAuthContext();
+
+	useEffect(() => {
+		setCirculosLocal(queryCirculos.data);
+		return function cleanUp() {};
+	}, [queryCirculos.data]);
+
+	const handleFilter = (filter, isChecked) => {
+		setSelectedFilters((prevSelectedFilters) => {
+			if (isChecked) {
+				return [...prevSelectedFilters, filter];
+			} else {
+				return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
+			}
+		});
+	};
+
+	useEffect(() => {
+		if (selectedFilters.length > 0) {
+			console.log('rec', selectedFilters);
+			const filteredSubmissions = queryCirculos.data.filter((circulo) =>
+				filterOption === 'includes'
+					? selectedFilters.includes(circulo.circulotype) ||
+					  (selectedFilters.includes('isCiActive') && circulo.isCiActive === true)
+					: selectedFilters.every(
+							(filter) =>
+								filter === circulo.circulotype ||
+								(filter === 'isCiActive' && circulo.isCiActive === true)
+					  )
+			);
+			setCirculosLocal(filteredSubmissions);
+		} else {
+			setCirculosLocal(queryCirculos.data);
+		}
+	}, [selectedFilters, queryCirculos.data, filterOption]);
+
+	const handleToggleFilterOption = () => {
+		setFilterOption((prevOption) => (prevOption === 'includes' ? 'every' : 'includes'));
+	};
 
 	const handleExport = () => {
 		const dataset = circulosFullDataset(circulosLocal);
@@ -39,11 +78,6 @@ const CirculosList = () => {
 			],
 		});
 	};
-
-	useEffect(() => {
-		setCirculosLocal(queryCirculos.data);
-		return function cleanUp() {};
-	}, [queryCirculos.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
@@ -128,47 +162,45 @@ const CirculosList = () => {
 				</div>
 
 				<div className='card-t'>
+					<div className='card-top'>
+						<div className='card-body '>
+							<div className='pb-3 mt-2 p-2 gap-3 d-flex justify-content-between '>
+								<div className='searchbar'>
+									<input
+										className='search_input '
+										id='search'
+										placeholder='Búsqueda...'
+										value={search}
+										onChange={handleSearch}
+									/>
+									<a className='search_icon'>
+										<i className='bi bi-search'></i>
+									</a>
+								</div>
 
-				<div className='card-top'>
-					<div className='card-body '>
-						
-					<div className='pb-3 mt-2 p-2 gap-3 d-flex justify-content-between '>
-							<div className='searchbar'>
-								<input
-									className='search_input '
-									id='search'
-									placeholder='Búsqueda...'
-									value={search}
-									onChange={handleSearch}
-								/>
-								<a className='search_icon'>
-									<i className='bi bi-search'></i>
-								</a>
-							</div>
+								<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_matricula'
+										onClick={handleShowMatricula}
+									/>
+									<label className='custom-control-label ' htmlFor='show_matricula'>
+										Matrícula
+									</label>
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_active'
+										onClick={handleShowActive}
+									/>
+									<label className='custom-control-label ' htmlFor='show_active'>
+										Estado
+									</label>
+								</div>
 
-							<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
-								<input
-									type='checkbox'
-									className='form-check-input m-md-1'
-									id='show_matricula'
-									onClick={handleShowMatricula}
-								/>
-								<label className='custom-control-label ' htmlFor='show_matricula'>
-									Matrícula
-								</label>
-								<input
-									type='checkbox'
-									className='form-check-input m-md-1'
-									id='show_active'
-									onClick={handleShowActive}
-								/>
-								<label className='custom-control-label ' htmlFor='show_active'>
-									Estado
-								</label>
-							</div>
-
-							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-							<div className='gap-1  justify-content-end'>
+								<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
+									<div className='gap-1  justify-content-end'>
 										<a className='btn btn-sm' onClick={showFilters}>
 											<i
 												className='bi action-btn bi-funnel-fill'
@@ -178,45 +210,44 @@ const CirculosList = () => {
 										</a>
 									</div>
 
-								{isAuthenticated.user?.role === 'admin' && (
-									<a href='#circulo' onClickCapture={showForm} className='btn customize-btn'>
-										<i className='bi bi-plus-lg'></i>
-									</a>
-								)}
+									{isAuthenticated.user?.role === 'admin' && (
+										<a href='#circulo' onClickCapture={showForm} className='btn customize-btn'>
+											<i className='bi bi-plus-lg'></i>
+										</a>
+									)}
 
-								<ExportBtn handleExport={handleExport} />
+									<ExportBtn handleExport={handleExport} />
 
-								<Proyeccion />
+									<Proyeccion />
 
-								<YearMenu onSelectYear={setSelectedYear} />
+									<YearMenu onSelectYear={setSelectedYear} />
+								</div>
 							</div>
 						</div>
-						</div>
-						</div>
+					</div>
 
-						<div className='snow-glass '>
-						<FiltersRow />
-						</div>
+					<div className='snow-glass '>
+						<FiltersRow onFilterChange={handleFilter} handleChange={handleToggleFilterOption} />
+					</div>
 
-						<div className='card-bottom '>
+					<div className='card-bottom '>
 						<div className='card-body '>
-						{queryCirculos.isLoading ? (
-							<div className='row m-5'>
-								<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'} />
-							</div>
-						) : (
-							<DataTable columns={columns} data={circulosLocal} />
-						)}
+							{queryCirculos.isLoading ? (
+								<div className='row m-5'>
+									<SmallSpinner className='m-4 mx-auto' data={'circulos'} color={'#36616c'} />
+								</div>
+							) : (
+								<DataTable columns={columns} data={circulosLocal} />
+							)}
 
-						<div className='text-secondary d-flex justify-conten-evenly gap-3'>
-							<h4>Leyenda: </h4>
-							<h6>C: Capacidad total por año |</h6>
-							<h6>M: Matrícula real por año | </h6>
-							<h6>H: Cantidad de niñas por año | </h6>
-							<h6>V: Cantidad de niños por año </h6>
+							<div className='text-secondary d-flex justify-conten-evenly gap-3'>
+								<h4>Leyenda: </h4>
+								<h6>C: Capacidad total por año |</h6>
+								<h6>M: Matrícula real por año | </h6>
+								<h6>H: Cantidad de niñas por año | </h6>
+								<h6>V: Cantidad de niños por año </h6>
+							</div>
 						</div>
-						</div>
-						
 					</div>
 				</div>
 				<CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} />

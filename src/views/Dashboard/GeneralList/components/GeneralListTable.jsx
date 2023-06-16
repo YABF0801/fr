@@ -31,56 +31,42 @@ const GeneralListTable = () => {
 		setSubmisionsLocal(querySubmision.data);
 		return function cleanUp() {};
 	}, [querySubmision.data]);
-	
+
 	const handleFilter = (filter, isChecked) => {
 		setSelectedFilters((prevSelectedFilters) => {
-		  if (isChecked) {
-			return [...prevSelectedFilters, filter];
-		  } else {
-			return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
-		  }
+			if (isChecked) {
+				return [...prevSelectedFilters, filter];
+			} else {
+				return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
+			}
 		});
-	  };
+	};
 
-	  useEffect(() => {
+	useEffect(() => {
 		if (selectedFilters.length > 0) {
-		  console.log('rec', selectedFilters);
-		  const filteredSubmissions = querySubmision.data.filter((submision) =>
-			filterOption === 'includes'
-			  ? selectedFilters.includes(submision.status) ||
-				selectedFilters.includes(submision.child.sex) ||
-				(selectedFilters.includes('socialCase') && submision.socialCase === true)
-			  : selectedFilters.every((filter) =>
-				  filter === submision.status ||
-				  filter === submision.child.sex ||
-				  (filter === 'socialCase' && submision.socialCase === true)
-				)
-		  );
-		  setSubmisionsLocal(filteredSubmissions);
+			console.log('rec', selectedFilters);
+			const filteredSubmissions = querySubmision.data.filter((submision) =>
+				filterOption === 'includes'
+					? selectedFilters.includes(submision.status) ||
+					  selectedFilters.includes(submision.child.sex) ||
+					  (selectedFilters.includes('socialCase') && submision.socialCase === true)
+					: selectedFilters.every(
+							(filter) =>
+								filter === submision.status ||
+								filter === submision.child.sex ||
+								(filter === 'socialCase' && submision.socialCase === true)
+					  )
+			);
+			setSubmisionsLocal(filteredSubmissions);
 		} else {
-		  setSubmisionsLocal(querySubmision.data);
+			setSubmisionsLocal(querySubmision.data);
 		}
-	  }, [selectedFilters, querySubmision.data, filterOption]);
-	  
-	//   useEffect(() => {
-	// 	if (selectedFilters.length > 0) {
-	// 		console.log('rec', selectedFilters)
-	// 	  const filteredSubmissions = querySubmision.data.filter((submision) =>
-	// 		selectedFilters.includes(submision.status) ||
-	// 		selectedFilters.includes(submision.child.sex) ||
-	// 		(selectedFilters.includes('socialCase') && submision.socialCase === true)
-			
-	// 	  );
-	// 	  setSubmisionsLocal(filteredSubmissions);
-	// 	} else {
-	// 	  setSubmisionsLocal(querySubmision.data);
-	// 	}
-	//   }, [selectedFilters, querySubmision.data]);
-	
+	}, [selectedFilters, querySubmision.data, filterOption]);
+
 	const handleToggleFilterOption = () => {
 		setFilterOption((prevOption) => (prevOption === 'includes' ? 'every' : 'includes'));
-	  };
-	
+	};
+
 	const handleExport = () => {
 		const dataset = submisionsLocal.map((item) => ({
 			No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
@@ -235,9 +221,6 @@ const GeneralListTable = () => {
 		<section className='list '>
 			<div className='  p-2 pb-5'>
 				<h2 className='text-center mt-3'>Listado de planillas</h2>
-
-<button onClick={() => handleFilter('status','baja')}>DSKJBFDKJSBV</button>
-
 				<div className='card-t'>
 					<div className='card-top'>
 						<div className='card-body '>
@@ -320,7 +303,7 @@ const GeneralListTable = () => {
 					</div>
 
 					<div className='snow-glass '>
-					<FiltersRow onFilterChange={handleFilter} handleChange={handleToggleFilterOption}/>
+						<FiltersRow onFilterChange={handleFilter} handleChange={handleToggleFilterOption} />
 					</div>
 
 					<div className='card-bottom '>
