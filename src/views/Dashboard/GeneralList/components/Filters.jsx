@@ -28,6 +28,7 @@ export function FiltersRow({ onFilterChange, handleToogleChange, selectedDate, h
 					dateFormat='dd/MM/yyyy'
 					className='form-control'
 					placeholderText='Seleccione fecha de inicio o rango de fechas'
+					maxDate={new Date()}
 				/>
 			</div>
 		);

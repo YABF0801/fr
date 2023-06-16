@@ -78,6 +78,7 @@ const DatePickerToOm = () => {
 								dateFormat='dd/MM/yyyy'
 								className='form-control '
 								placeholderText='Nueva Fecha de otorgamimento'
+								// minDate={new Date()} 
 							/>
 
 							<button id='icon' onClick={() => handleSave()} className='btn btn-sm '>
