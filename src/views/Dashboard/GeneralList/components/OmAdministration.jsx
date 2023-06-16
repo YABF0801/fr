@@ -10,43 +10,68 @@ import { usePropuestasContext } from '../../../../core/context/PopuestasContext'
 import DatePickerToOm from './datePicker';
 
 const OmAdministration = () => {
-	const [botonComenzarHabilitado, setBotonComenzarHabilitado] = useState(false);
-	const [botonCambioDeCursoHabilitado, setBotonCambioDeCursoHabilitado] = useState(false);
-	const [botonGenerarPropuestaHabilitado, setBotonGenerarPropuestaHabilitado] = useState(false);
-	const [botonFinalizarHabilitado, setBotonFinalizarHabilitado] = useState(false);
-	const [showProgressBar, setShowProgressBar] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	
 	const { generarPropuestas } = usePropuestasContext();
 	const { 
 		queryFechaOm, 
 		queryContadorCambioCurso, 
+		queryContadorPropAceptadas,
 		queryContadorPropGeneradas, 
 		setContadorProp,
 		setContadorCambioCurso, 
 		nuevoCurso,
 		resetearFecha,
-		resetContadoresPropyCc,
+		resetAllContadores,
 		resetArrays,
 		resetearConsecutivo
 	} = useOtorgamientoContext();
-
 	const navigate = useNavigate();
 
-	const date = new Date(queryFechaOm.data);
-	const fechaActual = new Date();
+	const [botonComenzar, setBotonComenzar] = useState(false);
+	const [botonCambioDeCurso, setBotonCambioDeCurso] = useState(false);
+	const [botonGenerarPropuesta, setBotonGenerarPropuesta] = useState(false);
+	const [botonFinalizar, setBotonFinalizar] = useState(false);
+	const [isDateArrived, setisDateArrived] = useState(false)
 
+	const [showProgressBar, setShowProgressBar] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const fechaActual = new Date();
+	
 	useEffect(() => {
 		const compareDates = () => {
-			const compare = date.getTime() <= fechaActual.getTime();
-			setBotonComenzarHabilitado(queryFechaOm.data && compare)};
+			if (queryFechaOm.data) {
+				const omDate = new Date(queryFechaOm.data);
+				const compare = omDate.getTime() <= fechaActual.getTime();
+				setisDateArrived(omDate && compare);
+			}
+		};
 		compareDates();
-	}, [queryFechaOm.data, fechaActual]);
+		console.log(queryContadorPropAceptadas.data)
+	}, [queryFechaOm.data]);
+	
+	console.log(isDateArrived)
 
 	useEffect(() => {
-		queryContadorPropGeneradas.data !== 0 && 
-		setBotonCambioDeCursoHabilitado(true);
-	  }, [queryContadorPropGeneradas.data]);
+		if (queryContadorPropGeneradas.data !== 0){
+			setBotonComenzar(false)
+		} else {
+		setBotonComenzar(isDateArrived)}
+	}, [isDateArrived]);
+
+	useEffect(() => {
+		if (queryFechaOm.data && queryContadorPropAceptadas.data !== 0){
+			setBotonCambioDeCurso(true)
+		} else {
+		setBotonComenzar(isDateArrived)}
+	}, [isDateArrived, botonCambioDeCurso]);
+
+	useEffect(() => {
+		if (queryFechaOm.data && queryContadorCambioCurso.data !== 0){
+			setBotonCambioDeCurso(false)
+			setBotonGenerarPropuesta(true)
+			setBotonFinalizar(true)
+		} 
+	}, [botonCambioDeCurso, botonGenerarPropuesta, botonFinalizar]);
 
 
 	const confirmFinalizarOms = () => {
@@ -109,25 +134,16 @@ const OmAdministration = () => {
 
 	const handleCambioDeCurso = async () => {
 		await setContadorCambioCurso.mutate(1);
-		setBotonCambioDeCursoHabilitado(false);
 		await nuevoCurso.mutate();
 	};
 
-	useEffect(() => {
-		queryContadorCambioCurso.data !== 0 && 
-		setBotonGenerarPropuestaHabilitado(true);
-		setBotonFinalizarHabilitado(true);
-		setBotonComenzarHabilitado(false);
-	}, [queryContadorCambioCurso.data]);
-
-	const handleResetConsecutivo = async () => {
-		// TODO: para cuando llegue la fecha del otorgamiento
-		await resetearConsecutivo.mutate();
-	};
-
+	// const handleResetConsecutivo = async () => {
+	// 	// TODO: para cuando llegue la fecha del otorgamiento
+	// 	await resetearConsecutivo.mutate();
+	// };
 
 	const handleFinalizar = async () => {
-		await resetContadoresPropyCc.mutate();
+		await resetAllContadores.mutate();
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
 		document.getElementById('props').style.display = 'none';
@@ -146,7 +162,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Comenzar otorgamiento'
-								disabled={!botonComenzarHabilitado}
+								disabled={!botonComenzar}
 							>
 								Comenzar
 							</button>
@@ -158,7 +174,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								className='btn prop-btn'
 								data-tooltip-content='Cambio de Curso'
-								disabled={!botonCambioDeCursoHabilitado}
+								disabled={!botonCambioDeCurso}
 							>
 								Cambio de Curso
 							</button>
@@ -170,7 +186,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Generar nueva propuesta '
-								disabled={!botonGenerarPropuestaHabilitado}
+								disabled={!botonGenerarPropuesta}
 							>
 								Generar propuesta
 							</button>
@@ -182,7 +198,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={confirmFinalizarOms}
 								data-tooltip-content='Finalizar otorgamiento'
-								disabled={!botonFinalizarHabilitado}
+								disabled={!botonFinalizar}
 							>
 								Finalizar
 							</button>
