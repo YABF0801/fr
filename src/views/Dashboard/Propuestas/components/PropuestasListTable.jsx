@@ -7,10 +7,12 @@ import { exportExcel } from '../../../../utils/Export';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import PropuestasListColumns from './PropuestasListColumns';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
+import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 
 
 const PropuestasListTable = () => {
 	const { queryPropuestas, aceptarPropuestas, rechazarPropuestas } = usePropuestasContext();
+	const { setContadorAceptar} = useOtorgamientoContext();
 	const [search, setSearch] = useState('');
 	const [rowsSelected, setRowsSelected] = useState([]);
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
@@ -125,6 +127,7 @@ const PropuestasListTable = () => {
 			const notSelectedRows = allRows.filter((row) => !rowsSelected.includes(row));
 			await aceptarPropuestas.mutate(rowsSelected);
 			await rechazarPropuestas.mutate(notSelectedRows);
+			await setContadorAceptar.mutate(1);
 			navigate(GENERAL_LIST);
 		} catch (error) {
 			console.error(error);
@@ -135,6 +138,7 @@ const PropuestasListTable = () => {
 		// un arreglo
 		try {
 			await aceptarPropuestas.mutate(rowsSelected);
+			await setContadorAceptar.mutate(1);
 			navigate(GENERAL_LIST);
 		} catch (error) {
 			console.error(error);

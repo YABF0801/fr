@@ -38,6 +38,14 @@ export const setContadorCc = async () => {
         throw new Error(`Error al setear el contador de nuevo curso: ${error.message}`);
  }
 };
+
+export const setContadorAcept = async () => {
+    try {
+        await baseAxios.put('/propuestas/acept-counter', );
+    } catch (error) {
+        throw new Error(`Error al setear el contador de aceptadas: ${error.message}`);
+ }
+};
    
 export const resetToolsArrays = async () => {
     try {
@@ -57,8 +65,12 @@ export const getContadorCc = async () => {
     return tools.data.contadorCC;
 };
 
+export const getContadorAcept = async () => {
+	const tools = await baseAxios.get(`/submisions/get-tools`);
+    return tools.data.contadorAcept;
+};
    
-export const resetContadorGp = async () => {
+export const resetContadores = async () => {
     try {
         await baseAxios.put('/propuestas/reset-counter', );
     } catch (error) {

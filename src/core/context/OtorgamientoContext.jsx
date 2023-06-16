@@ -7,10 +7,12 @@ import {
 	resetFechaOm,
 	getContadorGp,
 	setContadorGp,
-	resetContadorGp,
-	resetToolsArrays,
 	getContadorCc,
 	setContadorCc,
+	setContadorAcept,
+	resetContadores,
+	resetToolsArrays,
+	getContadorAcept,
 } from '../../utils/utiles.sevices';
 import { nuevoCursoApi } from '../../views/Dashboard/Circulos/service/circulo.services';
 import { consecustiveApiReset } from '../../views/Dashboard/GeneralList/service/submision.services';
@@ -26,6 +28,7 @@ export const OtorgamientoProvider = ({ children }) => {
 
 	const queryContadorPropGeneradas = useQuery({ queryKey: ['contadorgp'], queryFn: getContadorGp });
 
+	const queryContadorPropAceptadas = useQuery({ queryKey: ['contadorap'], queryFn: getContadorAcept });
 
 	const queryClient = useQueryClient();
 
@@ -51,8 +54,8 @@ export const OtorgamientoProvider = ({ children }) => {
 		},
 	});
 
-	const resetContadoresPropyCc = useMutation({
-		mutationFn: resetContadorGp,
+	const resetAllContadores = useMutation({
+		mutationFn: resetContadores,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
 		},
@@ -62,6 +65,13 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: setContadorCc,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['contadorcc'] });
+		},
+	});
+
+	const setContadorAceptar = useMutation({
+		mutationFn: setContadorAcept,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['contadorap'] });
 		},
 	});
 
@@ -91,16 +101,18 @@ export const OtorgamientoProvider = ({ children }) => {
 			queryFechaOm,
 			queryContadorCambioCurso,
 			queryContadorPropGeneradas,
+			queryContadorPropAceptadas,
 			guardarFecha,
 			resetearFecha,
 			setContadorProp,
-			resetContadoresPropyCc,
+			setContadorAceptar,
+			resetAllContadores,
 			setContadorCambioCurso,
 			nuevoCurso,
 			resetArrays,
 			resetearConsecutivo
 		}),
-		[queryFechaOm, queryContadorCambioCurso, queryContadorPropGeneradas]
+		[queryFechaOm, queryContadorCambioCurso, queryContadorPropGeneradas, queryContadorPropAceptadas]
 	);
 
 	return <OtorgamientoContext.Provider value={value}>{children}</OtorgamientoContext.Provider>;
