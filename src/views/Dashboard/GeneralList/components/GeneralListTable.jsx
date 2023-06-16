@@ -58,12 +58,12 @@ const GeneralListTable = () => {
 			console.log('rec', selectedFilters);
 			console.log('date', selectedDate);
 
-			const filteredSubmissions = querySubmision.data.filter((submision) =>
+			const filteredSubmissions = querySubmision.data.filter((submision) => 
 				filterOption === 'includes'
-					? new Date(submision.createdAt) >= selectedDate ||
+					? new Date(submision.createdAt) >= selectedDate &&
 					  selectedFilters.includes(submision.status) ||
 					  selectedFilters.includes(submision.child.sex) ||
-					  (selectedFilters.includes('socialCase') && submision.socialCase === true)
+					  (selectedFilters.includes('socialCase') && submision.socialCase === true) 
 					: new Date(submision.createdAt) >= selectedDate &&
 					  selectedFilters.every((filter) =>
 								filter === submision.status ||
@@ -71,6 +71,7 @@ const GeneralListTable = () => {
 								(filter === 'socialCase' && submision.socialCase === true)
 					  )
 			);
+
 			setSubmisionsLocal(filteredSubmissions);
 		} else {
 			setSubmisionsLocal(querySubmision.data);
