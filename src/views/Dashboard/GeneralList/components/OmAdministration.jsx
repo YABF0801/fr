@@ -23,7 +23,6 @@ const OmAdministration = () => {
 		resetearFecha,
 		resetAllContadores,
 		resetArrays,
-		resetearConsecutivo
 	} = useOtorgamientoContext();
 
 	const navigate = useNavigate();
@@ -138,7 +137,7 @@ const OmAdministration = () => {
 		await setContadorCambioCurso.mutate(1);
 		await nuevoCurso.mutate();
 	};
-	
+
 	const handleRechazarTodo = async () => {
 		const props = await propuestasApiGet();		
 		await rechazarPropuestas.mutate(props);
@@ -154,7 +153,6 @@ const OmAdministration = () => {
 
 	return (
 		<>
-				{/* <h2 className='text-center mt-2 p-3'>Otorgamiento masivo</h2> */}
 				<div className='d-flex flex-column justify-content-center align-items-center gap-5 form-check mb-5'>
 						<DatePickerToOm />
 														
