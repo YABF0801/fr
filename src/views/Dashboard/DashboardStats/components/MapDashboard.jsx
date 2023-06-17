@@ -1,7 +1,7 @@
 // mapa para mostrar los circulos y niños
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { useAllPositions } from '../hooks/useAllPositions';
-import { childIcon, ciIcon } from '../../../../common/MapMarker/MarkerIcons';
+import { childIcon, ciIcon } from '../../../../common/Map/MarkerIcons';
 const MapDashboard = () => {
 	const { queryCirculosPosition, querySubmisionsPosition } = useAllPositions();
 

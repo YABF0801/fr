@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { childIcon } from '../../../../common/MapMarker/MarkerIcons';
+import { childIcon } from '../../../../common/Map/MarkerIcons';
 import ModalBase from '../../../../common/Modal/Modal';
 import Select from '../../../../common/uiForms/select';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
@@ -88,6 +88,7 @@ function SubmisionWizardForm({ submision }) {
 	};
 
 	const handleLatlngChange = (value) => {
+		console.log(value)
 		formik.setFieldValue('child.latlng', value);
 	};
 

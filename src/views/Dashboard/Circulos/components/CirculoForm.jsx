@@ -1,10 +1,10 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MapMarker from '../../../../common/MapMarker/MapMarker';
-import { ciIcon } from '../../../../common/MapMarker/MarkerIcons';
+import MapToLocation from '../../../../common/Map/map';
+
+import { ciIcon } from '../../../../common/Map/MarkerIcons';
 import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 
 import { CIRCULOS } from '../../../../core/config/routes/paths';
@@ -15,7 +15,6 @@ import { useCirculoContext } from '../context/CirculoContext';
 function CirculoForm({ circulo, showAttendance }) {
 	const { addCirculo, updateCirculo } = useCirculoContext();
 	const navigate = useNavigate();
-	const [marker, setMarker] = useState(true);
 
 	const form = useFormik({
 		initialValues: circuloInitialValues(circulo),
@@ -30,11 +29,9 @@ function CirculoForm({ circulo, showAttendance }) {
 				await addCirculo.mutate(formData);
 			}
 			resetForm();
-			setMarker(false);
 			navigate(CIRCULOS);
 		},
 		onReset: async () => {
-			setMarker(false);
 			document.getElementById('circulo').style.display = 'none';
 			document.getElementById('table').style.display = 'none';
 		},
@@ -315,32 +312,9 @@ function CirculoForm({ circulo, showAttendance }) {
 							<h3 className='text-secondary mt-3'>Ubicación geográfica</h3>
 							<h6 className='text-secondary mb-3'>Busque la ubicación y haga click en el mapa</h6>
 							<div className='col-md-12'>
-								<MapContainer
-									className='map-container'
-									style={{ width: '100%', height: '400px' }}
-									center={[21.72761, -82.834167]}
-									zoom={10}
-									setView={[21.72761, -82.834167]}
-									scrollWheelZoom={true}
-									minZoom={9}
-									maxBounds={[
-										[21.410303, -83.26972], // Suroeste
-										[21.961168, -82.531547], // Noreste
-									]}
-								>
-									<TileLayer
-										attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-										url /* '/public/Tiles/{z}/{x}/{y}.png' */='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-									/>
 
-									{marker && (
-										<MapMarker
-											position={circulo && circulo.latlng}
-											icon={ciIcon}
-											onPositionChange={handleLatlngChange}
-										/>
-									)}
-								</MapContainer>
+							<MapToLocation position={circulo?.latlng} markerIcon={ciIcon} handleLatlngChange={handleLatlngChange}  />
+							
 							</div>
 						</div>
 
