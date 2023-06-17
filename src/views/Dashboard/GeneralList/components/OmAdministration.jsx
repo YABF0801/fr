@@ -17,8 +17,6 @@ const OmAdministration = () => {
 		queryContadorCambioCurso, 
 		queryContadorPropAceptadas,
 		queryContadorPropGeneradas, 
-		setContadorProp,
-		setContadorCambioCurso, 
 		nuevoCurso,
 		resetearFecha,
 		resetAllContadores,
@@ -32,7 +30,7 @@ const OmAdministration = () => {
 	const [botonGenerarPropuesta, setBotonGenerarPropuesta] = useState(false);
 	const [botonFinalizar, setBotonFinalizar] = useState(false);
 	const [isDateArrived, setisDateArrived] = useState(false)
-
+	
 	const [showProgressBar, setShowProgressBar] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -47,24 +45,21 @@ const OmAdministration = () => {
 			}
 		};
 		compareDates();
-		console.log(queryContadorPropAceptadas.data)
-	}, [queryFechaOm.data]);
-	
-	console.log(isDateArrived)
+	}, [queryFechaOm.data], );
 
 	useEffect(() => {
 		if (queryContadorPropGeneradas.data !== 0){
 			setBotonComenzar(false)
 		} else {
 		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived]);
+	}, [isDateArrived, botonComenzar]);
 
 	useEffect(() => {
-		if (queryFechaOm.data && queryContadorPropAceptadas.data !== 0){
+		if (queryFechaOm.data && queryContadorPropGeneradas.data !== 0 && queryContadorPropAceptadas.data === 0){
 			setBotonCambioDeCurso(true)
 		} else {
 		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived, botonCambioDeCurso]);
+	}, [isDateArrived, botonCambioDeCurso, botonComenzar]);
 
 	useEffect(() => {
 		if (queryFechaOm.data && queryContadorCambioCurso.data !== 0){
@@ -94,10 +89,8 @@ const OmAdministration = () => {
 		try {
 			setIsModalOpen(true);
 			setShowProgressBar(true); 
-
 			await generarPropuestas.mutate();
-			await setContadorProp.mutate(1);
-
+			
 			setTimeout(() => {
 				setShowProgressBar(false);
 				navigate(PROPUESTAS_LIST);
@@ -134,7 +127,6 @@ const OmAdministration = () => {
 	};
 
 	const handleCambioDeCurso = async () => {
-		await setContadorCambioCurso.mutate(1);
 		await nuevoCurso.mutate();
 	};
 

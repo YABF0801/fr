@@ -23,30 +23,6 @@ export const saveFechaOm = async (date) => {
      }
    };
 
-   export const setContadorGp = async () => {
-    try {
-        await baseAxios.put('/propuestas/set-counter', );
-    } catch (error) {
-        throw new Error(`Error al setear el contador de generar propuestas: ${error.message}`);
- }
-};
-
-export const setContadorCc = async () => {
-    try {
-        await baseAxios.put('/propuestas/curso-counter', );
-    } catch (error) {
-        throw new Error(`Error al setear el contador de nuevo curso: ${error.message}`);
- }
-};
-
-export const setContadorAcept = async () => {
-    try {
-        await baseAxios.put('/propuestas/acept-counter', );
-    } catch (error) {
-        throw new Error(`Error al setear el contador de aceptadas: ${error.message}`);
- }
-};
-   
 export const resetToolsArrays = async () => {
     try {
         await baseAxios.put('/propuestas/reset-arrays', );

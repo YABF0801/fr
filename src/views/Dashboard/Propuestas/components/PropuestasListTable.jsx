@@ -8,24 +8,36 @@ import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import PropuestasListColumns from './PropuestasListColumns';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
-
+import ModalBase from '../../../../common/Modal/Modal';
+import Progress from '../../../../common/Progress/ProgressBar';
 
 const PropuestasListTable = () => {
 	const { queryPropuestas, aceptarPropuestas, rechazarPropuestas } = usePropuestasContext();
-	const { setContadorAceptar} = useOtorgamientoContext();
+	const { queryContadorCambioCurso, queryContadorPropGeneradas } = useOtorgamientoContext();
+	const [botonAceptar, setBotonAceptar] = useState(true);
 	const [search, setSearch] = useState('');
 	const [rowsSelected, setRowsSelected] = useState([]);
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
 	const [searchData, setSearchData] = useState([]);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [showProgressBar, setShowProgressBar] = useState(false);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setPropuestasLocal(queryPropuestas.data);
-		setSearchData(queryPropuestas.data)
+		setSearchData(queryPropuestas.data);
 		return function cleanUp() {};
 	}, [queryPropuestas.data]);
 
-	const navigate = useNavigate();
-
+	useEffect(() => {
+		console.log('p',queryContadorPropGeneradas.data, 'cc' , queryContadorCambioCurso.data)
+		if (queryContadorPropGeneradas.data === 1 && queryContadorCambioCurso.data === 0){
+			setBotonAceptar(false)
+		} else {
+			setBotonAceptar(true)
+		}
+	}, [botonAceptar]);
+	
 	const handleExport = () => {
 		const dataset = propuestasLocal.map((item) => ({
 			No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
@@ -50,7 +62,7 @@ const PropuestasListTable = () => {
 	useEffect(() => {
 		if (search.trim() === '') {
 			setPropuestasLocal(queryPropuestas.data);
-			setSearchData(queryPropuestas.data)
+			setSearchData(queryPropuestas.data);
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -85,7 +97,7 @@ const PropuestasListTable = () => {
 			}
 			return undefined;
 		});
-		setPropuestasLocal(elements) ;
+		setPropuestasLocal(elements);
 	};
 
 	const confirmAceptar = () => {
@@ -125,27 +137,37 @@ const PropuestasListTable = () => {
 		try {
 			const allRows = [...propuestasLocal];
 			const notSelectedRows = allRows.filter((row) => !rowsSelected.includes(row));
-			await aceptarPropuestas.mutate(rowsSelected);
+			setIsModalOpen(true);
+			setShowProgressBar(true);
+			if (rowsSelected.length > 0) {
+				await aceptarPropuestas.mutate(rowsSelected);
+			}
 			await rechazarPropuestas.mutate(notSelectedRows);
-			await setContadorAceptar.mutate(1);
-			navigate(GENERAL_LIST);
+
+			setTimeout(() => {
+				setShowProgressBar(false);
+				navigate(GENERAL_LIST);
+			}, 3000);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
 	const handleAceptar = async () => {
-		// un arreglo
 		try {
+			setIsModalOpen(true);
+			setShowProgressBar(true);
 			await aceptarPropuestas.mutate(rowsSelected);
-			await setContadorAceptar.mutate(1);
-			navigate(GENERAL_LIST);
+			setTimeout(() => {
+				setShowProgressBar(false);
+				navigate(GENERAL_LIST);
+			}, 3000);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
-	const {columns} = PropuestasListColumns()
+	const { columns } = PropuestasListColumns();
 
 	return (
 		<section className='prop-list'>
@@ -172,7 +194,7 @@ const PropuestasListTable = () => {
 									Exportar
 								</button>
 
-								<button onClick={confirmAceptar} className='btn prop-btn'>
+								<button onClick={confirmAceptar} className='btn prop-btn' disabled={!botonAceptar}>
 									Aceptar propuestas
 								</button>
 							</div>
@@ -200,6 +222,15 @@ const PropuestasListTable = () => {
 							<h6>CS: Caso social </h6>
 						</div>
 					</div>
+					<ModalBase
+						show={isModalOpen}
+						ModalBody={
+							<div>
+								{showProgressBar && <Progress id={'progress-bar'} label={'Procesando...'} />}
+							</div>
+						}
+						onHide={() => setIsModalOpen(false)}
+					/>
 				</div>
 			</div>
 		</section>

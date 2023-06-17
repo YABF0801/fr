@@ -87,8 +87,17 @@ export const cursoApiGet = async () => {
 export const nuevoCursoApi = async () => {
 	try {
 		await baseAxios.post('/circulos/nuevo-curso');
+		await setContadorCc();
 		ToastNotification('success', `${SuccessMsg('custom', `nuevo curso`, 'establecido')}`);
 	} catch (error) {
 		handleToastyError(error)
 	}
+};
+
+export const setContadorCc = async () => {
+    try {
+        await baseAxios.put('/propuestas/curso-counter', );
+    } catch (error) {
+        throw new Error(`Error al setear el contador de nuevo curso: ${error.message}`);
+ }
 };

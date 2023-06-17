@@ -6,10 +6,7 @@ import {
 	saveFechaOm,
 	resetFechaOm,
 	getContadorGp,
-	setContadorGp,
 	getContadorCc,
-	setContadorCc,
-	setContadorAcept,
 	resetContadores,
 	resetToolsArrays,
 	getContadorAcept,
@@ -46,32 +43,10 @@ export const OtorgamientoProvider = ({ children }) => {
 		},
 	});
 
-
-	const setContadorProp = useMutation({
-		mutationFn: setContadorGp,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
-		},
-	});
-
 	const resetAllContadores = useMutation({
 		mutationFn: resetContadores,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
-		},
-	});
-
-	const setContadorCambioCurso = useMutation({
-		mutationFn: setContadorCc,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['contadorcc'] });
-		},
-	});
-
-	const setContadorAceptar = useMutation({
-		mutationFn: setContadorAcept,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['contadorap'] });
 		},
 	});
 
@@ -104,10 +79,7 @@ export const OtorgamientoProvider = ({ children }) => {
 			queryContadorPropAceptadas,
 			guardarFecha,
 			resetearFecha,
-			setContadorProp,
-			setContadorAceptar,
 			resetAllContadores,
-			setContadorCambioCurso,
 			nuevoCurso,
 			resetArrays,
 			resetearConsecutivo

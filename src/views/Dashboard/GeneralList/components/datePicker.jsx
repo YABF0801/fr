@@ -8,12 +8,21 @@ import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoCon
 const DatePickerToOm = () => {
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [existingDate, setExistingDate] = useState(null);
-
-	const { queryFechaOm, guardarFecha, resetearFecha } = useOtorgamientoContext();
+	const [delDateIcon, setDelDateIcon] = useState(true)
+	const { queryFechaOm, guardarFecha, resetearFecha, queryContadorPropGeneradas } = useOtorgamientoContext();
 
 	useEffect(() => {
 		queryFechaOm.data !== null && queryFechaOm.data !== undefined && setExistingDate(queryFechaOm.data);
 	}, []);
+
+	useEffect(() => {
+		if (queryContadorPropGeneradas.data !== 0) {
+			setDelDateIcon(false)
+		} else {
+			setDelDateIcon(true)
+		}
+	}, [delDateIcon]);
+	
 
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
@@ -59,11 +68,14 @@ const DatePickerToOm = () => {
 						<div className='d-flex d-flex-inline'>
 							<h3 >{date}</h3>
 
-							<button onClick={confirmDelete} className='btn btn-sm '>
+							<button onClick={confirmDelete} className='btn del btn-sm ' 
+							// disabled={!delDateIcon}
+							>
 								<i
 									className='action-btn bi bi-trash-fill '
 									data-tooltip-id='tooltip'
 									data-tooltip-content='Eliminar fecha'
+									
 								></i>
 							</button>
 						</div>
