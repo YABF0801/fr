@@ -51,12 +51,23 @@ export const validateAttendance = (value) => {
       return /^(pendiente|matricula|baja|propuesta)$/.test(value);
   };
 
+  
   export const validateCarnet = (value) => {
-	if (value === undefined) return false;
-	return /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{5}$/.test(value);
+    if (value === undefined ) return false;
+    const stringValue = value.toString();
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear().toString().slice(-2);
+    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const currentDay = currentDate.getDate().toString().padStart(2, '0');
+    const currentDateString = `${currentYear}${currentMonth}${currentDay}`;
+    const inputDateString = stringValue.slice(0, 6);
+    if (inputDateString > currentDateString) {
+      return false;
+    }
+    return /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{5}$/.test(value);
   };
+  
 
- 
   export const validateYearOfLife = (value) => {
 	if (value === undefined ) return false;
 	const parsedValue = parseInt(value, 10);
