@@ -33,6 +33,7 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: saveFechaOm,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['fecha'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
@@ -47,6 +48,7 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: resetContadores,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
@@ -54,6 +56,8 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: nuevoCursoApi,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['curso'] });
+			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
@@ -68,6 +72,7 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: consecustiveApiReset,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['fecha'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 

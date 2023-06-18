@@ -29,8 +29,8 @@ const OmAdministration = () => {
 	const [botonCambioDeCurso, setBotonCambioDeCurso] = useState(false);
 	const [botonGenerarPropuesta, setBotonGenerarPropuesta] = useState(false);
 	const [botonFinalizar, setBotonFinalizar] = useState(false);
+
 	const [isDateArrived, setisDateArrived] = useState(false)
-	
 	const [showProgressBar, setShowProgressBar] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -47,19 +47,20 @@ const OmAdministration = () => {
 		compareDates();
 	}, [queryFechaOm.data], );
 
+
 	useEffect(() => {
 		if (queryContadorPropGeneradas.data !== 0){
 			setBotonComenzar(false)
 		} else {
 		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived, botonComenzar]);
-
+	}, [isDateArrived, queryContadorPropGeneradas.data]);
+	
 	useEffect(() => {
 		if (queryFechaOm.data && queryContadorPropGeneradas.data !== 0 && queryContadorPropAceptadas.data === 0){
 			setBotonCambioDeCurso(true)
 		} else {
 		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived, botonCambioDeCurso, botonComenzar]);
+	}, [isDateArrived, queryFechaOm.data, queryContadorPropGeneradas.data, queryContadorPropAceptadas.data]);
 
 	useEffect(() => {
 		if (queryFechaOm.data && queryContadorCambioCurso.data !== 0){
@@ -67,7 +68,7 @@ const OmAdministration = () => {
 			setBotonGenerarPropuesta(true)
 			setBotonFinalizar(true)
 		} 
-	}, [botonCambioDeCurso, botonGenerarPropuesta, botonFinalizar]);
+	}, [queryFechaOm.data, queryContadorCambioCurso.data ]);
 
 
 	const confirmFinalizarOms = () => {

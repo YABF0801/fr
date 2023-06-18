@@ -29,6 +29,7 @@ export const PropuestasProvider = ({ children }) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
 			queryClient.invalidateQueries({ queryKey: ['submisions'] });
+			queryClient.invalidateQueries({ queryKey: ['curso'] });
 		},
 	});
 
@@ -37,6 +38,7 @@ export const PropuestasProvider = ({ children }) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
 			queryClient.invalidateQueries({ queryKey: ['submisions'] });
+			queryClient.invalidateQueries({ queryKey: ['curso'] });
 		},
 	});
 

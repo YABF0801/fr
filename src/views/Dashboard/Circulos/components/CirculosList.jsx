@@ -11,6 +11,8 @@ import CirculoColumns from './CirculoTableColumns';
 import { FiltersRow } from './Filters';
 import YearMenu, { HistoricTable } from './Historic';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
+import MapToLocation from '../../../../common/Map/map';
+import { ciIcon } from '../../../../common/Map/MarkerIcons';
 
 const CirculosList = () => {
 	const { queryCirculos, deleteCirculo } = useCirculoContext();
@@ -163,7 +165,7 @@ const CirculosList = () => {
 				<div className='row'>
 					<h2 className='text-center mt-3'>Listado de círculos</h2>
 				</div>
-
+							
 				<div className='card-t'>
 					<div className='card-top'>
 						<div className='card-body '>

@@ -313,7 +313,10 @@ function CirculoForm({ circulo, showAttendance }) {
 							<h6 className='text-secondary mb-3'>Busque la ubicación y haga click en el mapa</h6>
 							<div className='col-md-12'>
 
-							<MapToLocation position={circulo?.latlng} markerIcon={ciIcon} handleLatlngChange={handleLatlngChange}  />
+							<MapToLocation 
+							position={circulo?.latlng} 
+							markerIcon={ciIcon} 
+							handleLatlngChange={handleLatlngChange}  />
 							
 							</div>
 						</div>
