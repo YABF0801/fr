@@ -30,30 +30,13 @@ const GeneralListTable = () => {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filterOption, setFilterOption] = useState('includes');
 	const [selectedDate, setSelectedDate] = useState(null);
+	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
 		setSubmisionsLocal(querySubmision.data);
 		setSearchData(querySubmision.data);
 		return function cleanUp() {};
 	}, [querySubmision.data]);
-
-	const handleDateChange = (date) => {
-		setSelectedDate(date);
-	};
-
-	const handleCancelDate = (date) => {
-		setSelectedDate(null);
-	};
-
-	const handleFilter = (filter, isChecked) => {
-		setSelectedFilters((prevSelectedFilters) => {
-			if (isChecked) {
-				return [...prevSelectedFilters, filter];
-			} else {
-				return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
-			}
-		});
-	};
 
 	useEffect(() => {
 		if (selectedFilters.length > 0 || selectedDate) {
@@ -80,8 +63,34 @@ const GeneralListTable = () => {
 		}
 	}, [selectedFilters, querySubmision.data, filterOption, selectedDate]);
 
+	useEffect(() => {
+		if (search.trim() === '') {
+			setSubmisionsLocal(querySubmision.data);
+			setSearchData(querySubmision.data);
+		}
+		return function cleanUp() {};
+	}, [search]);
+
 	const handleToggleFilterOption = () => {
 		setFilterOption((prevOption) => (prevOption === 'includes' ? 'every' : 'includes'));
+	};
+
+	const handleDateChange = (date) => {
+		setSelectedDate(date);
+	};
+
+	const handleCancelDate = (date) => {
+		setSelectedDate(null);
+	};
+
+	const handleFilter = (filter, isChecked) => {
+		setSelectedFilters((prevSelectedFilters) => {
+			if (isChecked) {
+				return [...prevSelectedFilters, filter];
+			} else {
+				return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
+			}
+		});
 	};
 
 	const handleExport = () => {
@@ -144,14 +153,6 @@ const GeneralListTable = () => {
 		await bajaSubmision.mutate(id);
 	};
 
-	useEffect(() => {
-		if (search.trim() === '') {
-			setSubmisionsLocal(querySubmision.data);
-			setSearchData(querySubmision.data);
-		}
-		return function cleanUp() {};
-	}, [search]);
-
 	const handleSearch = (event) => {
 		const hasWorkName = (item) => item.workName !== undefined && item.workName !== '';
 		const hasParentName = (item) => item.parentName !== undefined && item.parentName !== '';
@@ -191,7 +192,7 @@ const GeneralListTable = () => {
 		const submision = submisionsLocal.find((item) => item._id === id);
 		if (submision) {
 			setSelectedSubmision(submision);
-			showForm();
+			handleShowForm();
 		}
 	};
 
@@ -231,6 +232,25 @@ const GeneralListTable = () => {
 	await resetearConsecutivo.mutate();
 	};
 
+	const handleShowForm = () => {
+		setShowForm(true);
+	  };
+	
+	  const handleHideForm = () => {
+		setShowForm(false);
+	  };
+
+	  console.log(showForm)
+
+	function showFilters() {
+		const filtersElement = document.getElementById('filters');
+		if (filtersElement.style.display === 'none') {
+			filtersElement.style.display = 'block';
+		} else {
+			filtersElement.style.display = 'none';
+		}
+	}
+
 	const { columns } = GeneralListColumns({
 		isAuthenticated,
 		hideSocialCase,
@@ -242,18 +262,6 @@ const GeneralListTable = () => {
 		confirmBaja,
 	});
 
-	function showForm() {
-		document.getElementById('submision').style.display = 'block';
-	}
-
-	function showFilters() {
-		const filtersElement = document.getElementById('filters');
-		if (filtersElement.style.display === 'none') {
-			filtersElement.style.display = 'block';
-		} else {
-			filtersElement.style.display = 'none';
-		}
-	}
 
 	return (
 		<section className='list '>
@@ -327,7 +335,7 @@ const GeneralListTable = () => {
 									</div>
 
 									{isAuthenticated.user?.role === 'admin' && (
-										<a href='#submision' onClickCapture={showForm} className='btn customize-btn'>
+										<a href='#submision' onClickCapture={handleShowForm} className='btn customize-btn'>
 											<i className='bi bi-plus-lg'></i>
 										</a>
 									)}
@@ -376,7 +384,8 @@ const GeneralListTable = () => {
 							</div>
 						</div>
 					</div>
-					<SubmisionForm submision={selectedSubmision} />
+					{showForm && <SubmisionForm submision={selectedSubmision} onHideForm={handleHideForm} />}
+					
 				</div>
 			</div>
 		</section>

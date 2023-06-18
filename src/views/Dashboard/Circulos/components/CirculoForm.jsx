@@ -12,7 +12,7 @@ import { circuloInitialValues } from '../../../../utils/initialValues/circuloIni
 import { CirculoSchema } from '../../../../utils/yupValidations/circuloYupValidations';
 import { useCirculoContext } from '../context/CirculoContext';
 
-function CirculoForm({ circulo, showAttendance }) {
+function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 	const { addCirculo, updateCirculo } = useCirculoContext();
 	const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function CirculoForm({ circulo, showAttendance }) {
 			navigate(CIRCULOS);
 		},
 		onReset: async () => {
-			document.getElementById('circulo').style.display = 'none';
+			onHideForm && onHideForm();
 			document.getElementById('table').style.display = 'none';
 		},
 		validationSchema: CirculoSchema,
@@ -49,7 +49,7 @@ function CirculoForm({ circulo, showAttendance }) {
 	};
 	
 	return (
-		<div className='show-form container mt-3 col-6' id='circulo'>
+		<div className='container mt-3 col-6' id='circulo'>
 			<div className=' p-5 '>
 				<div className='card '>
 					<form className='f-modal p-3 gap-3 justify-content-evenly ' onSubmit={form.handleSubmit}>
@@ -343,6 +343,7 @@ function CirculoForm({ circulo, showAttendance }) {
 CirculoForm.propTypes = {
 	circulo: PropTypes.object,
 	showAttendance: PropTypes.bool,
+	onHideForm: PropTypes.func,
 };
 
 export default CirculoForm;

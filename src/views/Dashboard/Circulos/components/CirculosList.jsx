@@ -11,8 +11,6 @@ import CirculoColumns from './CirculoTableColumns';
 import { FiltersRow } from './Filters';
 import YearMenu, { HistoricTable } from './Historic';
 import Proyeccion, { ProyeccionTable } from './Proyeccion';
-import MapToLocation from '../../../../common/Map/map';
-import { ciIcon } from '../../../../common/Map/MarkerIcons';
 
 const CirculosList = () => {
 	const { queryCirculos, deleteCirculo } = useCirculoContext();
@@ -26,6 +24,7 @@ const CirculosList = () => {
 	const [selectedYear, setSelectedYear] = useState(null);
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filterOption, setFilterOption] = useState('includes');
+	const [showForm, setShowForm] = useState(false);
 
 	const { isAuthenticated } = useAuthContext();
 
@@ -34,16 +33,6 @@ const CirculosList = () => {
 		setSearchData(queryCirculos.data)
 		return function cleanUp() {};
 	}, [queryCirculos.data]);
-
-	const handleFilter = (filter, isChecked) => {
-		setSelectedFilters((prevSelectedFilters) => {
-			if (isChecked) {
-				return [...prevSelectedFilters, filter];
-			} else {
-				return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
-			}
-		});
-	};
 
 	useEffect(() => {
 		if (selectedFilters.length > 0) {
@@ -64,8 +53,26 @@ const CirculosList = () => {
 		}
 	}, [selectedFilters, queryCirculos.data, filterOption]);
 
+	useEffect(() => {
+		if (search.trim() === '') {
+			setCirculosLocal(queryCirculos.data);
+			setSearchData(queryCirculos.data)
+		}
+		return function cleanUp() {};
+	}, [search]);
+
 	const handleToggleFilterOption = () => {
 		setFilterOption((prevOption) => (prevOption === 'includes' ? 'every' : 'includes'));
+	};
+
+	const handleFilter = (filter, isChecked) => {
+		setSelectedFilters((prevSelectedFilters) => {
+			if (isChecked) {
+				return [...prevSelectedFilters, filter];
+			} else {
+				return prevSelectedFilters.filter((selectedFilter) => selectedFilter !== filter);
+			}
+		});
 	};
 
 	const handleExport = () => {
@@ -82,14 +89,6 @@ const CirculosList = () => {
 			],
 		});
 	};
-
-	useEffect(() => {
-		if (search.trim() === '') {
-			setCirculosLocal(queryCirculos.data);
-			setSearchData(queryCirculos.data)
-		}
-		return function cleanUp() {};
-	}, [search]);
 
 	const handleSearch = (event) => {
 		setSearch(event.target.value);
@@ -126,7 +125,7 @@ const CirculosList = () => {
 		if (circulo) {
 			setShowAttendance(true);
 			setSelectedCirculo(circulo);
-			showForm();
+			handleShowForm();
 		}
 	};
 
@@ -138,17 +137,13 @@ const CirculosList = () => {
 		setHideActive(!hideActive);
 	};
 
-	const { columns } = CirculoColumns({
-		isAuthenticated,
-		hideMatricula,
-		hideActive,
-		editCirculo,
-		confirmDelete,
-	});
-
-	function showForm() {
-		document.getElementById('circulo').style.display = 'block';
-	}
+	const handleShowForm = () => {
+		setShowForm(true);
+	  };
+	
+	  const handleHideForm = () => {
+		setShowForm(false);
+	  };
 
 	function showFilters() {
 		const filtersElement = document.getElementById('filters');
@@ -158,6 +153,14 @@ const CirculosList = () => {
 			filtersElement.style.display = 'none';
 		}
 	}
+
+	const { columns } = CirculoColumns({
+		isAuthenticated,
+		hideMatricula,
+		hideActive,
+		editCirculo,
+		confirmDelete,
+	});
 
 	return (
 		<section className='list '>
@@ -216,7 +219,7 @@ const CirculosList = () => {
 									</div>
 
 									{isAuthenticated.user?.role === 'admin' && (
-										<a href='#circulo' onClickCapture={showForm} className='btn customize-btn'>
+										<a href='#circulo' onClickCapture={handleShowForm} className='btn customize-btn'>
 											<i className='bi bi-plus-lg'></i>
 										</a>
 									)}
@@ -255,7 +258,7 @@ const CirculosList = () => {
 						</div>
 					</div>
 				</div>
-				<CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} />
+				{showForm && <CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} onHideForm={handleHideForm} />}
 				<ProyeccionTable />
 				<HistoricTable year={selectedYear} />
 			</div>

@@ -16,7 +16,7 @@ import Parent2Form from './Parent2Form';
 import SubmisionForm from './SubmisionForm';
 import './SumisionForm.scss';
 
-function SubmisionWizardForm({ submision }) {
+function SubmisionWizardForm({ submision, onHideForm }) {
 	const { addSubmision, updateSubmision } = useSubmisionContext();
 	const [isOs, setIsOs] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +44,7 @@ function SubmisionWizardForm({ submision }) {
 			navigate(GENERAL_LIST);
 		},
 		onReset: async () => {
-			document.getElementById('submision').style.display = 'none';
+			onHideForm && onHideForm();
 		},
 
 		validationSchema: SubmisionSchema,
@@ -93,7 +93,7 @@ function SubmisionWizardForm({ submision }) {
 	};
 
 	return (
-		<div className='show-form container list mt-3 col-12' id='submision'>
+		<div className='container list mt-3 col-12' id='submision'>
 			<div className=' p-5 '>
 				<h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>
 				<div className='card'>
