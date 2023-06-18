@@ -20,6 +20,7 @@ export const PropuestasProvider = ({ children }) => {
 		mutationFn: propuestaApiGenerar,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
