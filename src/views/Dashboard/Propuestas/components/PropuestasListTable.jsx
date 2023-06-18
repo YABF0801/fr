@@ -38,6 +38,14 @@ const PropuestasListTable = () => {
 		}
 	}, [botonAceptar]);
 	
+	useEffect(() => {
+		if (search.trim() === '') {
+			setPropuestasLocal(queryPropuestas.data);
+			setSearchData(queryPropuestas.data);
+		}
+		return function cleanUp() {};
+	}, [search]);
+	
 	const handleExport = () => {
 		const dataset = propuestasLocal.map((item) => ({
 			No: item.entryNumber + ' / ' + new Date(item.createdAt).getFullYear(),
@@ -57,15 +65,9 @@ const PropuestasListTable = () => {
 			message: `Propuestas exportadas con éxito`,
 			buttons: [{ className: 'save-btn', label: 'Aceptar', onClick: () => {} }],
 		});
+		
 	};
 
-	useEffect(() => {
-		if (search.trim() === '') {
-			setPropuestasLocal(queryPropuestas.data);
-			setSearchData(queryPropuestas.data);
-		}
-		return function cleanUp() {};
-	}, [search]);
 
 	const handleSearch = (event) => {
 		const hasWorkName = (item) => item.workName !== undefined && item.workName !== '';

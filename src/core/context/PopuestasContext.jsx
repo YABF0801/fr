@@ -27,6 +27,7 @@ export const PropuestasProvider = ({ children }) => {
 		mutationFn: propuestaApiAceptar,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
@@ -34,6 +35,7 @@ export const PropuestasProvider = ({ children }) => {
 		mutationFn: propuestaApiRechazar,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
