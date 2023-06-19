@@ -24,6 +24,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
 	const [showQuestion, setShowQuestion] = useState(true);
 	const [showMatricular, setShowMatricular] = useState(false);
+	const [showParent2Form, setShowParent2Form] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -35,10 +36,19 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 				...values,
 			};
 			if (submision) {
-				await updateSubmision.mutate({ ...values });
+				if (values.child.parents[0].uniqueParent) {
+					const confirmation = window.confirm('Ha marcado padre único. ¿Está seguro de continuar?');
+					if (confirmation) {
+						resetP2()
+						await updateSubmision.mutate({ ...values });
+					}
+				} else {
+					await updateSubmision.mutate({ ...values });
+				}
 			} else {
+				delP2()
 				await addSubmision.mutate(formData);
-			}
+			  }
 
 			resetForm();
 			navigate(GENERAL_LIST);
@@ -49,6 +59,8 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 
 		validationSchema: SubmisionSchema,
 	});
+
+	console.log('b', formik.values)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -62,6 +74,32 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 		setIsOs(formik.values.finality === 'os');
 	}, [formik.values.finality]);
 
+	  useEffect(() => {
+		const value = formik.values.child?.parents?.[0].uniqueParent;
+		  setShowParent2Form(!value);
+		  if (!submision) {
+			resetP2()
+		}
+	  }, [formik.values.child.parents[0].uniqueParent]);
+
+	  const resetP2 = () => {
+		if (formik.values.child.parents.length > 0 && formik.values.child.parents[0].uniqueParent) {
+			formik.setValues((prevValues) => ({
+			  ...prevValues,
+			  child: {
+				...prevValues.child,
+				parents: [prevValues.child.parents[0]],
+			  },
+			}));
+		  }
+		}
+
+	const delP2 = () => {
+	if (formik.values.child?.parents?.[0].uniqueParent) {
+		formik.setFieldValue('child.parents', [formik.values.child.parents[0]]);
+	 }
+	}
+			
 	const handleMatManual = async () => {
 		try {
 			setIsModalOpen(true);
@@ -88,7 +126,6 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	};
 
 	const handleLatlngChange = (value) => {
-		console.log(value)
 		formik.setFieldValue('child.latlng', value);
 	};
 
@@ -111,7 +148,9 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 						<Parent1Form form={formik} />
 
 						{/* PARENT2 DATA */}
-						{formik.values.child?.parents?.[0].uniqueParent || <Parent2Form form={formik} />}
+						{showParent2Form ? (
+						<Parent2Form form={formik} setShowParent2Form={setShowParent2Form}/>
+						) : null}
 
 						<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
 							<a href='#top' className='btn cancel-btn' onClickCapture={formik.handleReset}>
@@ -120,7 +159,8 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 							</a>
 
 							{!isOs ? (
-								<button className='btn save-btn' type='submit'>
+								<button className='btn save-btn' type='submit' 
+								onClick={()=> console.log('a', formik.values)}>
 									{submision ? 'Actualizar' : 'Guardar'}
 								</button>
 							) : (
@@ -218,6 +258,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 
 SubmisionWizardForm.propTypes = {
 	submision: PropTypes.object,
+	onHideForm: PropTypes.func
 };
 
 export default SubmisionWizardForm;
