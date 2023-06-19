@@ -11,7 +11,7 @@ import { pastCirculosSetArray } from '../service/circulo.services';
 	className='diff-arrow'
 />;
 
-const YearMenu = ({ onSelectYear }) => {
+const YearMenu = ({ onSelectYear, showHistoric}) => {
 	const { queryPastCirculos } = useCirculoContext();
 	const pastCirculos = queryPastCirculos.data ? queryPastCirculos.data : [];
 	const [years, setYears] = useState([]);
@@ -30,9 +30,9 @@ const YearMenu = ({ onSelectYear }) => {
 
 	const handleYearSelection = async (year) => {
 		onSelectYear(year);
-		document.getElementById('table').style.display = 'none';
-		document.getElementById('circulo').style.display = 'none';
-		document.getElementById('historic').style.display = 'block';
+		// document.getElementById('table').style.display = 'none';
+		// document.getElementById('circulo').style.display = 'none';
+		showHistoric(true)
 		return function cleanUp() {};
 	};
 
@@ -61,7 +61,7 @@ const YearMenu = ({ onSelectYear }) => {
 
 export default YearMenu;
 
-export const HistoricTable = ({ year }) => {
+export const HistoricTable = ({ year , onHide}) => {
 	const [courseArray, setCourseArray] = useState([]);
 
   useEffect(() => {
@@ -77,9 +77,9 @@ export const HistoricTable = ({ year }) => {
   }, [year]); 
      
 	const cerrarHistorico = async () => {
-		document.getElementById('historic').style.display = 'none';
-		document.getElementById('table').style.display = 'none';
-		document.getElementById('circulo').style.display = 'none';
+		onHide && onHide();
+		// document.getElementById('table').style.display = 'none';
+		// document.getElementById('circulo').style.display = 'none';
 		return function cleanUp() {};
 	};
 
@@ -227,7 +227,7 @@ export const HistoricTable = ({ year }) => {
 	];
 
 	return (
-		<div id='historic' className=' show-form mt-3 p-2 pb-5'>
+		<div id='historic' className=' mt-3 p-2 pb-5'>
 			<div className='row'>
 				<div className='col-md-2 '></div>
 				<div className='col-md-8 '>

@@ -25,6 +25,7 @@ const CirculosList = () => {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filterOption, setFilterOption] = useState('includes');
 	const [showForm, setShowForm] = useState(false);
+	const [showHistoric, setShowHistoric] = useState(false);
 
 	const { isAuthenticated } = useAuthContext();
 
@@ -144,6 +145,14 @@ const CirculosList = () => {
 		setShowForm(false);
 	  };
 
+	  const handleShowHistoric = () => {
+		setShowHistoric(true);
+	  };
+
+	  const handleHideHistoric = () => {
+		setShowHistoric(false);
+	  };
+
 	function showFilters() {
 		const filtersElement = document.getElementById('filters');
 		if (filtersElement.style.display === 'none') {
@@ -218,7 +227,8 @@ const CirculosList = () => {
 									</div>
 
 									{isAuthenticated.user?.role === 'admin' && (
-										<a href='#circulo' onClickCapture={handleShowForm} className='btn customize-btn'>
+										<a href='#circulo' onClickCapture={handleShowForm} 
+										className='btn customize-btn'>
 											<i className='bi bi-plus-lg'></i>
 										</a>
 									)}
@@ -227,7 +237,8 @@ const CirculosList = () => {
 
 									<Proyeccion />
 
-									<YearMenu onSelectYear={setSelectedYear} />
+									<YearMenu onSelectYear={setSelectedYear} showHistoric={handleShowHistoric}/>
+
 								</div>
 							</div>
 						</div>
@@ -257,9 +268,14 @@ const CirculosList = () => {
 						</div>
 					</div>
 				</div>
-				{showForm && <CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} onHideForm={handleHideForm} />}
+
+				{showForm && <CirculoForm circulo={selectedCirculo} showAttendance={showAttendance} 
+				onHideForm={handleHideForm} />}
+
 				<ProyeccionTable />
-				<HistoricTable year={selectedYear} />
+
+				{showHistoric && <HistoricTable year={selectedYear} onHide={handleHideHistoric} />}
+
 			</div>
 		</section>
 	);
