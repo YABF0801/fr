@@ -1,26 +1,38 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
+import { yearNullExist } from '../views/Dashboard/GeneralList/service/submision.services';
 
 const BajaAlert = () => {
+    const [count, setCount] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        //  verificar si existe algún documento con child.year_of_life nulo
+      const fetchData = async () => {
+        const submisions = await yearNullExist();
+        setCount(submisions.length)
+      };
+      fetchData();
+    }, []);
+    
+    console.log(count)
 
-        const hasNullYearOfLife = 1+1 === 2;
-
-        setShowAlert(hasNullYearOfLife);
-
+    useEffect(() => {
+      const interval = setInterval(() => {  
+        if (count !== 0 )  {
+          setShowAlert(true)
+        } else {
+          setShowAlert(false)
+        }
       }, 900000); // 900000 ms = 15 minutos
-  
       return () => clearInterval(interval);
     }, []);
   
+    console.log(showAlert)
+
     return (
       showAlert && (
         <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
-          Existe un documento year_of_life nulo.
+          Existen {count} niños que salieron en el cambio de curso para dar baja.
         </Alert>
       )
     );

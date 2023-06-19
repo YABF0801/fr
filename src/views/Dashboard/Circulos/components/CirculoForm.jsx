@@ -5,15 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import MapToLocation from '../../../../common/Map/map';
 
 import { ciIcon } from '../../../../common/Map/MarkerIcons';
-import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
+// import { renderSwitchSelect } from '../../../../common/uiForms/imputSwitch';
 
 import { CIRCULOS } from '../../../../core/config/routes/paths';
 import { circuloInitialValues } from '../../../../utils/initialValues/circuloInitialValues';
 import { CirculoSchema } from '../../../../utils/yupValidations/circuloYupValidations';
 import { useCirculoContext } from '../context/CirculoContext';
+import { renderTypeRadios } from './Utils';
 
 function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 	const { addCirculo, updateCirculo } = useCirculoContext();
+	const type = ['rural', 'urbano'];
 	const navigate = useNavigate();
 
 	const form = useFormik({
@@ -56,8 +58,8 @@ function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 						<h3 className='text-secondary'>Datos del círculo</h3>
 						<h6 className='text-secondary mb-3'>Escriba el número y nombre de la institución</h6>
 
-						<div className='row justify-content-evenly mb-4 '>
-							<div className='col-md-4 '>
+						<div className='row justify-content-start mb-4 '>
+							<div className='col-md-3 '>
 								<input
 									type='number'
 									className='form-control'
@@ -74,44 +76,15 @@ function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 							</div>
 
 							<div className='col-md-4 d-flex align-items-center'>
-								<div className='form-check form-check-inline'>
-									<input
-										className='form-check-input'
-										type='radio'
-										id='urbano'
-										name='circulotype'
-										value='urbano'
-										defaultChecked={form.values.circulotype}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-									/>
-									<label className='form-check-label' htmlFor='urbano'>
-										Urbano
-									</label>
-								</div>
 
-								<div className='form-check form-check-inline'>
-									<input
-										className='form-check-input'
-										type='radio'
-										id='rural'
-										name='circulotype'
-										value='rural'
-										defaultChecked={form.values.circulotype}
-										onChange={form.handleChange}
-										onBlur={form.handleBlur}
-									/>
+							{renderTypeRadios(type, 'circulotype', form)}
 
-									<label className='form-check-label' htmlFor='rural'>
-										Rural
-									</label>
-								</div>
 							</div>
 
-							<div className='col-md-4 '>
+							{/* <div className='col-md-4 '>
 							{renderSwitchSelect('isCiActive', 'Activo', form, form.values.isCiActive)}
 
-							</div>
+							</div> */}
 						</div>
 
 						<div className='row justify-content-evenly mb-4'>

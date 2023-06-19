@@ -164,15 +164,16 @@ const CirculoColumns = ({
 			},
 
 			{
-				name: ' ',
+				name: 'Tipo',
 				cell: (row) =>
-					row.isCiActive ? (
-						<h4 className='text-active'>Activo</h4>
+					row.circulotype === 'urbano' ? (
+						<h4 className='text-active'>Urbano</h4>
 					) : (
-						<p className='text-inactive'>Inactivo</p>
+						<p className='text-inactive'>Rural</p>
 					),
 				sortable: true,
 				omit: hideActive,
+				center: true,
 			},
 
 			isAuthenticated.user?.role === 'admin' && ({

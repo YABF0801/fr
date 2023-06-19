@@ -9,6 +9,14 @@ export const submisionsApiGet = async () => {
 	return submisions;
 };
 
+export const yearNullExist = async () => {
+	const allSubmisions = await baseAxios.get('/submisions');
+	const submisions = allSubmisions.data.filter((submision) => submision.child.year_of_life === null);
+	return submisions;
+};
+
+
+
 export const submisionsApiCreate = async (submision) => {
 	try {
 		const submisionCreated = await baseAxios.post('/submisions', submision);

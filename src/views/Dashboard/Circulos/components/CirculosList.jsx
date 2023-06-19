@@ -202,7 +202,7 @@ const CirculosList = () => {
 										onClick={handleShowActive}
 									/>
 									<label className='custom-control-label ' htmlFor='show_active'>
-										Estado
+										Tipo
 									</label>
 								</div>
 
