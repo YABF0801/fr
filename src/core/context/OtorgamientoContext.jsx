@@ -33,7 +33,6 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: saveFechaOm,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['fecha'] });
-			queryClient.invalidateQueries({ queryKey: ['submisions'] });
 		},
 	});
 
@@ -48,7 +47,13 @@ export const OtorgamientoProvider = ({ children }) => {
 		mutationFn: resetContadores,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
-			queryClient.invalidateQueries({ queryKey: ['submisions'] });
+		},
+	});
+
+	const resetArrays = useMutation({
+		mutationFn: resetToolsArrays,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['arrays'] });
 		},
 	});
 
@@ -58,13 +63,6 @@ export const OtorgamientoProvider = ({ children }) => {
 			queryClient.invalidateQueries({ queryKey: ['curso'] });
 			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
 			queryClient.invalidateQueries({ queryKey: ['submisions'] });
-		},
-	});
-
-	const resetArrays = useMutation({
-		mutationFn: resetToolsArrays,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['arrays'] });
 		},
 	});
 

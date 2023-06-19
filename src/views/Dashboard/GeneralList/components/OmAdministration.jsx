@@ -38,38 +38,52 @@ const OmAdministration = () => {
 	
 	useEffect(() => {
 		const compareDates = () => {
-			if (queryFechaOm.data) {
-				const omDate = new Date(queryFechaOm.data);
-				const compare = omDate.getTime() <= fechaActual.getTime();
-				setisDateArrived(omDate && compare);
-			}
+		  if (queryFechaOm.data) {
+			const omDate = new Date(queryFechaOm.data);
+			const compare = omDate.getTime() <= fechaActual.getTime();
+			setisDateArrived(omDate && compare);
+		  }
 		};
 		compareDates();
-	}, [queryFechaOm.data], );
+	  }, [queryFechaOm.data]);
 
+	console.log('')
 
 	useEffect(() => {
+		// Condición 1: Habilitar el botón Comenzar si ha llegado la ffecha y deshabilitara si ya se han geenerado prop
 		if (queryContadorPropGeneradas.data !== 0){
 			setBotonComenzar(false)
 		} else {
 		setBotonComenzar(isDateArrived)}
 	}, [isDateArrived, queryContadorPropGeneradas.data]);
 	
-	useEffect(() => {
-		if (queryFechaOm.data && queryContadorPropGeneradas.data !== 0 && queryContadorPropAceptadas.data === 0){
-			setBotonCambioDeCurso(true)
+	  useEffect(() => {
+		// Condición 2: Habilitar el botón Cambio de Curso si se han generado propuestas una vez y los otros contadores están en 0
+		if (
+		  queryContadorPropGeneradas.data === 1 &&
+		  queryContadorCambioCurso.data === 0 &&
+		  queryContadorPropAceptadas.data === 0
+		) {
+		  setBotonCambioDeCurso(true);
 		} else {
-		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived, queryFechaOm.data, queryContadorPropGeneradas.data, queryContadorPropAceptadas.data]);
+		  setBotonCambioDeCurso(false);
+		}
+	  }, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data, queryContadorPropAceptadas.data]);
 
-	useEffect(() => {
-		if (queryFechaOm.data && queryContadorCambioCurso.data !== 0){
-			setBotonCambioDeCurso(false)
-			setBotonGenerarPropuesta(true)
-			setBotonFinalizar(true)
-		} 
-	}, [queryFechaOm.data, queryContadorCambioCurso.data ]);
-
+	  useEffect(() => {
+		// Condición 3: Habilitar el botón Generar propuesta cuando todos los contadores sean diferentes de cero
+		if (
+		  queryContadorPropGeneradas.data !== 0 &&
+		  queryContadorCambioCurso.data !== 0 &&
+		  queryContadorPropAceptadas.data !== 0
+		) {
+		  setBotonGenerarPropuesta(true);
+		  setBotonFinalizar(true);
+		} else {
+		  setBotonGenerarPropuesta(false);
+		  setBotonFinalizar(false);
+		}
+	  }, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data, queryContadorPropAceptadas.data]);
 
 	const confirmFinalizarOms = () => {
 		confirmAlert({
@@ -95,7 +109,6 @@ const OmAdministration = () => {
 			setTimeout(() => {
 				setShowProgressBar(false);
 				navigate(PROPUESTAS_LIST);
-				document.getElementById('props').style.display = 'block';
 			}, 3000);
 		} catch (error) {
 			console.error(error);
@@ -141,7 +154,6 @@ const OmAdministration = () => {
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
 		handleRechazarTodo();
-		document.getElementById('props').style.display = 'none';
 	};
 
 	return (

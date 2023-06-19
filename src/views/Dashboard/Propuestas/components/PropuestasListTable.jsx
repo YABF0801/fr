@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { GENERAL_LIST } from '../../../../core/config/routes/paths';
-import DataTable from '../../../../common/DataTableBase/DataTableBase';
-import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import { exportExcel } from '../../../../utils/Export';
-import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-import PropuestasListColumns from './PropuestasListColumns';
-import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
-import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
+import { useNavigate } from 'react-router-dom';
+import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
+import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import { GENERAL_LIST } from '../../../../core/config/routes/paths';
+import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
+import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
+import { exportExcel } from '../../../../utils/Export';
+import PropuestasListColumns from './PropuestasListColumns';
 
 const PropuestasListTable = () => {
 	const { queryPropuestas, aceptarPropuestas, rechazarPropuestas } = usePropuestasContext();
@@ -24,18 +24,18 @@ const PropuestasListTable = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		setPropuestasLocal(queryPropuestas.data);
-		setSearchData(queryPropuestas.data);
-		return function cleanUp() {};
-	}, [queryPropuestas.data]);
-
-	useEffect(() => {
 		if (queryContadorPropGeneradas.data === 1 && queryContadorCambioCurso.data === 0){
 			setBotonAceptar(false)
 		} else {
 			setBotonAceptar(true)
 		}
-	}, [botonAceptar]);
+	}, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data]);
+
+	useEffect(() => {
+		setPropuestasLocal(queryPropuestas.data);
+		setSearchData(queryPropuestas.data);
+		return function cleanUp() {};
+	}, [queryPropuestas.data]);
 	
 	useEffect(() => {
 		if (search.trim() === '') {
