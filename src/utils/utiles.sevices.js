@@ -27,7 +27,7 @@ export const resetToolsArrays = async () => {
     try {
         await baseAxios.put('/propuestas/reset-arrays', );
     } catch (error) {
-        throw new Error(`Error al Resetear los arreglos en tools: ${error.message}`);
+        throw new Error(`Error al resetear los arreglos en tools: ${error.message}`);
  }
 };
 
@@ -50,7 +50,7 @@ export const resetContadores = async () => {
     try {
         await baseAxios.put('/propuestas/reset-counter', );
     } catch (error) {
-        throw new Error(`Error al Resetear el contador de generar propuestas: ${error.message}`);
+        throw new Error(`Error al resetear el contador de generar propuestas: ${error.message}`);
  }
 };
 
@@ -58,7 +58,7 @@ export const ResetConsecutive = async () => {
     try {
         await baseAxios.put('/propuestas/reset-consecutive', );
     } catch (error) {
-        throw new Error(`Error al Resetear el consecutivo: ${error.message}`);
+        throw new Error(`Error al resetear el consecutivo: ${error.message}`);
  }
 };
 

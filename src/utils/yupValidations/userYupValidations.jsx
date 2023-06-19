@@ -8,25 +8,25 @@ export const UserSchema = Yup.object().shape({
     nickname: Yup.string()
     .min(2, 'El usuario debe tener mas de 2 caracteres')
     .required('El usuario es requerido')
-    .test('letras minimo 2', "El usuario debe tener mas de 2 caracteres", (value) =>
+    .test('letras minimo 2', "El usuario debe tener al menos 2 caracteres", (value) =>
       validateStringMin2(value)
     ),
 
     name: Yup.string()
     .required('El nombre es requerido')
-    .test('letras minimmo 2', "El Nombre debe tener mas de 2 caracteres", (value) =>
+    .test('letras minimmo 2', "El Nombre debe tener al menos 2 caracteres", (value) =>
       validateStringMin2(value)
     ),
 
     lastname: Yup.string()
     .required('El apellido es requerido')
-    .test('letras minimo 2', "El apellido debe tener mas de 2 caracteres", (value) =>
+    .test('letras minimo 2', "El apellido debe tener al menos 2 caracteres", (value) =>
       validateStringMin2(value)
     ),
 
     position: Yup.string()
     .required('El cargo es requerido')
-    .test('letras minimo 2', 'El cargo debe tener mas de 2 caracteres', (value) =>
+    .test('letras minimo 2', 'El cargo debe tener al menos 2 caracteres', (value) =>
       validateStringMin2(value)
     ),
 

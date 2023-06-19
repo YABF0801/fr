@@ -10,19 +10,19 @@ export const submisionInitialValues = (submision) => {
 			submisiontype: submision ? submision.submisiontype : 'nueva',
 			entryNumber: submision ? submision.entryNumber : '',
 			socialCase: submision ? submision.socialCase : false,	
-			motive: submision ? submision.motive : 'me da la gana',
+			motive: submision ? submision.motive : 'necesito una matrícula',
 			status: submision ? submision.status : 'pendiente',
 			ciPedido: submision ? submision.ciPedido : '',
 			createdBy: submision ? submision.ciPedido : user,
 
 			child: {
-				childName: submision ? submision.child.childName : 'Perico',
-				childLastname: submision ? submision.child.childLastname : 'Perez',
-				carnet: submision ? submision.child.carnet : 19010824651,
+				childName: submision ? submision.child.childName : 'Luis Ernesto',
+				childLastname: submision ? submision.child.childLastname : 'Perez Fierce',
+				carnet: submision ? submision.child.carnet : 22010824241,
 				year_of_life: submision ? submision.child.year_of_life : 2,
-				childAddress: submision ? submision.child.childAddress : 'mi casita',
-				neighborhood: submision ? submision.child.neighborhood : 'mi barrio',
-				cPopular: submision ? submision.child.cPopular : 'Micro 70',
+				childAddress: submision ? submision.child.childAddress : 'calle 26 entre 39 y 41',
+				neighborhood: submision ? submision.child.neighborhood : 'Nueva Gerona',
+				cPopular: submision ? submision.child.cPopular : 'Nueva Gerona',
 				municipality: submision ? submision.child.municipality : 'Isla de la Juventud',
 				province: submision ? submision.child.province : 'Isla de la Juventud',
 
@@ -35,24 +35,24 @@ export const submisionInitialValues = (submision) => {
 
 				parents: [
 					{
-						parentName: submision ? submision.child.parents[0].parentName : 'Madre',
-						parentLastname: submision ? submision.child.parents[0].parentLastname : 'Apellido Madre',
+						parentName: submision ? submision.child.parents[0].parentName : 'Alicia',
+						parentLastname: submision ? submision.child.parents[0].parentLastname : 'Fierce Gómez',
 						uniqueParent: submision ? submision.child.parents[0].uniqueParent : false,
 						typeParent: submision ? submision.child.parents[0].typeParent : 'madre',
 						convivencia: submision ? submision.child.parents[0].convivencia : true,
-						parentAddress: submision ? submision.child.parents[0].parentAddress : 'mi casita',
-						phoneNumber: submision ? submision.child.parents[0].phoneNumber : '58029954',
+						parentAddress: submision ? submision.child.parents[0].parentAddress : 'calle 26 entre 39 y 41',
+						phoneNumber: submision ? submision.child.parents[0].phoneNumber : '58555555',
 						occupation: submision ? submision.child.parents[0].occupation : 'trabajador',
-						workName: submision ? submision.child.parents[0].workName : 'mi trabajo',
-						workAddress: submision ? submision.child.parents[0].workAddress : 'donde queda la oficina',
-						jobTitle: submision ? submision.child.parents[0].jobTitle : 'jefa de todo',
+						workName: submision ? submision.child.parents[0].workName : 'Banco Popular de Ahorro',
+						workAddress: submision ? submision.child.parents[0].workAddress : 'Calle 18 entre 45 y 47',
+						jobTitle: submision ? submision.child.parents[0].jobTitle : 'Comercial',
 
 						organismo: submision ? submision.child.parents[0].organismo.name : {
 							name: '',
 							weight: 0
 						},
 						
-						salary: submision ? submision.child.parents[0].salary : 15000,
+						salary: submision ? submision.child.parents[0].salary : 6000,
 						otherChildrenInCi: submision ? submision.child.parents[0].otherChildrenInCi : false,
 						numberOfOtherChildrenInCi: submision ? submision.child.parents[0].numberOfOtherChildrenInCi : 0,
 						otherChildrenCenter: submision ? submision.child.parents[0].otherChildrenCenter : '',

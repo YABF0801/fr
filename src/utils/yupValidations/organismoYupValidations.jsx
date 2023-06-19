@@ -8,13 +8,13 @@ export const OrganismoSchema = Yup.object().shape({
 
     name: Yup.string()
     .required('El nombre es requerido')
-    .test('letras minimmo 2', "El Nombre debe tener mas de 2 caracteres", (value) =>
+    .test('letras minimmo 2', "El Nombre debe tener más de 2 caracteres", (value) =>
       validateStringMin2(value)
     ),
 
     description: Yup.string()
     .required('La descripción es requerida')
-    .test('letras minimo 2', "La descripción debe tener mas de 5 caracteres", (value) =>
+    .test('letras minimo 2', "La descripción debe tener más de 5 caracteres", (value) =>
       validateStringMin5(value)
     ),
 
