@@ -37,7 +37,7 @@ const Parent2Form = ({ form }) => {
 									id='parentName2'
 									placeholder='Nombre(s)'
 									name='child.parents[1].parentName'
-									value={form.values.child?.parents[1]?.parentName}
+									value={form.values.child?.parents?.[1]?.parentName}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								/>
@@ -54,7 +54,7 @@ const Parent2Form = ({ form }) => {
 									id='parentLastname2'
 									placeholder='Apellidos'
 									name='child.parents[1].parentLastname'
-									value={form.values.child?.parents[1].parentLastname}
+									value={form.values.child?.parents?.[1]?.parentLastname}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								/>
@@ -69,7 +69,7 @@ const Parent2Form = ({ form }) => {
 								className='col-md-2'
 								id={'typeParent2'}
 								name={'child.parents[1].typeParent'}
-								value={form.values.child?.parents[1].typeParent}
+								value={form.values.child?.parents?.[1]?.typeParent}
 								optionText={'Parentesco'}
 								onChange={form.handleChange}
 								onBlur={form.handleBlur}
@@ -89,7 +89,7 @@ const Parent2Form = ({ form }) => {
 							<div className='col-md-2'>
 								
 								{renderSwitchSelect('child.parents[1].convivencia', 'Convive', form,
-								form.values.child?.parents?.[1].convivencia)} 
+								form.values.child?.parents?.[1]?.convivencia)} 
 
 								</div>
 
@@ -101,13 +101,13 @@ const Parent2Form = ({ form }) => {
 										placeholder='Dirección...'
 										name='child.parents[1].parentAddress'
 										value={
-											form.values.child?.parents?.[1].convivencia
-												? form.values.child.childAddress
-												: form.values.child.parents[1].parentAddress
+											form.values.child?.parents?.[1]?.convivencia
+												? form.values.child?.childAddress
+												: form.values.child.parents?.[1]?.parentAddress
 										}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
-										disabled={form.values.child?.parents?.[1].convivencia}
+										disabled={form.values.child?.parents?.[1]?.convivencia}
 									/>
 									{form.errors.child?.parents?.[1]?.parentAddress &&
 										form.touched.child?.parents?.[1]?.parentAddress && (
@@ -134,16 +134,16 @@ const Parent2Form = ({ form }) => {
 										id='workName2'
 										name='child.parents[1].workName'
 										placeholder={
-											form.values.child?.parents?.[1].occupation === 'estudiante'
+											form.values.child?.parents?.[1]?.occupation === 'estudiante'
 												? 'Nombre del centro de estudios...'
 												: 'Nombre del centro de trabajo...'
 										}
-										value={form.values.child.parents[1].workName}
+										value={form.values.child.parents?.[1]?.workName}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 										disabled={
-											form.values.child?.parents?.[1].occupation !== 'trabajador' &&
-											form.values.child?.parents?.[1].occupation !== 'estudiante'
+											form.values.child?.parents?.[1]?.occupation !== 'trabajador' &&
+											form.values.child?.parents?.[1]?.occupation !== 'estudiante'
 										}
 									/>
 									{form.errors.child?.parents?.[1]?.workName &&
@@ -164,10 +164,10 @@ const Parent2Form = ({ form }) => {
 										id='jobTitle2'
 										name='child.parents[1].jobTitle'
 										placeholder='Cargo...'
-										value={form.values.child.parents[1].jobTitle}
+										value={form.values.child.parents?.[1]?.jobTitle}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
-										disabled={form.values.child?.parents?.[1].occupation !== 'trabajador'}
+										disabled={form.values.child?.parents?.[1]?.occupation !== 'trabajador'}
 									/>
 									{form.errors.child?.parents?.[1]?.jobTitle &&
 										form.touched.child?.parents?.[1]?.jobTitle && (
@@ -188,10 +188,10 @@ const Parent2Form = ({ form }) => {
 										id='workAddress2'
 										name='child.parents[1].workAddress'
 										placeholder='Dirección del centro de trabajo...'
-										value={form.values.child.parents[1].workAddress}
+										value={form.values.child.parents?.[1]?.workAddress}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
-										disabled={form.values.child?.parents?.[1].occupation !== 'trabajador'}
+										disabled={form.values.child?.parents?.[1]?.occupation !== 'trabajador'}
 									/>
 									{form.errors.child?.parents?.[1]?.workAddress &&
 										form.touched.child?.parents?.[1]?.workAddress && (
@@ -206,7 +206,7 @@ const Parent2Form = ({ form }) => {
 										id='salary2'
 										name='child.parents[1].salary'
 										placeholder='Salario'
-										value={form.values.child.parents[1].salary}
+										value={form.values.child.parents?.[1]?.salary}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
