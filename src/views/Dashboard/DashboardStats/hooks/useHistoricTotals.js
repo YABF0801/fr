@@ -8,7 +8,6 @@ const useHistoricTotals = () => {
     queryFn: getHistoricCirculos,
   })
 
-  console.log('hook', queryHistoricTotals.data)
    return { queryHistoricTotals }
 
 }
