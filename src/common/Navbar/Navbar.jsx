@@ -4,13 +4,13 @@ import { confirmAlert } from 'react-confirm-alert';
 import { Link, NavLink } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import {
-	CIRCULOS, DASHBOARD, GENERAL_LIST, HELP, NEW_SUBMISISON,
+	CIRCULOS, DASHBOARD, GENERAL_LIST, HELP,
 	ORGANISMOS,
 	PROPUESTAS_LIST,
 	USERS
 } from '../../core/config/routes/paths';
 import { useAuthContext } from '../../core/context/authContext';
-import { propuestasApiGet } from '../../core/services/propuestas.services';
+import { usePropuestasContext } from '../../core/context/PopuestasContext';
 import './Navbar.scss';
 import Pill from './PillBadge';
 
@@ -19,23 +19,23 @@ const Navbar = () => {
 	const { logout } = useAuthContext();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { isAuthenticated } = useAuthContext();
-
+	const { queryPropuestas } = usePropuestasContext();
+	const [propsIcon, setPropsIcon] = useState(false);
 	const [user, setUser] = useState();
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	  };
 
+	  console.log(propsIcon)
 	  useEffect(() => {
-		const fetchData = async () => {
-			const props = await propuestasApiGet();
-			if (props.length > 0) {
-			document.getElementById('props').style.display = 'block';
-			}
-		};
-		fetchData();
-	}, []);
-
+		if (queryPropuestas.data && queryPropuestas.data.length) {
+			setPropsIcon(true);
+		} else {
+			setPropsIcon(false);
+		  }
+		}, [queryPropuestas.data], );
+		
 	useEffect(() => {
 		const user = isAuthenticated.user?.nickname
 		setUser(user);
@@ -89,8 +89,8 @@ const Navbar = () => {
 
 		<div className={`navbar-collapse ${isMenuOpen ? 'collapse show' : 'collapse navbar-expand-sm justify-content-end'}`} id='navbarNav'>
 					<ul className='navbar-nav align-center gap-2'>
-						<li className='nav-item props' id='props'>
-							<NavLink className='nav-link link text-dark ' to={PROPUESTAS_LIST}>
+					{propsIcon && <li className='nav-item props' id='props'>
+						<NavLink className='nav-link link text-dark ' to={PROPUESTAS_LIST}>
 								<i
 									className='inav bi bi-list-check'
 									data-tooltip-id='tooltip'
@@ -100,17 +100,8 @@ const Navbar = () => {
 							<Pill id={'props-badge'} />
         
 							</NavLink>
-						</li>
+						</li>}
 
-						<li className='nav-item plus' id='plus'>
-							<NavLink className='nav-link link text-dark ' to={NEW_SUBMISISON}>
-								<i
-									className='inav bi bi-plus-lg'
-									data-tooltip-id='tooltip'
-									data-tooltip-content='Nueva Solicitud'
-								/>
-							</NavLink>
-						</li>
 
 						<li className='nav-item'>
 							<NavLink className='nav-link link text-dark ' to={GENERAL_LIST}>

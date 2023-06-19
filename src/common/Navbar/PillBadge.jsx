@@ -1,14 +1,18 @@
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import { usePropuestasContext } from '../../core/context/PopuestasContext';
 
-
-// !Tipar la prop
-// eslint-disable-next-line react/prop-types
 function Pill({ id }) {
-
+  const [count, setCount] = useState(false);
 	const { queryPropuestas } = usePropuestasContext();
 
-  const count = queryPropuestas.data ? queryPropuestas.data.length : 0
+	useEffect(() => {
+    if (queryPropuestas.data && queryPropuestas.data.length) {
+      setCount(queryPropuestas.data.length);
+    }
+	}, [queryPropuestas.data], );
+
 
   return (
     <div>
@@ -22,5 +26,9 @@ function Pill({ id }) {
     </div>
   );
 }
+
+Pill.propTypes = {
+  id: PropTypes.string,
+};
 
 export default Pill;
