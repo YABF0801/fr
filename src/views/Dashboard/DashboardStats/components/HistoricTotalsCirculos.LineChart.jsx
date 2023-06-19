@@ -8,8 +8,6 @@ const HistoricTotalsCirculos = () => {
 
 	const data = queryHistoricTotals.data ? queryHistoricTotals.data : [];
 
-	console.log('chart', data);
-
 	const labels = data.map((item) => item.year);
 
 	const datasets = [

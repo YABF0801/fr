@@ -40,9 +40,6 @@ const GeneralListTable = () => {
 
 	useEffect(() => {
 		if (selectedFilters.length > 0 || selectedDate) {
-			console.log('rec', selectedFilters);
-			console.log('date', selectedDate);
-
 			const filteredSubmissions = querySubmision.data.filter((submision) =>
 				filterOption === 'includes'
 					? (new Date(submision.createdAt) >= selectedDate && selectedFilters.includes(submision.status)) ||
@@ -239,8 +236,6 @@ const GeneralListTable = () => {
 	  const handleHideForm = () => {
 		setShowForm(false);
 	  };
-
-	  console.log(showForm)
 
 	function showFilters() {
 		const filtersElement = document.getElementById('filters');

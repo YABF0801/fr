@@ -12,7 +12,6 @@ export function FiltersRow({ onFilterChange, handleChange }) {
 	  const handleCheckboxChange = (event) => {
 		const { value, checked } = event.target;
 		onFilterChange(value, checked);
-		console.log('Checkbox value:', value);
 	};
 
 	return (

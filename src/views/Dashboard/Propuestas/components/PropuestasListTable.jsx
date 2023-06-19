@@ -30,7 +30,6 @@ const PropuestasListTable = () => {
 	}, [queryPropuestas.data]);
 
 	useEffect(() => {
-		console.log('p',queryContadorPropGeneradas.data, 'cc' , queryContadorCambioCurso.data)
 		if (queryContadorPropGeneradas.data === 1 && queryContadorCambioCurso.data === 0){
 			setBotonAceptar(false)
 		} else {

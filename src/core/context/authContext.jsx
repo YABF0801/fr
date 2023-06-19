@@ -27,7 +27,6 @@ export function AuthContextProvider({ children }) {
 		const auth = window.localStorage.getItem(MY_AUTH_APP);
 		if (auth) {
 			const token = JSON.parse(auth).token;
-			console.log(token);
 			const decodedToken = jwt_decode(token);
 			const expirationDate = new Date(decodedToken.exp * 1000);
 			const currentDate = new Date();
