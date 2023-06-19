@@ -36,7 +36,6 @@ const CirculosList = () => {
 
 	useEffect(() => {
 		if (selectedFilters.length > 0) {
-			console.log('rec', selectedFilters);
 			const filteredSubmissions = queryCirculos.data.filter((circulo) =>
 				filterOption === 'includes'
 					? selectedFilters.includes(circulo.circulotype) ||
