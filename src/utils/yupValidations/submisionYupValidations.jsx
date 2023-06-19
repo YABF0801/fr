@@ -15,7 +15,7 @@ export const SubmisionSchema = Yup.object().shape({
 
 	socialCase: Yup.boolean(),
 
-	entryNumber: Yup.number().required('El numero de entrada es requerido'),
+	entryNumber: Yup.number().required('El número de entrada es requerido'),
 
 	ciPedido: Yup.string().optional(),
 
@@ -40,7 +40,7 @@ export const SubmisionSchema = Yup.object().shape({
 
 		carnet: Yup.number()
 			.required('Se requiere un número de identificación')
-			.test('valid carnet', 'El carnet no es valido', (value) => validateCarnet(value)),
+			.test('valid carnet', 'El carnet no es válido', (value) => validateCarnet(value)),
 
 		year_of_life: Yup.number()
 			.required('Seleccione un año de vida')
@@ -48,7 +48,7 @@ export const SubmisionSchema = Yup.object().shape({
 
 		childAddress: Yup.string()
 			.required('La dirección es requerida')
-			.test('letras minimo 5', 'La dirección debe tener mas de 5 caracteres', (value) =>
+			.test('letras minimo 5', 'La dirección debe tener más de 5 caracteres', (value) =>
 				validateStringMin5(value)
 			),
 
