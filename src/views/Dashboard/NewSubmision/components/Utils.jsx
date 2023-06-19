@@ -36,7 +36,7 @@ export const renderOccupationRadios = (data, name, form, idNum, parentNum) => {
           value={item}
           onChange={form.handleChange}
           onBlur={form.handleBlur}
-          checked={form.values.child?.parents?.[parentNum][name] === item}
+          checked={form.values.child?.parents?.[parentNum]?.[name] === item}
         />
         <label className='form-check-label' htmlFor={`${item}${idNum}`}>
           {item.charAt(0).toUpperCase() + item.slice(1)}
