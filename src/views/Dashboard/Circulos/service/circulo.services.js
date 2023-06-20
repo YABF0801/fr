@@ -101,3 +101,13 @@ export const setContadorCc = async () => {
         throw new Error(`Error al setear el contador de nuevo curso: ${error.message}`);
  }
 };
+
+export const setCurrentCurso = async (curso) => {
+	try {
+		await baseAxios.put('/circulos/set-curso', curso);
+		ToastNotification('success', `${SuccessMsg('custom', `Curso actual`, 'establecido')}`);
+	} catch (error) {
+		handleToastyError(error)
+	}
+};
+

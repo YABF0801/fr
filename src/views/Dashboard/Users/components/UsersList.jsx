@@ -162,9 +162,7 @@ const UsersList = () => {
 				<div className='col-3 mt-5'>
 					<div className='card '>
 						<div className='card-body '>
-							<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
 								<AdministrationUtils />
-							</div>
 						</div>
 					</div>
 				</div>

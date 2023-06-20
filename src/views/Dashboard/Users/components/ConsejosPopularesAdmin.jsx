@@ -33,7 +33,6 @@ const ConsejosPopularesDropdown = () => {
     }
   };
 
-
   const handleDeleteConsejo = async (id) => {
     try {
       await consejosApiDelete(id); 
@@ -59,8 +58,9 @@ const ConsejosPopularesDropdown = () => {
 };
 
   return (
-    <div >
-    <form className='p-3 gap-3 d-flex d-flex-inline justify-content-between' onSubmit={form.handleSubmit}>
+    <div className='container-fluid'>
+         <div className='row'>
+    <form className='p-3 gap-3 d-flex d-flex-inline align-items-center' onSubmit={form.handleSubmit}>
 
     <input
      type='text'
@@ -78,9 +78,9 @@ const ConsejosPopularesDropdown = () => {
       </button>
 
       </form>
-
+      </div>
    
-       
+      <div className='row'>
       <Dropdown>
         <Dropdown.Toggle id="dropdown-consejos"  className="w-100">
           Consejos Populares
@@ -98,7 +98,7 @@ const ConsejosPopularesDropdown = () => {
         </Dropdown.Menu>
       </Dropdown>
     </div>
-
+    </div>
   );
 };
 
