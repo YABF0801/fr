@@ -4,9 +4,9 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import { useUserContext } from '../context/UserContext';
+import AdministrationUtils from './AdministrationUtils';
 import UserForm from './UserForm';
 import UserColumns from './UserTableColumns';
-
 
 const UsersList = () => {
 	const { queryUsers, deleteUser } = useUserContext();
@@ -20,14 +20,14 @@ const UsersList = () => {
 
 	useEffect(() => {
 		setUsersLocal(queryUsers.data);
-		setSearchData(queryUsers.data)
+		setSearchData(queryUsers.data);
 		return function cleanUp() {};
 	}, [queryUsers.data]);
 
 	useEffect(() => {
 		if (search.trim() === '') {
 			setUsersLocal(queryUsers.data);
-			setSearchData(queryUsers.data)
+			setSearchData(queryUsers.data);
 		}
 		return function cleanUp() {};
 	}, [search]);
@@ -89,7 +89,6 @@ const UsersList = () => {
 
 	const columns = UserColumns({ editUser, confirmDelete });
 
-
 	function showForm() {
 		document.getElementById('user').style.display = 'block';
 	}
@@ -104,45 +103,43 @@ const UsersList = () => {
 
 	return (
 		<section className='list '>
-			<div className=' p-2 pb-5'>
-				<h2 className='text-center mt-3'>Administración de usuarios</h2>
-				<div className='card '>
-					<div className='card-body '>
-						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
-							<div className='searchbar'>
-								<input
-									className='search_input '
-									id='search'
-									placeholder='Búsqueda...'
-									value={search}
-									onChange={handleSearch}
-								/>
-								<a className='search_icon'>
-									<i className='bi bi-search'></i>
-								</a>
+			<div className='row p-2 pb-5'>
+				<div className='col-9'>
+					<h2 className='text-center mt-3'>Administración de usuarios</h2>
+					<div className='card '>
+						<div className='card-body '>
+							<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
+								<div className='searchbar'>
+									<input
+										className='search_input '
+										id='search'
+										placeholder='Búsqueda...'
+										value={search}
+										onChange={handleSearch}
+									/>
+									<a className='search_icon'>
+										<i className='bi bi-search'></i>
+									</a>
+								</div>
+
+								<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
+									<a href='#user' onClickCapture={showForm} className='btn customize-btn'>
+										<i className='bi bi-plus-lg'></i>
+									</a>
+								</div>
 							</div>
 
-							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
-								<a href='#user' onClickCapture={showForm} className='btn customize-btn'>
-									<i className='bi bi-plus-lg'></i>
-								</a>
-							</div>
+							{queryUsers.isLoading ? (
+								<div className='row m-5'>
+									<SmallSpinner className='m-4 mx-auto' data={'usuarios'} color={'#36616c'} />
+								</div>
+							) : (
+								<DataTable columns={columns} data={usersLocal} />
+							)}
 						</div>
-
-						{queryUsers.isLoading ? (
-							<div className='row m-5'>
-								<SmallSpinner className='m-4 mx-auto' data={'usuarios'} color={'#36616c'} />
-							</div>
-						) : (
-							<DataTable columns={columns} data={usersLocal} />
-						)}
-
-						
 					</div>
-				</div>
-
-				<div className='m-5'>
-				<p className='text-start text-secondary t mt-2'>Cantidad de planillas creadas por usuarios</p>
+					<div className='m-5'>
+						<p className='text-start text-secondary t mt-2'>Cantidad de planillas creadas por usuarios</p>
 						<div className='legend-bar-container'>
 							{Object.entries(countByUser).map(([user, count], index) => (
 								<div
@@ -159,7 +156,19 @@ const UsersList = () => {
 								</div>
 							))}
 						</div>
+					</div>
+				</div>
+
+				<div className='col-3 mt-5'>
+					<div className='card '>
+						<div className='card-body '>
+							<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
+								<AdministrationUtils />
+							</div>
 						</div>
+					</div>
+				</div>
+
 				<UserForm user={selectedUser} />
 			</div>
 		</section>

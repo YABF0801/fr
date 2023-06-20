@@ -7,9 +7,9 @@ import { useStatusCount } from '../hooks/useStatusCount';
 const SubmisionStatusCount = () => {
 	const queryStatusCount = useStatusCount();
 
-	const pendiente = queryStatusCount.data ? queryStatusCount.data.pendiente : 0;
-	const matricula = queryStatusCount.data ? queryStatusCount.data.matricula : 0;
-	const baja = queryStatusCount.data ? queryStatusCount.data.baja : 0;
+	const pendiente = (queryStatusCount.data && queryStatusCount.data.pendiente) ? queryStatusCount.data.pendiente : 0;
+	const matricula = (queryStatusCount.data &&  queryStatusCount.data?.matricula) ? queryStatusCount.data?.matricula : 0;
+	const baja = (queryStatusCount.data &&  queryStatusCount.data?.baja) ? queryStatusCount.data?.baja : 0;
 
 	return (
 		<>

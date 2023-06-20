@@ -1,4 +1,7 @@
 import  {baseAxios}  from '../api/baseAxios';
+import SuccessMsg from '../common/Toasts/SuccessMsg';
+import ToastNotification from '../common/Toasts/toasts';
+import { handleToastyError } from './handleError';
 
 
 export const FechaOmApiGet = async () => {
@@ -62,3 +65,27 @@ export const ResetConsecutive = async () => {
  }
 };
 
+// consejos populares
+export const consejosApiGet = async () => {
+	const users = await baseAxios.get('/submisions/consejos-p');
+	return users.data;
+};
+
+export const consjeosApiCreate = async (consejo) => {
+	try {
+		const userCreated = await baseAxios.post('/submisions/consejo', consejo);
+        ToastNotification('success', `${SuccessMsg('create', `Consejo Popular ${consejo.name}`)}`);
+		return userCreated.data;
+	} catch (error) {
+		handleToastyError(error)
+	}
+};
+
+export const consejosApiDelete = async (id) => {
+	try {
+		await baseAxios.delete(`/submisions/consejos/${id}`);
+        ToastNotification('success', `${SuccessMsg('delete', `Consejo popular`)}`);
+	} catch (error) {
+		handleToastyError(error)
+	}
+};
