@@ -104,10 +104,10 @@ const UsersList = () => {
 	return (
 		<section className='list '>
 			<div className='row p-2 pb-5'>
-				<div className='col-8'>
+				<div className='col-9'>
 					<h2 className='text-center mt-3'>Administración de usuarios</h2>
 					<div className='card '>
-						<div className='card-body '>
+						<div className='card-body 'style={{ height: '550px' }}>
 							<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>
 								<div className='searchbar'>
 									<input
@@ -159,9 +159,9 @@ const UsersList = () => {
 					</div>
 				</div>
 
-				<div className='col-4 mt-5'>
+				<div className='col-3 mt-5'>
 					<div className='card '>
-						<div className='card-body '>
+						<div className='card-body 'style={{ height: '550px' }}>
 								<AdministrationUtils />
 						</div>
 					</div>

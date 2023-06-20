@@ -82,7 +82,7 @@ const ConsejosPopularesDropdown = () => {
    
       <div className='row'>
       <Dropdown>
-        <Dropdown.Toggle id="dropdown-consejos"  className="w-100">
+        <Dropdown.Toggle id="dropdown-consejos"  className=" cancel-btn w-100">
           Consejos Populares
         </Dropdown.Toggle>
 
