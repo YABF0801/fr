@@ -60,7 +60,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 		validationSchema: SubmisionSchema,
 	});
 
-	console.log('b', formik.values)
+	// console.log(formik.values.child.latlng)
 
 	useEffect(() => {
 		const fetchData = async () => {

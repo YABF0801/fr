@@ -256,7 +256,7 @@ body {
 	color: #f3f3f3;
 	background: radial-gradient(#224957a1, #0c3d4aa1) !important;
 	transition: 0.3s all;
-
+	border: none;
 	&:hover {
 		color: #f3f3f3;
 		border-radius: 5px;
@@ -273,7 +273,7 @@ body {
 	color: #f3f3f3;
 	background: radial-gradient(#0c3d4a, #0c3d4a) !important;
 	transition: 0.2s all;
-
+	border: none;
 	&:hover {
 		color: #f3f3f3;
 		border-radius: 5px;

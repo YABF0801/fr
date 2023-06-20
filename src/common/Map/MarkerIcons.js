@@ -16,3 +16,18 @@ export const ciIcon = L.icon({
 		shadowAnchor: [4, 62],
 	});
 
+export const pinCi = L.icon({
+		iconUrl: '/public/pin ci.png',
+		iconSize: [32, 32],
+		iconAnchor: [16, 16],
+		popupAnchor: [0, -32],
+		shadowAnchor: [4, 62],
+	});
+
+export const pinKid = L.icon({
+		iconUrl: '/public/pin kid.png',
+		iconSize: [32, 32],
+		iconAnchor: [16, 16],
+		popupAnchor: [0, -32],
+		shadowAnchor: [4, 62],
+	});

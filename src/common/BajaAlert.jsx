@@ -3,7 +3,7 @@ import { Alert } from 'react-bootstrap';
 import { yearNullExist } from '../views/Dashboard/GeneralList/service/submision.services';
 
 const BajaAlert = () => {
-    const [count, setCount] = useState(false);
+    const [count, setCount] = useState(0);
     const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const BajaAlert = () => {
         } else {
           setShowAlert(false)
         }
-      }, 900000); // 900000 ms = 15 minutos
+      }, 20000); // 900000 ms = 15 minutos
       return () => clearInterval(interval);
     }, []);
   
