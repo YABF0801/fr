@@ -1,13 +1,12 @@
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
-import { cursoApiGet, setCurrentCurso } from '../../Circulos/service/circulo.services';
+import { setCurrentCurso } from '../../Circulos/service/circulo.services';
 import ConsejosPopularesDropdown from './ConsejosPopularesAdmin';
 import * as Yup from 'yup';
 import { confirmAlert } from 'react-confirm-alert';
+import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 
 const AdministrationUtils = () => {
-	const [consecutivo, setConsecutivo] = useState();
-	const [curso, setCurso] = useState();
+	const { resetearConsecutivo } = useOtorgamientoContext();
 
 	const form = useFormik({
 		initialValues: {
@@ -19,41 +18,38 @@ const AdministrationUtils = () => {
 		onSubmit: async (values, { resetForm }) => {
 			await setCurrentCurso(values);
 			resetForm();
-			fetchCurso(); // Actualizar el listado después de crear un nuevo consejo
 		},
 	});
 
-	useEffect(() => {
-		fetchConsecutivo();
-		fetchCurso();
-	}, []);
-
-	const fetchConsecutivo = async () => {
-		const consecutivo = await cursoApiGet();
-		if (consecutivo) {
-			setConsecutivo(consecutivo);
-		}
+	const handleResetConsecutivo = async () => {
+		await resetearConsecutivo.mutate();
 	};
 
-	const fetchCurso = async () => {
-		const curso = await cursoApiGet();
-		if (curso) {
-			setCurso(curso);
-		}
+	const confirmResetConsecutivo = (row) => {
+		confirmAlert({
+			message: `Va a resetear el número de entrada consecutivo de las planillas 
+			a 0, ¿está seguro?`,
+			buttons: [
+				{
+					className: 'cancel-btn ',
+					label: 'Cancelar',
+					onClick: () => {},
+				},
+				{ className: 'save-btn', label: 'Resetear', onClick: () => handleResetConsecutivo() },
+			],
+			className: 'button-group d-flex justify-content-evenly',
+		});
 	};
 
 	return (
 		<div className='row mb-3 '>
 			<div className='d-flex flex-column'>
 				<div className='p-3 d-flex flex-column '>
-					<label htmlFor='curso' className='p-2 text-secondary align-self-start'>
-						Explicación
+					<label htmlFor='curso' className='p-2 text-secondary align-self-center'>
+						Establecer año del curso actual
 					</label>
-					<div >
-						<form
-							className='d-flex align-items-center  gap-3'
-							onSubmit={form.handleSubmit}
-						>
+					<div>
+						<form className='d-flex align-items-center  gap-3' onSubmit={form.handleSubmit}>
 							<input
 								type='text'
 								className='form-control'
@@ -73,26 +69,28 @@ const AdministrationUtils = () => {
 				</div>
 
 				<div className='p-3 d-flex flex-column'>
-					<label htmlFor='consecutivo' className='p-2 text-secondary align-self-start'>
-						Explicación
+					
+				<hr></hr>
+					<label htmlFor='consecutivo' className='p-2 text-secondary align-self-center'>
+						Resetear número consecutivo de las planillas a 0
 					</label>
+
 					<div className='d-flex align-items-center gap-3'>
-						<input
-							type='text'
-							id='consecutivo'
-							className='form-control'
-							placeholder='Establecer consecutivo'
-						/>
-						<button type='button' className='btn save-btn'>
-							Guardar
+						<button
+							className='btn save-btn w-100'
+							onClick={confirmResetConsecutivo}
+							style={{ fontSize: '1.2em' }}
+							data-tooltip-id='tooltip'
+							data-tooltip-content='Resetear consecutivo'
+							>Resetear consecutivo
 						</button>
 					</div>
 				</div>
 
 				<div className='d-flex flex-column'>
 					<hr></hr>
-					<label htmlFor='consejos' className='p-3 text-secondary align-self-start'>
-						Consejos populares
+					<label htmlFor='consejos' className='p-2 text-secondary align-self-center'>
+						Administre consejos populares
 					</label>
 					<div className='d-flex align-items-center'>
 						<ConsejosPopularesDropdown />

@@ -11,13 +11,11 @@ import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { FiltersRow } from './Filters';
 import GeneralListColumns from './GeneralListColumns';
 import OfCanvasToOm from './OfCanvasToOm';
-import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 
 <Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
 
 const GeneralListTable = () => {
 	const { querySubmision, deleteSubmision, bajaSubmision } = useSubmisionContext();
-	const {resetearConsecutivo} = useOtorgamientoContext();
 	const [search, setSearch] = useState('');
 	const [hideSocialCase, setHideSocialCase] = useState(true);
 	const [hidePadre, setHidePadre] = useState(true);
@@ -209,26 +207,6 @@ const GeneralListTable = () => {
 		setHideAddress(!hideAddress);
 	};
 
-	const confirmResetConsecutivo = (row) => {
-		confirmAlert({
-			message: `Va a resetear el número de entrada consecutivo de las planillas 
-			a 0, ¿está seguro?`,
-			buttons: [
-				{
-					className: 'cancel-btn ',
-					label: 'Cancelar',
-					onClick: () => {},
-				},
-				{ className: 'save-btn', label: 'Resetear', onClick: () => handleResetConsecutivo() },
-			],
-			className: 'button-group d-flex justify-content-evenly',
-		});
-	};
-
-	const handleResetConsecutivo = async () => {
-	await resetearConsecutivo.mutate();
-	};
-
 	const handleShowForm = () => {
 		setShowForm(true);
 	  };
@@ -339,13 +317,6 @@ const GeneralListTable = () => {
 
 									{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
 
-									<button className='btn btn-sm action-btn m-md-1' 
-									onClick={confirmResetConsecutivo}
-									style={{ fontSize: '1.2em' }}
-									data-tooltip-id='tooltip'
-									data-tooltip-content='Resetear consecutivo'>
-										RC
-									</button>
 								</div>
 							</div>
 						</div>

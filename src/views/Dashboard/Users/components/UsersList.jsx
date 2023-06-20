@@ -104,7 +104,7 @@ const UsersList = () => {
 	return (
 		<section className='list '>
 			<div className='row p-2 pb-5'>
-				<div className='col-9'>
+				<div className='col-8'>
 					<h2 className='text-center mt-3'>Administración de usuarios</h2>
 					<div className='card '>
 						<div className='card-body '>
@@ -159,7 +159,7 @@ const UsersList = () => {
 					</div>
 				</div>
 
-				<div className='col-3 mt-5'>
+				<div className='col-4 mt-5'>
 					<div className='card '>
 						<div className='card-body '>
 								<AdministrationUtils />
