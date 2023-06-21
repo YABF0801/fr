@@ -68,7 +68,6 @@ function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 									value={form.values.number}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
-									autoFocus
 								/>
 								{form.errors.number && form.touched.number ? (
 									<p className='text-danger'>{form.errors.number}</p>

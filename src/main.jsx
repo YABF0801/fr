@@ -24,6 +24,7 @@ import './styles/main.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import BajaAlert from './common/BajaAlert';
+import PopuestasPendentAlert from './common/PopuestasPendentAlert';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 			<App />
 			<ReactQueryDevtools />
 			<BajaAlert/>
+			<PopuestasPendentAlert/>
 		</QueryClientProvider>
 	</React.StrictMode>
 );

@@ -1,5 +1,5 @@
 // eslint-disable-next-line camelcase
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 import PropTypes from 'prop-types';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -23,16 +23,16 @@ export function AuthContextProvider({ children }) {
 		}
 	}, []);
 
-	useEffect(() => {
-		const auth = window.localStorage.getItem(MY_AUTH_APP);
-		if (auth) {
-			const token = JSON.parse(auth).token;
-			const decodedToken = jwt_decode(token);
-			const expirationDate = new Date(decodedToken.exp * 1000);
-			const currentDate = new Date();
-			(currentDate > expirationDate) && logout();
-		}
-	  }, []);
+	// useEffect(() => {
+	// 	const auth = window.localStorage.getItem(MY_AUTH_APP);
+	// 	if (auth) {
+	// 		const token = JSON.parse(auth).token;
+	// 		const decodedToken = jwt_decode(token);
+	// 		const expirationDate = new Date(decodedToken.exp * 1000);
+	// 		const currentDate = new Date();
+	// 		// (currentDate > expirationDate) && logout();
+	// 	}
+	//   }, []);
 
 
 	const login = useCallback((user, token) => {
