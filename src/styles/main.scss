@@ -561,6 +561,15 @@ i.md-icon {
   }
 
   
+  .custom-alert {
+	position: absolute;
+	top: 80px;
+	right: 20px;
+	width: auto;
+	height: auto;
+	box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+  }
+  
 #filters{
 	width: 100%;
 	display: none;

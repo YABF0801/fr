@@ -23,7 +23,7 @@ const BajaAlert = () => {
         } else {
           setShowAlert(false)
         }
-      }, 1800000 ); // 900000 ms = 15 minutos
+      }, 7200000 ); // 900000 ms = 15 minutos
       return () => clearInterval(interval);
     }, []);
   
@@ -31,7 +31,8 @@ const BajaAlert = () => {
 
     return (
       showAlert && (
-        <Alert variant="info" onClose={() => setShowAlert(false)} dismissible>
+        <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible
+        className='custom-alert'>
           Existen {count} niños que salieron en el cambio de curso para dar baja
         </Alert>
       )

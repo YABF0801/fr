@@ -33,6 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 			<ReactQueryDevtools />
 			<BajaAlert/>
 			<PopuestasPendentAlert/>
+			<omDateAlert/>
 		</QueryClientProvider>
 	</React.StrictMode>
 );
