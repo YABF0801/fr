@@ -65,7 +65,7 @@ const ConsejosPopularesDropdown = () => {
     <input
      type='text'
      className='form-control'
-     id='name'
+     id='cpname'
      name='name'
      placeholder="Añadir nuevo consejo"
      value={form.values.name}

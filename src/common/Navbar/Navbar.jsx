@@ -89,18 +89,18 @@ const Navbar = () => {
 
 		<div className={`navbar-collapse ${isMenuOpen ? 'collapse show' : 'collapse navbar-expand-sm justify-content-end'}`} id='navbarNav'>
 					<ul className='navbar-nav align-center gap-2'>
-					{propsIcon && <li className='nav-item props' id='props'>
+					<li className='nav-item props' id='props'>
 						<NavLink className='nav-link link text-dark ' to={PROPUESTAS_LIST}>
 								<i
 									className='inav bi bi-list-check'
 									data-tooltip-id='tooltip'
-									data-tooltip-content='Listado de Propuestas'
+									data-tooltip-content='Otorgamiento masivo'
 								/>
 								
 							<Pill id={'props-badge'} />
         
 							</NavLink>
-						</li>}
+						</li>
 
 
 						<li className='nav-item'>
@@ -108,7 +108,7 @@ const Navbar = () => {
 								<i
 									className='inav bi bi-file-earmark-text'
 									data-tooltip-id='tooltip'
-									data-tooltip-content='Listado de Planillas'
+									data-tooltip-content='Planillas'
 								/>
 							</NavLink>
 						</li>
@@ -118,7 +118,7 @@ const Navbar = () => {
 								<i
 									className='inav bi bi-bar-chart-fill'
 									data-tooltip-id='tooltip'
-									data-tooltip-content='Estadisticas'
+									data-tooltip-content='Estadísticas'
 								/>
 							</NavLink>
 						</li>
@@ -128,7 +128,7 @@ const Navbar = () => {
 								<i
 									className='inav bi bi-house-gear'
 									data-tooltip-id='tooltip'
-									data-tooltip-content='Listado de Circulos'
+									data-tooltip-content='Círculos'
 								/>
 							</NavLink>
 						</li>
@@ -138,7 +138,7 @@ const Navbar = () => {
 								<i
 									className='inav bi bi-building-gear'
 									data-tooltip-id='tooltip'
-									data-tooltip-content='Listado de Organismos'
+									data-tooltip-content='Organismos'
 								/>
 							</NavLink>
 						</li>
