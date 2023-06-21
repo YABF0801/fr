@@ -10,7 +10,6 @@ import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import { FiltersRow } from './Filters';
 import GeneralListColumns from './GeneralListColumns';
-import OfCanvasToOm from './OfCanvasToOm';
 
 <Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
 
@@ -314,8 +313,6 @@ const GeneralListTable = () => {
 									)}
 
 									<ExportBtn handleExport={handleExport} />
-
-									{isAuthenticated.user?.role === 'admin' && <OfCanvasToOm />}
 
 								</div>
 							</div>

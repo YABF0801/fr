@@ -6,9 +6,12 @@ import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
 import { GENERAL_LIST } from '../../../../core/config/routes/paths';
+import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { exportExcel } from '../../../../utils/Export';
+import HeaderStats from '../../DashboardStats/components/HeaderStats';
+import OmAdministration from './OmAdministration';
 import PropuestasListColumns from './PropuestasListColumns';
 
 const PropuestasListTable = () => {
@@ -21,6 +24,7 @@ const PropuestasListTable = () => {
 	const [searchData, setSearchData] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
+	const { isAuthenticated } = useAuthContext();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -171,9 +175,12 @@ const PropuestasListTable = () => {
 	const { columns } = PropuestasListColumns();
 
 	return (
+		
 		<section className='prop-list'>
-			<div className=' mt-3 p-2 pb-5'>
-				<h2 className='text-center mt-2 p-3'>Propuestas de matrícula</h2>
+			<HeaderStats />
+			<div >
+			{isAuthenticated.user?.role === 'admin' && <OmAdministration/>}
+					<h2 className='text-center p-3'>Propuestas de matrícula</h2>
 				<div className='card '>
 					<div className='card-body '>
 						<div className='pb-3 mb-4 gap-3 d-flex justify-content-between '>

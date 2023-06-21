@@ -8,8 +8,6 @@ import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoCon
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { propuestasApiGet } from '../../../../core/services/propuestas.services';
 
-import DatePickerToOm from './datePicker';
-
 const OmAdministration = () => {
 	const { generarPropuestas, rechazarPropuestas } = usePropuestasContext();
 	const { 
@@ -158,9 +156,10 @@ const OmAdministration = () => {
 
 	return (
 		<>
-				<div className='d-flex flex-column justify-content-center align-items-center gap-5 form-check mb-5'>
-						<DatePickerToOm />
-														
+			<div className='card '>
+					<div className='card-body '>
+				<div className='d-flex flex-inline justify-content-center align-items-center gap-5 '>
+															
 							<button
 								type='button'
 								id='generar-btn' 	
@@ -168,7 +167,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Comenzar otorgamiento'
-								disabled={!botonComenzar}
+								// disabled={!botonComenzar}
 							>
 								Comenzar
 							</button>
@@ -180,7 +179,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								className='btn prop-btn'
 								data-tooltip-content='Cambio de Curso'
-								disabled={!botonCambioDeCurso}
+								// disabled={!botonCambioDeCurso}
 							>
 								Cambio de Curso
 							</button>
@@ -192,7 +191,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Generar nueva propuesta '
-								disabled={!botonGenerarPropuesta}
+								// disabled={!botonGenerarPropuesta}
 							>
 								Generar propuesta
 							</button>
@@ -204,7 +203,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={confirmFinalizarOms}
 								data-tooltip-content='Finalizar otorgamiento'
-								disabled={!botonFinalizar}
+								// disabled={!botonFinalizar}
 							>
 								Finalizar
 							</button>
@@ -217,6 +216,8 @@ const OmAdministration = () => {
 				}
 				onHide={() => setIsModalOpen(false)}
 			/>
+			</div>
+			</div>
 		</>
 	);
 };

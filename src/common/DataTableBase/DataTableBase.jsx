@@ -1,6 +1,16 @@
 import DataTable from 'react-data-table-component';
 
+
 function DataTableBase(props) {
+
+  const NoData = () => (
+      <div>
+        <img src='../../../public/documents.png' alt="noData" style={{width:'250px'}} className='img-nodata'/>
+        <h4 className='text-secondary p-4'>No hay datos para mostrar</h4>
+      </div>
+    );
+
+      
     return (
         <DataTable
             defaultSortFieldId={1}
@@ -14,7 +24,7 @@ function DataTableBase(props) {
                 selectAllRowsItemText: 'Todos',
             }}
             selectableRowsHighlight
-            noDataComponent='No hay datos para mostrar'
+            noDataComponent={<NoData />}
             {...props}
             
         />

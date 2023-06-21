@@ -35,7 +35,7 @@ body {
 }
 
 .container-main {
-	background: linear-gradient(0deg, #f8f9fade, #f8f9faf7);
+	background: linear-gradient(0deg, #f8f9faed, #f8f9fa);
 	// margin: 20px;
 	width: calc(100% - 36px);
 	height: calc(100% - 36px);
@@ -544,21 +544,22 @@ i.md-icon {
 	
   }
 
+  @keyframes animation {
+	0% {
+		transform: scale(0.98);
+	  }
+	  50% {
+		transform: scale(1);
+	  }
+	  100% {
+		transform: scale(0.98);
+	  }
+	}
   
-// .offcanvas {
-// 	height: fit-content;
-// 	border-top-left-radius: 10px;
-// 	border-bottom-left-radius: 10px;
-// 	transform: translateY(50%);
-
-// 	max-width: 350px;
-// 	border: none !important;
-// 	box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
-//   }
-
-.offcanvas-backdrop	{
-	background: transparent;
+  .img-nodata {
+	animation: animation 10s ease-in-out infinite;
   }
+  
 
   
   .custom-alert {
