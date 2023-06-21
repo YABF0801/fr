@@ -53,6 +53,7 @@ function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 	return (
 		<div className='container mt-3 col-6' id='circulo'>
 			<div className=' p-5 '>
+			{circulo ? <h2 className='text-center mt-5 p-3'>Editar círculo</h2> : <h2 className='text-center mt-5 p-3'>Nuevo círculo</h2>}
 				<div className='card '>
 					<form className='f-modal p-3 gap-3 justify-content-evenly ' onSubmit={form.handleSubmit}>
 						<h3 className='text-secondary'>Datos del círculo</h3>

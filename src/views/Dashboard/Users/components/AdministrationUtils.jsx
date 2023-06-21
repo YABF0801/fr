@@ -4,13 +4,16 @@ import ConsejosPopularesDropdown from './ConsejosPopularesAdmin';
 import * as Yup from 'yup';
 import { confirmAlert } from 'react-confirm-alert';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
+import DatePickerToOm from '../../GeneralList/components/datePicker';
+
 
 const AdministrationUtils = () => {
 	const { resetearConsecutivo } = useOtorgamientoContext();
+	// const { queryFechaOm, resetearFecha,} = useOtorgamientoContext();
 
 	const form = useFormik({
 		initialValues: {
-			curso: new Date().getFullYear,
+			curso: '',
 		},
 		validationSchema: Yup.object({
 			name: Yup.number(),
@@ -43,13 +46,15 @@ const AdministrationUtils = () => {
 
 	return (
 		<div className='row mb-3 '>
-			<div className='d-flex flex-column'>
-				<div className='p-3 d-flex flex-column '>
-					<label htmlFor='curso' className='p-2 mb-2 text-secondary align-self-center'>
+					<DatePickerToOm />
+			<div className='d-flex flex-column '>
+
+				<hr></hr>
+					<label htmlFor='curso' className='p-2 mb-2 text-secondary align-self-center '>
 						Establecer año del curso actual
 					</label>
 					<div>
-						<form className='d-flex align-items-center  gap-3' onSubmit={form.handleSubmit}>
+						<form className='d-flex align-items-center gap-3 ms-2 me-2' onSubmit={form.handleSubmit}>
 							<input
 								type='text'
 								className='form-control'
@@ -66,16 +71,15 @@ const AdministrationUtils = () => {
 							</button>
 						</form>
 					</div>
-				</div>
 
-				<div className='p-3 d-flex flex-column'>
-					
+
+				
 				<hr></hr>
 					<label htmlFor='consecutivo' className='p-2 mb-2 text-secondary align-self-center'>
 						Resetear número consecutivo de las planillas 
 					</label>
 
-					<div className='d-flex align-items-center gap-3'>
+					<div className='d-flex align-items-center gap-3 ms-2 me-2'>
 						<button
 							className='btn save-btn w-100'
 							onClick={confirmResetConsecutivo}
@@ -84,17 +88,14 @@ const AdministrationUtils = () => {
 							>Resetear consecutivo
 						</button>
 					</div>
-				</div>
+	
 
-				<div className='d-flex flex-column'>
+
 					<hr></hr>
-					<label htmlFor='consejos' className='p-2 text-secondary align-self-center'>
+					<label htmlFor='consejos' className='p-2 mb-2 text-secondary align-self-center'>
 						Administre consejos populares
 					</label>
-					<div className='d-flex align-items-center'>
-						<ConsejosPopularesDropdown />
-					</div>
-				</div>
+						<ConsejosPopularesDropdown />	
 			</div>
 		</div>
 	);

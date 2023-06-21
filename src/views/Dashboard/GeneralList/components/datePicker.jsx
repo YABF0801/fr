@@ -60,8 +60,8 @@ const DatePickerToOm = () => {
 	const date = existingDate ? new Date(existingDate).toLocaleDateString() : null;
 
 	return (
-		<div className='d-flex justify-content-end '>
-			<div className='form-check form-switch form-check-inline d-flex flex-column align-items-center'>
+
+			<div className='d-flex flex-column align-items-center ms-2 me-2 w-100'>
 				{existingDate ? (
 					<>
 						<p className='text-secondary'>Próximo otorgamiento masivo</p>
@@ -82,7 +82,11 @@ const DatePickerToOm = () => {
 					</>
 				) : (
 					<>
-						<div className='d-flex d-flex-inline'>
+					<label htmlFor='curso' className='p-2 mb-2 text-secondary align-self-start'>
+						Establecer fecha de otorgamiento masivo
+					</label>
+						<div className='d-flex d-flex-inline w-100'>
+						
 							<DatePicker
 								id='datePicker'
 								selected={selectedDate}
@@ -104,7 +108,7 @@ const DatePickerToOm = () => {
 					</>
 				)}
 			</div>
-		</div>
+
 	);
 };
 

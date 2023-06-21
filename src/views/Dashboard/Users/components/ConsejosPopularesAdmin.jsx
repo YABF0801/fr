@@ -58,13 +58,13 @@ const ConsejosPopularesDropdown = () => {
 };
 
   return (
-    <div className='container-fluid'>
-         <div className='row'>
-    <form className='p-3 gap-3 d-flex d-flex-inline align-items-center' onSubmit={form.handleSubmit}>
+    <div className='container-fluid '>
+         <div className='row mb-3'>
+    <form className='gap-3 d-flex d-flex-inline align-items-center' onSubmit={form.handleSubmit}>
 
     <input
      type='text'
-     className='form-control'
+     className='form-control '
      id='cpname'
      name='name'
      placeholder="Añadir nuevo consejo"
@@ -81,8 +81,8 @@ const ConsejosPopularesDropdown = () => {
       </div>
    
       <div className='row'>
-      <Dropdown>
-        <Dropdown.Toggle id="dropdown-consejos"  className=" cancel-btn w-100">
+      <Dropdown >
+        <Dropdown.Toggle id="dropdown-consejos"  className="cancel-btn w-100">
           Consejos Populares
         </Dropdown.Toggle>
 

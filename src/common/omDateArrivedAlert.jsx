@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import { FechaOmApiGet } from '../utils/utiles.sevices';
 
-const omDateAlert = () => {
+const OmDateAlert = () => {
 	const [fecha, setFecha] = useState();
 	const [showAlert, setShowAlert] = useState(false);
 	const [isDateArrived, setisDateArrived] = useState(false);
@@ -44,5 +44,5 @@ const omDateAlert = () => {
 		)
 	);
 };
-export default omDateAlert
+export default OmDateAlert
  

@@ -44,6 +44,7 @@ function OrganismoForm({ organismo }) {
 	return (
 		<div className='show-form container list mt-3 col-6' id='organismo'>
 			<div className=' p-5'>
+			{organismo ? <h2 className='text-center mt-5 p-3'>Editar organismo</h2> : <h2 className='text-center mt-5 p-3'>Nuevo organismo</h2>}
 				<div className='card'>
 					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={form.handleSubmit}>
 						<div className='form-group'>

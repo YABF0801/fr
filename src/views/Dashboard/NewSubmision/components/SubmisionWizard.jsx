@@ -132,7 +132,8 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	return (
 		<div className='container list mt-3 col-12' id='submision'>
 			<div className=' p-5 '>
-				<h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>
+			{submision ? <h2 className='text-center mt-5 p-3'>Editar planilla</h2> : <h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>}
+			
 				<div className='card'>
 					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={formik.handleSubmit}>
 						{/* SUBMISION DATA */}

@@ -51,6 +51,7 @@ function UserForm({ user }) {
 	return (
 		<div className='show-form container list mt-3 col-6' id='user'>
 			<div className=' p-5'>
+			{user ? <h2 className='text-center mt-5 p-3'>Editar usuario</h2> : <h2 className='text-center mt-5 p-3'>Nuevo usuario</h2>}
 				<div className='card'>
 					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={form.handleSubmit}>
 						<h3 className='text-secondary mb-5'>Datos del usuario</h3>

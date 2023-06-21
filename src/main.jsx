@@ -25,6 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import BajaAlert from './common/BajaAlert';
 import PopuestasPendentAlert from './common/PopuestasPendentAlert';
+import OmDateAlert from './common/omDateArrivedAlert';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
@@ -33,7 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 			<ReactQueryDevtools />
 			<BajaAlert/>
 			<PopuestasPendentAlert/>
-			<omDateAlert/>
+			<OmDateAlert/>
 		</QueryClientProvider>
 	</React.StrictMode>
 );
