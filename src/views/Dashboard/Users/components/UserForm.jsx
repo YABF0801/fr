@@ -33,7 +33,6 @@ function UserForm({ user }) {
 		validationSchema: UserSchema,
 	});
 
-
 	useEffect(() => {
 		if (user) {
 			form.setValues(user);
@@ -135,7 +134,7 @@ function UserForm({ user }) {
 										className='form-control'
 										name='password'
 										id='password'
-										placeholder='Contraseña *'
+										placeholder={user ? 'Contraseña nueva' : 'Contraseña *'}
 										onChange={form.handleChange}
 										value={form.values.password}
 										onBlur={form.handleBlur}
@@ -149,18 +148,6 @@ function UserForm({ user }) {
 
 								{renderSwitchSelect('role', 'Administrador', form, 
 								form.values.role === 'admin', handleChange)}
-
-									{/* <input
-										type='checkbox'
-										className='form-check-input m-md-1' 
-										id='role'
-										name='role'
-										onClickCapture={handleChange}
-										value={form.values.role}
-									/>
-									<label className='custom-control-label text-secondary' htmlFor='role'>
-										Administrador
-									</label> */}
 
 								</div>
 							</div>
