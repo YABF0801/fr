@@ -23,7 +23,7 @@ const BajaAlert = () => {
         } else {
           setShowAlert(false)
         }
-      }, 20000); // 900000 ms = 15 minutos
+      }, 1800000 ); // 900000 ms = 15 minutos
       return () => clearInterval(interval);
     }, []);
   
@@ -31,8 +31,8 @@ const BajaAlert = () => {
 
     return (
       showAlert && (
-        <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
-          Existen {count} niños que salieron en el cambio de curso para dar baja.
+        <Alert variant="info" onClose={() => setShowAlert(false)} dismissible>
+          Existen {count} niños que salieron en el cambio de curso para dar baja
         </Alert>
       )
     );
@@ -42,27 +42,3 @@ const BajaAlert = () => {
 
  
 
-
-// const CustomAlert = ({ condition, message }) => {
-//   const [showAlert, setShowAlert] = useState(false);
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setShowAlert(condition);
-//     }, 900000); // 900000 ms = 15 minutos
-
-//     return () => clearInterval(interval);
-//   }, [condition]);
-
-//   return (
-//     showAlert && (
-//       <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible>
-//         {message}
-//       </Alert>
-//     )
-//   );
-// };
-
-// export default CustomAlert;
-
-// <CustomAlert condition={/* Condición */} message="Mensaje de la alerta 1" />
