@@ -23,7 +23,12 @@ export const UserSchema = Yup.object().shape({
 
 	password: Yup.string().when('nickname', {
 		is: (nickname) => nickname && nickname.trim() !== '',
-		then: Yup.string(),
+		then: Yup.string().optional()
+		.test(
+			'formato password',
+			'Debe contener al menos una letra minúscula, una letra mayúscula y un dígito',
+			(value) => {
+			if (value) {return validatePassword(value)}return true}),
 		otherwise: Yup.string()
 			.min(8, 'La contraseña debe contener al menos 8 caracteres')
 			.required('La contraseña es requerida')
