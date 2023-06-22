@@ -13,7 +13,8 @@ const SubmisionForm = ({ form, submision }) => {
 	const [year, setYear] = useState(null);
 	const [circulosToMap, setCirculosToMap] = useState([]);
 	const [type, setType] = useState([]);
-	const [selectedFinality, setSelectedFinality] = useState(form.values.finality === 'os' ? 1 : 2  );
+	const [selectedFinality, setSelectedFinality] = useState(form.values.finality === 'os' ? 1 : 2);
+	const [isOsNew, setIsOsNew] = useState(false);
 
 	useEffect(() => {
 		const getParentsEnums = async () => {
@@ -23,27 +24,25 @@ const SubmisionForm = ({ form, submision }) => {
 		getParentsEnums();
 	}, []);
 
-	
 	useEffect(() => {
 		const now = new Date().getFullYear();
 		if (submision && submision.entryNumber) {
-			const entryNumber = submision.entryNumber
-			const date = new Date(submision.createdAt).getFullYear()
+			const entryNumber = submision.entryNumber;
+			const date = new Date(submision.createdAt).getFullYear();
 			form.setFieldValue('entryNumber', submision.entryNumber);
 			setNewEntryNumber(entryNumber);
-			setYear(date)
-		  } else {
+			setYear(date);
+		} else {
 			fetchData();
-			setYear(now)
-		  }
-	  }, [submision]);
+			setYear(now);
+		}
+	}, [submision]);
 
-
-	  const fetchData = async () => {
+	const fetchData = async () => {
 		const consecutive = await consecustiveApiGet();
 		form.setFieldValue('entryNumber', consecutive + 1);
 		setNewEntryNumber(consecutive + 1);
-		};
+	};
 
 	useEffect(() => {
 		if (submision) {
@@ -61,17 +60,18 @@ const SubmisionForm = ({ form, submision }) => {
 
 	useEffect(() => {
 		setSelectedFinality(form.values.finality === 'os' ? 1 : 2);
-	  }, [form.values.finality]);
-
+	}, [form.values.finality]);
 
 	const handleOs = () => {
 		form.setFieldValue('finality', 'os');
+		setIsOsNew(true);
 	};
 
 	const handleOm = () => {
 		form.setFieldValue('finality', 'om');
+		setIsOsNew(false);
 	};
-	  
+
 	// console.log(form.values.finality, selectedFinality)
 
 	return (
@@ -81,20 +81,36 @@ const SubmisionForm = ({ form, submision }) => {
 
 			<div className='container '>
 				<div className='row justify-content-center'>
+					{isOsNew && (
+						<div className='text-danger col-10 '>
+							<p>
+								Al guardarse como otorgamiento sistemático, esta planilla no será tomada en cuenta para
+								generar las propuestas en el otorgamiento masivo, por lo que deberá regresar a ella
+								para hacer una matrícula manual
+							</p>
+						</div>
+					)}
 					<div className='col-md-12 '>
 						<div className='row justify-content-evenly'>
 							<div className='col-md-3'>
 								<ButtonToolbar>
-									<ToggleButtonGroup type='radio' name='finality' 
-									defaultValue={form.values.finality === 'os' ? 1 : 2}>
-										<ToggleButton 
-										className={selectedFinality === 1 ? 'selected-btn' : 'toggle-btn'}
-										 value={1} onClick={handleOs}>
+									<ToggleButtonGroup
+										type='radio'
+										name='finality'
+										defaultValue={form.values.finality === 'os' ? 1 : 2}
+									>
+										<ToggleButton
+											className={selectedFinality === 1 ? 'selected-btn' : 'toggle-btn'}
+											value={1}
+											onClick={handleOs}
+										>
 											OS
 										</ToggleButton>
-										<ToggleButton 
-										className={selectedFinality === 2 ? 'selected-btn' : 'toggle-btn'}
-										value={2} onClick={handleOm}>
+										<ToggleButton
+											className={selectedFinality === 2 ? 'selected-btn' : 'toggle-btn'}
+											value={2}
+											onClick={handleOm}
+										>
 											OM
 										</ToggleButton>
 									</ToggleButtonGroup>

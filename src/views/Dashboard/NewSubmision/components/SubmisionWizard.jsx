@@ -2,9 +2,11 @@ import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { childIcon } from '../../../../common/Map/MarkerIcons';
+import Select from '../../../../common/uiForms/select';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import { submisionInitialValues } from '../../../../utils/initialValues/submisionInitialValues';
 import { SubmisionSchema } from '../../../../utils/yupValidations/submisionYupValidations';
+import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import ChildForm from './ChildForm';
 import Parent1Form from './Parent1Form';
 import Parent2Form from './Parent2Form';
@@ -14,6 +16,9 @@ import './SumisionForm.scss';
 function SubmisionWizardForm({ submision, onHideForm }) {
 	const { addSubmision, updateSubmision } = useSubmisionContext();
 	const [showParent2Form, setShowParent2Form] = useState(false);
+	const [isOs, setIsOs] = useState(false);
+	const [circulosToMap, setCirculosToMap] = useState([]);
+	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
 
 	const formik = useFormik({
 		initialValues: submisionInitialValues(submision),
@@ -52,6 +57,24 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 		}
 	}, [formik.values.child.parents[0].uniqueParent]);
 
+	useEffect(() => {
+		if (submision) {
+			if (submision.finality === 'os' && submision.status === 'pendiente') {
+				setIsOs(true);
+			} else {
+				setIsOs(false);
+			}
+		} 
+	}, [submision]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const circulos = await circulosApiGet();
+			setCirculosToMap(circulos);
+		};
+		fetchData();
+	}, []);
+
 	const resetP2 = () => {
 		if (formik.values.child.parents.length > 0 && formik.values.child.parents[0].uniqueParent) {
 			formik.setValues((prevValues) => ({
@@ -72,6 +95,21 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 
 	const handleLatlngChange = (value) => {
 		formik.setFieldValue('child.latlng', value);
+	};
+
+	// const handleMatManual = async () => {
+	// 	try {
+	// 		setShowMatricular(true);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
+
+	const handleCirculo = (selectedCirculo) => {
+		const circulo = circulosToMap.find((circ) => circ.name === selectedCirculo);
+		setSelectedCirculoOs(selectedCirculo);
+		formik.setFieldValue('child.circulo.name', circulo.name);
+		formik.setFieldValue('child.circulo._id', circulo._id);
 	};
 
 	return (
@@ -97,12 +135,50 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 						{/* PARENT2 DATA */}
 						{showParent2Form && <Parent2Form form={formik} setShowParent2Form={setShowParent2Form} />}
 
+						{isOs && (
+							<div className='row mt-4 justify-content-center'>
+						<div className='text-danger col-8'>
+							
+
+						<p >Al guardarse como otorgamiento sistemático, esta planilla no será tomada en cuenta
+							para generar las propuestas en el otorgamiento masivo, por lo que deberá hacer una matrícula manual</p></div></div>)}
 						<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
+
+							{isOs && (
+								<>
+
+								<div className='col-md-4 mt-3'>
+									<Select
+										id={'circulo'}
+										name={'child.circulo'}
+										value={selectedCirculoOs}
+										optionText={'Seleccione el círculo a matricular'}
+										onChange={(e) => handleCirculo(e.target.value)}
+										onBlur={formik.handleBlur}
+										mapFunction={circulosToMap.map((circulo) => (
+											<option key={circulo._id} value={circulo.name}>
+												{circulo.name}
+											</option>
+										))}
+										/>
+								</div>
+
+								<a href='#top' className='btn save-btn' 
+								// onClickCapture={handleMatManual}
+								>
+									Matricular
+								</a>
+
+										</>
+							)} 
+							
 							<a href='#top' className='btn cancel-btn' onClickCapture={formik.handleReset}>
 								Cancelar
 							</a>
 
-							<button className='btn save-btn' type='submit' onClick={()=>console.log(formik.values)}>
+							<button className='btn save-btn' type='submit' 
+							// onClick={setShowMatricular(false)}
+							>
 								{submision ? 'Actualizar' : 'Guardar'}
 							</button>
 						</div>
