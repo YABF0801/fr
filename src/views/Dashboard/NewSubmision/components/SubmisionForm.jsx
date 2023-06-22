@@ -10,6 +10,7 @@ import { renderTypeRadios } from './Utils';
 
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);
+	const [year, setYear] = useState(null);
 	const [circulosToMap, setCirculosToMap] = useState([]);
 	const [type, setType] = useState([]);
 	const [selectedFinality, setSelectedFinality] = useState(form.values.finality === 'os' ? 1 : 2  );
@@ -22,19 +23,26 @@ const SubmisionForm = ({ form, submision }) => {
 		getParentsEnums();
 	}, []);
 
+	
 	useEffect(() => {
-		async function fetchData() {
-			const consecutive = await consecustiveApiGet();
-			setNewEntryNumber(consecutive + 1);
-		}
-		fetchData();
-	}, []);
+		const now = new Date().getFullYear();
+		if (submision && submision.entryNumber) {
+			const entryNumber = submision.entryNumber
+			const date = new Date(submision.createdAt).getFullYear()
+			form.setFieldValue('entryNumber', submision.entryNumber);
+			setNewEntryNumber(entryNumber);
+			setYear(date)
+		  } else {
+			fetchData();
+			setYear(now)
+		  }
+	  }, [submision]);
 
-	useEffect(() => {
-		if (newEntryNumber) {
-			form.setFieldValue('entryNumber', newEntryNumber);
-		}
-	}, [newEntryNumber]);
+
+	  const fetchData = async () => {
+		const consecutive = await consecustiveApiGet();
+		setNewEntryNumber(consecutive + 1);
+		};
 
 	useEffect(() => {
 		if (submision) {
@@ -54,9 +62,7 @@ const SubmisionForm = ({ form, submision }) => {
 		setSelectedFinality(form.values.finality === 'os' ? 1 : 2);
 	  }, [form.values.finality]);
 
-	const now = new Date().getFullYear();
-	const numberLabel = submision.entryNumber || `${newEntryNumber}/${now}`;
-	
+
 	const handleOs = () => {
 		form.setFieldValue('finality', 'os');
 	};
@@ -65,7 +71,7 @@ const SubmisionForm = ({ form, submision }) => {
 		form.setFieldValue('finality', 'om');
 	};
 	  
-	console.log(form.values.finality, selectedFinality)
+	// console.log(form.values.finality, selectedFinality)
 
 	return (
 		<div id='sub'>
@@ -111,7 +117,7 @@ const SubmisionForm = ({ form, submision }) => {
 									type='text'
 									id='entryNumber'
 									name='entryNumber'
-									placeholder={numberLabel}
+									placeholder={`${newEntryNumber}/${year}`}
 									disabled
 								/>
 							</div>
