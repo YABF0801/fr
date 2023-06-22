@@ -42,42 +42,34 @@ const OmAdministration = () => {
 		compareDates();
 	  }, [queryFechaOm.data]);
 
-
-	useEffect(() => {
-		// Condición 1: Habilitar el botón Comenzar si ha llegado la ffecha y deshabilitara si ya se han geenerado prop
-		if (queryContadorPropGeneradas.data !== 0){
-			setBotonComenzar(false)
-		} else {
-		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived, queryContadorPropGeneradas.data, ]);
+	  useEffect(() => {
+		setBotonComenzar(isDateArrived && queryContadorPropGeneradas.data === 0);
+	  }, [isDateArrived, queryContadorPropGeneradas.data]);
 	
 	  useEffect(() => {
-		// Condición 2: Habilitar el botón Cambio de Curso si se han generado propuestas una vez y los otros contadores están en 0
-		if (
-		  queryContadorPropGeneradas.data !== 0 &&
-		  queryContadorCambioCurso.data === 0 
-		) {
-		  setBotonCambioDeCurso(true);
-		} else {
-		  setBotonCambioDeCurso(false);
-		}
+		setBotonCambioDeCurso(
+		  queryContadorPropGeneradas.data !== 0 && queryContadorCambioCurso.data === 0
+		);
 	  }, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data]);
-
+	
 	  useEffect(() => {
-		// Condición 3: Habilitar el botón Generar propuesta cuando todos los contadores sean diferentes de cero
-		if (
+		setBotonGenerarPropuesta(
 		  queryContadorPropGeneradas.data !== 0 &&
-		  queryContadorCambioCurso.data !== 0 &&
-		  queryContadorPropAceptadas.data !== 0
-		) {
-		  setBotonGenerarPropuesta(true);
-		  setBotonFinalizar(true);
-		} else {
-		  setBotonGenerarPropuesta(false);
-		  setBotonFinalizar(false);
-		}
-	  }, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data, queryContadorPropAceptadas.data]);
+			queryContadorCambioCurso.data !== 0 &&
+			queryContadorPropAceptadas.data !== 0
+		);
+		setBotonFinalizar(
+		  queryContadorPropGeneradas.data !== 0 &&
+			queryContadorCambioCurso.data !== 0 &&
+			queryContadorPropAceptadas.data !== 0
+		);
+	  }, [
+		queryContadorPropGeneradas.data,
+		queryContadorCambioCurso.data,
+		queryContadorPropAceptadas.data,
+	  ]);
 
+	
 	const confirmFinalizarOms = () => {
 		confirmAlert({
 			message: `Va a dar por finalizado el otorgamiento masivo de este año. ¿Está seguro?`,
