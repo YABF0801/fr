@@ -1,15 +1,10 @@
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { childIcon } from '../../../../common/Map/MarkerIcons';
-import ModalBase from '../../../../common/Modal/Modal';
-import Select from '../../../../common/uiForms/select';
-import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import { submisionInitialValues } from '../../../../utils/initialValues/submisionInitialValues';
 import { SubmisionSchema } from '../../../../utils/yupValidations/submisionYupValidations';
-import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import ChildForm from './ChildForm';
 import Parent1Form from './Parent1Form';
 import Parent2Form from './Parent2Form';
@@ -18,15 +13,7 @@ import './SumisionForm.scss';
 
 function SubmisionWizardForm({ submision, onHideForm }) {
 	const { addSubmision, updateSubmision } = useSubmisionContext();
-	const [isOs, setIsOs] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [circulosToMap, setCirculosToMap] = useState([]);
-	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
-	const [showQuestion, setShowQuestion] = useState(true);
-	const [showMatricular, setShowMatricular] = useState(false);
 	const [showParent2Form, setShowParent2Form] = useState(false);
-
-	const navigate = useNavigate();
 
 	const formik = useFormik({
 		initialValues: submisionInitialValues(submision),
@@ -39,90 +26,48 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 				if (values.child.parents[0].uniqueParent) {
 					const confirmation = window.confirm('Ha marcado padre único. ¿Está seguro de continuar?');
 					if (confirmation) {
-						resetP2()
+						resetP2();
 						await updateSubmision.mutate({ ...values });
 					}
 				} else {
 					await updateSubmision.mutate({ ...values });
 				}
 			} else {
-				delP2()
+				delP2();
 				await addSubmision.mutate(formData);
-			  }
-
+			}
 			resetForm();
-			navigate(GENERAL_LIST);
 		},
 		onReset: async () => {
 			onHideForm && onHideForm();
 		},
-
 		validationSchema: SubmisionSchema,
 	});
 
-	// console.log(formik.values.child.latlng)
-
 	useEffect(() => {
-		const fetchData = async () => {
-			const circulos = await circulosApiGet();
-			setCirculosToMap(circulos);
-		};
-		fetchData();
-	}, []);
-
-	useEffect(() => {
-		setIsOs(formik.values.finality === 'os');
-	}, [formik.values.finality]);
-
-	  useEffect(() => {
 		const value = formik.values.child?.parents?.[0].uniqueParent;
-		  setShowParent2Form(!value);
-		  if (!submision) {
-			resetP2()
+		setShowParent2Form(!value);
+		if (!submision) {
+			resetP2();
 		}
-	  }, [formik.values.child.parents[0].uniqueParent]);
+	}, [formik.values.child.parents[0].uniqueParent]);
 
-	  const resetP2 = () => {
+	const resetP2 = () => {
 		if (formik.values.child.parents.length > 0 && formik.values.child.parents[0].uniqueParent) {
 			formik.setValues((prevValues) => ({
-			  ...prevValues,
-			  child: {
-				...prevValues.child,
-				parents: [prevValues.child.parents[0]],
-			  },
+				...prevValues,
+				child: {
+					...prevValues.child,
+					parents: [prevValues.child.parents[0]],
+				},
 			}));
-		  }
 		}
+	};
 
 	const delP2 = () => {
-	if (formik.values.child?.parents?.[0].uniqueParent) {
-		formik.setFieldValue('child.parents', [formik.values.child.parents[0]]);
-	 }
-	}
-			
-	const handleMatManual = async () => {
-		try {
-			setIsModalOpen(true);
-		} catch (error) {
-			console.error(error);
+		if (formik.values.child?.parents?.[0].uniqueParent) {
+			formik.setFieldValue('child.parents', [formik.values.child.parents[0]]);
 		}
-	};
-
-	const handleModalCancel = () => {
-		formik.setFieldValue('finality', formik.initialValues.finality);
-		formik.setFieldValue('finality', formik.initialValues.child.circulo);
-		setIsOs(false);
-		setSelectedCirculoOs(null);
-		setShowMatricular(false);
-		setShowQuestion(true);
-		setIsModalOpen(false);
-	};
-
-	const handleCirculo = (selectedCirculo) => {
-		const circulo = circulosToMap.find((circ) => circ.name === selectedCirculo);
-		setSelectedCirculoOs(selectedCirculo);
-		formik.setFieldValue('child.circulo.name', circulo.name);
-		formik.setFieldValue('child.circulo._id', circulo._id);
 	};
 
 	const handleLatlngChange = (value) => {
@@ -132,124 +77,35 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	return (
 		<div className='container list mt-3 col-12' id='submision'>
 			<div className=' p-5 '>
-			{submision ? <h2 className='text-center mt-5 p-3'>Editar planilla</h2> : <h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>}
-			
+				{submision ? (
+					<h2 className='text-center mt-5 p-3'>Editar planilla</h2>
+				) : (
+					<h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>
+				)}
+
 				<div className='card'>
 					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={formik.handleSubmit}>
 						{/* SUBMISION DATA */}
-
 						<SubmisionForm form={formik} submision={submision || formik.initialValues} />
 
 						{/* CHILD DATA */}
-
 						<ChildForm markerIcon={childIcon} handleLatlngChange={handleLatlngChange} form={formik} />
 
 						{/* PARENT1 DATA */}
-
 						<Parent1Form form={formik} />
 
 						{/* PARENT2 DATA */}
-						{showParent2Form ? (
-						<Parent2Form form={formik} setShowParent2Form={setShowParent2Form}/>
-						) : null}
+						{showParent2Form && <Parent2Form form={formik} setShowParent2Form={setShowParent2Form} />}
 
 						<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
 							<a href='#top' className='btn cancel-btn' onClickCapture={formik.handleReset}>
-								{' '}
 								Cancelar
 							</a>
 
-							{!isOs ? (
-								<button className='btn save-btn' type='submit' 
-								onClick={()=> console.log('a', formik.values)}>
-									{submision ? 'Actualizar' : 'Guardar'}
-								</button>
-							) : (
-								<button className='btn save-btn' onClick={handleMatManual}>
-									{submision ? 'Actualizar' : 'Guardar'}
-								</button>
-							)}
+							<button className='btn save-btn' type='submit' onClick={()=>console.log(formik.values)}>
+								{submision ? 'Actualizar' : 'Guardar'}
+							</button>
 						</div>
-
-						<ModalBase
-							show={isModalOpen}
-							ModalBody={
-								<div className='modal-content-centered'>
-									<h2 className='mb-3'>Ha seleccionado otorgamiento sistemático</h2>
-
-									{showQuestion && (
-										<div id='question'>
-											<div className='p-3 modal-content-centered'>
-												<i className='md-icon bi bi-info-circle-fill'></i>
-												<p>
-													Nota: Al guardar esta planilla como otorgamiento sistemático no será{' '}
-													<br></br>
-													tomada en cuenta para generar las propuestas en el otorgamiento
-													masivo<br></br>
-													por lo que deberá regresar a ella después para hacer una matrícula
-													manual
-												</p>
-											</div>
-											<p className='text-secondary'>
-												Si desea matricular ahora haga click en el boton matricular
-											</p>
-											<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
-												<button className='btn save-btn' onClick={() => setIsModalOpen(false)}>
-													Aceptar
-												</button>
-												<button
-													className='btn export-btn'
-													onClick={() => {
-														setShowQuestion(false);
-														setShowMatricular(true);
-													}}
-												>
-													Matricular
-												</button>
-											</div>
-										</div>
-									)}
-
-									{/* ********************** */}
-
-									{showMatricular && (
-										<div id='matricular'>
-											<p>Por favor seleccione el círculo en el que se matriculará</p>
-
-											<div className='col-md-12 mb-4'>
-												<Select
-													id={'circulo'}
-													name={'child.circulo'}
-													value={selectedCirculoOs}
-													optionText={'--- Seleccione  ---'}
-													onChange={(e) => handleCirculo(e.target.value)}
-													onBlur={formik.handleBlur}
-													mapFunction={circulosToMap.map((circulo) => (
-														<option key={circulo._id} value={circulo.name}>
-															{circulo.name}
-														</option>
-													))}
-												/>
-											</div>
-											<h6>
-												Una vez guardada la planilla, el niño/a pasará a ser matrícula de ese
-												circulo
-											</h6>
-											<div className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
-												<button className='btn save-btn' onClick={handleModalCancel}>
-													Cancelar
-												</button>
-												<button className='btn save-btn' onClick={() => setIsModalOpen(false)}>
-													Establecer
-												</button>
-											</div>
-										</div>
-									)}
-									{/* ********************** */}
-								</div>
-							}
-							onHide={() => setIsModalOpen(false)}
-						/>
 					</form>
 				</div>
 			</div>
@@ -259,7 +115,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 
 SubmisionWizardForm.propTypes = {
 	submision: PropTypes.object,
-	onHideForm: PropTypes.func
+	onHideForm: PropTypes.func,
 };
 
 export default SubmisionWizardForm;
