@@ -50,6 +50,7 @@ export const propuestaApiRechazar = async (submisions) => {
 	// pasarle un arreglo
 	try {
 		const propuestas = await baseAxios.put(`/propuestas/rechazar`, submisions);
+		setContadorAcept();
 		ToastNotification('info', 'Las propuestas no seleccionadas fueron rechazadas');
 		return propuestas.data;
 	} catch (error) {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { useNavigate } from 'react-router-dom';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
@@ -20,7 +19,6 @@ const OmAdministration = () => {
 		resetArrays,
 	} = useOtorgamientoContext();
 
-	const navigate = useNavigate();
 	const [botonComenzar, setBotonComenzar] = useState(false);
 	const [botonCambioDeCurso, setBotonCambioDeCurso] = useState(false);
 	const [botonGenerarPropuesta, setBotonGenerarPropuesta] = useState(false);
@@ -36,13 +34,14 @@ const OmAdministration = () => {
 		  if (queryFechaOm.data) {
 			const omDate = new Date(queryFechaOm.data);
 			const compare = omDate.getTime() <= fechaActual.getTime();
-			setisDateArrived(omDate && compare);
-		  }
+			if (omDate && compare){
+			setisDateArrived(true)
+		}
+		  }else setisDateArrived(false)
 		};
 		compareDates();
 	  }, [queryFechaOm.data]);
 
-	console.log('')
 
 	useEffect(() => {
 		// Condición 1: Habilitar el botón Comenzar si ha llegado la ffecha y deshabilitara si ya se han geenerado prop
@@ -50,20 +49,19 @@ const OmAdministration = () => {
 			setBotonComenzar(false)
 		} else {
 		setBotonComenzar(isDateArrived)}
-	}, [isDateArrived, queryContadorPropGeneradas.data]);
+	}, [isDateArrived, queryContadorPropGeneradas.data, ]);
 	
 	  useEffect(() => {
 		// Condición 2: Habilitar el botón Cambio de Curso si se han generado propuestas una vez y los otros contadores están en 0
 		if (
-		  queryContadorPropGeneradas.data === 1 &&
-		  queryContadorCambioCurso.data === 0 &&
-		  queryContadorPropAceptadas.data === 0
+		  queryContadorPropGeneradas.data !== 0 &&
+		  queryContadorCambioCurso.data === 0 
 		) {
 		  setBotonCambioDeCurso(true);
 		} else {
 		  setBotonCambioDeCurso(false);
 		}
-	  }, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data, queryContadorPropAceptadas.data]);
+	  }, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data]);
 
 	  useEffect(() => {
 		// Condición 3: Habilitar el botón Generar propuesta cuando todos los contadores sean diferentes de cero
@@ -148,7 +146,7 @@ const OmAdministration = () => {
 		await resetAllContadores.mutate();
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
-		handleRechazarTodo();
+		await handleRechazarTodo();
 	};
 
 	return (
@@ -164,7 +162,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Comenzar otorgamiento'
-								// disabled={!botonComenzar}
+								disabled={!botonComenzar}
 							>
 								Comenzar
 							</button>
@@ -176,7 +174,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								className='btn prop-btn'
 								data-tooltip-content='Cambio de Curso'
-								// disabled={!botonCambioDeCurso}
+								disabled={!botonCambioDeCurso}
 							>
 								Cambio de Curso
 							</button>
@@ -188,7 +186,7 @@ const OmAdministration = () => {
 								data-tooltip-id='tooltip'
 								onClick={handleGenerateProps}
 								data-tooltip-content='Generar nueva propuesta '
-								// disabled={!botonGenerarPropuesta}
+								disabled={!botonGenerarPropuesta}
 							>
 								Generar propuesta
 							</button>

@@ -28,7 +28,7 @@ const PropuestasListTable = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (queryContadorPropGeneradas.data === 1 && queryContadorCambioCurso.data === 0){
+		if (queryContadorPropGeneradas.data !== 0 && queryContadorCambioCurso.data === 0){
 			setBotonAceptar(false)
 		} else {
 			setBotonAceptar(true)
