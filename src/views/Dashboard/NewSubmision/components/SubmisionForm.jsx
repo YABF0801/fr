@@ -41,6 +41,7 @@ const SubmisionForm = ({ form, submision }) => {
 
 	  const fetchData = async () => {
 		const consecutive = await consecustiveApiGet();
+		form.setFieldValue('entryNumber', consecutive + 1);
 		setNewEntryNumber(consecutive + 1);
 		};
 
