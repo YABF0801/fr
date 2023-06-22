@@ -109,8 +109,11 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 		formik.setFieldValue('child.latlng', value);
 	};
 
+
 	const handleMatManual = async () => {
+		const submision = formik.values
 		await matriculaManual.mutate(submision)
+		formik.handleReset()
 	};
 
 	const handleCirculo = (selectedCirculo) => {
