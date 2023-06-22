@@ -3,7 +3,6 @@ import { confirmAlert } from 'react-confirm-alert';
 import { useNavigate } from 'react-router-dom';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
-import { PROPUESTAS_LIST } from '../../../../core/config/routes/paths';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { propuestasApiGet } from '../../../../core/services/propuestas.services';

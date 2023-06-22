@@ -92,7 +92,7 @@ const Navbar = () => {
 					<li className='nav-item props' id='props'>
 						<NavLink className='nav-link link text-dark ' to={PROPUESTAS_LIST}>
 								<i
-									className='inav bi bi-list-check'
+									className='inav bi-list-task'
 									data-tooltip-id='tooltip'
 									data-tooltip-content='Otorgamiento masivo'
 								/>
