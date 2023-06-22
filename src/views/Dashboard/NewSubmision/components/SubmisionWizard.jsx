@@ -7,6 +7,7 @@ import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import { submisionInitialValues } from '../../../../utils/initialValues/submisionInitialValues';
 import { SubmisionSchema } from '../../../../utils/yupValidations/submisionYupValidations';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
+import { submisionsApiMatriculaManual } from '../../GeneralList/service/submision.services';
 import ChildForm from './ChildForm';
 import Parent1Form from './Parent1Form';
 import Parent2Form from './Parent2Form';
@@ -14,9 +15,10 @@ import SubmisionForm from './SubmisionForm';
 import './SumisionForm.scss';
 
 function SubmisionWizardForm({ submision, onHideForm }) {
-	const { addSubmision, updateSubmision } = useSubmisionContext();
+	const { addSubmision, updateSubmision, matriculaManual } = useSubmisionContext();
 	const [showParent2Form, setShowParent2Form] = useState(false);
 	const [isOs, setIsOs] = useState(false);
+	const [matricular, setMatricular] = useState(false);
 	const [circulosToMap, setCirculosToMap] = useState([]);
 	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
 
@@ -68,6 +70,16 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	}, [submision]);
 
 	useEffect(() => {
+		if (submision) {
+			if (submision.finality === 'os' && submision.status === 'pendiente' && formik.values.child.circulo._id) {
+				setMatricular(true);
+			} else {
+				setMatricular(false);
+			}
+		} 
+	}, [submision, formik.values.child.circulo]);
+
+	useEffect(() => {
 		const fetchData = async () => {
 			const circulos = await circulosApiGet();
 			setCirculosToMap(circulos);
@@ -97,13 +109,9 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 		formik.setFieldValue('child.latlng', value);
 	};
 
-	// const handleMatManual = async () => {
-	// 	try {
-	// 		setShowMatricular(true);
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// };
+	const handleMatManual = async () => {
+		await matriculaManual.mutate(submision)
+	};
 
 	const handleCirculo = (selectedCirculo) => {
 		const circulo = circulosToMap.find((circ) => circ.name === selectedCirculo);
@@ -162,13 +170,6 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 										))}
 										/>
 								</div>
-
-								<a href='#top' className='btn save-btn' 
-								// onClickCapture={handleMatManual}
-								>
-									Matricular
-								</a>
-
 										</>
 							)} 
 							
@@ -176,11 +177,19 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 								Cancelar
 							</a>
 
-							<button className='btn save-btn' type='submit' 
-							// onClick={setShowMatricular(false)}
+							{matricular ? (
+							<a href='#top' className='btn save-btn'  
+							onClick={()=>handleMatManual()}
+							>
+								Matricular
+								</a>
+							):(
+								<button className='btn save-btn' type='submit' 
 							>
 								{submision ? 'Actualizar' : 'Guardar'}
 							</button>
+							)
+							}
 						</div>
 					</form>
 				</div>

@@ -7,6 +7,7 @@ import {
 	submisionsApiCreate,
 	submisionsApiDelete,
 	submisionsApiGet,
+	submisionsApiMatriculaManual,
 	submisionsApiUpdate,
 } from '../../views/Dashboard/GeneralList/service/submision.services';
 
@@ -46,6 +47,13 @@ export const SubmisionProvider = ({ children }) => {
 		},
 	});
 
+	const matriculaManual = useMutation({
+		mutationFn: submisionsApiMatriculaManual,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
+		},
+	});
+
 	const value = useMemo(
 		() => ({
 			querySubmision,
@@ -53,6 +61,7 @@ export const SubmisionProvider = ({ children }) => {
 			updateSubmision,
 			deleteSubmision,
 			bajaSubmision,
+			matriculaManual
 		}),
 		[querySubmision]
 	);

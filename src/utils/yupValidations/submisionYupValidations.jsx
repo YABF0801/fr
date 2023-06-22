@@ -68,7 +68,8 @@ export const SubmisionSchema = Yup.object().shape({
 			_id: Yup.string(),
 			name: Yup.string(),
 		}),
-
+    matriculaDate: Yup.string().optional(),
+    
 		latlng: Yup.array(),
 
 	  parents: Yup.array().of(

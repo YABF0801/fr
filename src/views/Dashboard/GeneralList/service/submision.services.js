@@ -47,8 +47,8 @@ export const submisionsApiDelete = async (id) => {
 
 export const submisionsApiFindById = async (id) => {
 	try {
-	const submision = await baseAxios.get(`/submisions/${id}`);
-	return submision.data;
+		const submision = await baseAxios.get(`/submisions/${id}`);
+		return submision.data;
 	} catch (error) {
 		handleToastyError(error)
 	}
@@ -72,6 +72,16 @@ export const submisionsApiBaja = async (id) => {
 	try {
 		await baseAxios.put(`/submisions/baja/${id}`);
 		ToastNotification('success', `${SuccessMsg('custom', `baja`, 'realizada')}`);
+	} catch (error) {
+		handleToastyError(error)
+	}
+};
+
+export const submisionsApiMatriculaManual = async (submision) => {
+	try {
+		console.log(submision._id)
+		await baseAxios.put(`/submisions/matricular/${submision._id}`, submision);
+		ToastNotification('success', `${SuccessMsg('custom', `matricula`, 'realizada con éxito')}`);
 	} catch (error) {
 		handleToastyError(error)
 	}
