@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
-// import { MapContainer, TileLayer } from 'react-leaflet';
-// import MapMarker from '../../../../common/MapMarker/MapMarker';
 import Select from '../../../../common/uiForms/select';
 import MapToLocation from '../../../../common/Map/map';
+import { consejosApiGet } from '../../../../utils/utiles.sevices';
 
 
 const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 	const [consejosPopulares, setConsejosPopulares] = useState([]);
 
 	useEffect(() => {
-		async function fetchData() {
-			const response = await fetch('/src/utils/ConsejosPopulares.json');
-			const data = await response.json();
-			setConsejosPopulares(data.consejosPopulares);
-		}
 		fetchData();
-	}, []);
-
+	  }, []);
 	
+	  const fetchData = async () => {
+		const consejosP = await consejosApiGet();
+		if (consejosP) {
+		  setConsejosPopulares(consejosP);
+		}
+	  };
+
+	  
 	return (
 		<div id='child'>
 			
@@ -142,8 +143,8 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									onChange={ form.handleChange }
 									onBlur={ form.handleBlur }
 									mapFunction={ consejosPopulares.map((consejo) => (
-										<option key={ consejo.nombre } value={ consejo.nombre }>
-											{ consejo.nombre }
+										<option key={ consejo._id } value={ consejo.name }>
+											{ consejo.name }
 										</option>
 									)) }
 								/>
