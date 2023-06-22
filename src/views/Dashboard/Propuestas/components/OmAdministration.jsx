@@ -22,12 +22,10 @@ const OmAdministration = () => {
 	} = useOtorgamientoContext();
 
 	const navigate = useNavigate();
-
 	const [botonComenzar, setBotonComenzar] = useState(false);
 	const [botonCambioDeCurso, setBotonCambioDeCurso] = useState(false);
 	const [botonGenerarPropuesta, setBotonGenerarPropuesta] = useState(false);
 	const [botonFinalizar, setBotonFinalizar] = useState(false);
-
 	const [isDateArrived, setisDateArrived] = useState(false)
 	const [showProgressBar, setShowProgressBar] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -106,7 +104,7 @@ const OmAdministration = () => {
 			
 			setTimeout(() => {
 				setShowProgressBar(false);
-				navigate(PROPUESTAS_LIST);
+				setIsModalOpen(false)
 			}, 3000);
 		} catch (error) {
 			console.error(error);
@@ -209,13 +207,14 @@ const OmAdministration = () => {
 							</button>
 						</div>
 
-			<ModalBase
-				show={isModalOpen}
-				ModalBody={
-					<div>{showProgressBar && <Progress id={'progress-bar'} label={'Generando propuestas'} />}</div>
-				}
-				onHide={() => setIsModalOpen(false)}
-			/>
+						<ModalBase
+						show={isModalOpen}
+						onHide={() => setIsModalOpen(false)}
+						ModalBody={
+								<div>{showProgressBar && <Progress id={'progress-bar'} label={'Generando propuestas'} />}</div>
+						}
+					/>
+
 			</div>
 			</div>
 		</>

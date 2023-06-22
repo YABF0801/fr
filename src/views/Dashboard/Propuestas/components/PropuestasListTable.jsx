@@ -232,12 +232,12 @@ const PropuestasListTable = () => {
 					</div>
 					<ModalBase
 						show={isModalOpen}
+						onHide={() => setIsModalOpen(false)}
 						ModalBody={
 							<div>
 								{showProgressBar && <Progress id={'progress-bar'} label={'Procesando...'} />}
 							</div>
 						}
-						onHide={() => setIsModalOpen(false)}
 					/>
 				</div>
 			</div>

@@ -7,7 +7,6 @@ import { useSubmisionContext } from '../../../../core/context/SumisionContext';
 import { submisionInitialValues } from '../../../../utils/initialValues/submisionInitialValues';
 import { SubmisionSchema } from '../../../../utils/yupValidations/submisionYupValidations';
 import { circulosApiGet } from '../../Circulos/service/circulo.services';
-import { submisionsApiMatriculaManual } from '../../GeneralList/service/submision.services';
 import ChildForm from './ChildForm';
 import Parent1Form from './Parent1Form';
 import Parent2Form from './Parent2Form';
