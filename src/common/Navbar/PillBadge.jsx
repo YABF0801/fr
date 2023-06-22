@@ -4,14 +4,14 @@ import Badge from 'react-bootstrap/Badge';
 import { usePropuestasContext } from '../../core/context/PopuestasContext';
 
 function Pill({ id }) {
-  const [count, setCount] = useState(false);
+  const [count, setCount] = useState();
 	const { queryPropuestas } = usePropuestasContext();
 
 	useEffect(() => {
     if (queryPropuestas.data && queryPropuestas.data.length) {
       setCount(queryPropuestas.data.length);
-    }
-	}, [queryPropuestas.data], );
+    } else setCount()
+	}, [queryPropuestas.data]);
 
 
   return (
