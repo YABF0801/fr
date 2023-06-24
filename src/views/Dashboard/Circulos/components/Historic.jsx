@@ -51,7 +51,7 @@ const YearMenu = ({ onSelectYear, showHistoric}) => {
 					>
 						{year}
 					</a>
-				))
+				)).slice(-4)
 			) : (
 				<p className='text-center text-secondary'>No hay datos disponibles</p>
 			)}
