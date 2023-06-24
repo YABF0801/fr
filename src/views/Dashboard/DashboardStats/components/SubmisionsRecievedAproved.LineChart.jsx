@@ -8,7 +8,7 @@ const SubmisionsRecievedAproved = () => {
 
 	const submisionsAdded = querySubmisionCountByDate.data ? querySubmisionCountByDate.data : [];
 	const submisionsAproved = querySubmisionAprovedByYear.data ? querySubmisionAprovedByYear.data : [];
-	const years = [...new Set(submisionsAdded.map((s) => s.año))];
+	const years = [...new Set(submisionsAdded.map((s) => s.año))].slice(-3);
 
 	const dataAdded = years.map((year) => {
 		const submisionsYear = submisionsAdded.filter((s) => s.año === year);

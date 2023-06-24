@@ -8,7 +8,9 @@ const HistoricTotalsCirculos = () => {
 
 	const data = queryHistoricTotals.data ? queryHistoricTotals.data : [];
 
-	const labels = data.map((item) => item.year);
+	const filteredData = data.slice(-3);
+
+	const labels = filteredData.map((item) => item.year);
 
 	const datasets = [
 		{
