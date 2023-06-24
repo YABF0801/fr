@@ -27,7 +27,9 @@ const GeneralListTable = () => {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [filterOption, setFilterOption] = useState('includes');
 	const [selectedDate, setSelectedDate] = useState(null);
+	const [disabledAll, setDisabledAll] = useState(false);
 	const [showForm, setShowForm] = useState(false);
+	const [showAllChecked, setShowAllChecked] = useState(false);
 
 	useEffect(() => {
 		setSubmisionsLocal(querySubmision.data);
@@ -190,6 +192,15 @@ const GeneralListTable = () => {
 		}
 	};
 
+	const handleShowAll = () => {
+		setShowAllChecked(!showAllChecked);
+		setHideSocialCase(!hideSocialCase);
+		setHidePhone(!hidePhone);
+		setHidePadre(!hidePadre);
+		setHideAddress(!hideAddress);
+		setDisabledAll(!showAllChecked);
+	  };
+
 	const handleHideSocialCase = () => {
 		setHideSocialCase(!hideSocialCase);
 	};
@@ -260,37 +271,52 @@ const GeneralListTable = () => {
 									<input
 										type='checkbox'
 										className='form-check-input m-md-1'
-										id='show_matricula'
-										onClick={handleHideSocialCase}
+										id='show_all'
+										checked={showAllChecked}
+										onChange={handleShowAll}
 									/>
-									<label className='custom-control-label ' htmlFor='show_matricula'>
+									<label className='custom-control-label ' htmlFor='show_all'>
+										Mostrar todo
+									</label>
+									
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_social'
+										onClick={handleHideSocialCase}
+										disabled={disabledAll}
+									/>
+									<label className='custom-control-label ' htmlFor='show_social'>
 										Caso Social
 									</label>
 									<input
 										type='checkbox'
 										className='form-check-input m-md-1'
-										id='show_matricula'
+										id='show_phones'
 										onClick={handleHidePhone}
+										disabled={disabledAll}
 									/>
-									<label className='custom-control-label ' htmlFor='show_matricula'>
-										Teléfono
+									<label className='custom-control-label ' htmlFor='show_phones'>
+										Teléfonos
 									</label>
 									<input
 										type='checkbox'
 										className='form-check-input m-md-1'
-										id='show_matricula'
+										id='show_address'
 										onClick={handleHideAddress}
+										disabled={disabledAll}
 									/>
-									<label className='custom-control-label ' htmlFor='show_matricula'>
+									<label className='custom-control-label ' htmlFor='show_address'>
 										Dirección
 									</label>
 									<input
 										type='checkbox'
 										className='form-check-input m-md-1'
-										id='show_matricula'
+										id='show_father'
 										onClick={handleHidePadre}
+										disabled={disabledAll}
 									/>
-									<label className='custom-control-label ' htmlFor='show_matricula'>
+									<label className='custom-control-label ' htmlFor='show_father'>
 										Padre
 									</label>
 								</div>

@@ -134,6 +134,28 @@ const useGeneralListColumns = ({
 			width: '10rem',
 		},
 		{
+			name: 'Centro de trabajo',
+			cell: (row) =>
+				row.child.parents[1]
+					? row.child.parents[1].workName
+					: '',
+			sortable: true,
+			grow: 2,
+			omit: hidePadre,
+			width: '10rem',
+		},
+		{
+			name: 'Teléfono 2',
+			cell: (row) =>
+				row.child.parents[1]
+					? row.child.parents[1].phoneNumber
+					: '',
+			sortable: true,
+			grow: 2,
+			omit: hidePhone,
+			width: '10rem',
+		},
+		{
 			name: 'C.Popular',
 			selector: (row) => row.child.cPopular,
 			sortable: true,
@@ -141,14 +163,14 @@ const useGeneralListColumns = ({
 			width: '8rem',
 		},
 		{
-			name: ' ',
+			name: 'Estado',
 			cell: (row) => {
 				if (row.status === 'matricula') {
-					return <h4 className='text-success '>Matrícula</h4>;
+					return <h4 className='text-success text-matricula'>Matrícula</h4>;
 				} else if (row.status === 'pendiente') {
-					return <h4 className='text-secondary '>Pendiente</h4>;
+					return <h4 className='text-secondary text-pendiente'>Pendiente</h4>;
 				} else if (row.status === 'baja') {
-					return <h4 className='text-danger '>Baja</h4>;
+					return <h4 className='text-danger text-baja'>Baja</h4>;
 				}
 			},
 			sortable: true,

@@ -17,6 +17,8 @@ const CirculosList = () => {
 	const [search, setSearch] = useState('');
 	const [hideMatricula, setHideMatricula] = useState(true);
 	const [hideActive, setHideActive] = useState(true);
+	const [hideAttendance, setHideAttendance] = useState(true);
+	const [hideCalculatedCapacity, setHideCalculatedCapacity] = useState(true);
 	const [selectedCirculo, setSelectedCirculo] = useState(null);
 	const [showAttendance, setShowAttendance] = useState(false);
 	const [circulosLocal, setCirculosLocal] = useState([]);
@@ -26,6 +28,8 @@ const CirculosList = () => {
 	const [filterOption, setFilterOption] = useState('includes');
 	const [showForm, setShowForm] = useState(false);
 	const [showHistoric, setShowHistoric] = useState(false);
+	const [disabledAll, setDisabledAll] = useState(false);
+	const [showAllChecked, setShowAllChecked] = useState(false);
 
 	const { isAuthenticated } = useAuthContext();
 
@@ -129,12 +133,29 @@ const CirculosList = () => {
 		}
 	};
 
+	const handleShowAll = () => {
+		setShowAllChecked(!showAllChecked);
+		setHideMatricula(!hideMatricula);
+		setHideActive(!hideActive);
+		setHideAttendance(!hideAttendance);
+		setHideCalculatedCapacity(!hideCalculatedCapacity);
+		setDisabledAll(!showAllChecked);
+	  };
+
 	const handleShowMatricula = () => {
 		setHideMatricula(!hideMatricula);
 	};
 
 	const handleShowActive = () => {
 		setHideActive(!hideActive);
+	};
+
+	const handleShowAttendance = () => {
+		setHideAttendance(!hideAttendance);
+	};
+
+	const handleShowCalculatedCapacity = () => {
+		setHideCalculatedCapacity(!hideCalculatedCapacity);
 	};
 
 	const handleShowForm = () => {
@@ -166,6 +187,8 @@ const CirculosList = () => {
 		isAuthenticated,
 		hideMatricula,
 		hideActive,
+		hideAttendance,
+		hideCalculatedCapacity,
 		editCirculo,
 		confirmDelete,
 	});
@@ -198,19 +221,57 @@ const CirculosList = () => {
 									<input
 										type='checkbox'
 										className='form-check-input m-md-1'
+										id='show_all'
+										checked={showAllChecked}
+										onChange={handleShowAll}
+									/>
+									<label className='custom-control-label ' htmlFor='show_all'>
+										Mostrar todo
+									</label>
+									
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
 										id='show_matricula'
 										onClick={handleShowMatricula}
+										disabled={disabledAll}
 									/>
 									<label className='custom-control-label ' htmlFor='show_matricula'>
 										Matrícula
 									</label>
+
 									<input
 										type='checkbox'
 										className='form-check-input m-md-1'
-										id='show_active'
-										onClick={handleShowActive}
+										id='show_attendance'
+										onClick={handleShowAttendance}
+										disabled={disabledAll}
 									/>
-									<label className='custom-control-label ' htmlFor='show_active'>
+									<label className='custom-control-label ' htmlFor='show_attendance'>
+									% Asistencia
+									</label>
+
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_matricula'
+										onClick={handleShowCalculatedCapacity}
+										disabled={disabledAll}
+										
+									/>
+									<label className='custom-control-label ' htmlFor='show_matricula'>
+										Capacidad calculada
+									</label>
+
+
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_type'
+										onClick={handleShowActive}
+										disabled={disabledAll}
+									/>
+									<label className='custom-control-label ' htmlFor='show_type'>
 										Tipo
 									</label>
 								</div>
@@ -261,6 +322,8 @@ const CirculosList = () => {
 							<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 								<h4>Leyenda: </h4>
 								<h6>C: Capacidad total por año |</h6>
+								<h6>% A: Porciento de asistencia por año | </h6>
+								<h6>Cc: Capacidad calculada por año | </h6>
 								<h6>M: Matrícula real por año | </h6>
 								<h6>H: Cantidad de niñas por año | </h6>
 								<h6>V: Cantidad de niños por año </h6>

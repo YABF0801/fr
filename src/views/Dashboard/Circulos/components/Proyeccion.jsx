@@ -77,130 +77,38 @@ export const ProyeccionTable = () => {
 				center: true,
 				grow: 2,
 			},
-			{
-				name: 'C 2',
-				selector: (row) => row.normed_capacity2,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M',
-				selector: (row) => <h4 className='text-info'>{row.matricula2}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls2}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula2 - row.girls2}</h4>,
-				center: true,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 3',
-				selector: (row) => row.normed_capacity3,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M',
-				selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls3}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula3 - row.girls3}</h4>,
-				center: true,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 4',
-				selector: (row) => row.normed_capacity4,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M',
-				selector: (row) => <h4 className='text-info'>{row.matricula3}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls4}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula4 - row.girls4}</h4>,
-				center: true,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 5',
-				selector: (row) => row.normed_capacity5,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M',
-				selector: (row) => <h4 className='text-info'>{row.matricula5}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls5}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula5 - row.girls5}</h4>,
-				center: true,
-				width: '5rem',
-			},
-
-			{
-				name: 'C 6',
-				selector: (row) => row.normed_capacity6,
-				sortable: true,
-				center: true,
-			},
-			{
-				name: 'M',
-				selector: (row) => <h4 className='text-info'>{row.matricula6}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'H',
-				selector: (row) => <h4 className='text-success'>{row.girls6}</h4>,
-				center: true,
-				width: '5rem',
-			},
-			{
-				name: 'V',
-				selector: (row) => <h4 className='text-success'>{row.matricula6 - row.girls6}</h4>,
-				center: true,
-				width: '5rem',
-			},
+			...[2, 3, 4, 5, 6].flatMap((index) => [
+				{
+					name: `C ${index}`,
+					selector: (row) => row[`normed_capacity${index}`],
+					sortable: true,
+					center: true,
+				},
+				{
+					name: `Cc ${index}`,
+					selector: (row) => row[`attendance${index}`],
+					sortable: true,
+					center: true,
+				},
+				{
+					name: `M ${index}`,
+					selector: (row) => <h4 className='text-info'>{row[`matricula${index}`]}</h4>,
+					center: true,
+					width: '5rem',
+				},
+				{
+					name: 'H',
+					selector: (row) => <h4 className='text-success'>{row[`girls${index}`]}</h4>,
+					center: true,
+					width: '5rem',
+				},
+				{
+					name: 'V',
+					selector: (row) => <h4 className='text-success'>{row[`matricula${index}`] - row[`girls${index}`]}</h4>,
+					center: true,
+					width: '5rem',
+				},
+			]),
 		],
 		[]
 	);
@@ -247,6 +155,7 @@ export const ProyeccionTable = () => {
 					<div className='text-secondary d-flex justify-conten-evenly gap-3'>
 						<h4>Leyenda: </h4>
 						<h6>C: Capacidad total por año |</h6>
+						<h6>Cc: Capacidad calculada por año | </h6>
 						<h6>M: Matrícula por año | </h6>
 						<h6>H: Cantidad de niñas por año | </h6>
 						<h6>V: Cantidad de niños por año </h6>
