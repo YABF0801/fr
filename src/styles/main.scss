@@ -473,6 +473,8 @@ i.md-icon {
 	
   }
   
+
+
   .dropdown-menu {
 	border-radius: 10px;
 	border: none;
@@ -480,6 +482,11 @@ i.md-icon {
 	box-shadow: 0 0.25rem 0.35rem rgba(14, 21, 24, 0.175);
   }
   
+  .dropdown-toggle.show {
+	color: #F8F9FA;
+	background: radial-gradient(#a09570d2, #a08a41ea);
+}
+
   .dropdown-toggle{
 	width: 6rem;
 	height: 2.5rem;
@@ -577,6 +584,9 @@ i.md-icon {
 	transition: height .4s;
 	padding: 1em;
 }
+
+
+
 // .marker-cluster-small {
 // 	background-color: rgba(181, 226, 140, 0.6);
 //   }

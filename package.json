@@ -39,6 +39,7 @@
 		"react-data-table-component": "^7.5.3",
 		"react-datepicker": "^4.10.0",
 		"react-dom": "^18.2.0",
+		"react-form-stepper": "^2.0.3",
 		"react-forms": "^1.0.0-rc6",
 		"react-leaflet": "^4.2.1",
 		"react-router-dom": "^6.8.0",

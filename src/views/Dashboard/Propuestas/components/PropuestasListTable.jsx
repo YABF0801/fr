@@ -10,7 +10,6 @@ import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { exportExcel } from '../../../../utils/Export';
-import HeaderStats from '../../DashboardStats/components/HeaderStats';
 import OmAdministration from './OmAdministration';
 import PropuestasListColumns from './PropuestasListColumns';
 
@@ -150,8 +149,9 @@ const PropuestasListTable = () => {
 			await rechazarPropuestas.mutate(notSelectedRows);
 
 			setTimeout(() => {
+				setIsModalOpen(false);
 				setShowProgressBar(false);
-				navigate(GENERAL_LIST);
+				// navigate(GENERAL_LIST);
 			}, 3000);
 		} catch (error) {
 			console.error(error);
@@ -164,8 +164,9 @@ const PropuestasListTable = () => {
 			setShowProgressBar(true);
 			await aceptarPropuestas.mutate(rowsSelected);
 			setTimeout(() => {
+				setIsModalOpen(false);
 				setShowProgressBar(false);
-				navigate(GENERAL_LIST);
+				// navigate(GENERAL_LIST); 
 			}, 3000);
 		} catch (error) {
 			console.error(error);
@@ -177,7 +178,6 @@ const PropuestasListTable = () => {
 	return (
 		
 		<section className='prop-list'>
-			<HeaderStats />
 			<div >
 			{isAuthenticated.user?.role === 'admin' && <OmAdministration/>}
 					<h2 className='text-center p-3'>Propuestas de matrícula</h2>
