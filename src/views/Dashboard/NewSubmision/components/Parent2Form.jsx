@@ -84,16 +84,14 @@ const Parent2Form = ({ form }) => {
 
 						{/* ************************************************************* */}
 
-						<div className='form-group d-inline justify-content-evenly'>
-							<div className='row align-items-center mb-3'>
+						<div className='row justify-content-evenly mb-4'>
+
 							<div className='col-md-2'>
-								
-								{renderSwitchSelect('child.parents[1].convivencia', 'Convive', form,
+							{renderSwitchSelect('child.parents[1].convivencia', 'Convive', form,
 								form.values.child?.parents?.[1]?.convivencia)} 
+							</div>
 
-								</div>
-
-								<div className='col-md-10 '>
+								<div className='col-md-7 '>
 									<input
 										type='text'
 										className='form-control'
@@ -114,7 +112,24 @@ const Parent2Form = ({ form }) => {
 											<p className='text-danger'>{form.errors.child.parents[1].parentAddress}</p>
 										)}
 								</div>
+
+							<div className='col-md-3'>
+								<input
+									type='text'
+									className='form-control'
+									id='phoneNumber2'
+									placeholder='Teléfono'
+									name='child.parents[1].phoneNumber'
+									value={form.values.child?.parents?.[1]?.phoneNumber}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
+								/>
+								{form.errors.child?.parents?.[1]?.phoneNumber &&
+									form.touched.child?.parents?.[1]?.phoneNumber && (
+										<p className='text-danger'>{form.errors.child.parents[1].phoneNumber}</p>
+									)}
 							</div>
+
 						</div>
 
 						{/* ******************************************************** */}
