@@ -175,6 +175,7 @@ const useGeneralListColumns = ({
 			},
 			sortable: true,
 			center: true,
+			width: '8rem',
 		},
 		{
 			name: 'Ciculo',
