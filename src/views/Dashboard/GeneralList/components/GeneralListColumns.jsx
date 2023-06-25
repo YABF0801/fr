@@ -56,7 +56,7 @@ const useGeneralListColumns = ({
 		{
 			name: 'Dirección',
 			selector: (row) => row.child.childAddress,
-			grow: 4,
+			grow: 2,
 			omit: hideAddress,
 		},
 		{

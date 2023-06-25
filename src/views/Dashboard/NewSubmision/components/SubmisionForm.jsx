@@ -1,3 +1,4 @@
+import { Tooltip } from 'leaflet';
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
@@ -7,6 +8,8 @@ import { circulosApiGet } from '../../Circulos/service/circulo.services';
 import { consecustiveApiGet } from '../../GeneralList/service/submision.services';
 import { getSubmisiontype } from '../services/SubmisionForm.services';
 import { renderTypeRadios } from './Utils';
+
+<Tooltip id='tooltip' effect='solid' className='diff-arrow' />;
 
 const SubmisionForm = ({ form, submision }) => {
 	const [newEntryNumber, setNewEntryNumber] = useState(null);
@@ -103,6 +106,8 @@ const SubmisionForm = ({ form, submision }) => {
 											className={selectedFinality === 1 ? 'selected-btn' : 'toggle-btn'}
 											value={1}
 											onClick={handleOs}
+											data-tooltip-id='tooltip'
+											data-tooltip-content='Otorgamiento sistemático'
 										>
 											OS
 										</ToggleButton>
@@ -110,6 +115,8 @@ const SubmisionForm = ({ form, submision }) => {
 											className={selectedFinality === 2 ? 'selected-btn' : 'toggle-btn'}
 											value={2}
 											onClick={handleOm}
+											data-tooltip-id='tooltip'
+											data-tooltip-content='Otorgamiento masivo'
 										>
 											OM
 										</ToggleButton>

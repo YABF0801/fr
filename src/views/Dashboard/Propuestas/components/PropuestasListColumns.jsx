@@ -111,7 +111,7 @@ const PropuestasListColumns = () => {
 					name: ' ',
 					cell: (row) => {
 						if (row.status === 'propuesta') {
-							return <h4 className='text-info '>Propuesta</h4>;
+							return <h4 className='text-info text-propuesta'>Propuesta</h4>;
 						}
 					},
 					sortable: true,
