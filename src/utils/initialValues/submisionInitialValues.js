@@ -62,11 +62,11 @@ export const submisionInitialValues = (submision) => {
 					{
 						parentName: submision ? submision.child.parents?.[1]?.parentName : '',
 						parentLastname: submision ? submision.child.parents?.[1]?.parentLastname : '',
-						typeParent: submision ? submision.child.parents?.[1]?.typeParent : '',
+						typeParent: submision ? submision.child.parents?.[1]?.typeParent : 'padre',
 						convivencia: submision ? submision.child.parents?.[1]?.convivencia : false,
 						parentAddress: submision ? submision.child.parents?.[1]?.parentAddress : '',
 						phoneNumber: submision ? submision.child.parents?.[1]?.phoneNumber : '',
-						occupation: submision ? submision.child.parents?.[1]?.occupation : '',
+						occupation: submision ? submision.child.parents?.[1]?.occupation : 'trabajador',
 						workName: submision ? submision.child.parents?.[1]?.workName : '',
 						workAddress: submision ? submision.child.parents?.[1]?.workAddress : '',
 						jobTitle: submision ? submision.child.parents?.[1]?.jobTitle : '',

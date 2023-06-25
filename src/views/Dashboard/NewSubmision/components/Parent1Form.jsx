@@ -199,6 +199,7 @@ const Parent1Form = ({ form }) => {
 								optionText={'Organismo'}
 								onChange={(e) => handleOrganismo(e.target.value)}
 								onBlur={form.handleBlur}
+								disabled={form.values.child?.parents?.[0]?.occupation !== 'trabajador'}
 								mapFunction={organismosToMap.map((organismo) => (
 									<option key={organismo._id} value={organismo.name}>
 										{organismo.name}

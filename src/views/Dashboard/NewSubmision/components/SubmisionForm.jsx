@@ -18,6 +18,7 @@ const SubmisionForm = ({ form, submision }) => {
 	const [type, setType] = useState([]);
 	const [selectedFinality, setSelectedFinality] = useState(form.values.finality === 'os' ? 1 : 2);
 	const [isOsNew, setIsOsNew] = useState(false);
+	const [isMatricula, setIsMatricula] = useState(false);
 
 	useEffect(() => {
 		const getParentsEnums = async () => {
@@ -41,11 +42,13 @@ const SubmisionForm = ({ form, submision }) => {
 		}
 	}, [submision]);
 
-	const fetchData = async () => {
-		const consecutive = await consecustiveApiGet();
-		form.setFieldValue('entryNumber', consecutive + 1);
-		setNewEntryNumber(consecutive + 1);
-	};
+	useEffect(() => {
+		if (submision && submision.status === 'matricula') {
+			setIsMatricula(true)
+		} else {
+			setIsMatricula(false)
+		}
+	}, [submision]);
 
 	useEffect(() => {
 		if (submision) {
@@ -64,6 +67,12 @@ const SubmisionForm = ({ form, submision }) => {
 	useEffect(() => {
 		setSelectedFinality(form.values.finality === 'os' ? 1 : 2);
 	}, [form.values.finality]);
+
+	const fetchData = async () => {
+		const consecutive = await consecustiveApiGet();
+		form.setFieldValue('entryNumber', consecutive + 1);
+		setNewEntryNumber(consecutive + 1);
+	};
 
 	const handleOs = () => {
 		form.setFieldValue('finality', 'os');
@@ -108,6 +117,7 @@ const SubmisionForm = ({ form, submision }) => {
 											onClick={handleOs}
 											data-tooltip-id='tooltip'
 											data-tooltip-content='Otorgamiento sistemático'
+											disabled={isMatricula}
 										>
 											OS
 										</ToggleButton>
@@ -117,6 +127,7 @@ const SubmisionForm = ({ form, submision }) => {
 											onClick={handleOm}
 											data-tooltip-id='tooltip'
 											data-tooltip-content='Otorgamiento masivo'
+											disabled={isMatricula}
 										>
 											OM
 										</ToggleButton>
