@@ -51,12 +51,6 @@ const SubmisionForm = ({ form, submision }) => {
 	}, [submision]);
 
 	useEffect(() => {
-		if (submision) {
-			form.setValues(submision);
-		}
-	}, [submision]);
-
-	useEffect(() => {
 		const fetchData = async () => {
 			const circulos = await circulosApiGet();
 			setCirculosToMap(circulos);

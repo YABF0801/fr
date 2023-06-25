@@ -43,9 +43,9 @@ export const submisionInitialValues = (submision) => {
 						parentAddress: submision ? submision.child.parents[0].parentAddress : 'calle 26 entre 39 y 41',
 						phoneNumber: submision ? submision.child.parents[0].phoneNumber : '58555555',
 						occupation: submision ? submision.child.parents[0].occupation : 'trabajador',
-						workName: submision ? submision.child.parents[0].workName : 'Banco Popular de Ahorro',
-						workAddress: submision ? submision.child.parents[0].workAddress : 'Calle 18 entre 45 y 47',
-						jobTitle: submision ? submision.child.parents[0].jobTitle : 'Comercial',
+						workName: submision ? submision.child.parents[0].workName : '',
+						workAddress: submision ? submision.child.parents[0].workAddress : '',
+						jobTitle: submision ? submision.child.parents[0].jobTitle : '',
 
 						organismo: submision ? submision.child.parents[0].organismo.name : {
 							name: '',

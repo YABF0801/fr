@@ -29,12 +29,14 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 				...values,
 			};
 			if (submision) {
-				if (values.child.parents[0].uniqueParent) {
+					if (values.child.parents[0].uniqueParent) {
 					const confirmation = window.confirm('Ha marcado padre único. ¿Está seguro de continuar?');
 					if (confirmation) {
 						resetP2();
 						await updateSubmision.mutate({ ...values });
-					}
+					} else {
+						return; // No realizar la actualización si no se confirma la advertencia
+					  }
 				} else {
 					await updateSubmision.mutate({ ...values });
 				}
@@ -49,6 +51,12 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 		},
 		validationSchema: SubmisionSchema,
 	});
+
+	useEffect(() => {
+		if (submision) {
+			formik.setValues(submision);
+		}
+	}, [submision]);
 
 	useEffect(() => {
 		const value = formik.values.child?.parents?.[0].uniqueParent;
@@ -97,7 +105,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 			}));
 		}
 	};
-
+		  
 	const delP2 = () => {
 		if (formik.values.child?.parents?.[0].uniqueParent) {
 			formik.setFieldValue('child.parents', [formik.values.child.parents[0]]);

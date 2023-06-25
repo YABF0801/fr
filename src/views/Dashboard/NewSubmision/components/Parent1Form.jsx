@@ -34,6 +34,45 @@ const Parent1Form = ({ form }) => {
 		fetchData();
 	}, []);
 
+	useEffect(() => {
+	const handleParentsChanges = () => {
+		  const parent = form.values.child?.parents?.[0];  
+		  if (parent && parent?.occupation === 'jubilado' || parent?.occupation === 'asistenciado') {
+			form.setFieldValue(`child.parents[0].workName`, '');
+			form.setFieldValue(`child.parents[0].organismo.name`, '');
+			form.setFieldValue(`child.parents[0].organismo.weight`, 0);
+			form.setFieldValue(`child.parents[0].jobTitle`, '');
+			form.setFieldValue(`child.parents[0].workAddress`, '');
+		  }
+		  if (parent && parent?.occupation === 'estudiante') {
+			form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
+			form.setFieldValue(`child.parents[0].organismo.name`, '');
+			form.setFieldValue(`child.parents[0].organismo.weight`, 0);
+			form.setFieldValue(`child.parents[0].jobTitle`, '');
+			form.setFieldValue(`child.parents[0].workAddress`, '');
+		  }
+		  if (parent && parent?.occupation === 'trabajador') {
+			form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
+			form.setFieldValue(`child.parents[0].organismo.name`, form.initialValues.child.parents[0].organismo.name);
+			form.setFieldValue(`child.parents[0].organismo.weight`, form.initialValues.child.parents[0].organismo.weight);
+			form.setFieldValue(`child.parents[0].jobTitle`, form.initialValues.child.parents[0].jobTitle);
+			form.setFieldValue(`child.parents[0].workAddress`, form.initialValues.child.parents[0].workAddress);
+		  }	
+	};
+	handleParentsChanges()
+}, [form.values.child.parents[0].occupation]);
+
+useEffect(() => {
+	const handleParentsAdress = () => {
+		  const parent = form.values.child?.parents?.[0];
+		  const child = form.values.child;
+	  		  if (parent && parent?.convivencia === true) {
+			form.setFieldValue(`child.parents[0].parentAddress`, child.childAddress);
+		}	
+	};
+	handleParentsAdress()
+}, [form.values.child.parents[0].convivencia]);
+
 	const handleOrganismo = (selectedOrganismo) => {
 		const organismo = organismosToMap.find((org) => org.name === selectedOrganismo);
 		form.setFieldValue('child.parents[0].organismo.name', organismo.name);
@@ -120,6 +159,7 @@ const Parent1Form = ({ form }) => {
 								
 							</div>
 
+
 							<div className='col-md-7'>
 								<input
 									type='text'
@@ -127,7 +167,9 @@ const Parent1Form = ({ form }) => {
 									id='parentAddress1'
 									placeholder='Dirección...'
 									name='child.parents[0].parentAddress'
-									value={form.values.child?.parents?.[0].parentAddress}
+									value={form.values.child?.parents?.[0].convivencia === true
+												? form.values.child?.childAddress
+												: form.values.child?.parents?.[0].parentAddress}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 									disabled={form.values.child?.parents?.[0].convivencia}
@@ -137,6 +179,7 @@ const Parent1Form = ({ form }) => {
 										<p className='text-danger'>{form.errors.child.parents[0].parentAddress}</p>
 									)}
 							</div>
+
 							<div className='col-md-3'>
 								<input
 									type='text'
@@ -144,7 +187,7 @@ const Parent1Form = ({ form }) => {
 									id='phoneNumber1'
 									placeholder='Teléfono'
 									name='child.parents[0].phoneNumber'
-									value={form.values.child.parents[0].phoneNumber}
+									value={form.values.child?.parents?.[0].phoneNumber}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								/>
@@ -152,6 +195,7 @@ const Parent1Form = ({ form }) => {
 									form.touched.child?.parents?.[0]?.phoneNumber && (
 										<p className='text-danger'>{form.errors.child.parents[0].phoneNumber}</p>
 									)}
+
 							</div>
 						</div>
 
