@@ -79,106 +79,182 @@ export const SubmisionSchema = Yup.object().shape({
 				(value) => value !== null && value.length > 0
 			),
 
-		parents: Yup.array().of(
-			Yup.object().shape({
-				parentName: Yup.string()
-					.required('El nombre es requerido')
-					.test('letras mínimo 2', 'El nombre debe tener al menos 2 caracteres', (value) =>
-						validateStringMin2(value)
-					),
-				parentLastname: Yup.string()
-					.required('Se requiere al menos un apellido')
-					.test('letras mínimo 2', 'El apellido debe tener al menos 2 caracteres', (value) =>
-						validateStringMin2(value)
-					),
+			parents: Yup.array().of(
+				Yup.lazy((value, options) => {
+				  if (options.path.includes('[0]')) {
+					return parent1Schema;
+				  }
+			
+				  if (options.path.includes('[1]')) {
+					return parent2Schema;
+				  }
+			
+				  return Yup.object();
+				})
+			  ),
+	})
+});
 
-				uniqueParent: Yup.boolean(),
-
-				typeParent: Yup.string()
-					.notOneOf(['0'], 'Seleccione un elemento válido')
-					.required('Seleccione un elemento válido'),
-
-				convivencia: Yup.boolean(),
-
-				parentAddress: Yup.string().when('convivencia', {
-					is: false,
-					then: Yup.string()
-						.required('La dirección es requerida')
-						.test('letras mínimo 5', 'La dirección debe tener al menos 5 caracteres', (value) =>
-							validateStringMin5(value)
-						),
-				}),
-
-				phoneNumber: Yup.string()
-					.min(8, 'El número de teléfono debe tener al menos 8 caracteres')
-					.max(15, 'El número de teléfono debe tener como máximo 15 caracteres')
-					.required('Se requiere el número de teléfono'),
-
-				occupation: Yup.string(),
-
-				workName: Yup.string().when('occupation', {
-					is: (value) => value === 'trabajador' || value === 'estudiante',
-					then: Yup.string()
-						.min(2, 'Debe tener mínimo 2 caracteres')
-						.required('Se requiere el nombre del centro'),
-					otherwise: Yup.string(),
-				}),
-
-				workAddress: Yup.string().when('occupation', {
-					is: 'trabajador',
-					then: Yup.string()
-						.min(2, 'Debe tener mínimo 2 caracteres')
-						.required('Se requiere la dirección del centro'),
-					otherwise: Yup.string(),
-				}),
-
-				jobTitle: Yup.string().when('occupation', {
-					is: 'trabajador',
-					then: Yup.string()
-						.min(2, 'Debe tener mínimo 2 caracteres')
-						.required('Se requiere el cargo que ocupa'),
-					otherwise: Yup.string(),
-				}),
-
-				organismo: Yup.object().when('occupation', {
-					is: 'trabajador',
-					then: Yup.object()
-						.shape({
-							name: Yup.string()
-								.required('Seleccione un elemento válido')
-								.notOneOf([''], 'Seleccione un elemento válido'),
-							weight: Yup.number().required('Seleccione un elemento válido'),
-						})
-						.test('valid organismo', 'Seleccione un elemento válido', (value) => validateOrganismo(value)),
-					otherwise: Yup.object().shape({
-						name: Yup.string(),
-						weight: Yup.number(),
-					}),
-				}),
-
-				salary: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
-
-				otherChildrenInCi: Yup.boolean(),
-
-				numberOfOtherChildrenInCi: Yup.number()
-					.optional()
-					.when('otherChildrenInCi', {
-						is: true,
-						then: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
-					}),
-
-				otherChildrenCenter: Yup.string().when('otherChildrenInCi', {
-					is: true,
-					then: Yup.string()
-						.notOneOf(['0'], 'Seleccione un elemento válido')
-						.required('Se requiere el centro'),
-					otherwise: Yup.string(),
-				}),
-
-				pregnant: Yup.boolean(),
-
-				deaf: Yup.boolean(),
-			})
+// Esquema de validación para el primer parent
+const parent1Schema =  Yup.object().shape({
+	parentName: Yup.string()
+	  .required('El nombre es requerido')
+	  .test('letras mínimo 2', 'El nombre debe tener al menos 2 caracteres', (value) =>
+		validateStringMin2(value)
+	  ),
+	parentLastname: Yup.string()
+	  .required('Se requiere al menos un apellido')
+	  .test('letras mínimo 2', 'El apellido debe tener al menos 2 caracteres', (value) =>
+		validateStringMin2(value)
+	  ),
+  
+	uniqueParent: Yup.boolean(),
+  
+	typeParent: Yup.string()
+	  .notOneOf(['0'], 'Seleccione un elemento válido')
+	  .required('Seleccione un elemento válido'),
+  
+	convivencia: Yup.boolean(),
+  
+	parentAddress: Yup.string().when('convivencia', {
+	  is: false,
+	  then: Yup.string()
+		.required('La dirección es requerida')
+		.test('letras mínimo 5', 'La dirección debe tener al menos 5 caracteres', (value) =>
+		  validateStringMin5(value)
 		),
 	}),
-});
+  
+	phoneNumber: Yup.string()
+	  .min(8, 'El número de teléfono debe tener al menos 8 caracteres')
+	  .max(15, 'El número de teléfono debe tener como máximo 15 caracteres')
+	  .required('Se requiere el número de teléfono'),
+  
+	occupation: Yup.string(),
+  
+	workName: Yup.string().when('occupation', {
+	  is: (value) => value === 'trabajador' || value === 'estudiante',
+	  then: Yup.string()
+		.min(2, 'Debe tener mínimo 2 caracteres')
+		.required('Se requiere el nombre del centro'),
+	  otherwise: Yup.string(),
+	}),
+  
+	workAddress: Yup.string().when('occupation', {
+	  is: 'trabajador',
+	  then: Yup.string()
+		.min(2, 'Debe tener mínimo 2 caracteres')
+		.required('Se requiere la dirección del centro'),
+	  otherwise: Yup.string(),
+	}),
+  
+	jobTitle: Yup.string().when('occupation', {
+	  is: 'trabajador',
+	  then: Yup.string()
+		.min(2, 'Debe tener mínimo 2 caracteres')
+		.required('Se requiere el cargo que ocupa'),
+	  otherwise: Yup.string(),
+	}),
+  
+	organismo: Yup.object().when('occupation', {
+	  is: 'trabajador',
+	  then: Yup.object()
+		.shape({
+		  name: Yup.string()
+			.required('Seleccione un elemento válido')
+			.notOneOf([''], 'Seleccione un elemento válido'),
+		  weight: Yup.number().required('Seleccione un elemento válido'),
+		})
+		.test('valid organismo', 'Seleccione un elemento válido', (value) => validateOrganismo(value)),
+	  otherwise: Yup.object().shape({
+		name: Yup.string(),
+		weight: Yup.number(),
+	  }),
+	}),
+  
+	salary: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
+  
+	otherChildrenInCi: Yup.boolean(),
+  
+	numberOfOtherChildrenInCi: Yup.number()
+	  .optional()
+	  .when('otherChildrenInCi', {
+		is: true,
+		then: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
+	  }),
+  
+	otherChildrenCenter: Yup.string().when('otherChildrenInCi', {
+	  is: true,
+	  then: Yup.string()
+		.notOneOf(['0'], 'Seleccione un elemento válido')
+		.required('Se requiere el centro'),
+	  otherwise: Yup.string(),
+	}),
+  
+	pregnant: Yup.boolean(),
+  
+	deaf: Yup.boolean(),
+  })
+  
+  // Esquema de validación para el segundo parent
+  const parent2Schema =  Yup.object().shape({
+	parentName: Yup.string()
+	  .required('El nombre es requerido')
+	  .test('letras mínimo 2', 'El nombre debe tener al menos 2 caracteres', (value) =>
+		validateStringMin2(value)
+	  ),
+	parentLastname: Yup.string()
+	  .required('Se requiere al menos un apellido')
+	  .test('letras mínimo 2', 'El apellido debe tener al menos 2 caracteres', (value) =>
+		validateStringMin2(value)
+	  ),
+   
+	typeParent: Yup.string()
+	  .notOneOf(['0'], 'Seleccione un elemento válido')
+	  .required('Seleccione un elemento válido'),
+  
+	convivencia: Yup.boolean(),
+  
+	parentAddress: Yup.string().when('convivencia', {
+	  is: false,
+	  then: Yup.string()
+		.required('La dirección es requerida')
+		.test('letras mínimo 5', 'La dirección debe tener al menos 5 caracteres', (value) =>
+		  validateStringMin5(value)
+		),
+	}),
+  
+	phoneNumber: Yup.string()
+	  .min(8, 'El número de teléfono debe tener al menos 8 caracteres')
+	  .max(15, 'El número de teléfono debe tener como máximo 15 caracteres')
+	  .required('Se requiere el número de teléfono'),
+  
+	occupation: Yup.string(),
+  
+	workName: Yup.string().when('occupation', {
+	  is: (value) => value === 'trabajador' || value === 'estudiante',
+	  then: Yup.string()
+		.min(2, 'Debe tener mínimo 2 caracteres')
+		.required('Se requiere el nombre del centro'),
+	  otherwise: Yup.string(),
+	}),
+  
+	workAddress: Yup.string().when('occupation', {
+	  is: 'trabajador',
+	  then: Yup.string()
+		.min(2, 'Debe tener mínimo 2 caracteres')
+		.required('Se requiere la dirección del centro'),
+	  otherwise: Yup.string(),
+	}),
+  
+	jobTitle: Yup.string().when('occupation', {
+	  is: 'trabajador',
+	  then: Yup.string()
+		.min(2, 'Debe tener mínimo 2 caracteres')
+		.required('Se requiere el cargo que ocupa'),
+	  otherwise: Yup.string(),
+	}),
+
+	salary: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
+  
+  })
