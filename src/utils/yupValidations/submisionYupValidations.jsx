@@ -54,10 +54,8 @@ export const SubmisionSchema = Yup.object().shape({
 
 		neighborhood: Yup.string().optional(),
 
-		cPopular: Yup.string()
-			.required('Se requiere el Consejo Popular')
-			.test('valid select', 'Seleccione un elemento valido', (value) => value !== 0 && value !== '0'),
-
+    cPopular: Yup.string().notOneOf(['0'], 'Se requiere el Consejo Popular').required('Se requiere el Consejo Popular'),
+  
 		municipality: Yup.string()
 			.required('Se requiere el municipio')
 			.test('valid select', 'Seleccione un elemento valido', (value) => value !== 0 && value !== '0'),
@@ -73,166 +71,106 @@ export const SubmisionSchema = Yup.object().shape({
 		latlng: Yup.array(),
 
 	  parents: Yup.array().of(
-		Yup.lazy((value, index) => {
-            if (index === 0) {
-                return Yup.object().shape({
-                        parentName: Yup.string()
-                          .required('El nombre es requerido')
-                          .test(
-                            'letras mínimo 2',
-                            'El nombre debe tener al menos 2 caracteres',
-                            (value) => validateStringMin2(value)
-                          ),
-                        parentLastname: Yup.string()
-                          .required('Se requiere al menos un apellido')
-                          .test(
-                            'letras mínimo 2',
-                            'El apellido debe tener al menos 2 caracteres',
-                            (value) => validateStringMin2(value)
-                          ),
-                        uniqueParent: Yup.boolean(),
-                        typeParent: Yup.string(),
-                        convivencia: Yup.boolean(),
-                        parentAddress: Yup.string().when('convivencia', {
-                          is: false,
-                          then: Yup.string()
-                            .required('La dirección es requerida')
-                            .test(
-                              'letras mínimo 5',
-                              'La dirección debe tener al menos 5 caracteres',
-                              (value) => validateStringMin5(value)
-                            )
-                        }),
-                        phoneNumber: Yup.string()
-                          .required('Se requiere el número de teléfono')
-                          .min(8, 'El número de teléfono debe tener al menos 8 caracteres')
-                          .max(15, 'El número de teléfono debe tener como máximo 15 caracteres'),
-                        occupation: Yup.string(),
-                        workName: Yup.string().optional().when('occupation', {
-                          is: (val) => val === 'trabajador' || val === 'estudiante',
-                          then: Yup.string()
-                            .min(2, 'Debe tener mínimo 2 caracteres')
-                            .required('Se requiere el nombre del centro')
-                        }),
-                        workAddress: Yup.string().optional().when('occupation', {
-                          is: 'trabajador',
-                          then: Yup.string()
-                            .min(2, 'Debe tener mínimo 2 caracteres')
-                            .required('Se requiere la dirección del centro')
-                        }),
-                        jobTitle: Yup.string().optional().when('occupation', {
-                          is: 'trabajador',
-                          then: Yup.string()
-                            .min(2, 'Debe tener mínimo 2 caracteres')
-                            .required('Se requiere el cargo que ocupa')
-                        }),
-                        organismo: Yup.object().optional().when('occupation', {
-                          is: 'trabajador',
-                          then: Yup.object().shape({
-                            name: Yup.string(),
-                            weight: Yup.number()
-                          }).required('Se requiere un organismo')
-                        }),
-                        salary: Yup.number()
-                          .test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
-                        otherChildrenInCi: Yup.boolean(),
-                        numberOfOtherChildrenInCi: Yup.number().optional().when('otherChildrenInCi', {
-                          is: true,
-                          then: Yup.number()
-                            .test('salary', 'Escriba un número válido', (value) => naturalNumber(value))
-                        }),
-                        otherChildrenCenter: Yup.string().optional().when('otherChildrenInCi', {
-                          is: true,
-                          then: Yup.string().required('Seleccione un círculo')
-                        }),
-                        pregnant: Yup.boolean(),
-                        deaf: Yup.boolean()
-                      });
-            }
-            else {
-                return Yup.object().shape({
-                    parentName: Yup.string().when('uniqueParent', {
-                      is: false,
-                      then: Yup.string()
-                        .required('El nombre es requerido')
-                        .test(
-                          'letras mínimo 2',
-                          'El nombre debe tener al menos 2 caracteres',
-                          (value) => validateStringMin2(value)
-                        )
-                    }),
-
-                    parentLastname: Yup.string().when('uniqueParent', {
-                      is: false,
-                      then: Yup.string()
-                        .required('Se requiere al menos un apellido')
-                        .test(
-                          'letras mínimo 2',
-                          'El apellido debe tener al menos 2 caracteres',
-                          (value) => validateStringMin2(value)
-                        )
-                    }),
-
-                    typeParent: Yup.string(),
-
-                    convivencia: Yup.boolean(),
-
-                    parentAddress: Yup.string().when('uniqueParent', {
-                      is: false,
-                      then: Yup.string().when('convivencia', {
-                        is: false,
-                        then: Yup.string()
-                          .required('La dirección es requerida')
-                          .test(
-                            'letras mínimo 5',
-                            'La dirección debe tener al menos 5 caracteres',
-                            (value) => validateStringMin5(value)
-                          )
+	    Yup.object().shape({
+                parentName: Yup.string()
+                  .required('El nombre es requerido')
+                  .test('letras mínimo 2', 'El nombre debe tener al menos 2 caracteres', (value) =>
+                    validateStringMin2(value)
+                  ),
+                parentLastname: Yup.string()
+                  .required('Se requiere al menos un apellido')
+                  .test('letras mínimo 2', 'El apellido debe tener al menos 2 caracteres', (value) =>
+                    validateStringMin2(value)
+                  ),
+    
+                uniqueParent: Yup.boolean(),
+    
+                typeParent: Yup.string(),
+    
+                convivencia: Yup.boolean(),
+    
+                parentAddress: Yup.string().when('convivencia', {
+                  is: false,
+                  then: Yup.string()
+                    .required('La dirección es requerida')
+                    .test('letras mínimo 5', 'La dirección debe tener al menos 5 caracteres', (value) =>
+                      validateStringMin5(value)
+                    ),
+                }),
+    
+                phoneNumber: Yup.string()
+                .min(8, 'El número de teléfono debe tener al menos 8 caracteres')
+                .max(15, 'El número de teléfono debe tener como máximo 15 caracteres')
+                .required('Se requiere el número de teléfono'),
+    
+                occupation: Yup.string(),
+    
+                workName: Yup.string()
+                  .when('occupation', {
+                    is: (value) => value === 'trabajador' || value === 'estudiante',
+                    then: Yup.string()
+                      .min(2, 'Debe tener mínimo 2 caracteres')
+                      .required('Se requiere el nombre del centro'),
+                      otherwise:  Yup.string()							}),
+    
+                workAddress: Yup.string()
+                  .when('occupation', {
+                    is: 'trabajador',
+                    then: Yup.string()
+                      .min(2, 'Debe tener mínimo 2 caracteres')
+                      .required('Se requiere la dirección del centro'),
+                      otherwise:  Yup.string()							}),
+                  
+                jobTitle: Yup.string()
+                  .when('occupation', {
+                    is: 'trabajador',
+                    then: Yup.string()
+                      .min(2, 'Debe tener mínimo 2 caracteres')
+                      .required('Se requiere el cargo que ocupa'),
+                 otherwise:  Yup.string()							}),
+    
+                organismo: Yup.object()
+                  .when('occupation', {
+                    is: 'trabajador',
+                    then: Yup.object()
+                      .shape({
+                        name: Yup.string(),
+                        weight: Yup.number(),
                       })
-                    }),
-
-                    occupation: Yup.string(),
-
-                    workName: Yup.string().when('uniqueParent', {
-                      is: false,
-                      then: Yup.string().optional().when('occupation', {
-                        is: (val) => val === 'trabajador' || val === 'estudiante',
-                        then: Yup.string()
-                          .min(2, 'Debe tener mínimo 2 caracteres')
-                          .required('Se requiere el nombre del centro')
+                      .required('Se requiere un organismo'),
+                      otherwise: Yup.object().shape({
+                        name: Yup.string(),
+                        weight: Yup.number(),
                       })
-                    }),
-
-                    workAddress: Yup.string().when('uniqueParent', {
-                      is: false,
-                      then: Yup.string().optional().when('occupation', {
-                        is: 'trabajador',
-                        then: Yup.string()
-                          .min(2, 'Debe tener mínimo 2 caracteres')
-                          .required('Se requiere la dirección del centro')
-                      })
-                    }),
-
-                    jobTitle: Yup.string().when('uniqueParent', {
-                      is: false,
-                      then: Yup.string().optional().when('occupation', {
-                        is: 'trabajador',
-                        then: Yup.string()
-                          .min(2, 'Debe tener mínimo 2 caracteres')
-                          .required('Se requiere el cargo que ocupa')
-                      })
-                    }),
-
-                    salary: Yup.number().when('uniqueParent', {
-                      is: false,
-                      then: Yup.number()
-                      .test('salary', 'Escriba un número válido', (value) => naturalNumber(value))
-                      }),
-                    })
-            }
+                  }),
+    
+    
+                salary: Yup.number().test('salary', 'Escriba un número válido', (value) =>
+                  naturalNumber(value)
+                ),
+    
+                otherChildrenInCi: Yup.boolean(),
+    
+                numberOfOtherChildrenInCi: Yup.number()
+                  .optional()
+                  .when('otherChildrenInCi', {
+                    is: true,
+                    then: Yup.number().test('salary', 'Escriba un número válido', (value) =>
+                      naturalNumber(value)
+                    ),
+                  }),
+    
+                otherChildrenCenter: Yup.string()
+                  .optional()
+                  .when('otherChildrenInCi', {
+                    is: true,
+                    then: Yup.string().required('Seleccione un círculo'),
+                  }),
+    
+                pregnant: Yup.boolean(),
+    
+                deaf: Yup.boolean(),
+              }))
         })
-			  )
-				  
-	}),
 });
 
