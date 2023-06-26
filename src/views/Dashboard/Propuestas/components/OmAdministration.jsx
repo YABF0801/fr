@@ -64,6 +64,10 @@ const OmAdministration = () => {
 		setActiveStep(activeStep + 1);
 	};
 
+	const handleBack = async () => {
+		setActiveStep(activeStep - 1);
+	};
+
 	const handleGenerateProps = async () => {
 		try {
 			setIsModalOpen(true);
@@ -219,9 +223,15 @@ const OmAdministration = () => {
 		return (
 			<div className='d-flex justify-content-center align-items-center flex-column'>
 				<p className='p-3'>y por ultimo finalizamos</p>
+				<div className='d-flex justify-content-center align-items-center d-flex-inline gap-4'>
+				<a type='button' id='generar-btn' className='btn save-btn' onClick={handleBack}>
+					Atrás
+				</a>
 				<a type='button' id='finalizar-btn' className='btn prop-btn' onClick={confirmFinalizarOms}>
 					Finalizar
 				</a>
+				</div>
+				
 			</div>
 		);
 	}

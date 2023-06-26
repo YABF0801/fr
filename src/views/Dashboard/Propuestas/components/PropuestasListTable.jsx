@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-// import { useNavigate } from 'react-router-dom';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-// import { GENERAL_LIST } from '../../../../core/config/routes/paths';
-import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { exportExcel } from '../../../../utils/Export';
-import OmAdministration from './OmAdministration';
 import PropuestasListColumns from './PropuestasListColumns';
 
 const PropuestasListTable = () => {
 	const { queryPropuestas, aceptarPropuestas, rechazarPropuestas } = usePropuestasContext();
-	const { queryContadorCambioCurso, queryContadorPropGeneradas } = useOtorgamientoContext();
+	const { queryContadorCambioCurso } = useOtorgamientoContext();
 	const [botonAceptar, setBotonAceptar] = useState(true);
 	const [search, setSearch] = useState('');
 	const [rowsSelected, setRowsSelected] = useState([]);
@@ -23,8 +19,6 @@ const PropuestasListTable = () => {
 	const [searchData, setSearchData] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
-	const { isAuthenticated } = useAuthContext();
-	// const navigate = useNavigate();
 
 	useEffect(() => {
 		if (queryContadorCambioCurso.data === 0){
