@@ -178,8 +178,8 @@ const PropuestasListTable = () => {
 	return (
 		
 		<section className='prop-list'>
-			<div >
-			{isAuthenticated.user?.role === 'admin' && <OmAdministration/>}
+			<div className='  p-2 pb-5'>
+			{/* {isAuthenticated.user?.role === 'admin' && <OmAdministration/>} */}
 					<h2 className='text-center p-3'>Propuestas de matrícula</h2>
 				<div className='card '>
 					<div className='card-body '>

@@ -5,6 +5,7 @@ import Progress from '../../../../common/Progress/ProgressBar';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { propuestasApiGet } from '../../../../core/services/propuestas.services';
+import PropuestasListTable from './PropuestasListTable';
 import { CustomStepper } from './Stepper';
 
 const OmAdministration = () => {
@@ -57,6 +58,10 @@ const OmAdministration = () => {
 			],
 			className: 'button-group d-flex justify-content-evenly',
 		});
+	};
+
+	const handleSkip = async () => {
+		setActiveStep(activeStep + 1);
 	};
 
 	const handleGenerateProps = async () => {
@@ -169,12 +174,11 @@ const OmAdministration = () => {
 					para generar propuestas de matrículas que podrá encontrar abajo en una tabla.
 				</p>
 
-				<h3>
-					Para aceptar o rechazar las propuestas primero debe hacer click en el botón Cambio de curso.
-				</h3>
+				<h3>Para aceptar o rechazar las propuestas primero debe hacer click en el botón Cambio de curso.</h3>
 
 				<h4 className='om-text-start text-secondary p-2'>
-					El cambio de curso modificará la base de datos moviendo las matrículas de los círculos al año
+					El cambio de curso modificará la base de datos moviendo las matrículas de los círculos al año{' '}
+					<br></br>
 					superior y cambiará el año de vida en la planilla de los niños matriculados.{' '}
 				</h4>
 
@@ -182,11 +186,7 @@ const OmAdministration = () => {
 					Las propuestas aceptadas pasarán a ser matrícula del círculo asignado mientras que las propuestas
 					rechazadas volverán a su estado anterior
 				</p>
-				<a 
-				type='button' 
-				id='cambio-btn' 
-				onClick={confirmCambioDeCurso} 
-				className='btn prop-btn'>
+				<a type='button' id='cambio-btn' onClick={confirmCambioDeCurso} className='btn prop-btn'>
 					Cambio de curso
 				</a>
 			</div>
@@ -195,11 +195,22 @@ const OmAdministration = () => {
 
 	function GenerarNew() {
 		return (
-			<div className='d-flex justify-content-center align-items-center flex-column'>
-				<p className='p-3'>ahora lo mismo para el cambio de curso aca</p>
+			<div className='mt-3 d-flex justify-content-center align-items-center flex-column'>
+				<h4 className='om-text-start text-secondary p-2'>
+					Durante esta etapa del proceso, puede generar nuevas propuestas <br></br>
+					tantas veces como lo necesites para aquellas que fueron rechazadas.
+				</h4>
+				<p className='text-secondary'>
+					Puede evaluarlas nuevamente y tomar la decisión de aceptar o rechazar estas nuevas propuestas.
+				</p>
+				<div className='d-flex justify-content-center align-items-center d-flex-inline gap-4'>
 				<a type='button' id='generar-btn' className='btn prop-btn' onClick={handleGenerateProps}>
 					Generar propuesta
 				</a>
+				<a type='button' id='generar-btn' className='btn save-btn' onClick={handleSkip}>
+					Saltar
+				</a>
+				</div>
 			</div>
 		);
 	}
@@ -237,17 +248,17 @@ const OmAdministration = () => {
 		}
 	}
 	return (
-		<>
-			<div className='card mt-5'>
+		<div className='  p-2 '>
+			<h2 className='text-center p-3'>Proceso de otorgamiento masivo</h2>
+			<div className='card '>
 				<div className='card-body '>
-					<h2 className='text-center p-3'>Proceso de otorgamiento masivo</h2>
 					<div>
 						<CustomStepper activeStep={activeStep} steps={steps} />
 
 						<div style={{ padding: '20px' }}>
 							{getSectionComponent()}
 
-							<div className='p-5 d-flex d-flex-inline justify-content-center'>
+							<div className='p-2 d-flex d-flex-inline justify-content-center'>
 								{activeStep !== 0 && activeStep !== steps.length && (
 									<button className='cancel-btn' onClick={() => setActiveStep(activeStep - 1)}>
 										Previous
@@ -273,7 +284,9 @@ const OmAdministration = () => {
 					/>
 				</div>
 			</div>
-		</>
+
+			<PropuestasListTable />
+		</div>
 	);
 };
 

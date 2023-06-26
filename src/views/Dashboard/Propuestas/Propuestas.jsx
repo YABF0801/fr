@@ -1,10 +1,11 @@
-import { PropuestasListTable } from './components';
+// import { PropuestasListTable } from './components';
+import OmAdministration from './components/OmAdministration';
 
 
 const Propuestas = () => {
 	return (
 		<div className='propuestas-list'>
-					<PropuestasListTable />
+					<OmAdministration />
 		</div>
 	);
 };
