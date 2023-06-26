@@ -28,18 +28,18 @@ const Parent2Form = ({ form }) => {
 				form.setFieldValue(`child.parents[1].workAddress`, '');
 			  }
 			  if (parent && parent?.occupation === 'estudiante') {
-				form.setFieldValue(`child.parents[1].workName`, form.initialValues.child.parents[1].workName);
+				form.setFieldValue(`child.parents[1].workName`, form.initialValues.child?.parents?.[1]?.workName);
 				form.setFieldValue(`child.parents[1].jobTitle`, '');
 				form.setFieldValue(`child.parents[1].workAddress`, '');
 			  }
 			  if (parent && parent?.occupation === 'trabajador') {
-				form.setFieldValue(`child.parents[1].workName`, form.initialValues.child.parents[1].workName);
-				form.setFieldValue(`child.parents[1].jobTitle`, form.initialValues.child.parents[1].jobTitle);
-				form.setFieldValue(`child.parents[1].workAddress`, form.initialValues.child.parents[1].workAddress);
+				form.setFieldValue(`child.parents[1].workName`, form.initialValues.child?.parents?.[1]?.workName);
+				form.setFieldValue(`child.parents[1].jobTitle`, form.initialValues.child?.parents?.[1]?.jobTitle);
+				form.setFieldValue(`child.parents[1].workAddress`, form.initialValues.child?.parents?.[1]?.workAddress);
 			  }	
 		};
 		handleParentsChanges()
-	}, [form.values.child.parents[1].occupation]);
+	}, [form.values.child?.parents?.[1]?.occupation]);
 	
 	useEffect(() => {
 		const handleParentsAdress = () => {
@@ -50,7 +50,7 @@ const Parent2Form = ({ form }) => {
 			}	
 		};
 		handleParentsAdress()
-	}, [form.values.child.parents[1].convivencia]);
+	}, [form.values.child?.parents?.[1]?.convivencia]);
 
 	return (
 		<div id='parent2'>
@@ -137,9 +137,9 @@ const Parent2Form = ({ form }) => {
 										id='parentAddress2'
 										placeholder='Dirección...'
 										name='child.parents[1].parentAddress'
-										value={form.values.child?.parents?.[1].convivencia === true
+										value={form.values.child?.parents?.[1]?.convivencia === true
 											? form.values.child?.childAddress
-											: form.values.child?.parents?.[1].parentAddress}
+											: form.values.child?.parents?.[1]?.parentAddress}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 										disabled={form.values.child?.parents?.[1]?.convivencia}

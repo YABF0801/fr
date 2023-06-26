@@ -45,14 +45,14 @@ const Parent1Form = ({ form }) => {
 				form.setFieldValue(`child.parents[0].workAddress`, '');
 			}
 			if (parent && parent?.occupation === 'estudiante') {
-				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
+				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child?.parents?.[0]?.workName);
 				form.setFieldValue(`child.parents[0].organismo.name`, '');
 				form.setFieldValue(`child.parents[0].organismo.weight`, 0);
 				form.setFieldValue(`child.parents[0].jobTitle`, '');
 				form.setFieldValue(`child.parents[0].workAddress`, '');
 			}
 			if (parent && parent?.occupation === 'trabajador') {
-				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
+				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child?.parents?.[0]?.workName);
 				form.setFieldValue(
 					`child.parents[0].organismo.name`,
 					form.initialValues.child.parents[0].organismo?.name
@@ -61,8 +61,8 @@ const Parent1Form = ({ form }) => {
 					`child.parents[0].organismo.weight`,
 					form.initialValues.child.parents[0].organismo?.weight
 				);
-				form.setFieldValue(`child.parents[0].jobTitle`, form.initialValues.child.parents[0].jobTitle);
-				form.setFieldValue(`child.parents[0].workAddress`, form.initialValues.child.parents[0].workAddress);
+				form.setFieldValue(`child.parents[0].jobTitle`, form.initialValues.child?.parents?.[0]?.jobTitle);
+				form.setFieldValue(`child.parents[0].workAddress`, form.initialValues.child?.parents?.[0]?.workAddress);
 			}
 		};
 		handleParentsChanges();
@@ -77,7 +77,7 @@ const Parent1Form = ({ form }) => {
 			}
 		};
 		handleParentsAdress();
-	}, [form.values.child.parents[0].convivencia]);
+	}, [form.values.child?.parents?.[0]?.convivencia]);
 
 	const handleOrganismo = (selectedOrganismo) => {
 		const organismo = organismosToMap.find((org) => org.name === selectedOrganismo);
