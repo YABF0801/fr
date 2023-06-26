@@ -1,16 +1,16 @@
-import { Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const Select = ({ className, id, name, value, label, optionText, onChange, onBlur, disabled, mapFunction }) => {
 
   return (
     <div className={className || 'form-group col-md-12 mb-3 d-flex'}>
       {label && (
-        <Form.Label className='col-md-6 m-md-2 text-secondary' htmlFor={id}>
-          {label}
-        </Form.Label>
+        <label className='col-md-6 m-md-2 text-secondary' htmlFor={id}>
+         {label}
+        </label>
       )}
-
-      <Form.Select
+      
+      <select
         className='form-control'
         id={id}
         name={name}
@@ -18,16 +18,29 @@ const Select = ({ className, id, name, value, label, optionText, onChange, onBlu
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled || false}
+        onInvalid={lol}
       >
         <option className='text-center' value='0'>
           {optionText}
         </option>
         {mapFunction}
-      </Form.Select>
-	  
+      </select>
     </div>
   );
 };
 
-export default Select;
+  
+Select.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  optionText: PropTypes.string,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  disabled: PropTypes.bool,
+  mapFunction: PropTypes.node,
+};
 
+export default Select;

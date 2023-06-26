@@ -19,6 +19,8 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 		}
 	  };
 
+	  console.log('value', form.values.child.cPopular);
+	 
 	  
 	return (
 		<div id='child'>
@@ -147,7 +149,9 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 											{ consejo.name }
 										</option>
 									)) }
-								/>
+									/>
+									{form.errors.child?.cPopular && form.touched.child?.cPopular && (
+										<p className='text-danger'>{ form.errors.child?.cPopular }</p>) } 
 
 
 								<Select

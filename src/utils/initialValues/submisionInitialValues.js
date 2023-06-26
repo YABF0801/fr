@@ -22,7 +22,7 @@ export const submisionInitialValues = (submision) => {
 				year_of_life: submision ? submision.child.year_of_life : 2,
 				childAddress: submision ? submision.child.childAddress : 'calle 26 entre 39 y 41',
 				neighborhood: submision ? submision.child.neighborhood : 'Nueva Gerona',
-				cPopular: submision ? submision.child.cPopular : 'Nueva Gerona',
+				cPopular: submision ? submision.child.cPopular : '',
 				municipality: submision ? submision.child.municipality : 'Isla de la Juventud',
 				province: submision ? submision.child.province : 'Isla de la Juventud',
 
