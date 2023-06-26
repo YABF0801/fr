@@ -78,8 +78,6 @@ const SubmisionForm = ({ form, submision }) => {
 		setIsOsNew(false);
 	};
 
-	// console.log(form.values.finality, selectedFinality)
-
 	return (
 		<div id='sub'>
 			<h3 className='text-center text-secondary'>Datos generales de la planilla</h3>
@@ -88,7 +86,7 @@ const SubmisionForm = ({ form, submision }) => {
 			<div className='container '>
 				<div className='row justify-content-center'>
 					{isOsNew && (
-						<div className='text-danger col-10 '>
+						<div className='text-info col-10 '>
 							<p>
 								Al guardarse como otorgamiento sistemático, esta planilla no será tomada en cuenta para
 								generar las propuestas en el otorgamiento masivo, por lo que deberá regresar a ella

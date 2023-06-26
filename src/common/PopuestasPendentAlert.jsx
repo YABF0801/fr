@@ -14,8 +14,6 @@ const PopuestasPendentAlert = () => {
       fetchData();
     }, []);
     
-    console.log('pcount', count)
-
     useEffect(() => {
       const interval = setInterval(() => {  
         if (count !== 0 )  {
@@ -27,8 +25,6 @@ const PopuestasPendentAlert = () => {
       return () => clearInterval(interval);
     }, []);
   
-    console.log(showAlert)
-
     return (
       showAlert && (
         <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible

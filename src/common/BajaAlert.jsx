@@ -14,9 +14,7 @@ const BajaAlert = () => {
       fetchData();
     }, []);
     
-    console.log(count)
-
-    useEffect(() => {
+      useEffect(() => {
       const interval = setInterval(() => {  
         if (count !== 0 )  {
           setShowAlert(true)
@@ -27,9 +25,7 @@ const BajaAlert = () => {
       return () => clearInterval(interval);
     }, []);
   
-    console.log(showAlert)
-
-    return (
+      return (
       showAlert && (
         <Alert variant="warning" onClose={() => setShowAlert(false)} dismissible
         className='custom-alert'>

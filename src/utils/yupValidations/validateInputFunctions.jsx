@@ -70,7 +70,6 @@ export const validateAttendance = (value) => {
   export const validateYearOfLife = (value) => {
 	if (value === undefined ) return false;
 	const parsedValue = parseInt(value, 10);
- console.log('Y', !isNaN(parsedValue) && parsedValue >= 2 && parsedValue <= 6)
 	return !isNaN(parsedValue) && parsedValue >= 2 && parsedValue <= 6;
   };
 
@@ -86,7 +85,6 @@ export const validateAttendance = (value) => {
 
   export const validateOrganismo = (value) => {
     if (value === undefined || value.name === undefined) return false;
-    console.log('OR', value.name.trim() !== '')
     return value.name.trim() !== '';
   };
 

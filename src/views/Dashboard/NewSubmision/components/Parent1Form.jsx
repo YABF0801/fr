@@ -12,6 +12,7 @@ const Parent1Form = ({ form }) => {
 	const [circulosToMap, setCirculosToMap] = useState([]);
 	const [typeParents, setTypeParents] = useState([]);
 	const [occupations, setOccupations] = useState([]);
+	const [isUnique, setIsUnique] = useState(false);
 
 	useEffect(() => {
 		const getParentsEnums = async () => {
@@ -22,6 +23,12 @@ const Parent1Form = ({ form }) => {
 		};
 		getParentsEnums();
 	}, []);
+
+	useEffect(() => {
+		if (form.values.child.parents[0].uniqueParent === true) {
+			setIsUnique(true)
+		} else { setIsUnique(false)}
+	}, [form.values.child.parents[0].uniqueParent]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -85,8 +92,6 @@ const Parent1Form = ({ form }) => {
 		form.setFieldValue('child.parents[0].organismo.weight', organismo ? organismo?.weight : 0);
 	};
 
-	console.log('other', form.values.child.parents[0].otherChildrenCenter);
-
 	return (
 		<div id='parent1'>
 			<hr className='text-secondary' />
@@ -96,6 +101,13 @@ const Parent1Form = ({ form }) => {
 
 			<div className='container '>
 				<div className='row justify-content-center'>
+				{isUnique && (
+						<div className='text-info col-10 '>
+							<p>
+								Al seleccionar la opción monoparental esta planilla será guardada con un solo padre o tutor
+							</p>
+						</div>
+					)}
 					<div className='col-md-12 '>
 						<div className='row justify-content-evenly mb-4'>
 							<div className='col-md-3'>

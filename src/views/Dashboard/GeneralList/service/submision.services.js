@@ -79,7 +79,6 @@ export const submisionsApiBaja = async (id) => {
 
 export const submisionsApiMatriculaManual = async (submision) => {
 	try {
-		console.log(submision._id)
 		await baseAxios.put(`/submisions/matricular/${submision._id}`, submision);
 		ToastNotification('success', `${SuccessMsg('custom', `matricula`, 'realizada con éxito')}`);
 	} catch (error) {

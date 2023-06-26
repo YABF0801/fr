@@ -30,13 +30,8 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 			};
 			if (submision) {
 					if (values.child.parents[0].uniqueParent) {
-					const confirmation = window.confirm('Ha marcado padre único. ¿Está seguro de continuar?');
-					if (confirmation) {
 						resetP2();
 						await updateSubmision.mutate({ ...values });
-					} else {
-						return; // No realizar la actualización si no se confirma la advertencia
-					  }
 				} else {
 					await updateSubmision.mutate({ ...values });
 				}
@@ -155,7 +150,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 
 						{isOs && (
 							<div className='row mt-4 justify-content-center'>
-						<div className='text-danger col-8'>
+						<div className='text-info col-8'>
 							
 
 						<p >Al guardarse como otorgamiento sistemático, esta planilla no será tomada en cuenta

@@ -15,7 +15,6 @@ export function FiltersRow({ onFilterChange, handleToogleChange, selectedDate, h
 	const handleCheckboxChange = (event) => {
 		const { value, checked } = event.target;
 		onFilterChange(value, checked);
-		console.log('Checkbox value:', value);
 	};
 
 	const DateRangePicker = () => {

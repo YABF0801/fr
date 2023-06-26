@@ -24,7 +24,6 @@ const OmDateAlert = () => {
 		compareDates();
 	}, []);
 
-	console.log('compre', isDateArrived);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -32,8 +31,6 @@ const OmDateAlert = () => {
 		}, 7200000); // 900000 ms = 15 minutos
 		return () => clearInterval(interval);
 	}, []);
-
-	console.log('show', showAlert);
 
 	return (
 		showAlert && (

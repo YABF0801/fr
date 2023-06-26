@@ -45,8 +45,6 @@ const OmAdministration = () => {
 		setBotonComenzar(isDateArrived);
 	}, [isDateArrived]);
 
-	console.log(botonComenzar);
-
 	const confirmFinalizarOms = () => {
 		confirmAlert({
 			message: `Va a dar por finalizado el otorgamiento masivo de este año. ¿Está seguro?`,
