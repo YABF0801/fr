@@ -44,14 +44,14 @@ const useGeneralListColumns = ({
 			),
 			sortable: true,
 			grow: 2,
-			width: '11rem',
+			width: '12rem',
 		},
 		{
 			name: 'Carnet',
 			selector: (row) => row.child.carnet,
 			sortable: true,
 			center: true,
-			width: '7rem',
+			width: 'auto',
 		},
 		{
 			name: 'Dirección',
@@ -72,7 +72,7 @@ const useGeneralListColumns = ({
 
 			sortable: true,
 			center: true,
-			width: '6rem',
+			width: '5rem',
 		},
 		{
 			name: 'Edad',
@@ -98,14 +98,14 @@ const useGeneralListColumns = ({
 			selector: (row) => row.child.parents[0].parentName + ' ' + row.child.parents[0].parentLastname,
 			sortable: true,
 			grow: 2,
-			width: '10rem',
+			width: '12rem',
 		},
 		{
 			name: 'Teléfono',
 			selector: (row) => row.child.parents[0].phoneNumber,
 			grow: 2,
 			omit: hidePhone,
-			width: '6rem',
+			width: 'auto',
 		},
 		{
 			name: 'Centro de Trabajo',
@@ -120,7 +120,7 @@ const useGeneralListColumns = ({
 			},
 			sortable: true,
 			grow: 2,
-			width: '9rem',
+			width: 'auto',
 		},
 		{
 			name: 'Padre',
@@ -131,7 +131,7 @@ const useGeneralListColumns = ({
 			sortable: true,
 			grow: 2,
 			omit: hidePadre,
-			width: '10rem',
+			width: '12rem',
 		},
 		{
 			name: 'Centro de trabajo',
@@ -142,7 +142,7 @@ const useGeneralListColumns = ({
 			sortable: true,
 			grow: 2,
 			omit: hidePadre,
-			width: '10rem',
+			width: 'auto',
 		},
 		{
 			name: 'Teléfono 2',
@@ -153,14 +153,14 @@ const useGeneralListColumns = ({
 			sortable: true,
 			grow: 2,
 			omit: hidePhone,
-			width: '10rem',
+			width: 'auto',
 		},
 		{
 			name: 'C.Popular',
 			selector: (row) => row.child.cPopular,
 			sortable: true,
 			grow: 2,
-			width: '8rem',
+			width: 'auto',
 		},
 		{
 			name: 'Estado',
@@ -188,14 +188,14 @@ const useGeneralListColumns = ({
 			},
 			sortable: true,
 			grow: 2,
-			width: '8rem',
+			width: 'auto',
 			center: true,
 		},
-		isAuthenticated.user?.role === 'admin' && ({
+		
+		isAuthenticated.user?.role === 'admin' && {
 			name: '', // action buttons
 			cell: (row) => (
-
-				<div className='action d-flex '>
+				<div className='d-flex gap-1 justify-content-center'>
 					<a className='btn btn-sm' href='#submision' onClickCapture={ () => editSubmision(row._id) }>
 						<i className='action-btn bi bi-pencil-square'></i>
 					</a>
@@ -208,12 +208,12 @@ const useGeneralListColumns = ({
 						<i className='action-btn bi bi-person-dash'></i>
 					</button>
 				</div>
-
 			),
+
 			allowOverflow: true,
 			button: true,
 			width: '9rem',
-		}),
+		},
 	]
 
 	return { columns }
