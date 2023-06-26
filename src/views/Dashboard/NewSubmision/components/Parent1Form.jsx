@@ -35,49 +35,51 @@ const Parent1Form = ({ form }) => {
 	}, []);
 
 	useEffect(() => {
-	const handleParentsChanges = () => {
-		  const parent = form.values.child?.parents?.[0];  
-		  if (parent && parent?.occupation === 'jubilado' || parent?.occupation === 'asistenciado') {
-			form.setFieldValue(`child.parents[0].workName`, '');
-			form.setFieldValue(`child.parents[0].organismo.name`, '');
-			form.setFieldValue(`child.parents[0].organismo.weight`, 0);
-			form.setFieldValue(`child.parents[0].jobTitle`, '');
-			form.setFieldValue(`child.parents[0].workAddress`, '');
-		  }
-		  if (parent && parent?.occupation === 'estudiante') {
-			form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
-			form.setFieldValue(`child.parents[0].organismo.name`, '');
-			form.setFieldValue(`child.parents[0].organismo.weight`, 0);
-			form.setFieldValue(`child.parents[0].jobTitle`, '');
-			form.setFieldValue(`child.parents[0].workAddress`, '');
-		  }
-		  if (parent && parent?.occupation === 'trabajador') {
-			form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
-			form.setFieldValue(`child.parents[0].organismo.name`, form.initialValues.child.parents[0].organismo.name);
-			form.setFieldValue(`child.parents[0].organismo.weight`, form.initialValues.child.parents[0].organismo.weight);
-			form.setFieldValue(`child.parents[0].jobTitle`, form.initialValues.child.parents[0].jobTitle);
-			form.setFieldValue(`child.parents[0].workAddress`, form.initialValues.child.parents[0].workAddress);
-		  }	
-	};
-	handleParentsChanges()
-}, [form.values.child.parents[0].occupation]);
+		const handleParentsChanges = () => {
+			const parent = form.values.child?.parents?.[0];
+			if ((parent && parent?.occupation === 'jubilado') || parent?.occupation === 'asistenciado') {
+				form.setFieldValue(`child.parents[0].workName`, '');
+				form.setFieldValue(`child.parents[0].organismo.name`, '');
+				form.setFieldValue(`child.parents[0].organismo.weight`, 0);
+				form.setFieldValue(`child.parents[0].jobTitle`, '');
+				form.setFieldValue(`child.parents[0].workAddress`, '');
+			}
+			if (parent && parent?.occupation === 'estudiante') {
+				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
+				form.setFieldValue(`child.parents[0].organismo.name`, '');
+				form.setFieldValue(`child.parents[0].organismo.weight`, 0);
+				form.setFieldValue(`child.parents[0].jobTitle`, '');
+				form.setFieldValue(`child.parents[0].workAddress`, '');
+			}
+			if (parent && parent?.occupation === 'trabajador') {
+				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
+				form.setFieldValue(`child.parents[0].organismo.name`,form.initialValues.child.parents[0].organismo?.name);
+				form.setFieldValue(`child.parents[0].organismo.weight`,form.initialValues.child.parents[0].organismo?.weight);
+				form.setFieldValue(`child.parents[0].jobTitle`, form.initialValues.child.parents[0].jobTitle);
+				form.setFieldValue(`child.parents[0].workAddress`, form.initialValues.child.parents[0].workAddress);
+			}
+		};
+		handleParentsChanges();
+	}, [form.values.child.parents[0].occupation]);
 
-useEffect(() => {
-	const handleParentsAdress = () => {
-		  const parent = form.values.child?.parents?.[0];
-		  const child = form.values.child;
-	  		  if (parent && parent?.convivencia === true) {
-			form.setFieldValue(`child.parents[0].parentAddress`, child.childAddress);
-		}	
-	};
-	handleParentsAdress()
-}, [form.values.child.parents[0].convivencia]);
+	useEffect(() => {
+		const handleParentsAdress = () => {
+			const parent = form.values.child?.parents?.[0];
+			const child = form.values.child;
+			if (parent && parent?.convivencia === true) {
+				form.setFieldValue(`child.parents[0].parentAddress`, child.childAddress);
+			}
+		};
+		handleParentsAdress();
+	}, [form.values.child.parents[0].convivencia]);
 
 	const handleOrganismo = (selectedOrganismo) => {
 		const organismo = organismosToMap.find((org) => org.name === selectedOrganismo);
-		form.setFieldValue('child.parents[0].organismo.name', organismo.name);
-		form.setFieldValue('child.parents[0].organismo.weight', organismo.weight);
+		form.setFieldValue('child.parents[0].organismo.name', organismo ? organismo?.name : '');
+		form.setFieldValue('child.parents[0].organismo.weight', organismo ? organismo?.weight : 0);
 	};
+
+	
 
 	return (
 		<div id='parent1'>
@@ -126,44 +128,43 @@ useEffect(() => {
 
 							<div className='col-md-2'>
 								<Select
-								id={'typeParent1'}
-								name={'child.parents[0].typeParent'}
-								value={form.values.child?.parents[0].typeParent}
-								optionText={'Parentesco'}
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-								mapFunction={typeParents.map((type) => (
-									<option key={type} value={type}>
-										{type.charAt(0).toUpperCase() + type.slice(1)}
-									</option>
-								))}
-							/>
-							{form.errors.child?.parents?.[0]?.typeParent &&
+									id={'typeParent1'}
+									name={'child.parents[0].typeParent'}
+									value={form.values.child?.parents[0].typeParent}
+									optionText={'Parentesco'}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
+									mapFunction={typeParents.map((type) => (
+										<option key={type} value={type}>
+											{type.charAt(0).toUpperCase() + type.slice(1)}
+										</option>
+									))}
+								/>
+								{form.errors.child?.parents?.[0]?.typeParent &&
 									form.touched.child?.parents?.[0]?.typeParent && (
 										<p className='text-danger'>{form.errors.child?.parents[0].typeParent}</p>
 									)}
 							</div>
 
 							<div className='col-md-3 '>
-									{renderSwitchSelect(
-										'child.parents[0].uniqueParent', 
-										'Monoparental', 
-										form, 
-										form.values.child?.parents?.[0].uniqueParent)}
-
+								{renderSwitchSelect(
+									'child.parents[0].uniqueParent',
+									'Monoparental',
+									form,
+									form.values.child?.parents?.[0].uniqueParent
+								)}
 							</div>
 						</div>
 
 						<div className='row justify-content-evenly mb-4'>
 							<div className='col-md-2'>
-
 								{renderSwitchSelect(
-									'child.parents[0].convivencia', 'Convive', form, 
-									form.values.child?.parents?.[0].convivencia)}
-
-								
+									'child.parents[0].convivencia',
+									'Convive',
+									form,
+									form.values.child?.parents?.[0].convivencia
+								)}
 							</div>
-
 
 							<div className='col-md-7'>
 								<input
@@ -172,9 +173,11 @@ useEffect(() => {
 									id='parentAddress1'
 									placeholder='Dirección...'
 									name='child.parents[0].parentAddress'
-									value={form.values.child?.parents?.[0].convivencia === true
-												? form.values.child?.childAddress
-												: form.values.child?.parents?.[0].parentAddress}
+									value={
+										form.values.child?.parents?.[0].convivencia === true
+											? form.values.child?.childAddress
+											: form.values.child?.parents?.[0].parentAddress
+									}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 									disabled={form.values.child?.parents?.[0].convivencia}
@@ -200,16 +203,13 @@ useEffect(() => {
 									form.touched.child?.parents?.[0]?.phoneNumber && (
 										<p className='text-danger'>{form.errors.child.parents[0].phoneNumber}</p>
 									)}
-
 							</div>
 						</div>
 
 						<div className='form-group justify-content-evenly mb-4'>
 							<div className='row align-items-center mb-3'>
 								<div className='col-md-6 d-flex justify-content-evenly'>
-
 									{renderOccupationRadios(occupations, 'occupation', form, '1', 0)}
-
 								</div>
 
 								<div className='col-md-6'>
@@ -240,25 +240,26 @@ useEffect(() => {
 						</div>
 
 						<div className='row justify-content-evenly mb-4'>
-							<Select
-								className='col-md-4'
-								id={'organismo1'}
-								name={'child.parents[0].organismo.name'}
-								value={form.values.child.parents[0].organismo.name}
-								optionText={'Organismo'}
-								onChange={(e) => handleOrganismo(e.target.value)}
-								onBlur={form.handleBlur}
-								disabled={form.values.child?.parents?.[0]?.occupation !== 'trabajador'}
-								mapFunction={organismosToMap.map((organismo) => (
-									<option key={organismo._id} value={organismo.name}>
-										{organismo.name}
-									</option>
-								))}
-							/>
-							{form.errors.child?.parents?.[0]?.organismo &&
-									form.touched.child?.parents?.[0]?.organismo && (
-										<p className='text-danger'>{form.errors.child?.parents[0].organismo}</p>
-									)}
+							<div className='col-md-4'>
+								<Select
+									id={'organismo1'}
+									name={'child.parents[0].organismo.name'}
+									value={form.values.child.parents[0].organismo.name}
+									optionText={'Organismo'}
+									onChange={(e) => handleOrganismo(e.target.value)}
+									onBlur={form.handleBlur}
+									disabled={form.values.child?.parents?.[0]?.occupation !== 'trabajador'}
+									mapFunction={organismosToMap.map((organismo) => (
+										<option key={organismo._id} value={organismo.name}>
+											{organismo.name}
+										</option>
+									))}
+								/>
+								{form.errors.child?.parents?.[0]?.organismo && form.touched.child?.parents?.[0]?.organismo && (
+  <p className='text-danger'>{form.errors.child.parents[0].organismo.name}</p>
+)}
+
+							</div>
 
 							<div className='col-md-8 '>
 								<input

@@ -52,9 +52,6 @@ const Parent2Form = ({ form }) => {
 		handleParentsAdress()
 	}, [form.values.child.parents[1].convivencia]);
 
-	
-	console.log('parent2', form.values.child.parents[1])
-
 	return (
 		<div id='parent2'>
 			<hr className='text-secondary' />
