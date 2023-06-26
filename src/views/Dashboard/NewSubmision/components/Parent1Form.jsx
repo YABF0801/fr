@@ -53,8 +53,14 @@ const Parent1Form = ({ form }) => {
 			}
 			if (parent && parent?.occupation === 'trabajador') {
 				form.setFieldValue(`child.parents[0].workName`, form.initialValues.child.parents[0].workName);
-				form.setFieldValue(`child.parents[0].organismo.name`,form.initialValues.child.parents[0].organismo?.name);
-				form.setFieldValue(`child.parents[0].organismo.weight`,form.initialValues.child.parents[0].organismo?.weight);
+				form.setFieldValue(
+					`child.parents[0].organismo.name`,
+					form.initialValues.child.parents[0].organismo?.name
+				);
+				form.setFieldValue(
+					`child.parents[0].organismo.weight`,
+					form.initialValues.child.parents[0].organismo?.weight
+				);
 				form.setFieldValue(`child.parents[0].jobTitle`, form.initialValues.child.parents[0].jobTitle);
 				form.setFieldValue(`child.parents[0].workAddress`, form.initialValues.child.parents[0].workAddress);
 			}
@@ -79,7 +85,7 @@ const Parent1Form = ({ form }) => {
 		form.setFieldValue('child.parents[0].organismo.weight', organismo ? organismo?.weight : 0);
 	};
 
-	
+	console.log('other', form.values.child.parents[0].otherChildrenCenter);
 
 	return (
 		<div id='parent1'>
@@ -255,10 +261,10 @@ const Parent1Form = ({ form }) => {
 										</option>
 									))}
 								/>
-								{form.errors.child?.parents?.[0]?.organismo && form.touched.child?.parents?.[0]?.organismo && (
-  <p className='text-danger'>{form.errors.child.parents[0].organismo.name}</p>
-)}
-
+								{form.errors.child?.parents?.[0]?.organismo &&
+									form.touched.child?.parents?.[0]?.organismo && (
+										<p className='text-danger'>{form.errors.child.parents[0].organismo.name}</p>
+									)}
 							</div>
 
 							<div className='col-md-8 '>
@@ -349,21 +355,26 @@ const Parent1Form = ({ form }) => {
 									)}
 							</div>
 
-							<Select
-								className='col-md-4'
-								id={'otherChildrenCenter1'}
-								name={'child.parents[0].otherChildrenCenter'}
-								value={form.values.child.parents[0].otherChildrenCenter}
-								optionText={'Seleccione el círculo'}
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-								disabled={!form.values.child?.parents?.[0].otherChildrenInCi}
-								mapFunction={circulosToMap.map((circulo) => (
-									<option key={circulo._id} value={circulo.name}>
-										{circulo.name}
-									</option>
-								))}
-							/>
+							<div className='col-md-4'>
+								<Select
+									id={'otherChildrenCenter1'}
+									name={'child.parents[0].otherChildrenCenter'}
+									value={form.values.child.parents[0].otherChildrenCenter}
+									optionText={'Seleccione el círculo'}
+									onChange={form.handleChange}
+									onBlur={form.handleBlur}
+									disabled={!form.values.child?.parents?.[0].otherChildrenInCi}
+									mapFunction={circulosToMap.map((circulo) => (
+										<option key={circulo._id} value={circulo.name}>
+											{circulo.name}
+										</option>
+									))}
+								/>
+								{form.errors.child?.parents?.[0]?.otherChildrenCenter &&
+									form.touched.child?.parents?.[0]?.otherChildrenCenter && (
+										<p className='text-danger'>{form.errors.child.parents[0].otherChildrenCenter}</p>
+									)}
+							</div>
 
 							<div className='col-md-4 '>
 								<div className='form-check form-check-inline'>

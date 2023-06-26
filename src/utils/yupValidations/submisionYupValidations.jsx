@@ -139,23 +139,22 @@ export const SubmisionSchema = Yup.object().shape({
 						.required('Se requiere el cargo que ocupa'),
 					otherwise: Yup.string(),
 				}),
-        
-        organismo: Yup.object().when('occupation', {
-          is: 'trabajador',
-          then: Yup.object()
-            .shape({
-              name: Yup.string()
-                .required('Seleccione un elemento válido')
-                .notOneOf([''], 'Seleccione un elemento válido'),
-              weight: Yup.number().required('Seleccione un elemento válido')
-            })
-            .test('valid organismo', 'Seleccione un elemento válido', (value) => validateOrganismo(value)),
-          otherwise: Yup.object().shape({
-            name: Yup.string(),
-            weight: Yup.number()
-          })
-        }),
 
+				organismo: Yup.object().when('occupation', {
+					is: 'trabajador',
+					then: Yup.object()
+						.shape({
+							name: Yup.string()
+								.required('Seleccione un elemento válido')
+								.notOneOf([''], 'Seleccione un elemento válido'),
+							weight: Yup.number().required('Seleccione un elemento válido'),
+						})
+						.test('valid organismo', 'Seleccione un elemento válido', (value) => validateOrganismo(value)),
+					otherwise: Yup.object().shape({
+						name: Yup.string(),
+						weight: Yup.number(),
+					}),
+				}),
 
 				salary: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
 
@@ -168,9 +167,12 @@ export const SubmisionSchema = Yup.object().shape({
 						then: Yup.number().test('salary', 'Escriba un número válido', (value) => naturalNumber(value)),
 					}),
 
-				otherChildrenCenter: Yup.string().optional().when('otherChildrenInCi', {
+				otherChildrenCenter: Yup.string().when('otherChildrenInCi', {
 					is: true,
-					then: Yup.string(),
+					then: Yup.string()
+						.notOneOf(['0'], 'Seleccione un elemento válido')
+						.required('Se requiere el centro'),
+					otherwise: Yup.string(),
 				}),
 
 				pregnant: Yup.boolean(),
