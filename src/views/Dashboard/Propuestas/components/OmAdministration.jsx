@@ -200,20 +200,25 @@ const OmAdministration = () => {
 	function GenerarNew() {
 		return (
 			<div className='mt-3 d-flex justify-content-center align-items-center flex-column'>
-				<h4 className='om-text-start text-secondary p-2'>
-					Durante esta etapa del proceso, puede generar nuevas propuestas <br></br>
-					tantas veces como lo necesites para aquellas que fueron rechazadas.
+				<p className='text-secondary'>Durante esta etapa del proceso puede</p>
+				<h4 className='om-text-start text-secondary pt-2'>
+					1. Generar nuevas propuestas tantas veces como lo necesites para aquellas que fueron rechazadas.
 				</h4>
-				<p className='text-secondary'>
-					Puede evaluarlas nuevamente y tomar la decisión de aceptar o rechazar estas nuevas propuestas.
+				<h4 className='om-text-start text-secondary pb-2'>
+					2. Evaluarlas nuevamente y tomar la decisión de aceptar o rechazar estas nuevas propuestas.
+				</h4>
+				<p className='text-secondary p-2'>
+					Tiene la opción de saltar este paso y avanzar directamente hacia la finalización del proceso si
+					considera que ya está completo.
 				</p>
+
 				<div className='d-flex justify-content-center align-items-center d-flex-inline gap-4'>
-				<a type='button' id='generar-btn' className='btn prop-btn' onClick={handleGenerateProps}>
-					Generar propuesta
-				</a>
-				<a type='button' id='generar-btn' className='btn save-btn' onClick={handleSkip}>
-					Saltar
-				</a>
+					<a type='button' id='generar-btn' className='btn prop-btn' onClick={handleGenerateProps}>
+						Generar propuesta
+					</a>
+					<a type='button' id='generar-btn' className='btn save-btn' onClick={handleSkip}>
+						Saltar
+					</a>
 				</div>
 			</div>
 		);
@@ -222,16 +227,21 @@ const OmAdministration = () => {
 	function Finalizar() {
 		return (
 			<div className='d-flex justify-content-center align-items-center flex-column'>
-				<p className='p-3'>y por ultimo finalizamos</p>
+				<h3 className='p-2'>El proceso ha llegado a su fin</h3>
+				<h4 className='om-text-start text-secondary p-2'>
+					Al hacer clic en el botón Finalizar, se restablecerá la fecha establecida para este otorgamiento{' '}
+					<br></br>Además, todas las propuestas pendientes{' '}
+					de aprobación serán rechazadas, lo que marcará el fin del proceso de otorgamiento
+				</h4>
+				<p className='text-secondary p-2'>Podrá establecer la fecha para el próximo otorgamiento en la pestaña de administración </p>
 				<div className='d-flex justify-content-center align-items-center d-flex-inline gap-4'>
-				<a type='button' id='generar-btn' className='btn save-btn' onClick={handleBack}>
-					Atrás
-				</a>
-				<a type='button' id='finalizar-btn' className='btn prop-btn' onClick={confirmFinalizarOms}>
-					Finalizar
-				</a>
+					<a type='button' id='generar-btn' className='btn save-btn' onClick={handleBack}>
+						Atrás
+					</a>
+					<a type='button' id='finalizar-btn' className='btn prop-btn' onClick={confirmFinalizarOms}>
+						Finalizar
+					</a>
 				</div>
-				
 			</div>
 		);
 	}
