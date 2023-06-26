@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
-import { GENERAL_LIST } from '../../../../core/config/routes/paths';
+// import { GENERAL_LIST } from '../../../../core/config/routes/paths';
 import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
@@ -24,7 +24,7 @@ const PropuestasListTable = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
 	const { isAuthenticated } = useAuthContext();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	useEffect(() => {
 		if (queryContadorPropGeneradas.data !== 0 && queryContadorCambioCurso.data === 0){
