@@ -18,7 +18,6 @@ const Select = ({ className, id, name, value, label, optionText, onChange, onBlu
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled || false}
-        onInvalid={lol}
       >
         <option className='text-center' value='0'>
           {optionText}
