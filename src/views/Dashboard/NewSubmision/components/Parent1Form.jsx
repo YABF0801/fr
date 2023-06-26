@@ -124,8 +124,8 @@ useEffect(() => {
 									)}
 							</div>
 
-							<Select
-								className='col-md-2'
+							<div className='col-md-2'>
+								<Select
 								id={'typeParent1'}
 								name={'child.parents[0].typeParent'}
 								value={form.values.child?.parents[0].typeParent}
@@ -138,6 +138,11 @@ useEffect(() => {
 									</option>
 								))}
 							/>
+							{form.errors.child?.parents?.[0]?.typeParent &&
+									form.touched.child?.parents?.[0]?.typeParent && (
+										<p className='text-danger'>{form.errors.child?.parents[0].typeParent}</p>
+									)}
+							</div>
 
 							<div className='col-md-3 '>
 									{renderSwitchSelect(
@@ -250,6 +255,10 @@ useEffect(() => {
 									</option>
 								))}
 							/>
+							{form.errors.child?.parents?.[0]?.organismo &&
+									form.touched.child?.parents?.[0]?.organismo && (
+										<p className='text-danger'>{form.errors.child?.parents[0].organismo}</p>
+									)}
 
 							<div className='col-md-8 '>
 								<input

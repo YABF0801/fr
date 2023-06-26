@@ -31,7 +31,7 @@ export const submisionInitialValues = (submision) => {
 					name: ''
 					},
 				matriculaDate: '',
-				latlng: submision ? submision.child.latlng : null,
+				latlng: submision ? submision.child.latlng : [],
 
 				parents: [
 					{

@@ -101,8 +101,8 @@ const Parent2Form = ({ form }) => {
 							</div>
 
 							
+							<div className='col-md-2'>
 							<Select
-								className='col-md-2'
 								id={'typeParent2'}
 								name={'child.parents[1].typeParent'}
 								value={form.values.child?.parents?.[1]?.typeParent}
@@ -115,6 +115,12 @@ const Parent2Form = ({ form }) => {
 									</option>
 								))}
 							/>
+							{form.errors.child?.parents?.[1]?.typeParent &&
+									form.touched.child?.parents?.[1]?.typeParent && (
+										<p className='text-danger'>{form.errors.child?.parents[1].typeParent}</p>
+									)}
+							</div>
+						
 						
 						</div>
 

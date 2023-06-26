@@ -63,5 +63,11 @@ export const CirculoSchema = Yup.object().shape({
 		.required('Se requiere el % de asistencia')
 		.test('attendance', 'Escriba un valor entre 0 y 100', (value) => validateAttendance(value)),
 
-	latlng: Yup.array().required('La ubicación es requerida'),
+		latlng: Yup.array()
+		.required('Seleccione la ubicación')
+		.test(
+		  'valid location',
+		  'Seleccione la ubicación en el mapa',
+		  (value) => value !== null && value.length > 0
+		),
 });

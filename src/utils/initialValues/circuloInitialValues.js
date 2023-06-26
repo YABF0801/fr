@@ -15,7 +15,7 @@ export const circuloInitialValues = (circulo) => {
         attendance4: circulo ? circulo.attendance4 : 0,
         attendance5: circulo ? circulo.attendance5 : 0,
         attendance6: circulo ? circulo.attendance6 : 0,
-        latlng: circulo ? circulo.latlng : null,
+        latlng: circulo ? circulo.latlng : [],
         isCiActive: circulo ? circulo.isCiActive : true,
         curso: circulo ? circulo.curso : now,
         };

@@ -54,11 +54,11 @@ export const SubmisionSchema = Yup.object().shape({
 
 		neighborhood: Yup.string().optional(),
 
-    cPopular: Yup.string().notOneOf(['0'], 'Se requiere el Consejo Popular').required('Se requiere el Consejo Popular'),
+    cPopular: Yup.string().notOneOf(['0'], 'Se requiere el Consejo Popular')
+    .required('Se requiere el Consejo Popular'),
   
-		municipality: Yup.string()
-			.required('Se requiere el municipio')
-			.test('valid select', 'Seleccione un elemento valido', (value) => value !== 0 && value !== '0'),
+		municipality: Yup.string().notOneOf(['0'], 'Seleccione un elemento válido')
+		.required('Se requiere el municipio'),
 
 		province: Yup.string(),
 
@@ -66,9 +66,16 @@ export const SubmisionSchema = Yup.object().shape({
 			_id: Yup.string(),
 			name: Yup.string(),
 		}),
+
     matriculaDate: Yup.string().optional(),
     
-		latlng: Yup.array(),
+    latlng: Yup.array()
+    .required('Seleccione la ubicación')
+    .test(
+      'valid location',
+      'Seleccione la ubicación en el mapa',
+      (value) => value !== null && value.length > 0
+    ),
 
 	  parents: Yup.array().of(
 	    Yup.object().shape({
@@ -85,7 +92,8 @@ export const SubmisionSchema = Yup.object().shape({
     
                 uniqueParent: Yup.boolean(),
     
-                typeParent: Yup.string(),
+                typeParent: Yup.string().notOneOf(['0'], 'Seleccione un elemento válido')
+                .required('Seleccione un elemento válido'),
     
                 convivencia: Yup.boolean(),
     
@@ -136,14 +144,13 @@ export const SubmisionSchema = Yup.object().shape({
                       .shape({
                         name: Yup.string(),
                         weight: Yup.number(),
-                      })
-                      .required('Se requiere un organismo'),
-                      otherwise: Yup.object().shape({
+                      }),
+                       otherwise: Yup.object().shape({
                         name: Yup.string(),
                         weight: Yup.number(),
                       })
                   }),
-    
+ 
     
                 salary: Yup.number().test('salary', 'Escriba un número válido', (value) =>
                   naturalNumber(value)
@@ -164,7 +171,7 @@ export const SubmisionSchema = Yup.object().shape({
                   .optional()
                   .when('otherChildrenInCi', {
                     is: true,
-                    then: Yup.string().required('Seleccione un círculo'),
+                    then: Yup.string(),
                   }),
     
                 pregnant: Yup.boolean(),

@@ -290,9 +290,13 @@ function CirculoForm({ circulo, showAttendance,  onHideForm  }) {
 							position={circulo?.latlng} 
 							markerIcon={ciIcon} 
 							handleLatlngChange={handleLatlngChange}  />
+							{form.errors.latlng && form.touched.latlng && (
+									<p className='text-danger'>{form.errors.latlng}</p>)}
 							
 							</div>
 						</div>
+
+
 
 						<article className=' m-4 d-flex w-100 justify-content-center align-items-center gap-5'>
 							<a href='#topCirculos' className='btn cancel-btn' onClick={form.handleReset}>
