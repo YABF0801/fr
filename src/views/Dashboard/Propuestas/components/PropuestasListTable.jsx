@@ -27,12 +27,12 @@ const PropuestasListTable = () => {
 	// const navigate = useNavigate();
 
 	useEffect(() => {
-		if (queryContadorPropGeneradas.data !== 0 && queryContadorCambioCurso.data === 0){
-			setBotonAceptar(false)
-		} else {
+		if (queryContadorCambioCurso.data === 0){
 			setBotonAceptar(true)
+		} else {
+			setBotonAceptar(false)
 		}
-	}, [queryContadorPropGeneradas.data, queryContadorCambioCurso.data]);
+	}, [queryContadorCambioCurso.data]);
 
 	useEffect(() => {
 		setPropuestasLocal(queryPropuestas.data);
@@ -202,7 +202,7 @@ const PropuestasListTable = () => {
 									Exportar
 								</button>
 
-								<button onClick={confirmAceptar} className='btn prop-btn' disabled={!botonAceptar}>
+								<button onClick={confirmAceptar} className='btn prop-btn' disabled={botonAceptar}>
 									Aceptar propuestas
 								</button>
 							</div>

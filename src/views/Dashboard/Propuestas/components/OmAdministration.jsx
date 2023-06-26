@@ -25,7 +25,6 @@ const OmAdministration = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isDateArrived, setisDateArrived] = useState(false);
 	const [activeStep, setActiveStep] = useState(0);
-
 	const fechaActual = new Date();
 
 	useEffect(() => {
@@ -120,18 +119,43 @@ const OmAdministration = () => {
 
 	function Comezar() {
 		return (
-			<div className="d-flex justify-content-center align-items-center flex-column">
-				<p className='p-3'>vammos a probaar a comenzaar un otorgamiento aqui ccon un botoncito en un ccopoonete</p>
+			<div className='d-flex justify-content-center align-items-center flex-column'>
+				{!botonComenzar && (
+					<>
+						<h4 className='om-text-start text-secondary p-2'>
+							Una vez que llegue la fecha del otorgamiento masivo se habilitará un botón para que inicie
+							el proceso.
+						</h4>
+						<p className='text-secondary'>Puede establecer la fecha en la pestaña de administración</p>
+					</>
+				)}
+
 				{botonComenzar && (
-					<a
-						href='#prop-list'
-						type='button'
-						id='generar-btn'
-						className='btn prop-btn'
-						onClick={handleGenerateProps}
-					>
-						Comenzar
-					</a>
+					<div className='col-10 mt-3 d-flex justify-content-center align-items-center flex-column'>
+						<h3>Bienvenido al proceso de otorgamiento masivo</h3>
+						<p className='text-secondary'>
+							La fecha establecida ha llegado, ahora puede dar inicio al proceso para generar propuestas
+							de asignación de matrículas.
+						</p>
+						<h4 className='om-text-start text-secondary p-2'>
+							Al hacer click en el botón Comenzar se procesarán todas las planillas pendientes que{' '}
+							<br></br>
+							fueron guardadas para el otorgamiento masivo (OM) anteriores a la fecha establecida.
+						</h4>
+
+						<p className='text-secondary'>
+							Nota: Una vez comenzado no podrá modificar la fecha hasta el final.
+						</p>
+						<a
+							href='#prop-list'
+							type='button'
+							id='generar-btn'
+							className='btn prop-btn'
+							onClick={handleGenerateProps}
+						>
+							Comenzar
+						</a>
+					</div>
 				)}
 			</div>
 		);
@@ -139,15 +163,31 @@ const OmAdministration = () => {
 
 	function CambioCurso() {
 		return (
-			<div className="d-flex justify-content-center align-items-center flex-column">
-				<p className='p-3'>ahora lo mismo para el cambio de curso aca</p>
-				<a
-					type='button'
-					id='cambio-btn'
-					onClick={confirmCambioDeCurso}
-					className='btn prop-btn'
-				>
-					Cambio de Curso
+			<div className='mt-3 d-flex justify-content-center align-items-center flex-column'>
+				<p className='text-secondary'>
+					Se han procesado y análizado los datos de las planillas y la información de los círculos infantiles
+					para generar propuestas de matrículas que podrá encontrar abajo en una tabla.
+				</p>
+
+				<h3>
+					Para aceptar o rechazar las propuestas primero debe hacer click en el botón Cambio de curso.
+				</h3>
+
+				<h4 className='om-text-start text-secondary p-2'>
+					El cambio de curso modificará la base de datos moviendo las matrículas de los círculos al año
+					superior y cambiará el año de vida en la planilla de los niños matriculados.{' '}
+				</h4>
+
+				<p className='text-secondary'>
+					Las propuestas aceptadas pasarán a ser matrícula del círculo asignado mientras que las propuestas
+					rechazadas volverán a su estado anterior
+				</p>
+				<a 
+				type='button' 
+				id='cambio-btn' 
+				onClick={confirmCambioDeCurso} 
+				className='btn prop-btn'>
+					Cambio de curso
 				</a>
 			</div>
 		);
@@ -155,14 +195,9 @@ const OmAdministration = () => {
 
 	function GenerarNew() {
 		return (
-			<div className="d-flex justify-content-center align-items-center flex-column">
+			<div className='d-flex justify-content-center align-items-center flex-column'>
 				<p className='p-3'>ahora lo mismo para el cambio de curso aca</p>
-				<a
-					type='button'
-					id='generar-btn'
-					className='btn prop-btn'
-					onClick={handleGenerateProps}
-				>
+				<a type='button' id='generar-btn' className='btn prop-btn' onClick={handleGenerateProps}>
 					Generar propuesta
 				</a>
 			</div>
@@ -171,14 +206,9 @@ const OmAdministration = () => {
 
 	function Finalizar() {
 		return (
-			<div className="d-flex justify-content-center align-items-center flex-column">
+			<div className='d-flex justify-content-center align-items-center flex-column'>
 				<p className='p-3'>y por ultimo finalizamos</p>
-				<a
-					type='button'
-					id='finalizar-btn'
-					className='btn prop-btn'
-					onClick={confirmFinalizarOms}
-				>
+				<a type='button' id='finalizar-btn' className='btn prop-btn' onClick={confirmFinalizarOms}>
 					Finalizar
 				</a>
 			</div>
@@ -186,10 +216,10 @@ const OmAdministration = () => {
 	}
 
 	const steps = [
-		{ label: 'Comenzar ' , tooltip: 'Comenzar otorgamiento'},
-		{ label: 'Cambio de curso' , tooltip: 'Cambio de Curso'},
-		{ label: 'Generar nuevas' , tooltip: 'Generar nuevas propuestas'},
-		{ label: 'Finalizar' , tooltip: 'Finalizar otorgamiento'},
+		{ label: 'Comenzar ', tooltip: 'Comenzar otorgamiento' },
+		{ label: 'Cambio de curso', tooltip: 'Cambio de Curso' },
+		{ label: 'Generar nuevas', tooltip: 'Generar nuevas propuestas' },
+		{ label: 'Finalizar', tooltip: 'Finalizar otorgamiento' },
 	];
 
 	function getSectionComponent() {
@@ -212,21 +242,18 @@ const OmAdministration = () => {
 				<div className='card-body '>
 					<h2 className='text-center p-3'>Proceso de otorgamiento masivo</h2>
 					<div>
-						<CustomStepper 
-							activeStep={activeStep}
-							steps={steps}		
-						/>
+						<CustomStepper activeStep={activeStep} steps={steps} />
 
-				
 						<div style={{ padding: '20px' }}>
 							{getSectionComponent()}
+
 							<div className='p-5 d-flex d-flex-inline justify-content-center'>
-								{activeStep !== 0 && activeStep !== steps.length  && (
+								{activeStep !== 0 && activeStep !== steps.length && (
 									<button className='cancel-btn' onClick={() => setActiveStep(activeStep - 1)}>
 										Previous
 									</button>
 								)}
-								{activeStep !== steps.length -1 && (
+								{activeStep !== steps.length - 1 && (
 									<button className='save-btn' onClick={() => setActiveStep(activeStep + 1)}>
 										Next
 									</button>
