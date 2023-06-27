@@ -19,7 +19,7 @@ const Select = ({ className, id, name, value, label, optionText, onChange, onBlu
         onBlur={onBlur}
         disabled={disabled || false}
       >
-        <option className='text-center' value='0'>
+        <option value='0'>
           {optionText}
         </option>
         {mapFunction}

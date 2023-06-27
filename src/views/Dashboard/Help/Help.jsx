@@ -13,160 +13,183 @@ const Help = () => {
 					</div>
 				</div>
 				<div className='timeline-page mt-5'>
-					{/*    Nuevas solicitudes de matrícula */}
+
 					<div className='timeline-item'>
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
-									{/*   PONER CAPTURA DE PANTALLA DE FORM */}
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar1.png'
+									<img
+										src='../../../../public/planillas.png'
 										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
+										className='col-11 card-form'
+									/> 
 								</div>
 							</div>
-							<div className='col-lg-6'>
+							<div className='col-lg-6 '>
 								<div className='works works-description-right'>
 									<h4>Nuevas solicitudes de matrícula</h4>
-									<p className='timeline-subtitle'>
-										Para registrar una Nueva Solicitud haga click en el ícono
-										<i className='bi bi-plus-lg'></i> que se encuentra en la barra de navegación, a
-										continuación llene el formulario con todos los datos requeridos y guarde.
-										Recibirá una confirmación de guardado junto con el número de entrada
+									<p className=' timeline-subtitle'>
+										Para registrar una Nueva Solicitud haga click en el ícono {''}
+										<i className='bi bi-file-earmark-text'></i> que se encuentra en la barra de navegación. Encontrará una tabla con
+										el listado de las planillas y un botón para crear una nueva que le mostrará el formulario a llenar. También 
+										tendrá acceso a varios botones que le permitirán filtrar, editar, eliminar y dar baja de la matrícula
+										a las planillas guardadas. 
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					{/*  Consultar Datos de los niños */}
 					<div className='timeline-item'>
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='works works-description-left'>
-									<h4>Consultar Datos de los niños</h4>
-									<p className='timeline-subtitle'>
-										Para consultar información guardada de las planillas de cada niño, con solictud
-										pendiente o matrículado, haga click en el ícono <i className='bi bi-files'></i>
-										que se encuentra en la barra de navegación. Se le mostrará un listado general
-										con las opciones de búsqueda y ordenar cada columna de la tabla
-									</p>
-								</div>
-							</div>
-							<div className='col-lg-6'>
-								<div className='duration duration-right '>
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar6.png'
-										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
-								</div>
-							</div>
-						</div>
-					</div>
-
-					{/* Estadísticas */}
-					<div className='timeline-item'>
-						<div className='row'>
-							<div className='col-lg-6'>
-								<div className='duration date-label-left'>
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar7.png'
-										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
-								</div>
-							</div>
-							<div className='col-lg-6'>
-								<div className='works works-description-right'>
-									<h4>Estadísticas</h4>
+								<h4>Estadísticas</h4>
 									<p className='timeline-subtitle'>
 										Para consultar información estadística puede dirigirse a la barra de navegación
 										en el ícono <i className='bi bi-bar-chart-fill'></i> para tener acceso a las
-										gráficas y otros datos de su interés
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					{/* Consultar y agregar datos de los círculos */}
-					<div className='timeline-item'>
-						<div className='row'>
-							<div className='col-lg-6'>
-								<div className='works works-description-left'>
-									<h4>Consultar y agregar datos de los círculos</h4>
-									<p className='timeline-subtitle'>
-										Para consultar los datos básicos de los círculos infantiles haga click en el
-										ícono <i className='bi bi-house-gear'></i> que puede encontrar en la barra de
-										navegación. Se le mostrará un listado con la información y un botón con la
-										opción de agregar un nuevo cículo para lo que tendrá que completar un formulario
-										con los datos requeridos
+										gráficas y otros datos de su interés.
 									</p>
 								</div>
 							</div>
 							<div className='col-lg-6'>
 								<div className='duration duration-right '>
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar6.png'
+								<img
+										src='../../../../public/stats.png'
 										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
+										className='col-11 card-form'
+									/> 
 								</div>
 							</div>
 						</div>
 					</div>
 
-					{/* Consultar y agregar datos de los organismos */}
 					<div className='timeline-item'>
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar7.png'
+								<img
+										src='../../../../public/circulos-list.png'
 										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
+										className='col-11 card-form'
+									/> 
 								</div>
 							</div>
 							<div className='col-lg-6'>
 								<div className='works works-description-right'>
-									<h4>Consultar y agregar datos de los organismos</h4>
-									<p className='timeline-subtitle'>
-										Para ver la información guardada de los organismos puede hacer click en el ícono
-										<i className='bi bi-building-gear'></i> en la barra de navegación. Se le
-										mostrará un listado con el nombre y la descripción y un botón con la opción de
-										agregar un nuevo organismo para lo que tendrá que completar un formulario con
-										los datos requeridos y especificar si es priorizado
+									<h4>Consultar y agregar datos de los cículos</h4>
+									<p className='timeline-subtitle '>
+										Para consultar y administrar los datos de los círculos infantiles puede dirigirse 
+										ícono <i className='bi bi-house-gear'></i> en la barra de navegación que le mostrará un 
+										listado con la información le dará acceso crear, editar y filtrar los datos.
+										Aquí tendrá además un botón para calcular y mostrar la proyección de matrículas para el próximo curso
+										y otro para ver los datos históricos de las matrículas de los últimos años.
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					{/*  GENERAR PROPUESTAS */}
+
+					<div className='timeline-item'>
+						<div className='row'>
+							<div className='col-lg-6'>
+								<div className='works works-description-left'>
+									<h4>Consultar y agregar datos de los organismos</h4>
+									<p className='timeline-subtitle'>
+										Para ver la información guardada de los organismos puede hacer click en el ícono {''}
+										<i className='bi bi-building-gear'></i> en la barra de navegación. 
+										<br></br> Se le mostrará un listado con el nombre y la descripción y un botón 
+										<br></br> con la opción de agregar un nuevo organismo donde puede especificar si es priorizado.
+									</p>
+								</div>
+							</div>
+							<div className='col-lg-6'>
+								<div className='duration duration-right '>
+								<img
+										src='../../../../public/organ.png'
+										alt=''
+										className='col-11 card-form'
+									/> 
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div className='timeline-item'>
+						<div className='row'>
+							<div className='col-lg-6' >
+								<div className='duration date-label-left'>
+									<  div className='d-flex'>
+								<img
+										src='../../../../public/fecha.png'
+										alt=''
+										className='col-5 card-form'
+										style={{height:'150px'}}
+									/> 
+									<img
+										src='../../../../public/curso.png'
+										alt=''
+										className='col-5 card-form'
+									/> </div>
+									<  div className='d-flex'>
+									<img
+										src='../../../../public/cons.png'
+										alt=''
+										className='col-5 card-form'
+									/> 
+										<img
+										src='../../../../public/cpop.png'
+										alt=''
+										className='col-5 card-form'
+										style={{height:'170px'}}
+									/> </div>
+									
+								</div>
+							</div>
+							<div className='col-lg-6'>
+								<div className='works works-description-right'>
+									<h4>Administración</h4>
+									<p className='timeline-subtitle'>
+										En el ícono {''}<i className='bi bi-gear-fill'></i> de la barra de navegación podrá acceder
+										a la administración de los usuarios y otros datos generales. 
+										<br></br>
+										Podrá establecer el curso actual, la fecha del
+										próximo otorgamiento, administrar el listado de consejos populares y resetear el número consecutivo de las planillas.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div className='timeline-item'>
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='works works-description-left'>
 									<h4>Generar propuestas de matrícula para otorgamiento masivo</h4>
 									<p className='timeline-subtitle'>
-										Para ver las propuestas de nuevas matrículas para la etapa de otorgamiento
-										masivo puede encontrar un botón abajo a la derecha del listado general. Generará
-										las propuestas y activará una nueva pantalla en la que se mostrarán en un
-										listado. Puede accceder a esta pantalla en el nuevo ícono{' '}
-										<i className='bi bi-ui-checks'></i>
+										Para comenzar el proceso de otorgamiento
+										masivo puede encontrar un ícono {''} <i className='bi-list-task'/> en la barra de navegación. 
+										<br></br> Cuando llegue la fecha establecida se mostrará un botón para comenzar. 
+										Siga las instrucciones y los pasos para generar las propuestas que obtendrá en un listado en el 
+										que podrá seleccionar cuales serán aprobadas o rechazadas.
+
 									</p>
 								</div>
 							</div>
 							<div className='col-lg-6'>
 								<div className='duration duration-right '>
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar6.png'
+								<img
+										src='../../../../public/om.png'
 										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
+										className='col-10 card-form'
+									/>
+								<img
+										src='../../../../public/otorg.png'
+										alt=''
+										className='col-12 card-form'
+									/>
 								</div>
 							</div>
 						</div>
@@ -177,22 +200,20 @@ const Help = () => {
 						<div className='row'>
 							<div className='col-lg-6'>
 								<div className='duration date-label-left'>
-									{/* <img
-										src='https://bootdey.com/img/Content/avatar/avatar7.png'
+								<img
+										src='../../../../public/prop.png'
 										alt=''
-										className='img-fluid rounded-circle'
-									/> */}
+										className='col-12 card-form'
+									/>
 								</div>
 							</div>
 							<div className='col-lg-6'>
 								<div className='works works-description-right'>
 									<h4>Aprobar propuestas de matrícula para otorgamiento masivo</h4>
 									<p className='timeline-subtitle'>
-										Para aprobar las propuestas de nuevas matrículas generadas diríjase a la nueva
-										página donde se muestra el listado a través del ícono{' '}
-										<i className='bi bi-ui-checks'></i> en la barra de navegación. Seleccione las
-										que fueron aceptadas por la Comisión de Otrogamiento y presione el botón aceptar
-										que econtrará abajo a la derecha.
+										Para aprobar las propuestas de nuevas matrículas generadas diríjase al listado que muestra las propuestas, 
+										seleccione las que serán aprobadas y haga click en el botón Aceptar propuestas para ver sus opciones. 
+										Las propuestas aprobadas pasarán a ser matrícula y las rechazadas volverán a su estado pendiente.
 									</p>
 								</div>
 							</div>
