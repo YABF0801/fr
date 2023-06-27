@@ -41,7 +41,7 @@ const GeneralListTable = () => {
 		if (selectedFilters.length > 0 || selectedDate) {
 			const filteredSubmissions = querySubmision.data.filter((submision) =>
 				filterOption === 'includes'
-					? (new Date(submision.createdAt) >= selectedDate || selectedFilters.includes(submision.status)) ||
+					? new Date(submision.createdAt) >= selectedDate && selectedFilters.includes(submision.status) ||
 					  selectedFilters.includes(submision.child.sex) ||
 					  (selectedFilters.includes('socialCase') && submision.socialCase === true)
 					: new Date(submision.createdAt) >= selectedDate &&

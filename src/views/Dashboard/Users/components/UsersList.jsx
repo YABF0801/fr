@@ -138,9 +138,9 @@ const UsersList = () => {
 							)}
 						</div>
 					</div>
-					<div className='m-5'>
+					{/* <div className='m-5'>
 						<p className='text-start text-secondary t mt-2'>Cantidad de planillas creadas por usuarios</p>
-						<div className='legend-bar-container'>
+						 <div className='legend-bar-container'>
 							{Object.entries(countByUser).map(([user, count], index) => (
 								<div
 									key={user}
@@ -155,8 +155,8 @@ const UsersList = () => {
 									</p>
 								</div>
 							))}
-						</div>
-					</div>
+						</div> 
+					</div> */}
 				</div>
 
 				<div className='col-3 mt-5'>
