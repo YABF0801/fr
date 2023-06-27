@@ -89,3 +89,13 @@ export const consejosApiDelete = async (id) => {
 		handleToastyError(error)
 	}
 };
+
+export const finalizar = async () => {
+	try {
+		await resetContadores();
+		await resetToolsArrays();
+		await resetFechaOm();
+	} catch (error) {
+		handleToastyError(error)
+	}
+};

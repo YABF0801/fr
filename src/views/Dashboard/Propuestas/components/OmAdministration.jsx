@@ -21,7 +21,7 @@ const OmAdministration = () => {
 		nuevoCurso,
 		resetearFecha,
 		resetAllContadores,
-		resetArrays,
+		finalizarOm,
 	} = useOtorgamientoContext();
 
 	const [botonComenzar, setBotonComenzar] = useState(false);
@@ -158,9 +158,7 @@ const OmAdministration = () => {
 	};
 
 	const handleFinalizar = async () => {
-		await resetAllContadores.mutate();
-		await resetearFecha.mutate();
-		await resetArrays.mutate();
+		await finalizarOm.mutate();
 		await handleRechazarTodo();
 		await setContadorGp(0);
 	};

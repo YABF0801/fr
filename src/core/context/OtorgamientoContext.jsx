@@ -10,6 +10,7 @@ import {
 	resetContadores,
 	resetToolsArrays,
 	getContadorAcept,
+	finalizar,
 } from '../../utils/utiles.sevices';
 import { nuevoCursoApi } from '../../views/Dashboard/Circulos/service/circulo.services';
 import { consecustiveApiReset } from '../../views/Dashboard/GeneralList/service/submision.services';
@@ -36,6 +37,14 @@ export const OtorgamientoProvider = ({ children }) => {
 		},
 	});
 
+	const finalizarOm = useMutation({
+		mutationFn: finalizar,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['fecha'] });
+			queryClient.invalidateQueries({ queryKey: ['contadorgp'] });
+		},
+	});
+
 	const resetearFecha = useMutation({
 		mutationFn: resetFechaOm,
 		onSuccess: () => {
@@ -50,12 +59,12 @@ export const OtorgamientoProvider = ({ children }) => {
 		},
 	});
 
-	const resetArrays = useMutation({
-		mutationFn: resetToolsArrays,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['arrays'] });
-		},
-	});
+	// const resetArrays = useMutation({
+	// 	mutationFn: resetToolsArrays,
+	// 	onSuccess: () => {
+	// 		queryClient.invalidateQueries({ queryKey: ['arrays'] });
+	// 	},
+	// });
 
 	const nuevoCurso = useMutation({
 		mutationFn: nuevoCursoApi,
@@ -84,7 +93,8 @@ export const OtorgamientoProvider = ({ children }) => {
 			resetearFecha,
 			resetAllContadores,
 			nuevoCurso,
-			resetArrays,
+			finalizarOm,
+			// resetArrays,
 			resetearConsecutivo
 		}),
 		[queryFechaOm, queryContadorCambioCurso, queryContadorPropGeneradas, queryContadorPropAceptadas]
