@@ -18,6 +18,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	const [showParent2Form, setShowParent2Form] = useState(false);
 	const [isOs, setIsOs] = useState(false);
 	const [matricular, setMatricular] = useState(false);
+	const [isBaja, setIsBaja] = useState(false);
 	const [circulosToMap, setCirculosToMap] = useState([]);
 	const [selectedCirculoOs, setSelectedCirculoOs] = useState('');
 
@@ -50,6 +51,14 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	useEffect(() => {
 		if (submision) {
 			formik.setValues(submision);
+		}
+	}, [submision]);
+
+	useEffect(() => {
+		if (submision && submision.status === 'baja' || submision.status === 'propuesta') {
+			setIsBaja(true)
+		} else {
+			setIsBaja(false)
 		}
 	}, [submision]);
 
@@ -134,8 +143,9 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 					<h2 className='text-center mt-5 p-3'>Nueva solicitud</h2>
 				)}
 
-				<div className='card'>
-					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={formik.handleSubmit}>
+				<div className= 'card ' >
+					<form className='f-modal p-3 gap-3 justify-content-between ' onSubmit={formik.handleSubmit} >
+						<div className={isBaja ? ' disable-div' : ' '}>
 						{/* SUBMISION DATA */}
 						<SubmisionForm form={formik} submision={submision || formik.initialValues} />
 
@@ -150,7 +160,7 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 
 						{isOs && (
 							<div className='row mt-4 justify-content-center'>
-						<div className='text-info col-8'>
+						<div className='text-warning col-8'>
 							
 
 						<p >Al guardarse como otorgamiento sistemático, esta planilla no será tomada en cuenta
@@ -177,12 +187,15 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 								</div>
 										</>
 							)} 
-							
+							</div>
+
+						</div>
+<div className='pb-3 gap-3 d-flex justify-content-center '>
 							<a href='#top' className='btn cancel-btn' onClickCapture={formik.handleReset}>
 								Cancelar
 							</a>
 
-							{matricular ? (
+							{!isBaja && (matricular ? (
 							<a href='#top' className='btn save-btn'  
 							onClick={()=>handleMatManual()}
 							>
@@ -194,8 +207,8 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 								{submision ? 'Actualizar' : 'Guardar'}
 							</button>
 							)
-							}
-						</div>
+							)}
+							</div>
 					</form>
 				</div>
 			</div>

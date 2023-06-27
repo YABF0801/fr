@@ -26,7 +26,7 @@ export const submisionInitialValues = (submision) => {
 				municipality: submision ? submision.child.municipality : '',
 				province: submision ? submision.child.province : '',
 
-		/**/	circulo: submision ? submision.child.circulo.name: {
+		/**/	circulo: submision ? submision.child?.circulo?.name: {
 					_id: '',
 					name: ''
 					},

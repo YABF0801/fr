@@ -8,6 +8,7 @@ import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { exportExcel } from '../../../../utils/Export';
+import SubmisionForm from '../../NewSubmision/components/SubmisionWizard';
 import PropuestasListColumns from './PropuestasListColumns';
 
 const PropuestasListTable = ({botonAceptar}) => {
@@ -18,6 +19,9 @@ const PropuestasListTable = ({botonAceptar}) => {
 	const [searchData, setSearchData] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
+	const [selectedSubmision, setSelectedSubmision] = useState(null);
+	const [showForm, setShowForm] = useState(false);
+	const [hideData, setHideData] = useState(true);
 	const { isAuthenticated } = useAuthContext();
 
 
@@ -91,6 +95,22 @@ const PropuestasListTable = ({botonAceptar}) => {
 		setPropuestasLocal(elements);
 	};
 
+	const seeSubmision = (id) => {
+		const submision = propuestasLocal.find((item) => item._id === id);
+		if (submision) {
+			setSelectedSubmision(submision);
+			handleShowForm();
+		}
+	};
+
+	const handleShowForm = () => {
+		setShowForm(true);
+	  };
+	
+	  const handleHideForm = () => {
+		setShowForm(false);
+	  };
+
 	const confirmAceptar = () => {
 		confirmAlert({
 			message: (
@@ -160,7 +180,14 @@ const PropuestasListTable = ({botonAceptar}) => {
 		}
 	};
 
-	const { columns } = PropuestasListColumns();
+	const handleHideData = () => {
+		setHideData(!hideData);
+	};
+
+	const { columns } = PropuestasListColumns({
+		seeSubmision,
+		hideData
+	});
 
 	return (
 		
@@ -183,6 +210,20 @@ const PropuestasListTable = ({botonAceptar}) => {
 									<i className='bi bi-search'></i>
 								</a>
 							</div>
+
+							<div className='gap-3 m-md-2 form-check form-switch form-range d-flex justify-content-end'>
+									
+									<input
+										type='checkbox'
+										className='form-check-input m-md-1'
+										id='show_social'
+										onClick={handleHideData}
+									/>
+									<label className='custom-control-label ' htmlFor='show_social'>
+										Mostrar detalles
+									</label>
+									
+								</div>
 
 							<div className='gap-3 form-check form-switch form-check-inline d-flex justify-content-between'>
 								<button type='excel' onClick={handleExport} className='btn export-btn'>
@@ -226,6 +267,8 @@ const PropuestasListTable = ({botonAceptar}) => {
 							</div>
 						}
 					/>
+
+				{showForm && <SubmisionForm submision={selectedSubmision} onHideForm={handleHideForm} />}
 				</div>
 			</div>
 		</section>

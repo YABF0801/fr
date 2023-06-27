@@ -102,7 +102,7 @@ const Parent1Form = ({ form }) => {
 			<div className='container '>
 				<div className='row justify-content-center'>
 				{isUnique && (
-						<div className='text-info col-10 '>
+						<div className='text-warning col-10 '>
 							<p>
 								Al seleccionar la opción monoparental esta planilla será guardada con un solo padre o tutor
 							</p>
@@ -319,8 +319,9 @@ const Parent1Form = ({ form }) => {
 								</div>
 							</div>
 
-							<div className='col-md-3'>
-								<div className='form-group mb-3'>
+							<div className='col-md-3 '>
+								<div className='form-group mb-3 d-flex d-flex-inline gap-3'>
+									<div className='col-6'>
 									<input
 										type='number'
 										className='form-control'
@@ -330,11 +331,16 @@ const Parent1Form = ({ form }) => {
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
-									{form.errors.child?.parents?.[0]?.salary &&
+									
+										</div>
+										<label className='m-md-2'>Salario</label>
+
+									
+								</div>
+								{form.errors.child?.parents?.[0]?.salary &&
 										form.touched.child?.parents?.[0]?.salary && (
 											<p className='text-danger'>{form.errors.child.parents[0].salary}</p>
 										)}
-								</div>
 							</div>
 						</div>
 

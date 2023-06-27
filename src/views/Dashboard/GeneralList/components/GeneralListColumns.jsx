@@ -120,7 +120,7 @@ const useGeneralListColumns = ({
 			},
 			sortable: true,
 			grow: 2,
-			width: 'auto',
+			width: '12rem',
 		},
 		{
 			name: 'Padre',
@@ -142,7 +142,7 @@ const useGeneralListColumns = ({
 			sortable: true,
 			grow: 2,
 			omit: hidePadre,
-			width: 'auto',
+			width: '10rem',
 		},
 		{
 			name: 'Teléfono 2',
@@ -160,7 +160,7 @@ const useGeneralListColumns = ({
 			selector: (row) => row.child.cPopular,
 			sortable: true,
 			grow: 2,
-			width: 'auto',
+			width: '10rem',
 		},
 		{
 			name: 'Estado',
@@ -195,7 +195,10 @@ const useGeneralListColumns = ({
 		isAuthenticated.user?.role === 'admin' && {
 			name: '', // action buttons
 			cell: (row) => (
-				<div className='d-flex gap-1 justify-content-center'>
+				<div className='d-flex justify-content-center'>
+					{/* <a className='btn btn-sm' href='#submision' onClickCapture={ () => editSubmision(row._id) }>
+						<i className='action-btn bi bi-eye-fill'></i>
+					</a> */}
 					<a className='btn btn-sm' href='#submision' onClickCapture={ () => editSubmision(row._id) }>
 						<i className='action-btn bi bi-pencil-square'></i>
 					</a>
@@ -212,7 +215,7 @@ const useGeneralListColumns = ({
 
 			allowOverflow: true,
 			button: true,
-			width: '9rem',
+			width: 'auto',
 		},
 	]
 

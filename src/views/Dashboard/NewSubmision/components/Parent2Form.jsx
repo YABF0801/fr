@@ -232,8 +232,8 @@ const Parent2Form = ({ form }) => {
 						{/* ************************************************************* */}
 
 						<div className='form-group d-inline justify-content-evenly'>
-							<div className='row align-items-center mb-3'>
-								<div className='col-md-10 mb-3'>
+						<div className='row justify-content-evenly mb-4'>
+								<div className='col-md-9 '>
 									<input
 										type='text'
 										className='form-control'
@@ -251,22 +251,31 @@ const Parent2Form = ({ form }) => {
 										)}
 								</div>
 
-								<div className='col-md-2 mb-3'>
+								<div className='col-md-3 '>
+								<div className='form-group mb-3 d-flex d-flex-inline gap-3'>
+									<div className='col-6'>
 									<input
 										type='number'
 										className='form-control'
-										id='salary2'
+									id='salary2'
 										name='child.parents[1].salary'
 										placeholder='Salario'
 										value={form.values.child.parents?.[1]?.salary}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
-									{form.errors.child?.parents?.[1]?.salary &&
+									
+										</div>
+										<label className='m-md-2'>Salario</label>
+										
+								</div>
+								{form.errors.child?.parents?.[1]?.salary &&
 										form.touched.child?.parents?.[1]?.salary && (
 											<p className='text-danger'>{form.errors.child.parents[1].salary}</p>
 										)}
-								</div>
+							</div>
+
+							
 							</div>
 						</div>
 					</div>

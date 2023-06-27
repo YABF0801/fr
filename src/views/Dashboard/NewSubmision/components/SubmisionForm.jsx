@@ -86,7 +86,7 @@ const SubmisionForm = ({ form, submision }) => {
 			<div className='container '>
 				<div className='row justify-content-center'>
 					{isOsNew && (
-						<div className='text-info col-10 '>
+						<div className='text-warning col-10 '>
 							<p>
 								Al guardarse como otorgamiento sistemático, esta planilla no será tomada en cuenta para
 								generar las propuestas en el otorgamiento masivo, por lo que deberá regresar a ella
