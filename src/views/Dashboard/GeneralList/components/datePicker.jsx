@@ -69,7 +69,7 @@ const DatePickerToOm = () => {
 							<h3 >{date}</h3>
 
 							<button onClick={confirmDelete} className='btn del btn-sm ' 
-							// disabled={!delDateIcon}
+							disabled={!delDateIcon}
 							>
 								<i
 									className='action-btn bi bi-trash-fill '
