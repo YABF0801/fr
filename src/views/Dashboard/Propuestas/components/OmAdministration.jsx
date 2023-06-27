@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
+import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { propuestasApiGet, setContadorGp } from '../../../../core/services/propuestas.services';
+
 import PropuestasListTable from './PropuestasListTable';
 import { CustomStepper } from './Stepper';
 
 const OmAdministration = () => {
+	const { isAuthenticated } = useAuthContext();
 	const { comenzarPropuestas, generarPropuestas, rechazarPropuestas } = usePropuestasContext();
 	const {
 		queryFechaOm,
@@ -307,8 +310,8 @@ const OmAdministration = () => {
 	}
 	return (
 		<div className='  p-2 '>
-			<h2 className='text-center p-3'>Proceso de otorgamiento masivo</h2>
-			<div className='card '>
+			 {isAuthenticated.user?.role === 'admin' && <h2 className='text-center p-3'>Proceso de otorgamiento masivo</h2>}
+			 {isAuthenticated.user?.role === 'admin' &&  (<div className='card '>
 				<div className='card-body '>
 					<div>
 						<CustomStepper activeStep={activeStep} steps={steps} />
@@ -341,7 +344,7 @@ const OmAdministration = () => {
 						}
 					/>
 				</div>
-			</div>
+			</div>)}
 
 			<PropuestasListTable botonAceptar={botonAceptar}/>
 		</div>

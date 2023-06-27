@@ -4,6 +4,7 @@ import DataTable from '../../../../common/DataTableBase/DataTableBase';
 import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
 import SmallSpinner from '../../../../common/Spinners/smallSpinner';
+import { useAuthContext } from '../../../../core/context/authContext';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
 import { exportExcel } from '../../../../utils/Export';
@@ -17,8 +18,8 @@ const PropuestasListTable = ({botonAceptar}) => {
 	const [searchData, setSearchData] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
+	const { isAuthenticated } = useAuthContext();
 
-	console.log('rec', botonAceptar)
 
 	useEffect(() => {
 		setPropuestasLocal(queryPropuestas.data);
@@ -188,9 +189,9 @@ const PropuestasListTable = ({botonAceptar}) => {
 									Exportar
 								</button>
 
-								<button onClick={confirmAceptar} className='btn prop-btn' disabled={!botonAceptar}>
+								{isAuthenticated.user?.role === 'admin' &&  <button onClick={confirmAceptar} className='btn prop-btn' disabled={!botonAceptar}>
 									Aceptar propuestas
-								</button>
+								</button>}
 							</div>
 						</div>
 
