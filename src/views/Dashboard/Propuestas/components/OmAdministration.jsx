@@ -4,12 +4,12 @@ import ModalBase from '../../../../common/Modal/Modal';
 import Progress from '../../../../common/Progress/ProgressBar';
 import { useOtorgamientoContext } from '../../../../core/context/OtorgamientoContext';
 import { usePropuestasContext } from '../../../../core/context/PopuestasContext';
-import { propuestasApiGet } from '../../../../core/services/propuestas.services';
+import { propuestasApiGet, setContadorGp } from '../../../../core/services/propuestas.services';
 import PropuestasListTable from './PropuestasListTable';
 import { CustomStepper } from './Stepper';
 
 const OmAdministration = () => {
-	const { generarPropuestas, rechazarPropuestas } = usePropuestasContext();
+	const { comenzarPropuestas, generarPropuestas, rechazarPropuestas } = usePropuestasContext();
 	const {
 		queryFechaOm,
 		queryContadorCambioCurso,
@@ -28,6 +28,7 @@ const OmAdministration = () => {
 	const [activeStep, setActiveStep] = useState(0);
 	const fechaActual = new Date();
 
+	console.log(activeStep)
 	useEffect(() => {
 		const compareDates = () => {
 			if (queryFechaOm.data) {
@@ -35,12 +36,17 @@ const OmAdministration = () => {
 				const compare = omDate.getTime() <= fechaActual.getTime();
 				if (omDate && compare) {
 					setisDateArrived(true);
-				}
+					}
 			} else setisDateArrived(false);
 		};
 		compareDates();
 	}, [queryFechaOm.data]);
 
+	useEffect(() => {
+			const activeStep = queryContadorPropGeneradas && queryContadorPropGeneradas.data;
+			setActiveStep(activeStep);
+	  }, [queryContadorPropGeneradas.data]);
+	  
 	useEffect(() => {
 		setBotonComenzar(isDateArrived);
 	}, [isDateArrived]);
@@ -62,10 +68,28 @@ const OmAdministration = () => {
 
 	const handleSkip = async () => {
 		setActiveStep(activeStep + 1);
+		await setContadorGp(3)
 	};
 
 	const handleBack = async () => {
 		setActiveStep(activeStep - 1);
+		await setContadorGp(2)
+	};
+
+	const handleComenzarProps = async () => {
+		try {
+			setIsModalOpen(true);
+			setShowProgressBar(true);
+			setActiveStep(activeStep + 1);
+			await comenzarPropuestas.mutate(1);
+
+			setTimeout(() => {
+				setShowProgressBar(false);
+				setIsModalOpen(false);
+			}, 3000);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const handleGenerateProps = async () => {
@@ -111,7 +135,7 @@ const OmAdministration = () => {
 
 	const handleCambioDeCurso = async () => {
 		setActiveStep(2);
-		await nuevoCurso.mutate();
+		await nuevoCurso.mutate(2);
 	};
 
 	const handleRechazarTodo = async () => {
@@ -124,6 +148,7 @@ const OmAdministration = () => {
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
 		await handleRechazarTodo();
+		await setContadorGp(0)
 	};
 
 	function Comezar() {
@@ -160,7 +185,7 @@ const OmAdministration = () => {
 							type='button'
 							id='generar-btn'
 							className='btn prop-btn'
-							onClick={handleGenerateProps}
+							onClick={handleComenzarProps}
 						>
 							Comenzar
 						</a>

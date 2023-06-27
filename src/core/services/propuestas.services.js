@@ -9,18 +9,26 @@ export const propuestasApiGet = async () => {
 	return propuestas;
 };
 
-export const propuestaApiGenerar = async () => {
+export const propuestaApiComenzar = async (step) => {
 	try {
 		await baseAxios.post(`/propuestas/generar`);
-		await setContadorGp();
+		await setContadorGp(step);
 	} catch (error) {
 		handleToastyError(error)
 	}
 };
 
-export const setContadorGp = async () => {
+export const propuestaApiGenerar = async () => {
+	try {
+		await baseAxios.post(`/propuestas/generar`);
+	} catch (error) {
+		handleToastyError(error)
+	}
+};
+
+export const setContadorGp = async (step) => {
     try {
-        await baseAxios.put('/propuestas/set-counter', );
+        await baseAxios.put('/propuestas/set-counter', {step});
     } catch (error) {
         throw new Error(`Error al setear el contador de generar propuestas: ${error.message}`);
  }

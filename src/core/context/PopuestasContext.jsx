@@ -4,6 +4,7 @@ import { createContext, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
 	propuestaApiAceptar,
+	propuestaApiComenzar,
 	propuestaApiGenerar,
 	propuestaApiRechazar,
 	propuestasApiGet,
@@ -15,6 +16,14 @@ export const PropuestasProvider = ({ children }) => {
 	const queryPropuestas = useQuery({ queryKey: ['propuestas'], queryFn: propuestasApiGet });
 
 	const queryClient = useQueryClient();
+
+	const comenzarPropuestas = useMutation({
+		mutationFn: propuestaApiComenzar,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['propuestas'] });
+			queryClient.invalidateQueries({ queryKey: ['submisions'] });
+		},
+	});
 
 	const generarPropuestas = useMutation({
 		mutationFn: propuestaApiGenerar,
@@ -45,6 +54,7 @@ export const PropuestasProvider = ({ children }) => {
 	const value = useMemo(
 		() => ({
 			queryPropuestas,
+			comenzarPropuestas,
 			generarPropuestas,
 			aceptarPropuestas,
 			rechazarPropuestas,
