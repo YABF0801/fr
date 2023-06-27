@@ -9,10 +9,8 @@ import { usePropuestasContext } from '../../../../core/context/PopuestasContext'
 import { exportExcel } from '../../../../utils/Export';
 import PropuestasListColumns from './PropuestasListColumns';
 
-const PropuestasListTable = () => {
+const PropuestasListTable = ({botonAceptar}) => {
 	const { queryPropuestas, aceptarPropuestas, rechazarPropuestas } = usePropuestasContext();
-	const { queryContadorCambioCurso } = useOtorgamientoContext();
-	const [botonAceptar, setBotonAceptar] = useState(true);
 	const [search, setSearch] = useState('');
 	const [rowsSelected, setRowsSelected] = useState([]);
 	const [propuestasLocal, setPropuestasLocal] = useState([]);
@@ -20,13 +18,7 @@ const PropuestasListTable = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
 
-	useEffect(() => {
-		if (queryContadorCambioCurso.data === 0){
-			setBotonAceptar(true)
-		} else {
-			setBotonAceptar(false)
-		}
-	}, [queryContadorCambioCurso.data]);
+	console.log('rec', botonAceptar)
 
 	useEffect(() => {
 		setPropuestasLocal(queryPropuestas.data);
@@ -196,7 +188,7 @@ const PropuestasListTable = () => {
 									Exportar
 								</button>
 
-								<button onClick={confirmAceptar} className='btn prop-btn' disabled={botonAceptar}>
+								<button onClick={confirmAceptar} className='btn prop-btn' disabled={!botonAceptar}>
 									Aceptar propuestas
 								</button>
 							</div>

@@ -22,13 +22,13 @@ const OmAdministration = () => {
 	} = useOtorgamientoContext();
 
 	const [botonComenzar, setBotonComenzar] = useState(false);
+	const [botonAceptar, setBotonAceptar] = useState(false);
 	const [showProgressBar, setShowProgressBar] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isDateArrived, setisDateArrived] = useState(false);
 	const [activeStep, setActiveStep] = useState(0);
 	const fechaActual = new Date();
 
-	console.log(activeStep)
 	useEffect(() => {
 		const compareDates = () => {
 			if (queryFechaOm.data) {
@@ -36,20 +36,31 @@ const OmAdministration = () => {
 				const compare = omDate.getTime() <= fechaActual.getTime();
 				if (omDate && compare) {
 					setisDateArrived(true);
-					}
+				}
 			} else setisDateArrived(false);
 		};
 		compareDates();
 	}, [queryFechaOm.data]);
 
 	useEffect(() => {
-			const activeStep = queryContadorPropGeneradas && queryContadorPropGeneradas.data;
-			setActiveStep(activeStep);
-	  }, [queryContadorPropGeneradas.data]);
-	  
+		const activeStep = queryContadorPropGeneradas && queryContadorPropGeneradas.data;
+		setActiveStep(activeStep);
+	}, [queryContadorPropGeneradas.data]);
+
 	useEffect(() => {
 		setBotonComenzar(isDateArrived);
 	}, [isDateArrived]);
+
+
+	useEffect(() => {
+		if (queryContadorCambioCurso.data && queryContadorCambioCurso.data !== 0) {
+			setBotonAceptar(true);
+		} else {
+			setBotonAceptar(false);
+		}
+	}, [queryContadorCambioCurso.data]);
+
+	console.log(botonAceptar)
 
 	const confirmFinalizarOms = () => {
 		confirmAlert({
@@ -68,12 +79,12 @@ const OmAdministration = () => {
 
 	const handleSkip = async () => {
 		setActiveStep(activeStep + 1);
-		await setContadorGp(3)
+		await setContadorGp(3);
 	};
 
 	const handleBack = async () => {
 		setActiveStep(activeStep - 1);
-		await setContadorGp(2)
+		await setContadorGp(2);
 	};
 
 	const handleComenzarProps = async () => {
@@ -96,7 +107,6 @@ const OmAdministration = () => {
 		try {
 			setIsModalOpen(true);
 			setShowProgressBar(true);
-			setActiveStep(activeStep + 1);
 			await generarPropuestas.mutate();
 
 			setTimeout(() => {
@@ -135,6 +145,7 @@ const OmAdministration = () => {
 
 	const handleCambioDeCurso = async () => {
 		setActiveStep(2);
+		setBotonAceptar(true);
 		await nuevoCurso.mutate(2);
 	};
 
@@ -148,7 +159,7 @@ const OmAdministration = () => {
 		await resetearFecha.mutate();
 		await resetArrays.mutate();
 		await handleRechazarTodo();
-		await setContadorGp(0)
+		await setContadorGp(0);
 	};
 
 	function Comezar() {
@@ -255,10 +266,12 @@ const OmAdministration = () => {
 				<h3 className='p-2'>El proceso ha llegado a su fin</h3>
 				<h4 className='om-text-start text-secondary p-2'>
 					Al hacer clic en el botón Finalizar, se restablecerá la fecha establecida para este otorgamiento{' '}
-					<br></br>Además, todas las propuestas pendientes{' '}
-					de aprobación serán rechazadas, lo que marcará el fin del proceso de otorgamiento
+					<br></br>Además, todas las propuestas pendientes de aprobación serán rechazadas, lo que marcará el
+					fin del proceso de otorgamiento
 				</h4>
-				<p className='text-secondary p-2'>Podrá establecer la fecha para el próximo otorgamiento en la pestaña de administración </p>
+				<p className='text-secondary p-2'>
+					Podrá establecer la fecha para el próximo otorgamiento en la pestaña de administración{' '}
+				</p>
 				<div className='d-flex justify-content-center align-items-center d-flex-inline gap-4'>
 					<a type='button' id='generar-btn' className='btn save-btn' onClick={handleBack}>
 						Atrás
@@ -303,7 +316,7 @@ const OmAdministration = () => {
 						<div style={{ padding: '20px' }}>
 							{getSectionComponent()}
 
-							<div className='p-2 d-flex d-flex-inline justify-content-center'>
+							{/* <div className='p-2 d-flex d-flex-inline justify-content-center'>
 								{activeStep !== 0 && activeStep !== steps.length && (
 									<button className='cancel-btn' onClick={() => setActiveStep(activeStep - 1)}>
 										Previous
@@ -314,7 +327,7 @@ const OmAdministration = () => {
 										Next
 									</button>
 								)}
-							</div>
+							</div> */}
 						</div>
 					</div>
 
@@ -330,7 +343,7 @@ const OmAdministration = () => {
 				</div>
 			</div>
 
-			<PropuestasListTable />
+			<PropuestasListTable botonAceptar={botonAceptar}/>
 		</div>
 	);
 };
