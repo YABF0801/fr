@@ -76,7 +76,7 @@ const Parent2Form = ({ form }) => {
 								/>
 								{form.errors.child?.parents?.[1]?.parentName &&
 									form.touched.child?.parents?.[1]?.parentName && (
-										<p className='text-danger'>{form.errors.child?.parents[1].parentName}</p>
+										<p className='text-danger'>{form.errors.child?.parents[1]?.parentName}</p>
 									)}
 							</div>
 
@@ -93,7 +93,7 @@ const Parent2Form = ({ form }) => {
 								/>
 								{form.errors.child?.parents?.[1]?.parentLastname &&
 									form.touched.child?.parents?.[1]?.parentLastname && (
-										<p className='text-danger'>{form.errors.child.parents[1].parentLastname}</p>
+										<p className='text-danger'>{form.errors.child?.parents[1]?.parentLastname}</p>
 									)}
 							</div>
 
@@ -114,7 +114,7 @@ const Parent2Form = ({ form }) => {
 							/>
 							{form.errors.child?.parents?.[1]?.typeParent &&
 									form.touched.child?.parents?.[1]?.typeParent && (
-										<p className='text-danger'>{form.errors.child?.parents[1].typeParent}</p>
+										<p className='text-danger'>{form.errors.child?.parents[1]?.typeParent}</p>
 									)}
 							</div>
 						
@@ -146,7 +146,7 @@ const Parent2Form = ({ form }) => {
 									/>
 									{form.errors.child?.parents?.[1]?.parentAddress &&
 										form.touched.child?.parents?.[1]?.parentAddress && (
-											<p className='text-danger'>{form.errors.child.parents[1].parentAddress}</p>
+											<p className='text-danger'>{form.errors.child?.parents[1]?.parentAddress}</p>
 										)}
 								</div>
 
@@ -163,7 +163,7 @@ const Parent2Form = ({ form }) => {
 								/>
 								{form.errors.child?.parents?.[1]?.phoneNumber &&
 									form.touched.child?.parents?.[1]?.phoneNumber && (
-										<p className='text-danger'>{form.errors.child.parents[1].phoneNumber}</p>
+										<p className='text-danger'>{form.errors.child?.parents[1]?.phoneNumber}</p>
 									)}
 							</div>
 
@@ -190,7 +190,7 @@ const Parent2Form = ({ form }) => {
 												? 'Nombre del centro de estudios...'
 												: 'Nombre del centro de trabajo...'
 										}
-										value={form.values.child.parents?.[1]?.workName}
+										value={form.values.child?.parents?.[1]?.workName}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 										disabled={
@@ -200,7 +200,7 @@ const Parent2Form = ({ form }) => {
 									/>
 									{form.errors.child?.parents?.[1]?.workName &&
 										form.touched.child?.parents?.[1]?.workName && (
-											<p className='text-danger'>{form.errors.child.parents[1].workName}</p>
+											<p className='text-danger'>{form.errors.child?.parents[1]?.workName}</p>
 										)}
 								</div>
 							</div>
@@ -223,7 +223,7 @@ const Parent2Form = ({ form }) => {
 									/>
 									{form.errors.child?.parents?.[1]?.jobTitle &&
 										form.touched.child?.parents?.[1]?.jobTitle && (
-											<p className='text-danger'>{form.errors.child.parents[1].jobTitle}</p>
+											<p className='text-danger'>{form.errors.child?.parents[1]?.jobTitle}</p>
 										)}
 								</div>
 							</div>
@@ -247,7 +247,7 @@ const Parent2Form = ({ form }) => {
 									/>
 									{form.errors.child?.parents?.[1]?.workAddress &&
 										form.touched.child?.parents?.[1]?.workAddress && (
-											<p className='text-danger'>{form.errors.child.parents[1].workAddress}</p>
+											<p className='text-danger'>{form.errors.child?.parents[1]?.workAddress}</p>
 										)}
 								</div>
 
@@ -271,7 +271,7 @@ const Parent2Form = ({ form }) => {
 								</div>
 								{form.errors.child?.parents?.[1]?.salary &&
 										form.touched.child?.parents?.[1]?.salary && (
-											<p className='text-danger'>{form.errors.child.parents[1].salary}</p>
+											<p className='text-danger'>{form.errors.child?.parents[1]?.salary}</p>
 										)}
 							</div>
 
