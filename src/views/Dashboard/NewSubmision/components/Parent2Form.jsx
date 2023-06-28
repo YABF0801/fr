@@ -46,7 +46,7 @@ const Parent2Form = ({ form }) => {
 			  const parent = form.values.child?.parents?.[1];
 			  const child = form.values.child;
 					if (parent && parent?.convivencia === true) {
-				form.setFieldValue(`child.parents[1].parentAddress`, child.childAddress);
+				form.setFieldValue(`child.parents[1].parentAddress`, child?.childAddress);
 			}	
 		};
 		handleParentsAdress()
@@ -216,7 +216,7 @@ const Parent2Form = ({ form }) => {
 										id='jobTitle2'
 										name='child.parents[1].jobTitle'
 										placeholder='Cargo...'
-										value={form.values.child.parents?.[1]?.jobTitle}
+										value={form.values.child?.parents?.[1]?.jobTitle}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 										disabled={form.values.child?.parents?.[1]?.occupation !== 'trabajador'}
@@ -240,7 +240,7 @@ const Parent2Form = ({ form }) => {
 										id='workAddress2'
 										name='child.parents[1].workAddress'
 										placeholder='Dirección del centro de trabajo...'
-										value={form.values.child.parents?.[1]?.workAddress}
+										value={form.values.child?.parents?.[1]?.workAddress}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 										disabled={form.values.child?.parents?.[1]?.occupation !== 'trabajador'}
@@ -260,7 +260,7 @@ const Parent2Form = ({ form }) => {
 									id='salary2'
 										name='child.parents[1].salary'
 										placeholder='Salario'
-										value={form.values.child.parents?.[1]?.salary}
+										value={form.values.child?.parents?.[1]?.salary}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>

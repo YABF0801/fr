@@ -51,16 +51,14 @@ function SubmisionWizardForm({ submision, onHideForm }) {
 	useEffect(() => {
 		if (submision) {
 			formik.setValues(submision);
-		}
-	}, [submision]);
-
-	useEffect(() => {
-		if (submision && submision.status === 'baja' || submision.status === 'propuesta') {
+		
+		if (submision.status === 'baja' || submision.status === 'propuesta') {
 			setIsBaja(true)
 		} else {
 			setIsBaja(false)
-		}
+		}}
 	}, [submision]);
+	console.log('yol0',formik.values.child.year_of_life)
 
 	useEffect(() => {
 		const value = formik.values.child?.parents?.[0].uniqueParent;

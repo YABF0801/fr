@@ -39,7 +39,7 @@ const GeneralListTable = () => {
 
 	useEffect(() => {
 		if (selectedFilters.length > 0 || selectedDate) {
-			const filteredSubmissions = querySubmision.data.filter((submision) =>
+			const filteredSubmissions = querySubmision.data && querySubmision.data.filter((submision) =>
 				filterOption === 'includes'
 					? new Date(submision.createdAt) >= selectedDate && selectedFilters.includes(submision.status) ||
 					  selectedFilters.includes(submision.child.sex) ||

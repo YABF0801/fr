@@ -23,7 +23,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 			<hr className='text-secondary' />
 			<h3 className='text-center text-secondary mt-4'>Datos del menor</h3>
 			<h6 className='text-secondary mb-5'>
-				Llene la informmación personal del menor, proporcione la dirección particular y ubicación geográfica
+				Llene la información personal del menor, proporcione la dirección particular y ubicación geográfica
 			</h6>
 
 			<div className='container '>
@@ -37,7 +37,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									id='childName'
 									name='child.childName'
 									placeholder='Nombre(s) *'
-									value={form.values.child.childName}
+									value={form.values.child?.childName}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								/>
@@ -54,7 +54,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									id='childLastname'
 									name='child.childLastname'
 									placeholder='Apellidos *'
-									value={form.values.child.childLastname}
+									value={form.values.child?.childLastname}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								/>
@@ -70,7 +70,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									id='carnet'
 									name='child.carnet'
 									placeholder='CI *'
-									value={form.values.child.carnet}
+									value={form.values.child?.carnet}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
 								/>
@@ -84,8 +84,14 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 									className='form-select d-inline'
 									id='year_of_life'
 									name='child.year_of_life'
-									value={form.values.child.year_of_life}
-									onChange={form.handleChange}
+									value={form.values.child?.year_of_life}
+
+									onChange={(e) => {
+										const value = parseInt(e.target.value, 10);
+										form.setFieldValue('child.year_of_life', value);
+									}}
+									
+									
 									onBlur={form.handleBlur}
 								>
 									<option value='0'>Año de vida</option>
@@ -111,7 +117,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 										name='child.childAddress'
 										id='childAddress'
 										placeholder='Direccion *'
-										value={form.values.child.childAddress}
+										value={form.values.child?.childAddress}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									></textarea>
@@ -127,7 +133,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 										placeholder='Localidad (Barrrio)'
 										id='neighborhood'
 										name='child.neighborhood'
-										value={form.values.child.neighborhood}
+										value={form.values.child?.neighborhood}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
 									/>
@@ -141,7 +147,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 										className='mb-3'
 										id={'cPopular'}
 										name={'child.cPopular'}
-										value={form.values.child.cPopular}
+										value={form.values.child?.cPopular}
 										optionText={'Consejo Popular'}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
@@ -161,7 +167,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 										className='mb-3'
 										id={'municipality'}
 										name={'child.municipality'}
-										value={form.values.child.municipality}
+										value={form.values.child?.municipality}
 										optionText={'Municipio'}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
@@ -177,7 +183,7 @@ const ChildForm = ({ form, markerIcon, handleLatlngChange }) => {
 										className='mb-3'
 										id={'province'}
 										name={'child.province'}
-										value={form.values.child.province}
+										value={form.values.child?.province}
 										optionText={'Provincia'}
 										onChange={form.handleChange}
 										onBlur={form.handleBlur}
