@@ -150,16 +150,19 @@ const PropuestasListTable = ({botonAceptar}) => {
 			const notSelectedRows = allRows.filter((row) => !rowsSelected.includes(row));
 			setIsModalOpen(true);
 			setShowProgressBar(true);
-			if (rowsSelected.length > 0) {
-				await aceptarPropuestas.mutate(rowsSelected);
-			}
-			await rechazarPropuestas.mutate(notSelectedRows);
 
-			setTimeout(() => {
+			setTimeout(async () => {
+				if (rowsSelected.length > 0) {
+					await aceptarPropuestas.mutate(rowsSelected);
+				}
+				await rechazarPropuestas.mutate(notSelectedRows);
 				setIsModalOpen(false);
 				setShowProgressBar(false);
 				// navigate(GENERAL_LIST);
-			}, 3000);
+			},500);
+
+		
+
 		} catch (error) {
 			console.error(error);
 		}
@@ -167,14 +170,17 @@ const PropuestasListTable = ({botonAceptar}) => {
 
 	const handleAceptar = async () => {
 		try {
-			setIsModalOpen(true);
+			setIsModalOpen(true); // Mostrar el modal
 			setShowProgressBar(true);
-			await aceptarPropuestas.mutate(rowsSelected);
-			setTimeout(() => {
-				setIsModalOpen(false);
-				setShowProgressBar(false);
-				// navigate(GENERAL_LIST); 
-			}, 3000);
+
+			setTimeout(async () => {
+			  
+			  await aceptarPropuestas.mutate(rowsSelected);
+		
+			  setShowProgressBar(false);
+			  setIsModalOpen(false); // Cerrar el modal después de cierto tiempo
+			}, 500);
+			
 		} catch (error) {
 			console.error(error);
 		}

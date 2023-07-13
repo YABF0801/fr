@@ -92,15 +92,18 @@ const OmAdministration = () => {
 
 	const handleComenzarProps = async () => {
 		try {
-			setIsModalOpen(true);
+			setIsModalOpen(true); // Mostrar el modal
 			setShowProgressBar(true);
-			setActiveStep(activeStep + 1);
-			await comenzarPropuestas.mutate(1);
 
-			setTimeout(() => {
-				setShowProgressBar(false);
-				setIsModalOpen(false);
-			}, 3000);
+			setTimeout(async () => {
+			 
+			  setActiveStep(activeStep + 1);
+		
+			  await comenzarPropuestas.mutate(1);
+		
+			  setShowProgressBar(false);
+			  setIsModalOpen(false); // Cerrar el modal después de cierto tiempo
+			}, 500);
 		} catch (error) {
 			console.error(error);
 		}
@@ -108,14 +111,20 @@ const OmAdministration = () => {
 
 	const handleGenerateProps = async () => {
 		try {
-			setIsModalOpen(true);
+			setIsModalOpen(true); // Mostrar el modal
 			setShowProgressBar(true);
-			await generarPropuestas.mutate();
 
-			setTimeout(() => {
-				setShowProgressBar(false);
-				setIsModalOpen(false);
-			}, 3000);
+			setTimeout(async () => {
+			  
+			  setActiveStep(activeStep + 1);
+		
+			  await generarPropuestas.mutate();
+		
+			  setShowProgressBar(false);
+			  setIsModalOpen(false); // Cerrar el modal después de cierto tiempo
+			}, 500);
+			
+
 		} catch (error) {
 			console.error(error);
 		}

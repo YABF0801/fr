@@ -15,7 +15,7 @@ const useGeneralListColumns = ({
 			id: 1,
 			selector: (row) => row.entryNumber + ' / ' + new Date(row.createdAt).getFullYear(),
 			sortable: true,
-			center: true,
+			
 			width: '6rem',
 		},
 		{
@@ -23,7 +23,7 @@ const useGeneralListColumns = ({
 			cell: (row) =>
 				row.finality === 'om' ? <h4 className='text-info'>OM</h4> : <h4 className='text-warning'>OS</h4>,
 			sortable: true,
-			center: true,
+			
 			width: '3.5rem',
 		},
 		{
@@ -31,7 +31,7 @@ const useGeneralListColumns = ({
 			selector: (row) => row.socialCase,
 			cell: (row) => (row.socialCase ? <i className='fs-5 listcheck bi bi-check-lg'></i> : ''),
 			sortable: true,
-			center: true,
+			
 			omit: hideSocialCase,
 			width: '4rem',
 		},
@@ -43,20 +43,22 @@ const useGeneralListColumns = ({
 				</h4>
 			),
 			sortable: true,
-			grow: 2,
-			width: '12rem',
+			
+			
+			width: '15rem',
 		},
 		{
 			name: 'Carnet',
 			selector: (row) => row.child.carnet,
 			sortable: true,
-			center: true,
-			width: 'auto',
+			
+			width: '10rem',
 		},
 		{
 			name: 'Dirección',
 			selector: (row) => row.child.childAddress,
 			grow: 2,
+			
 			omit: hideAddress,
 		},
 		{
@@ -71,7 +73,7 @@ const useGeneralListColumns = ({
 			},
 
 			sortable: true,
-			center: true,
+			
 			width: '5rem',
 		},
 		{
@@ -83,14 +85,14 @@ const useGeneralListColumns = ({
 				return row.child.age;
 			},
 			sortable: true,
-			center: true,
+			
 			width: '5rem',
 		},
 		{
 			name: 'Año',
 			selector: (row) => row.child.year_of_life,
 			sortable: true,
-			center: true,
+			
 			width: '5rem',
 		},
 		{
@@ -98,6 +100,7 @@ const useGeneralListColumns = ({
 			selector: (row) => row.child.parents[0].parentName + ' ' + row.child.parents[0].parentLastname,
 			sortable: true,
 			grow: 2,
+			
 			width: '12rem',
 		},
 		{
@@ -120,7 +123,7 @@ const useGeneralListColumns = ({
 			},
 			sortable: true,
 			grow: 2,
-			width: '12rem',
+			width: '14rem',
 		},
 		{
 			name: 'Padre',
@@ -160,7 +163,7 @@ const useGeneralListColumns = ({
 			selector: (row) => row.child.cPopular,
 			sortable: true,
 			grow: 2,
-			width: '10rem',
+			width: '15rem',
 		},
 		{
 			name: 'Estado',
@@ -174,7 +177,7 @@ const useGeneralListColumns = ({
 				}
 			},
 			sortable: true,
-			center: true,
+			center:true,
 			width: '8rem',
 		},
 		{
@@ -188,8 +191,9 @@ const useGeneralListColumns = ({
 			},
 			sortable: true,
 			grow: 2,
-			width: 'auto',
-			center: true,
+			center:true,
+			width: '10rem',
+			
 		},
 		
 		isAuthenticated.user?.role === 'admin' && {
